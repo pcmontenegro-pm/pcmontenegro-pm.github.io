@@ -300,10 +300,10 @@ footer{background:#050a14;border-top:1px solid rgba(255,255,255,0.04);padding:1.
     <span class="nav-name">Pablo Montenegro</span>
   </a>
   <ul class="nav-links">
-    <li><a href="#work">data-en="Work" data-es="Trabajo">Work</a></li>
-    <li><a href="#products">data-en="Products" data-es="Productos">Products</a></li>
+    <li><a href="#work" data-en="Work" data-es="Trabajo">Work</a></li>
+    <li><a href="#products" data-en="Products" data-es="Productos">Products</a></li>
     <li><a href="#experience" data-en="Experience" data-es="Experiencia">Experience</a></li>
-    <li><a href="#publications">data-en="Writing" data-es="Artículos">Writing</a></li>
+    <li><a href="#publications" data-en="Writing" data-es="Artículos">Writing</a></li>
     <li><a href="#contact" data-en="Contact" data-es="Contacto">Contact</a></li>
   </ul>
   <div class="lang-toggle">
@@ -958,41 +958,22 @@ document.querySelectorAll('.reveal').forEach((el,i) => {
 </script>
 
 <script>
-// Language toggle
 function setLang(lang) {
-  // Update button states
   document.getElementById('btn-en').classList.toggle('active', lang === 'en');
   document.getElementById('btn-es').classList.toggle('active', lang === 'es');
-
-  // Store preference
   localStorage.setItem('lang', lang);
-
-  // Swap all translatable elements
-  document.querySelectorAll('[data-en]').forEach(el => {
-    const text = el.getAttribute('data-' + lang);
-    if (!text) return;
-
-    // Check if content has HTML tags
-    if (text.includes('<') || text.includes('&')) {
-      el.innerHTML = text;
-    } else {
-      // Preserve child elements (like <em>, <strong>) if present
-      const hasChildren = el.querySelector('em, strong, a, span, br');
-      if (hasChildren) {
-        el.innerHTML = text;
-      } else {
-        el.textContent = text;
-      }
-    }
-  });
-
-  // Swap html lang attribute
   document.documentElement.lang = lang;
+
+  document.querySelectorAll('[data-en]').forEach(function(el) {
+    var text = el.getAttribute('data-' + lang);
+    if (!text) return;
+    // Always use innerHTML — handles plain text, HTML tags, and HTML entities safely
+    el.innerHTML = text;
+  });
 }
 
-// On load, restore preference or default to EN
 (function() {
-  const saved = localStorage.getItem('lang') || 'en';
+  var saved = localStorage.getItem('lang') || 'en';
   if (saved === 'es') setLang('es');
 })();
 </script>
