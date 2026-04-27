@@ -1,0 +1,3487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Community Remittance Operator — Pablo Montenegro</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy:#0A1226; --navy2:#111D35; --navy3:#1A2A44;
+  --gold:#B4965A; --gold2:#D4B47A; --gold3:#F0DFB8;
+  --cream:#FAF7F2; --white:#FFFFFF; --muted:#8892A4;
+  --border:rgba(180,150,90,.18); --border2:rgba(255,255,255,.08);
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --sans:'DM Sans',sans-serif;
+  --mono:'DM Mono',monospace;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--navy);color:var(--cream);font-family:var(--sans);font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased;}
+
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.025;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:200px;}
+
+nav,section,div,footer{position:relative;z-index:1;}
+
+/* NAV */
+nav{padding:20px 48px;display:flex;align-items:center;justify-content:space-between;
+  border-bottom:1px solid var(--border2);position:sticky;top:0;
+  background:rgba(10,18,38,.95);backdrop-filter:blur(16px);z-index:200;}
+.nav-brand{font-family:var(--serif);font-size:15px;font-weight:300;color:var(--gold);letter-spacing:.04em;text-decoration:none;}
+.nav-back{font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--muted);text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .2s;}
+.nav-back:hover{color:var(--gold);}
+
+/* HERO */
+.hero{padding:100px 48px 80px;max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr auto;gap:40px;align-items:end;}
+.hero-tag{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--gold);text-transform:uppercase;margin-bottom:20px;}
+.hero-h1{font-family:var(--serif);font-size:clamp(40px,5.5vw,68px);font-weight:300;line-height:1.08;color:var(--white);margin-bottom:20px;}
+.hero-h1 em{font-style:italic;color:var(--gold2);}
+.hero-sub{font-size:17px;color:var(--muted);max-width:520px;line-height:1.75;font-weight:300;margin-bottom:24px;}
+.badges{display:flex;gap:10px;flex-wrap:wrap;}
+.badge{font-family:var(--mono);font-size:10px;letter-spacing:.08em;padding:5px 14px;border-radius:2px;border:1px solid var(--border);color:var(--gold3);text-transform:uppercase;}
+.hero-stats{display:flex;flex-direction:column;gap:28px;padding-left:40px;border-left:1px solid var(--border);flex-shrink:0;}
+.stat{text-align:right;}
+.stat-num{font-family:var(--serif);font-size:44px;font-weight:300;color:var(--gold);line-height:1;display:block;}
+.stat-label{font-family:var(--mono);font-size:10px;letter-spacing:.08em;color:var(--muted);text-transform:uppercase;margin-top:4px;}
+
+/* DIVIDERS */
+.div{max-width:1100px;margin:0 auto;padding:0 48px;border-top:1px solid var(--border);}
+
+/* SECTIONS */
+.sec{max-width:1100px;margin:0 auto;padding:72px 48px;}
+.sec-label{font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--gold);text-transform:uppercase;margin-bottom:12px;}
+.sec-h2{font-family:var(--serif);font-size:clamp(28px,3.5vw,42px);font-weight:300;color:var(--white);line-height:1.2;margin-bottom:32px;}
+.sec-h2 em{font-style:italic;color:var(--gold2);}
+.sec-body{font-size:16px;color:rgba(250,247,242,.72);line-height:1.85;max-width:680px;}
+.sec-body p+p{margin-top:20px;}
+.sec-body strong{color:var(--cream);font-weight:500;}
+
+/* CONTEXT BAND */
+.ctx-band{background:var(--navy2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:56px 48px;}
+.ctx-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:64px;}
+
+/* RISK CALLOUT */
+.risk-band{background:linear-gradient(135deg,rgba(180,150,90,.06),rgba(180,150,90,.02));border:1px solid rgba(180,150,90,.25);border-radius:2px;padding:36px 40px;max-width:1100px;margin:0 auto;}
+.risk-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:32px;}
+.risk-num{font-family:var(--serif);font-size:40px;font-weight:300;color:var(--gold);line-height:1;display:block;margin-bottom:8px;text-align:center;}
+.risk-label{font-size:13px;color:var(--muted);line-height:1.5;text-align:center;}
+.risk-label strong{color:var(--cream);display:block;font-weight:500;margin-bottom:3px;}
+
+/* CHALLENGE */
+.ch-block{background:var(--navy3);border:1px solid var(--border);border-radius:2px;padding:28px 32px;margin-top:32px;}
+.ch-title{font-family:var(--mono);font-size:10px;letter-spacing:.12em;color:var(--gold);text-transform:uppercase;margin-bottom:16px;}
+.ch-list{list-style:none;display:flex;flex-direction:column;gap:12px;}
+.ch-list li{display:flex;align-items:flex-start;gap:12px;font-size:14px;color:rgba(250,247,242,.7);line-height:1.6;}
+.ch-list li::before{content:'—';color:var(--gold);flex-shrink:0;font-family:var(--mono);font-size:12px;margin-top:2px;}
+
+/* IFRAME CONTAINERS */
+.iframe-wrap{margin-top:48px;border:1px solid var(--border);border-radius:4px;overflow:hidden;}
+.iframe-label{background:var(--navy3);padding:14px 24px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);}
+.iframe-label-text{font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--gold);text-transform:uppercase;}
+.iframe-label-desc{font-size:12px;color:var(--muted);}
+.iframe-frame{width:100%;border:none;display:block;background:var(--navy);}
+
+/* TABS para los iframes */
+.tabs-wrap{display:flex;gap:1px;background:var(--border);border-bottom:1px solid var(--border);}
+.tab-btn{flex:1;padding:14px 20px;background:var(--navy2);border:none;cursor:pointer;
+  font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--muted);
+  text-transform:uppercase;transition:all .2s;text-align:center;}
+.tab-btn:hover{color:var(--cream);background:var(--navy3);}
+.tab-btn.on{color:var(--gold);background:var(--navy);border-bottom:2px solid var(--gold);}
+.tab-pane{display:none;}
+.tab-pane.on{display:block;}
+
+/* SOLUTION GRID */
+.sol-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border);margin-top:48px;}
+.sol-item{background:var(--navy);padding:32px;transition:background .2s;}
+.sol-item:hover{background:var(--navy2);}
+.sol-num{font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--gold);margin-bottom:14px;display:block;}
+.sol-h3{font-family:var(--serif);font-size:20px;font-weight:400;color:var(--white);margin-bottom:10px;line-height:1.3;}
+.sol-body{font-size:13.5px;color:var(--muted);line-height:1.7;}
+.sol-tag{display:inline-block;margin-top:14px;font-family:var(--mono);font-size:9px;letter-spacing:.08em;padding:3px 10px;border:1px solid var(--border);color:var(--gold3);border-radius:1px;}
+
+/* PROCESS */
+.proc{display:flex;flex-direction:column;gap:0;margin-top:48px;border-left:1px solid var(--border);padding-left:32px;}
+.proc-step{padding:28px 0;border-bottom:1px solid var(--border);position:relative;display:grid;grid-template-columns:120px 1fr;gap:32px;align-items:start;}
+.proc-step::before{content:'';position:absolute;left:-37px;top:32px;width:10px;height:10px;border-radius:50%;background:var(--navy);border:1px solid var(--gold);}
+.proc-step:last-child{border-bottom:none;}
+.proc-phase{font-family:var(--mono);font-size:10px;letter-spacing:.08em;color:var(--gold);text-transform:uppercase;padding-top:2px;line-height:1.5;}
+.proc-h3{font-family:var(--serif);font-size:18px;font-weight:400;color:var(--white);margin-bottom:8px;}
+.proc-body{font-size:14px;color:var(--muted);line-height:1.7;}
+.proc-body strong{color:var(--cream);font-weight:500;}
+
+/* OUTCOMES */
+.out-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);margin-top:48px;}
+.out-item{background:var(--navy);padding:36px 32px;text-align:center;}
+.out-num{font-family:var(--serif);font-size:clamp(32px,4vw,50px);font-weight:300;color:var(--gold);line-height:1;display:block;margin-bottom:10px;}
+.out-label{font-size:14px;color:var(--muted);line-height:1.5;}
+.out-label strong{color:var(--cream);display:block;font-weight:500;margin-bottom:4px;}
+
+/* PULL QUOTE */
+.pq{border-left:2px solid var(--gold);padding:20px 32px;margin:40px 0;max-width:640px;}
+.pq-text{font-family:var(--serif);font-size:22px;font-weight:300;font-style:italic;color:var(--cream);line-height:1.5;}
+.pq-attr{font-family:var(--mono);font-size:10px;letter-spacing:.08em;color:var(--gold);margin-top:12px;text-transform:uppercase;}
+
+/* LEARNINGS */
+.learn-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:48px;}
+.learn-card{border:1px solid var(--border);padding:28px 30px;position:relative;transition:border-color .2s;}
+.learn-card:hover{border-color:rgba(180,150,90,.4);}
+.learn-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--gold);opacity:0;transition:opacity .2s;}
+.learn-card:hover::before{opacity:1;}
+.learn-h3{font-family:var(--serif);font-size:17px;font-weight:400;color:var(--white);margin-bottom:10px;line-height:1.35;}
+.learn-body{font-size:13.5px;color:var(--muted);line-height:1.7;}
+
+/* RELEVANCE */
+.rel-band{background:linear-gradient(135deg,var(--navy2),var(--navy3));border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:72px 48px;}
+.rel-inner{max-width:1100px;margin:0 auto;}
+.rel-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:32px;margin-top:48px;}
+.rel-item{display:flex;flex-direction:column;gap:10px;}
+.rel-icon{font-size:24px;width:48px;height:48px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;border-radius:2px;flex-shrink:0;}
+.rel-h3{font-family:var(--serif);font-size:17px;font-weight:400;color:var(--white);line-height:1.3;}
+.rel-body{font-size:13.5px;color:var(--muted);line-height:1.7;}
+
+/* DELIVERABLES */
+.del-list{display:flex;flex-direction:column;border:1px solid var(--border);margin-top:48px;}
+.del-item{display:flex;align-items:center;gap:24px;padding:18px 28px;border-bottom:1px solid var(--border);transition:background .15s;}
+.del-item:last-child{border-bottom:none;}
+.del-item:hover{background:var(--navy2);}
+.del-icon{font-size:18px;width:36px;text-align:center;flex-shrink:0;}
+.del-name{font-size:14px;color:var(--cream);flex:1;}
+.del-tag{font-family:var(--mono);font-size:9px;letter-spacing:.08em;color:var(--gold);border:1px solid var(--border);padding:3px 10px;border-radius:1px;white-space:nowrap;text-transform:uppercase;}
+
+/* CTA */
+.cta-sec{padding:80px 48px;max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr auto;gap:48px;align-items:center;}
+.cta-h2{font-family:var(--serif);font-size:clamp(24px,3vw,36px);font-weight:300;color:var(--white);line-height:1.25;margin-bottom:12px;}
+.cta-h2 em{font-style:italic;color:var(--gold2);}
+.cta-sub{font-size:14px;color:var(--muted);max-width:480px;}
+.cta-btn{display:inline-block;padding:14px 32px;border:1px solid var(--gold);color:var(--gold);font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-decoration:none;text-transform:uppercase;transition:all .2s;white-space:nowrap;}
+.cta-btn:hover{background:var(--gold);color:var(--navy);}
+
+footer{border-top:1px solid var(--border);padding:28px 48px;display:flex;justify-content:space-between;align-items:center;}
+.foot-note{font-family:var(--mono);font-size:10px;letter-spacing:.08em;color:var(--muted);}
+
+/* FADE IN */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+.fu{animation:fadeUp .6s ease both;}
+.fu:nth-child(2){animation-delay:.15s;}
+
+@media(max-width:720px){
+  nav{padding:16px 24px;}
+  .hero{grid-template-columns:1fr;padding:60px 24px 48px;}
+  .hero-stats{padding-left:0;border-left:none;border-top:1px solid var(--border);padding-top:24px;flex-direction:row;flex-wrap:wrap;}
+  .stat{text-align:left;}
+  .sec{padding:48px 24px;}
+  .ctx-inner,.sol-grid,.out-row,.learn-grid,.rel-grid,.risk-grid{grid-template-columns:1fr;}
+  .proc-step{grid-template-columns:1fr;}
+  .cta-sec{grid-template-columns:1fr;}
+  .ctx-band,.rel-band{padding:48px 24px;}
+  footer{padding:24px;flex-direction:column;gap:8px;text-align:center;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="https://pablomontenegro.ie" class="nav-brand">Pablo Montenegro</a>
+  <a href="https://pablomontenegro.ie/#work" class="nav-back">← Back to work</a>
+</nav>
+
+<!-- ── HERO ── -->
+<section>
+  <div class="hero">
+    <div class="fu">
+      <div class="hero-tag">Payment Operations · Cross-Border · Consulting · 2024</div>
+      <h1 class="hero-h1">Rebuilding trust in<br><em>community remittances.</em></h1>
+      <p class="hero-sub">How a community-based cross-border operator serving the Europe–Bolivia corridor went from manual chaos and fraud exposure to a structured payment operations system — without replacing a single tool they already used.</p>
+      <div class="badges">
+        <span class="badge">Cross-Border Payments</span>
+        <span class="badge">Fraud Prevention</span>
+        <span class="badge">Europe · Bolivia</span>
+        <span class="badge">Operations Design</span>
+        <span class="badge">Customer Trust</span>
+      </div>
+    </div>
+    <div class="hero-stats fu">
+      <div class="stat"><span class="stat-num">€1.2M</span><span class="stat-label">Annual flow managed</span></div>
+      <div class="stat"><span class="stat-num">200</span><span class="stat-label">Transactions / month</span></div>
+      <div class="stat"><span class="stat-num">€500</span><span class="stat-label">Average ticket</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="div"></div>
+
+<!-- ── CONTEXT ── -->
+<div class="ctx-band">
+  <div class="ctx-inner">
+    <div>
+      <div class="sec-label">Context</div>
+      <h2 class="sec-h2" style="margin-bottom:20px;">Community operators<br><em>move real money.</em></h2>
+      <div class="sec-body">
+        <p>Community-based remittance operators occupy a critical but overlooked position in the cross-border payments landscape. They serve corridors — like Europe to Bolivia — where trust matters more than speed, and where a personal relationship with the operator is often the reason customers choose them over Wise or Western Union.</p>
+        <p>This operator processes around 200 transactions per month at an average of €500 each — roughly <strong>€1.2M in annual flow</strong> managed entirely through WhatsApp conversations, bank transfers, and manual payment screenshots. No platform. No tracking. No reconciliation system.</p>
+        <p>It worked — until the volume grew large enough for the cracks to show.</p>
+      </div>
+    </div>
+    <div>
+      <div class="ch-block">
+        <div class="ch-title">The operational breaking points</div>
+        <ul class="ch-list">
+          <li>Customers sending <strong>manipulated payment screenshots</strong> as proof — fraud impossible to detect without cross-referencing actual bank movements</li>
+          <li>No systematic way to match incoming transfers to requests — verification done by memory and chat history</li>
+          <li>Customers had <strong>zero visibility</strong> into transfer status after submitting — driving constant follow-up messages and eroding trust</li>
+          <li>Each transaction required multiple manual steps and back-and-forth, impossible to scale without proportionally scaling effort</li>
+          <li>No consolidated view of daily volume, pending transfers, or reconciliation exceptions</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── RISK ── -->
+<section class="sec" style="padding-bottom:32px;">
+  <div class="sec-label">The real exposure</div>
+  <h2 class="sec-h2">€1.2M annual flow.<br><em>No fraud controls.</em></h2>
+  <div class="sec-body" style="margin-bottom:40px;">
+    <p>A single undetected fraudulent screenshot at average ticket size costs €500. In a trust-based community network, a single dispute costs far more than that in reputation. The screenshot verification step had no systematic backstop — there was no protocol beyond operator intuition.</p>
+  </div>
+  <div class="risk-band">
+    <div class="risk-grid">
+      <div><span class="risk-num">€500</span><div class="risk-label"><strong>Exposure per undetected fraud</strong>Average ticket at risk from a single manipulated screenshot</div></div>
+      <div><span class="risk-num">200×</span><div class="risk-label"><strong>Monthly verification cycles</strong>Each requiring manual bank cross-reference — hours of operator time per week</div></div>
+      <div><span class="risk-num">0</span><div class="risk-label"><strong>Customer tracking touchpoints</strong>Zero status updates after payment — the most common trigger for trust loss in remittance</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="div"></div>
+
+<!-- ── WHAT WAS DESIGNED ── -->
+<section class="sec">
+  <div class="sec-label">The work</div>
+  <h2 class="sec-h2">Four systems.<br><em>One source of truth.</em></h2>
+  <div class="sec-body">
+    <p>The operator had one hard constraint: no new tools. Everything had to work within WhatsApp and Google Sheets. The design challenge was building a robust payment operations system within those boundaries — and making the customer experience feel completely different in the process.</p>
+  </div>
+
+  <div class="sol-grid">
+    <div class="sol-item">
+      <span class="sol-num">01</span>
+      <h3 class="sol-h3">Reference codes as the fraud keystone</h3>
+      <div class="sol-body">Every transfer request receives a unique reference (TXN-001 through TXN-XXX). Customers include this code in their bank transfer description. This single change transforms verification: the bank statement becomes the source of truth, not the screenshot. A screenshot can be manipulated. A bank reference field cannot.</div>
+      <span class="sol-tag">Fraud Prevention · Traceability</span>
+    </div>
+    <div class="sol-item">
+      <span class="sol-num">02</span>
+      <h3 class="sol-h3">Customer-facing status flow</h3>
+      <div class="sol-body">Five status stages — Request Received → Payment Confirmed → Transfer Processing → Transfer Sent → Completed — each triggering a WhatsApp template. Customers know exactly where their money is at every step. The anxiety that drives 80% of follow-up messages is eliminated structurally, not managed reactively.</div>
+      <span class="sol-tag">CX · Communications Design</span>
+    </div>
+    <div class="sol-item">
+      <span class="sol-num">03</span>
+      <h3 class="sol-h3">Bank reconciliation by batch</h3>
+      <div class="sol-body">Two daily rounds — midday and close of day — replace real-time per-transfer verification. The operator locates transfers by reference code, enters the received amount in the tracking sheet. A formula returns MATCH ✅, REVIEW ⚠️, or PENDING. Thirty minutes total replaces hours of reactive bank searching.</div>
+      <span class="sol-tag">Reconciliation · Operations</span>
+    </div>
+    <div class="sol-item">
+      <span class="sol-num">04</span>
+      <h3 class="sol-h3">Operations pipeline dashboard</h3>
+      <div class="sol-body">A visual pipeline showing every active transfer across five stages: Pending → Receipt → Verified → Bolivia → Done. Exceptions surface automatically. The operator's daily cognitive load drops from "remembering everything" to "acting on what the system flags." Built with a fraud checklist embedded in each transaction card.</div>
+      <span class="sol-tag">Visibility · Operator UX</span>
+    </div>
+  </div>
+
+  <div class="pq">
+    <div class="pq-text">"The screenshot was never the right verification mechanism. The bank reference is."</div>
+    <div class="pq-attr">Core design decision — moving verification upstream</div>
+  </div>
+</section>
+
+<!-- ── INTERACTIVE DEMO ── -->
+<div class="div"></div>
+
+<section class="sec">
+  <div class="sec-label">See it in action</div>
+  <h2 class="sec-h2">The complete flow,<br><em>interactive.</em></h2>
+  <div class="sec-body" style="margin-bottom:0;">
+    <p>Two interactive prototypes built as part of this engagement — the customer journey from a sender's perspective, and the operator's full pipeline including fraud verification and WhatsApp templates.</p>
+  </div>
+
+  <div class="iframe-wrap" style="margin-top:32px;">
+    <div class="tabs-wrap">
+      <button class="tab-btn on" onclick="switchTab('demo',this)">🎬 Customer journey demo</button>
+      <button class="tab-btn" onclick="switchTab('portal',this)">⚙️ Operator system — live prototype</button>
+    </div>
+    <div id="tab-demo" class="tab-pane on">
+      <div class="iframe-label">
+        <span class="iframe-label-text">Step-by-step demo · 7 screens</span>
+        <span class="iframe-label-desc">María sends €250 from Madrid to her mother in Santa Cruz</span>
+      </div>
+      <iframe id="frame-demo" class="iframe-frame" style="height:680px;"
+        srcdoc="<!DOCTYPE html>
+<html lang=&quot;es&quot;>
+<head>
+<meta charset=&quot;UTF-8&quot;>
+<meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;>
+<title>Demo — EnvíoBolivia</title>
+<link href=&quot;https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&amp;family=DM+Sans:wght@300;400;500&amp;family=DM+Mono&amp;display=swap&quot; rel=&quot;stylesheet&quot;>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  --navy:#0A1226; --navy-mid:#111d38; --navy-light:#1a2d52;
+  --gold:#B4965A; --gold-light:#d4b07a; --gold-pale:#f5ead8;
+  --cream:#FAF7F2; --border:#e2d9cc;
+  --success:#2d7a5f; --danger:#b91c1c;
+  --dark:#0d1117; --dark2:#161b22; --dark3:#21262d;
+  --muted:#7d8590; --bright:#e6edf3;
+}
+body { font-family:'DM Sans',sans-serif; background:var(--navy); color:white; min-height:100vh; overflow-x:hidden; }
+
+/* ── SHELL ── */
+.shell {
+  display:grid;
+  grid-template-rows:auto 1fr auto;
+  min-height:100vh;
+  max-width:1100px;
+  margin:0 auto;
+  padding:0 1.5rem;
+}
+
+/* ── HEADER ── */
+.header {
+  padding:1.5rem 0 1rem;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  border-bottom:1px solid rgba(255,255,255,0.08);
+  margin-bottom:1.5rem;
+}
+.brand {
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.5rem;
+  font-weight:600;
+  color:var(--gold);
+}
+.brand span { color:rgba(255,255,255,0.4); font-weight:400; }
+.demo-tag {
+  font-size:0.7rem;
+  font-weight:500;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  background:rgba(180,150,90,0.15);
+  color:var(--gold);
+  border:1px solid rgba(180,150,90,0.3);
+  border-radius:20px;
+  padding:4px 12px;
+}
+
+/* ── STEP PROGRESS ── */
+.step-progress {
+  display:flex;
+  align-items:center;
+  gap:0;
+  margin-bottom:1.5rem;
+  overflow-x:auto;
+  padding-bottom:4px;
+}
+.sp-item {
+  display:flex;
+  align-items:center;
+  gap:0;
+  flex-shrink:0;
+}
+.sp-dot {
+  width:32px; height:32px;
+  border-radius:50%;
+  border:1px solid rgba(255,255,255,0.15);
+  display:flex; align-items:center; justify-content:center;
+  font-size:0.72rem;
+  font-weight:500;
+  color:rgba(255,255,255,0.3);
+  transition:all 0.3s;
+  cursor:pointer;
+  flex-shrink:0;
+}
+.sp-dot:hover { border-color:rgba(180,150,90,0.5); color:var(--gold-light); }
+.sp-dot.active { background:var(--gold); border-color:var(--gold); color:var(--navy); }
+.sp-dot.done { background:rgba(180,150,90,0.2); border-color:var(--gold); color:var(--gold); }
+.sp-line {
+  width:28px; height:1px;
+  background:rgba(255,255,255,0.1);
+  flex-shrink:0;
+}
+.sp-line.done { background:rgba(180,150,90,0.4); }
+
+/* ── MAIN STAGE ── */
+.stage {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:1.5rem;
+  align-items:start;
+}
+@media(max-width:700px) { .stage { grid-template-columns:1fr; } }
+
+/* ── LEFT: NARRATIVE ── */
+.narrative {
+  position:sticky;
+  top:1.5rem;
+}
+.step-badge {
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  font-size:0.68rem;
+  font-weight:500;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  margin-bottom:1rem;
+}
+.step-badge .who {
+  padding:3px 10px;
+  border-radius:20px;
+  font-size:0.65rem;
+}
+.who-client { background:rgba(121,192,255,0.15); color:#79c0ff; border:1px solid rgba(121,192,255,0.2); }
+.who-op { background:rgba(180,150,90,0.15); color:var(--gold); border:1px solid rgba(180,150,90,0.2); }
+.who-wa { background:rgba(86,211,100,0.15); color:#56d364; border:1px solid rgba(86,211,100,0.2); }
+
+.step-num-big {
+  font-family:'Cormorant Garamond',serif;
+  font-size:5rem;
+  font-weight:400;
+  color:rgba(180,150,90,0.12);
+  line-height:1;
+  margin-bottom:-1rem;
+  display:block;
+}
+.step-title {
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.8rem;
+  font-weight:500;
+  color:white;
+  margin-bottom:0.75rem;
+  line-height:1.2;
+}
+.step-desc {
+  font-size:0.88rem;
+  color:rgba(255,255,255,0.55);
+  line-height:1.7;
+  margin-bottom:1.25rem;
+}
+.step-highlight {
+  background:rgba(180,150,90,0.08);
+  border-left:2px solid var(--gold);
+  border-radius:0 8px 8px 0;
+  padding:10px 14px;
+  font-size:0.82rem;
+  color:rgba(255,255,255,0.7);
+  line-height:1.6;
+  margin-bottom:1.25rem;
+}
+.step-highlight strong { color:var(--gold); }
+
+/* ── RIGHT: MOCKUP ── */
+.mockup-frame {
+  background:rgba(255,255,255,0.03);
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:20px;
+  overflow:hidden;
+  transition:all 0.3s;
+}
+
+/* Phone frame */
+.phone-wrap {
+  display:flex;
+  justify-content:center;
+  padding:1rem;
+}
+.phone {
+  width:260px;
+  background:#0f0f0f;
+  border-radius:36px;
+  border:6px solid #1a1a1a;
+  overflow:hidden;
+  box-shadow:0 20px 60px rgba(0,0,0,0.5);
+}
+.phone-notch {
+  background:#0f0f0f;
+  height:28px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.phone-notch-bar {
+  width:70px; height:6px;
+  background:#2a2a2a;
+  border-radius:3px;
+}
+.phone-screen {
+  background:var(--cream);
+  min-height:460px;
+  overflow:hidden;
+}
+
+/* Dashboard frame */
+.dash-frame {
+  background:var(--dark);
+  border-radius:14px;
+  overflow:hidden;
+  margin:0.75rem;
+}
+.dash-frame-bar {
+  background:var(--dark2);
+  height:32px;
+  display:flex;
+  align-items:center;
+  padding:0 10px;
+  gap:6px;
+  border-bottom:1px solid var(--dark3);
+}
+.dot-r { width:10px; height:10px; border-radius:50%; background:#f85149; }
+.dot-y { width:10px; height:10px; border-radius:50%; background:#d29922; }
+.dot-g { width:10px; height:10px; border-radius:50%; background:#56d364; }
+.dash-frame-url {
+  flex:1;
+  background:var(--dark3);
+  border-radius:4px;
+  height:18px;
+  margin-left:8px;
+  display:flex; align-items:center; justify-content:center;
+  font-family:'DM Mono',monospace;
+  font-size:0.6rem;
+  color:var(--muted);
+}
+
+/* WhatsApp mockup */
+.wa-screen {
+  background:#0b141a;
+  border-radius:14px;
+  overflow:hidden;
+  margin:0.75rem;
+}
+.wa-header {
+  background:#1f2c33;
+  padding:10px 12px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  border-bottom:1px solid rgba(255,255,255,0.05);
+}
+.wa-avatar {
+  width:36px; height:36px;
+  border-radius:50%;
+  background:rgba(180,150,90,0.3);
+  display:flex; align-items:center; justify-content:center;
+  font-size:1rem;
+  flex-shrink:0;
+}
+.wa-contact { flex:1; }
+.wa-contact-name { font-size:0.85rem; color:#e9edef; font-weight:500; }
+.wa-contact-status { font-size:0.68rem; color:#8696a0; }
+.wa-body {
+  padding:12px;
+  min-height:300px;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  background-image: url(&quot;data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.015'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E&quot;);
+}
+.wa-bubble {
+  max-width:80%;
+  padding:8px 10px;
+  border-radius:8px;
+  font-size:0.78rem;
+  line-height:1.5;
+  position:relative;
+}
+.wa-bubble.received {
+  background:#1f2c33;
+  color:#e9edef;
+  align-self:flex-start;
+  border-radius:0 8px 8px 8px;
+}
+.wa-bubble.sent {
+  background:#005c4b;
+  color:#e9edef;
+  align-self:flex-end;
+  border-radius:8px 8px 0 8px;
+}
+.wa-bubble .wa-time { font-size:0.58rem; color:rgba(255,255,255,0.4); text-align:right; margin-top:3px; }
+.wa-link-preview {
+  background:rgba(255,255,255,0.06);
+  border-left:3px solid var(--gold);
+  border-radius:0 6px 6px 0;
+  padding:6px 8px;
+  margin-top:6px;
+  font-size:0.7rem;
+}
+.wa-link-preview .wa-link-title { color:var(--gold-light); font-weight:500; margin-bottom:2px; }
+.wa-link-preview .wa-link-url { color:rgba(255,255,255,0.35); font-family:'DM Mono',monospace; font-size:0.6rem; }
+.wa-input-bar {
+  background:#1f2c33;
+  padding:8px 12px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  border-top:1px solid rgba(255,255,255,0.05);
+}
+.wa-input {
+  flex:1;
+  background:#2a3942;
+  border-radius:20px;
+  padding:6px 12px;
+  font-size:0.75rem;
+  color:#8696a0;
+}
+
+/* Portal screen inside phone */
+.portal-mini {
+  font-family:'DM Sans',sans-serif;
+}
+.portal-mini-nav {
+  background:var(--navy);
+  padding:8px 12px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+.portal-mini-brand {
+  font-family:'Cormorant Garamond',serif;
+  font-size:0.9rem;
+  color:var(--gold);
+}
+.portal-mini-hero {
+  background:var(--navy);
+  padding:12px;
+  text-align:center;
+}
+.portal-mini-hero h2 {
+  font-family:'Cormorant Garamond',serif;
+  font-size:1rem;
+  color:white;
+  margin-bottom:4px;
+}
+.portal-mini-rate {
+  background:var(--navy-mid);
+  border:1px solid rgba(180,150,90,0.2);
+  border-radius:8px;
+  margin:0 12px 12px;
+  padding:8px 12px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.portal-mini-rate-val { font-family:'DM Mono',monospace; font-size:1rem; color:var(--gold); }
+.portal-mini-rate-label { font-size:0.6rem; color:rgba(255,255,255,0.4); }
+.portal-mini-form { padding:0 12px; }
+.pmf-section { background:white; border-radius:10px; padding:10px; margin-bottom:8px; }
+.pmf-label { font-size:0.6rem; color:#8899aa; text-transform:uppercase; letter-spacing:0.06em; margin-bottom:4px; }
+.pmf-field {
+  border:1px solid var(--border);
+  border-radius:6px;
+  padding:6px 8px;
+  font-size:0.72rem;
+  color:var(--navy);
+  background:var(--cream);
+  margin-bottom:6px;
+  width:100%;
+}
+.pmf-field.filled { background:white; border-color:var(--gold); }
+.pmf-grid { display:grid; grid-template-columns:1fr 1fr; gap:6px; }
+.pmf-amount-preview {
+  background:var(--gold-pale);
+  border-radius:6px;
+  padding:6px 8px;
+  display:flex;
+  justify-content:space-between;
+  font-size:0.68rem;
+  margin-top:4px;
+}
+.pmf-amount-preview .val { font-family:'DM Mono',monospace; font-size:0.82rem; color:var(--navy); }
+.upload-mini {
+  border:2px dashed var(--border);
+  border-radius:8px;
+  padding:12px;
+  text-align:center;
+  font-size:0.68rem;
+  color:#8899aa;
+  margin-bottom:8px;
+}
+.upload-mini.done { border-color:var(--success); background:#eaf5f0; color:var(--success); }
+.btn-mini {
+  width:100%;
+  background:var(--navy);
+  color:var(--gold);
+  border:none;
+  border-radius:8px;
+  padding:9px;
+  font-size:0.78rem;
+  font-weight:500;
+  cursor:pointer;
+  margin-bottom:12px;
+}
+
+/* Success mini */
+.success-mini {
+  padding:24px 12px;
+  text-align:center;
+  background:white;
+}
+.success-mini-icon {
+  font-size:2rem;
+  margin-bottom:8px;
+}
+.success-mini h3 {
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.1rem;
+  color:var(--navy);
+  margin-bottom:6px;
+}
+.success-mini-ref {
+  font-family:'DM Mono',monospace;
+  font-size:1rem;
+  color:var(--navy);
+  background:var(--gold-pale);
+  border:1px solid rgba(180,150,90,0.3);
+  border-radius:8px;
+  padding:8px 16px;
+  display:inline-block;
+  margin:8px 0;
+  letter-spacing:0.1em;
+}
+.success-mini p { font-size:0.72rem; color:#8899aa; line-height:1.5; }
+
+/* Track mini */
+.track-mini { padding:12px; background:var(--cream); min-height:420px; }
+.track-mini-input { display:flex; gap:6px; margin-bottom:12px; }
+.track-mini-input input {
+  flex:1;
+  border:1px solid var(--border);
+  border-radius:8px;
+  padding:7px 10px;
+  font-family:'DM Mono',monospace;
+  font-size:0.75rem;
+  background:white;
+  color:var(--navy);
+}
+.track-mini-input button {
+  background:var(--navy);
+  color:var(--gold);
+  border:none;
+  border-radius:8px;
+  padding:7px 12px;
+  font-size:0.7rem;
+  font-weight:500;
+  cursor:pointer;
+}
+.track-card-mini {
+  background:white;
+  border:1px solid var(--border);
+  border-radius:12px;
+  overflow:hidden;
+}
+.track-card-mini-header {
+  background:var(--navy);
+  padding:10px 12px;
+}
+.track-card-mini-ref { font-family:'DM Mono',monospace; font-size:0.65rem; color:var(--gold); }
+.track-card-mini-name { color:white; font-weight:500; font-size:0.82rem; margin-top:2px; }
+.track-card-mini-body { padding:12px; }
+.progress-mini {
+  display:flex;
+  align-items:center;
+  margin-bottom:12px;
+  position:relative;
+}
+.progress-mini::before {
+  content:'';
+  position:absolute;
+  top:10px; left:10px; right:10px;
+  height:2px;
+  background:var(--border);
+}
+.progress-mini-line {
+  position:absolute;
+  top:10px; left:10px;
+  height:2px;
+  background:var(--gold);
+  transition:width 0.8s ease;
+}
+.pm-step { flex:1; display:flex; flex-direction:column; align-items:center; gap:4px; z-index:1; }
+.pm-dot {
+  width:20px; height:20px;
+  border-radius:50%;
+  background:white;
+  border:2px solid var(--border);
+  font-size:0.55rem;
+  display:flex; align-items:center; justify-content:center;
+}
+.pm-dot.done { background:var(--gold); border-color:var(--gold); color:white; }
+.pm-dot.active { border-color:var(--gold); box-shadow:0 0 0 3px rgba(180,150,90,0.2); }
+.pm-label { font-size:0.55rem; color:#8899aa; text-align:center; line-height:1.2; }
+.track-details-mini { display:grid; grid-template-columns:1fr 1fr; gap:6px; }
+.td-mini { background:var(--cream); border-radius:6px; padding:6px 8px; }
+.td-mini-label { font-size:0.55rem; color:#8899aa; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:2px; }
+.td-mini-val { font-size:0.72rem; color:var(--navy); font-weight:500; }
+
+/* Dashboard mini */
+.dash-mini { padding:10px; }
+.dash-mini-stats {
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:6px;
+  margin-bottom:10px;
+}
+.dstat { background:var(--dark2); border:1px solid var(--dark3); border-radius:8px; padding:8px; }
+.dstat-label { font-size:0.55rem; color:var(--muted); text-transform:uppercase; margin-bottom:3px; }
+.dstat-val { font-family:'DM Mono',monospace; font-size:1rem; color:var(--bright); }
+.dstat-val.gold { color:var(--gold); }
+.dstat-val.danger { color:#f85149; }
+.board-mini { display:grid; grid-template-columns:repeat(3,1fr); gap:6px; }
+.bcol { background:var(--dark2); border:1px solid var(--dark3); border-radius:8px; padding:8px; min-height:120px; }
+.bcol-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:6px; padding-bottom:5px; border-bottom:1px solid var(--dark3); }
+.bcol-title { font-size:0.6rem; text-transform:uppercase; letter-spacing:0.06em; font-weight:500; }
+.bcol-count { font-size:0.58rem; background:var(--dark3); padding:1px 5px; border-radius:8px; color:var(--muted); }
+.btx { background:var(--dark); border:1px solid var(--dark3); border-radius:6px; padding:6px; margin-bottom:5px; cursor:pointer; }
+.btx.flagged { border-color:rgba(248,81,73,0.4); }
+.btx-ref { font-family:'DM Mono',monospace; font-size:0.55rem; color:var(--muted); }
+.btx-name { font-size:0.65rem; color:var(--bright); margin-bottom:3px; }
+.btx-eur { font-family:'DM Mono',monospace; font-size:0.72rem; color:var(--bright); }
+
+/* Modal mini */
+.modal-mini { padding:10px; }
+.modal-mini-header { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:10px; padding-bottom:10px; border-bottom:1px solid var(--dark3); }
+.modal-mini-ref { font-family:'DM Mono',monospace; font-size:0.62rem; color:var(--gold); }
+.modal-mini-name { font-size:0.9rem; color:var(--bright); font-weight:500; }
+.modal-mini-grid { display:grid; grid-template-columns:1fr 1fr; gap:6px; margin-bottom:10px; }
+.mmg-field { background:var(--dark); border:1px solid var(--dark3); border-radius:6px; padding:6px; }
+.mmg-label { font-size:0.55rem; color:var(--muted); text-transform:uppercase; margin-bottom:2px; }
+.mmg-val { font-size:0.75rem; color:var(--bright); }
+.mmg-val.gold { color:var(--gold); font-family:'DM Mono',monospace; }
+.fraud-mini { background:var(--dark); border:1px solid var(--dark3); border-radius:8px; padding:8px; margin-bottom:10px; }
+.fraud-mini-title { font-size:0.62rem; color:var(--bright); font-weight:500; margin-bottom:6px; }
+.fitem { display:flex; align-items:center; gap:6px; padding:3px 0; font-size:0.65rem; border-bottom:1px solid var(--dark3); }
+.fitem:last-child { border-bottom:none; }
+.fdot { width:6px; height:6px; border-radius:50%; flex-shrink:0; }
+.fdot.ok { background:#56d364; }
+.fdot.warn { background:#d29922; }
+.fdot.fail { background:#f85149; }
+.flabel { color:var(--muted); flex:1; }
+.fresult { font-size:0.6rem; }
+.fresult.ok { color:#56d364; }
+.fresult.warn { color:#d29922; }
+.fresult.fail { color:#f85149; }
+.btn-advance {
+  width:100%;
+  background:var(--gold);
+  color:var(--navy);
+  border:none;
+  border-radius:8px;
+  padding:9px;
+  font-size:0.75rem;
+  font-weight:500;
+  cursor:pointer;
+  margin-bottom:6px;
+  text-align:left;
+  padding:8px 12px;
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+.btn-flag {
+  width:100%;
+  background:rgba(248,81,73,0.1);
+  color:#f85149;
+  border:1px solid rgba(248,81,73,0.25);
+  border-radius:8px;
+  padding:8px 12px;
+  font-size:0.72rem;
+  cursor:pointer;
+  text-align:left;
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+
+/* WA template */
+.wa-template-mini { padding:10px; }
+.wat-item { background:var(--dark2); border:1px solid var(--dark3); border-radius:8px; padding:8px; margin-bottom:6px; display:flex; gap:8px; align-items:flex-start; }
+.wat-icon { font-size:0.9rem; flex-shrink:0; }
+.wat-label { font-size:0.58rem; color:var(--muted); text-transform:uppercase; letter-spacing:0.06em; margin-bottom:3px; }
+.wat-text { font-size:0.68rem; color:var(--bright); line-height:1.5; }
+.wat-var { color:var(--gold); font-family:'DM Mono',monospace; font-size:0.62rem; }
+.btn-copy-mini { background:none; border:1px solid var(--dark3); color:var(--muted); border-radius:5px; padding:3px 7px; font-size:0.6rem; cursor:pointer; margin-top:4px; }
+
+/* ── FOOTER NAV ── */
+.footer-nav {
+  padding:1.5rem 0;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  border-top:1px solid rgba(255,255,255,0.08);
+  margin-top:1.5rem;
+  gap:1rem;
+}
+.btn-nav {
+  display:flex;
+  align-items:center;
+  gap:8px;
+  background:none;
+  border:1px solid rgba(255,255,255,0.15);
+  color:rgba(255,255,255,0.6);
+  font-family:'DM Sans',sans-serif;
+  font-size:0.82rem;
+  padding:9px 16px;
+  border-radius:10px;
+  cursor:pointer;
+  transition:all 0.18s;
+}
+.btn-nav:hover { border-color:rgba(180,150,90,0.5); color:var(--gold); }
+.btn-nav.primary { background:var(--gold); color:var(--navy); border-color:var(--gold); font-weight:500; }
+.btn-nav.primary:hover { background:var(--gold-light); color:var(--navy); }
+.btn-nav:disabled { opacity:0.3; cursor:not-allowed; }
+.step-indicator {
+  font-size:0.78rem;
+  color:rgba(255,255,255,0.35);
+  font-family:'DM Mono',monospace;
+}
+
+/* Animations */
+@keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+.fade-in { animation:fadeIn 0.35s ease forwards; }
+
+/* Toast */
+.toast { position:fixed; bottom:20px; right:20px; background:var(--dark2); border:1px solid rgba(180,150,90,0.3); border-radius:10px; padding:10px 16px; font-size:0.82rem; color:var(--bright); z-index:999; transform:translateY(60px); opacity:0; transition:all 0.3s; }
+.toast.show { transform:translateY(0); opacity:1; }
+</style>
+</head>
+<body>
+
+<div class=&quot;shell&quot;>
+
+  <!-- HEADER -->
+  <div class=&quot;header&quot;>
+    <div class=&quot;brand&quot;>Envío<span>Bolivia</span> <span style=&quot;font-size:0.7rem;color:rgba(255,255,255,0.3);font-family:'DM Sans',sans-serif;font-weight:300;margin-left:8px;&quot;>Sistema de remesas</span></div>
+    <div class=&quot;demo-tag&quot;>Demo interactiva</div>
+  </div>
+
+  <!-- STEP PROGRESS -->
+  <div class=&quot;step-progress&quot; id=&quot;step-progress&quot;></div>
+
+  <!-- STAGE -->
+  <div class=&quot;stage&quot;>
+    <!-- LEFT: Narrative -->
+    <div class=&quot;narrative&quot; id=&quot;narrative&quot;></div>
+    <!-- RIGHT: Mockup -->
+    <div class=&quot;mockup-frame&quot; id=&quot;mockup&quot;></div>
+  </div>
+
+  <!-- FOOTER NAV -->
+  <div class=&quot;footer-nav&quot;>
+    <button class=&quot;btn-nav&quot; id=&quot;btn-prev&quot; onclick=&quot;prevStep()&quot;>← Anterior</button>
+    <span class=&quot;step-indicator&quot; id=&quot;step-indicator&quot;>1 / 7</span>
+    <button class=&quot;btn-nav primary&quot; id=&quot;btn-next&quot; onclick=&quot;nextStep()&quot;>Siguiente →</button>
+  </div>
+
+</div>
+
+<div class=&quot;toast&quot; id=&quot;toast&quot;></div>
+
+<script>
+const STEPS = [
+  {
+    who: 'cliente', whoLabel: 'Cliente', whoClass: 'who-client',
+    title: 'María quiere enviar €250 a Bolivia',
+    desc: 'María vive en Madrid y quiere enviar dinero a su mamá en Santa Cruz. Hasta ahora lo hacía todo por WhatsApp: mandaba mensajes, esperaba respuesta, enviaba fotos de recibos. Sin saber si llegó.',
+    highlight: '<strong>El problema anterior:</strong> caos de mensajes, sin confirmación, sin seguimiento. María no sabe si su dinero llegó hasta que su mamá le llama.',
+    mockup: 'wa-contact',
+  },
+  {
+    who: 'cliente', whoLabel: 'Cliente', whoClass: 'who-client',
+    title: 'Abre el link y ve la tasa del día',
+    desc: 'María recibe un link por WhatsApp. Lo abre desde su móvil — sin instalar nada. Ve inmediatamente la tasa de hoy: 1 EUR = 7.12 BOB. Escribe €250 y la calculadora le muestra al instante cuánto recibirá su mamá.',
+    highlight: '<strong>1 EUR = 7.12 BOB</strong> · €250 = Bs. 1,780 · La tasa es clara antes de comprometerse.',
+    mockup: 'portal-rate',
+  },
+  {
+    who: 'cliente', whoLabel: 'Cliente', whoClass: 'who-client',
+    title: 'Rellena el formulario en 2 minutos',
+    desc: 'El formulario está organizado en 4 pasos claros: sus datos, el monto, los datos del destinatario en Bolivia (nombre, banco, número de cuenta), y sube el comprobante de pago desde su galería.',
+    highlight: '<strong>Sin visitar ninguna oficina.</strong> Todo desde el móvil, en el mismo idioma, con bancos bolivianos ya listados.',
+    mockup: 'portal-form',
+  },
+  {
+    who: 'cliente', whoLabel: 'Cliente', whoClass: 'who-client',
+    title: 'Recibe su número de referencia',
+    desc: 'Al enviar, María recibe el número TXN-069. Lo guarda. Puede entrar en cualquier momento a ver el estado de su transferencia — sin preguntar al operador.',
+    highlight: '<strong>Cero ansiedad.</strong> María sabe exactamente en qué estado está su dinero. No necesita mandar mensajes de &quot;¿ya llegó?&quot;.',
+    mockup: 'portal-success',
+  },
+  {
+    who: 'op', whoLabel: 'Operador', whoClass: 'who-op',
+    title: 'El operador ve la transferencia en su pipeline',
+    desc: 'En el mismo momento en que María envía el formulario, aparece en el dashboard del operador. Se ve el nombre, el monto, el estado. Una bandera roja alerta si hay algo sospechoso.',
+    highlight: '<strong>Sin buscar en WhatsApp.</strong> Todo en un pipeline claro: Pendiente → Comprobante → Verificado → Bolivia → Completado.',
+    mockup: 'dash-pipeline',
+  },
+  {
+    who: 'op', whoLabel: 'Operador', whoClass: 'who-op',
+    title: 'Revisa el comprobante y verifica con Revolut',
+    desc: 'El operador abre la tarjeta de María. Ve todos sus datos, el comprobante subido, y un checklist automático de fraude. Abre Revolut Business en paralelo y confirma que la transferencia coincide. Un clic avanza el estado.',
+    highlight: '<strong>Checklist de fraude incluido:</strong> comprobante presente, monto coincide, cliente con historial, imagen no duplicada.',
+    mockup: 'dash-modal',
+  },
+  {
+    who: 'wa', whoLabel: 'WhatsApp', whoClass: 'who-wa',
+    title: 'El operador envía el mensaje de confirmación',
+    desc: 'Con un clic el operador copia la plantilla correcta para el estado actual. La pega en WhatsApp. María recibe la confirmación. El socio en Bolivia recibe la instrucción. Todo cuadrado.',
+    highlight: '<strong>La mamá de María recibe Bs. 1,780</strong> en su cuenta del BNB. María lo ve en su página de tracking. Caso cerrado.',
+    mockup: 'dash-wa',
+  },
+];
+
+let current = 0;
+
+function render() {
+  // Progress
+  const prog = document.getElementById('step-progress');
+  prog.innerHTML = STEPS.map((s,i) => `
+    <div class=&quot;sp-item&quot;>
+      ${i > 0 ? `<div class=&quot;sp-line ${i <= current ? 'done' : ''}&quot;></div>` : ''}
+      <div class=&quot;sp-dot ${i < current ? 'done' : i === current ? 'active' : ''}&quot; onclick=&quot;goTo(${i})&quot;>${i < current ? '✓' : i+1}</div>
+    </div>
+  `).join('');
+
+  // Narrative
+  const s = STEPS[current];
+  document.getElementById('narrative').innerHTML = `
+    <div class=&quot;fade-in&quot;>
+      <div class=&quot;step-badge&quot;>
+        <span>Paso ${current + 1}</span>
+        <span class=&quot;who ${s.whoClass}&quot;>${s.whoLabel}</span>
+      </div>
+      <span class=&quot;step-num-big&quot;>0${current+1}</span>
+      <h2 class=&quot;step-title&quot;>${s.title}</h2>
+      <p class=&quot;step-desc&quot;>${s.desc}</p>
+      <div class=&quot;step-highlight&quot;>${s.highlight}</div>
+    </div>
+  `;
+
+  // Mockup
+  document.getElementById('mockup').innerHTML = `<div class=&quot;fade-in&quot;>${getMockup(s.mockup)}</div>`;
+
+  // Indicator
+  document.getElementById('step-indicator').textContent = `${current+1} / ${STEPS.length}`;
+  document.getElementById('btn-prev').disabled = current === 0;
+  document.getElementById('btn-next').textContent = current === STEPS.length - 1 ? '¡Listo! Reiniciar ↺' : 'Siguiente →';
+}
+
+function nextStep() {
+  if (current < STEPS.length - 1) { current++; render(); }
+  else { current = 0; render(); showToast('Demo reiniciada desde el principio'); }
+}
+function prevStep() { if (current > 0) { current--; render(); } }
+function goTo(i) { current = i; render(); }
+
+function getMockup(type) {
+  switch(type) {
+    case 'wa-contact': return `
+      <div class=&quot;wa-screen&quot;>
+        <div class=&quot;wa-header&quot;>
+          <div class=&quot;wa-avatar&quot;>💬</div>
+          <div class=&quot;wa-contact&quot;>
+            <div class=&quot;wa-contact-name&quot;>EnvíoBolivia</div>
+            <div class=&quot;wa-contact-status&quot;>en línea</div>
+          </div>
+        </div>
+        <div class=&quot;wa-body&quot;>
+          <div class=&quot;wa-bubble received&quot;>
+            Hola María! Quiero enviar €250 a mi mamá en Santa Cruz, BNB, saldo 1234567890
+            <div class=&quot;wa-time&quot;>09:12</div>
+          </div>
+          <div class=&quot;wa-bubble sent&quot;>
+            ¡Hola! Con gusto. ¿Me puedes mandar el comprobante cuando transfieras?
+            <div class=&quot;wa-time&quot;>09:15</div>
+          </div>
+          <div class=&quot;wa-bubble received&quot;>
+            [foto del comprobante]
+            <div class=&quot;wa-time&quot;>09:31</div>
+          </div>
+          <div class=&quot;wa-bubble sent&quot;>
+            Mmm la foto no se ve bien, ¿me la puedes reenviar más clara?
+            <div class=&quot;wa-time&quot;>09:48</div>
+          </div>
+          <div class=&quot;wa-bubble received&quot; style=&quot;border-left:2px solid #f85149;&quot;>
+            ¿Y ya llegó? llevamos 3 horas 😕
+            <div class=&quot;wa-time&quot;>12:20</div>
+          </div>
+        </div>
+        <div class=&quot;wa-input-bar&quot;>
+          <div class=&quot;wa-input&quot;>Escribe un mensaje</div>
+        </div>
+      </div>
+      <div style=&quot;text-align:center;padding:10px;font-size:0.72rem;color:rgba(255,255,255,0.3);&quot;>← Así era antes. Caos total.</div>
+    `;
+
+    case 'portal-rate': return `
+      <div class=&quot;phone-wrap&quot;>
+        <div class=&quot;phone&quot;>
+          <div class=&quot;phone-notch&quot;><div class=&quot;phone-notch-bar&quot;></div></div>
+          <div class=&quot;phone-screen&quot;>
+            <div class=&quot;portal-mini&quot;>
+              <div class=&quot;portal-mini-nav&quot;>
+                <div class=&quot;portal-mini-brand&quot;>EnvíoBolivia</div>
+                <span style=&quot;font-size:0.6rem;color:rgba(255,255,255,0.4);&quot;>Enviar</span>
+              </div>
+              <div class=&quot;portal-mini-hero&quot;>
+                <h2>Envía dinero a Bolivia</h2>
+                <p style=&quot;font-size:0.65rem;color:rgba(255,255,255,0.4);&quot;>Rápido, seguro, sin sorpresas</p>
+              </div>
+              <div class=&quot;portal-mini-rate&quot;>
+                <div>
+                  <div class=&quot;portal-mini-rate-label&quot;>Tasa hoy · EUR → BOB</div>
+                  <div class=&quot;portal-mini-rate-val&quot;>7.12</div>
+                </div>
+                <div style=&quot;text-align:right;&quot;>
+                  <div style=&quot;font-size:0.58rem;color:rgba(255,255,255,0.35);margin-bottom:4px;&quot;>Calculadora</div>
+                  <div style=&quot;background:rgba(255,255,255,0.08);border:1px solid rgba(180,150,90,0.3);border-radius:6px;padding:4px 8px;font-family:'DM Mono',monospace;font-size:0.8rem;color:white;&quot;>€ 250</div>
+                  <div style=&quot;font-size:0.65rem;color:var(--gold-light);margin-top:3px;&quot;>= Bs. 1,780.00</div>
+                </div>
+              </div>
+              <div style=&quot;padding:0 12px;font-size:0.68rem;color:#8899aa;text-align:center;margin-top:8px;&quot;>
+                ✓ Sin comisiones ocultas · Tu mamá recibe lo que ves
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+
+    case 'portal-form': return `
+      <div class=&quot;phone-wrap&quot;>
+        <div class=&quot;phone&quot;>
+          <div class=&quot;phone-notch&quot;><div class=&quot;phone-notch-bar&quot;></div></div>
+          <div class=&quot;phone-screen&quot;>
+            <div class=&quot;portal-mini-nav&quot;>
+              <div class=&quot;portal-mini-brand&quot;>EnvíoBolivia</div>
+            </div>
+            <div class=&quot;portal-mini-form&quot; style=&quot;padding:10px 12px;&quot;>
+              <div class=&quot;pmf-section&quot;>
+                <div class=&quot;pmf-label&quot;>① Tus datos</div>
+                <div class=&quot;pmf-grid&quot;>
+                  <div class=&quot;pmf-field filled&quot;>María Condori</div>
+                  <div class=&quot;pmf-field filled&quot;>+34 612 345 678</div>
+                </div>
+                <div class=&quot;pmf-field filled&quot;>España</div>
+              </div>
+              <div class=&quot;pmf-section&quot;>
+                <div class=&quot;pmf-label&quot;>② Monto</div>
+                <div class=&quot;pmf-field filled&quot;>€ 250.00</div>
+                <div class=&quot;pmf-amount-preview&quot;>
+                  <span style=&quot;color:#8899aa;&quot;>Tu mamá recibe</span>
+                  <span class=&quot;val&quot;>Bs. 1,780</span>
+                </div>
+              </div>
+              <div class=&quot;pmf-section&quot;>
+                <div class=&quot;pmf-label&quot;>③ Destinatario en Bolivia</div>
+                <div class=&quot;pmf-grid&quot;>
+                  <div class=&quot;pmf-field filled&quot;>Rosa Condori</div>
+                  <div class=&quot;pmf-field filled&quot;>4523187</div>
+                </div>
+                <div class=&quot;pmf-field filled&quot;>Banco Nacional de Bolivia (BNB)</div>
+                <div class=&quot;pmf-field filled&quot;>1234567890</div>
+              </div>
+              <div class=&quot;pmf-section&quot;>
+                <div class=&quot;pmf-label&quot;>④ Comprobante</div>
+                <div class=&quot;upload-mini done&quot;>✅ transfer_ing_directa.jpg</div>
+              </div>
+              <button class=&quot;btn-mini&quot;>Enviar solicitud →</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+
+    case 'portal-success': return `
+      <div class=&quot;phone-wrap&quot;>
+        <div class=&quot;phone&quot;>
+          <div class=&quot;phone-notch&quot;><div class=&quot;phone-notch-bar&quot;></div></div>
+          <div class=&quot;phone-screen&quot;>
+            <div class=&quot;portal-mini-nav&quot;>
+              <div class=&quot;portal-mini-brand&quot;>EnvíoBolivia</div>
+            </div>
+            <div class=&quot;success-mini&quot;>
+              <div class=&quot;success-mini-icon&quot;>✅</div>
+              <h3>¡Solicitud recibida!</h3>
+              <p>Tu número de referencia es:</p>
+              <div class=&quot;success-mini-ref&quot;>TXN-069</div>
+              <p>Te contactaremos por WhatsApp.<br>Sigue el estado aquí:</p>
+            </div>
+            <div class=&quot;track-mini&quot; style=&quot;min-height:auto;padding:10px 12px;&quot;>
+              <div class=&quot;track-mini-input&quot;>
+                <input value=&quot;TXN-069&quot; readonly>
+                <button>Buscar</button>
+              </div>
+              <div class=&quot;track-card-mini&quot;>
+                <div class=&quot;track-card-mini-header&quot;>
+                  <div class=&quot;track-card-mini-ref&quot;>TXN-069</div>
+                  <div class=&quot;track-card-mini-name&quot;>María Condori</div>
+                </div>
+                <div class=&quot;track-card-mini-body&quot;>
+                  <div class=&quot;progress-mini&quot;>
+                    <div class=&quot;progress-mini-line&quot; style=&quot;width:calc(25% - 10px)&quot;></div>
+                    <div class=&quot;pm-step&quot;><div class=&quot;pm-dot done&quot;>✓</div><div class=&quot;pm-label&quot;>Recibido</div></div>
+                    <div class=&quot;pm-step&quot;><div class=&quot;pm-dot active&quot;></div><div class=&quot;pm-label&quot;>Verificando</div></div>
+                    <div class=&quot;pm-step&quot;><div class=&quot;pm-dot&quot;></div><div class=&quot;pm-label&quot;>Verificado</div></div>
+                    <div class=&quot;pm-step&quot;><div class=&quot;pm-dot&quot;></div><div class=&quot;pm-label&quot;>Bolivia</div></div>
+                    <div class=&quot;pm-step&quot;><div class=&quot;pm-dot&quot;></div><div class=&quot;pm-label&quot;>✓</div></div>
+                  </div>
+                  <div class=&quot;track-details-mini&quot;>
+                    <div class=&quot;td-mini&quot;><div class=&quot;td-mini-label&quot;>Enviaste</div><div class=&quot;td-mini-val&quot;>€250.00</div></div>
+                    <div class=&quot;td-mini&quot;><div class=&quot;td-mini-label&quot;>Mamá recibe</div><div class=&quot;td-mini-val&quot;>Bs. 1,780</div></div>
+                    <div class=&quot;td-mini&quot;><div class=&quot;td-mini-label&quot;>Destinataria</div><div class=&quot;td-mini-val&quot;>Rosa Condori</div></div>
+                    <div class=&quot;td-mini&quot;><div class=&quot;td-mini-label&quot;>Solicitado</div><div class=&quot;td-mini-val&quot;>2025-01-27</div></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+
+    case 'dash-pipeline': return `
+      <div class=&quot;dash-frame&quot;>
+        <div class=&quot;dash-frame-bar&quot;>
+          <div class=&quot;dot-r&quot;></div><div class=&quot;dot-y&quot;></div><div class=&quot;dot-g&quot;></div>
+          <div class=&quot;dash-frame-url&quot;>enviobolivia.com/operador</div>
+        </div>
+        <div class=&quot;dash-mini&quot;>
+          <div class=&quot;dash-mini-stats&quot;>
+            <div class=&quot;dstat&quot;><div class=&quot;dstat-label&quot;>Este mes</div><div class=&quot;dstat-val gold&quot;>69</div></div>
+            <div class=&quot;dstat&quot;><div class=&quot;dstat-label&quot;>Pendientes</div><div class=&quot;dstat-val&quot;>4</div></div>
+            <div class=&quot;dstat&quot;><div class=&quot;dstat-label&quot;>Marcadas</div><div class=&quot;dstat-val danger&quot;>1</div></div>
+          </div>
+          <div class=&quot;board-mini&quot;>
+            <div class=&quot;bcol&quot;>
+              <div class=&quot;bcol-header&quot;>
+                <span class=&quot;bcol-title&quot; style=&quot;color:#7d8590;&quot;>Pendiente</span>
+                <span class=&quot;bcol-count&quot;>2</span>
+              </div>
+              <div class=&quot;btx flagged&quot;>
+                <div class=&quot;btx-ref&quot;>TXN-065 ⚠</div>
+                <div class=&quot;btx-name&quot;>Luis Mamani</div>
+                <div class=&quot;btx-eur&quot;>€300</div>
+              </div>
+              <div class=&quot;btx&quot;>
+                <div class=&quot;btx-ref&quot;>TXN-066</div>
+                <div class=&quot;btx-name&quot;>Carmen Flores</div>
+                <div class=&quot;btx-eur&quot;>€400</div>
+              </div>
+            </div>
+            <div class=&quot;bcol&quot;>
+              <div class=&quot;bcol-header&quot;>
+                <span class=&quot;bcol-title&quot; style=&quot;color:#79c0ff;&quot;>Comprobante</span>
+                <span class=&quot;bcol-count&quot;>2</span>
+              </div>
+              <div class=&quot;btx&quot; style=&quot;border-color:rgba(180,150,90,0.5);&quot;>
+                <div class=&quot;btx-ref&quot; style=&quot;color:var(--gold);&quot;>TXN-069 ← nuevo</div>
+                <div class=&quot;btx-name&quot;>María Condori</div>
+                <div class=&quot;btx-eur&quot; style=&quot;color:var(--gold);&quot;>€250</div>
+              </div>
+              <div class=&quot;btx&quot;>
+                <div class=&quot;btx-ref&quot;>TXN-068</div>
+                <div class=&quot;btx-name&quot;>Roberto Q.</div>
+                <div class=&quot;btx-eur&quot;>€150</div>
+              </div>
+            </div>
+            <div class=&quot;bcol&quot;>
+              <div class=&quot;bcol-header&quot;>
+                <span class=&quot;bcol-title&quot; style=&quot;color:#7ee787;&quot;>En Bolivia</span>
+                <span class=&quot;bcol-count&quot;>1</span>
+              </div>
+              <div class=&quot;btx&quot;>
+                <div class=&quot;btx-ref&quot;>TXN-064</div>
+                <div class=&quot;btx-name&quot;>Ana Torrez</div>
+                <div class=&quot;btx-eur&quot;>€200</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+
+    case 'dash-modal': return `
+      <div class=&quot;dash-frame&quot;>
+        <div class=&quot;dash-frame-bar&quot;>
+          <div class=&quot;dot-r&quot;></div><div class=&quot;dot-y&quot;></div><div class=&quot;dot-g&quot;></div>
+          <div class=&quot;dash-frame-url&quot;>Detalle de transferencia</div>
+        </div>
+        <div class=&quot;modal-mini&quot;>
+          <div class=&quot;modal-mini-header&quot;>
+            <div>
+              <div class=&quot;modal-mini-ref&quot;>TXN-069</div>
+              <div class=&quot;modal-mini-name&quot;>María Condori</div>
+            </div>
+            <span style=&quot;font-size:0.62rem;background:rgba(121,192,255,0.15);color:#79c0ff;border-radius:10px;padding:2px 8px;&quot;>Comprobante</span>
+          </div>
+          <div class=&quot;modal-mini-grid&quot;>
+            <div class=&quot;mmg-field&quot;><div class=&quot;mmg-label&quot;>EUR recibido</div><div class=&quot;mmg-val gold&quot;>€250.00</div></div>
+            <div class=&quot;mmg-field&quot;><div class=&quot;mmg-label&quot;>BOB a pagar</div><div class=&quot;mmg-val&quot;>Bs. 1,780</div></div>
+            <div class=&quot;mmg-field&quot;><div class=&quot;mmg-label&quot;>Destinataria</div><div class=&quot;mmg-val&quot;>Rosa Condori</div></div>
+            <div class=&quot;mmg-field&quot;><div class=&quot;mmg-label&quot;>Banco Bolivia</div><div class=&quot;mmg-val&quot;>BNB</div></div>
+            <div class=&quot;mmg-field&quot; style=&quot;grid-column:span 2;&quot;><div class=&quot;mmg-label&quot;>Cuenta</div><div class=&quot;mmg-val&quot; style=&quot;font-family:'DM Mono',monospace;font-size:0.7rem;&quot;>1234567890</div></div>
+          </div>
+          <div class=&quot;fraud-mini&quot;>
+            <div class=&quot;fraud-mini-title&quot;>Checklist verificación</div>
+            <div class=&quot;fitem&quot;><div class=&quot;fdot ok&quot;></div><span class=&quot;flabel&quot;>Comprobante subido</span><span class=&quot;fresult ok&quot;>Sí</span></div>
+            <div class=&quot;fitem&quot;><div class=&quot;fdot ok&quot;></div><span class=&quot;flabel&quot;>Monto coincide (€250)</span><span class=&quot;fresult ok&quot;>OK</span></div>
+            <div class=&quot;fitem&quot;><div class=&quot;fdot warn&quot;></div><span class=&quot;flabel&quot;>Historial del cliente</span><span class=&quot;fresult warn&quot;>1ª vez</span></div>
+            <div class=&quot;fitem&quot;><div class=&quot;fdot ok&quot;></div><span class=&quot;flabel&quot;>Imagen no duplicada</span><span class=&quot;fresult ok&quot;>Única</span></div>
+          </div>
+          <button class=&quot;btn-advance&quot;>✅ Confirmar pago recibido en Revolut <span style=&quot;margin-left:auto;opacity:0.6;font-size:0.62rem;&quot;>→ Verificado</span></button>
+          <button class=&quot;btn-flag&quot;>⚠️ Marcar como sospechosa</button>
+        </div>
+      </div>
+    `;
+
+    case 'dash-wa': return `
+      <div style=&quot;display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:10px;&quot;>
+        <div>
+          <div style=&quot;font-size:0.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px;&quot;>Plantillas WhatsApp</div>
+          <div class=&quot;wa-template-mini&quot;>
+            <div class=&quot;wat-item&quot;>
+              <div class=&quot;wat-icon&quot;>✅</div>
+              <div style=&quot;flex:1;&quot;>
+                <div class=&quot;wat-label&quot;>Pago confirmado</div>
+                <div class=&quot;wat-text&quot;>Hola <span class=&quot;wat-var&quot;>[María]</span>, confirmamos recepción de <span class=&quot;wat-var&quot;>€250</span>. Tu transferencia <span class=&quot;wat-var&quot;>TXN-069</span> está siendo procesada en Bolivia.</div>
+                <button class=&quot;btn-copy-mini&quot;>Copiar →</button>
+              </div>
+            </div>
+            <div class=&quot;wat-item&quot;>
+              <div class=&quot;wat-icon&quot;>🇧🇴</div>
+              <div style=&quot;flex:1;&quot;>
+                <div class=&quot;wat-label&quot;>Instrucción Bolivia</div>
+                <div class=&quot;wat-text&quot;><span class=&quot;wat-var&quot;>Rosa Condori</span> recibirá <span class=&quot;wat-var&quot;>Bs. 1,780</span> en BNB en las próximas horas.</div>
+                <button class=&quot;btn-copy-mini&quot;>Copiar →</button>
+              </div>
+            </div>
+            <div class=&quot;wat-item&quot;>
+              <div class=&quot;wat-icon&quot;>🎉</div>
+              <div style=&quot;flex:1;&quot;>
+                <div class=&quot;wat-label&quot;>Completado</div>
+                <div class=&quot;wat-text&quot;><span class=&quot;wat-var&quot;>Rosa Condori</span> recibió <span class=&quot;wat-var&quot;>Bs. 1,780</span>. ¡Gracias por confiar en EnvíoBolivia!</div>
+                <button class=&quot;btn-copy-mini&quot;>Copiar →</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div style=&quot;font-size:0.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px;&quot;>Tracking — vista del cliente</div>
+          <div class=&quot;track-card-mini&quot;>
+            <div class=&quot;track-card-mini-header&quot;>
+              <div class=&quot;track-card-mini-ref&quot;>TXN-069</div>
+              <div class=&quot;track-card-mini-name&quot;>María Condori</div>
+            </div>
+            <div class=&quot;track-card-mini-body&quot;>
+              <div class=&quot;progress-mini&quot;>
+                <div class=&quot;progress-mini-line&quot; style=&quot;width:calc(100% - 20px)&quot;></div>
+                <div class=&quot;pm-step&quot;><div class=&quot;pm-dot done&quot;>✓</div><div class=&quot;pm-label&quot;>Recibido</div></div>
+                <div class=&quot;pm-step&quot;><div class=&quot;pm-dot done&quot;>✓</div><div class=&quot;pm-label&quot;>Verificado</div></div>
+                <div class=&quot;pm-step&quot;><div class=&quot;pm-dot done&quot;>✓</div><div class=&quot;pm-label&quot;>Bolivia</div></div>
+                <div class=&quot;pm-step&quot;><div class=&quot;pm-dot done&quot; style=&quot;background:var(--gold);border-color:var(--gold);color:var(--navy);&quot;>✓</div><div class=&quot;pm-label&quot;>Listo</div></div>
+              </div>
+              <div class=&quot;track-details-mini&quot;>
+                <div class=&quot;td-mini&quot;><div class=&quot;td-mini-label&quot;>Enviaste</div><div class=&quot;td-mini-val&quot;>€250.00</div></div>
+                <div class=&quot;td-mini&quot;><div class=&quot;td-mini-label&quot;>Mamá recibió</div><div class=&quot;td-mini-val&quot; style=&quot;color:var(--success);&quot;>Bs. 1,780 ✓</div></div>
+              </div>
+            </div>
+          </div>
+          <div style=&quot;margin-top:10px;background:var(--dark2);border:1px solid rgba(86,211,100,0.2);border-radius:8px;padding:10px;font-size:0.72rem;color:#56d364;text-align:center;&quot;>
+            🎉 Rosa Condori recibió su dinero.<br>
+            <span style=&quot;color:var(--muted);font-size:0.65rem;&quot;>María ya no necesitó preguntar ni una vez.</span>
+          </div>
+        </div>
+      </div>
+    `;
+
+    default: return '<div style=&quot;padding:2rem;color:var(--muted);text-align:center;&quot;>Mockup no disponible</div>';
+  }
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+render();
+</script>
+</body>
+</html>
+"
+        sandbox="allow-scripts allow-same-origin"
+        loading="lazy"></iframe>
+    </div>
+    <div id="tab-portal" class="tab-pane">
+      <div class="iframe-label">
+        <span class="iframe-label-text">Full prototype · Client portal + Operator dashboard</span>
+        <span class="iframe-label-desc">Use the tabs inside to switch between sender view and operator pipeline</span>
+      </div>
+      <iframe id="frame-portal" class="iframe-frame" style="height:760px;"
+        srcdoc="<!DOCTYPE html>
+<html lang=&quot;es&quot;>
+<head>
+<meta charset=&quot;UTF-8&quot;>
+<meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;>
+<title>Remesas Europa → Bolivia</title>
+<link rel=&quot;preconnect&quot; href=&quot;https://fonts.googleapis.com&quot;>
+<link href=&quot;https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&amp;family=DM+Sans:wght@300;400;500&amp;family=DM+Mono:wght@400&amp;display=swap&quot; rel=&quot;stylesheet&quot;>
+<style>
+  :root {
+    --navy: #0A1226;
+    --navy-mid: #111d38;
+    --navy-light: #1a2d52;
+    --gold: #B4965A;
+    --gold-light: #d4b07a;
+    --gold-pale: #f5ead8;
+    --cream: #FAF7F2;
+    --white: #ffffff;
+    --text-primary: #0A1226;
+    --text-secondary: #4a5568;
+    --text-muted: #8899aa;
+    --border: #e2d9cc;
+    --success: #2d7a5f;
+    --success-bg: #eaf5f0;
+    --warning: #b45309;
+    --warning-bg: #fef3c7;
+    --danger: #b91c1c;
+    --danger-bg: #fee2e2;
+    --pending: #1e40af;
+    --pending-bg: #dbeafe;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text-primary);
+    min-height: 100vh;
+  }
+
+  /* ─── NAV ─── */
+  .top-nav {
+    background: var(--navy);
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .nav-brand {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--gold);
+    letter-spacing: 0.02em;
+  }
+  .nav-brand span { color: rgba(255,255,255,0.5); font-weight: 400; }
+  .nav-tabs { display: flex; gap: 4px; }
+  .nav-tab {
+    background: none; border: none;
+    color: rgba(255,255,255,0.55);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .nav-tab:hover { color: white; background: rgba(255,255,255,0.08); }
+  .nav-tab.active { color: var(--gold); background: rgba(180,150,90,0.15); }
+
+  /* ─── VIEWS ─── */
+  .view { display: none; }
+  .view.active { display: block; }
+
+  /* ══════════════════════════════════════
+     CLIENTE — PORTAL
+  ══════════════════════════════════════ */
+  .portal-hero {
+    background: var(--navy);
+    padding: 3rem 2rem 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .portal-hero::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(180,150,90,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .portal-hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.2rem;
+    font-weight: 500;
+    color: white;
+    margin-bottom: 0.4rem;
+  }
+  .portal-hero p {
+    color: rgba(255,255,255,0.5);
+    font-size: 0.9rem;
+  }
+
+  /* Rate banner */
+  .rate-banner {
+    background: var(--navy-mid);
+    border: 1px solid rgba(180,150,90,0.25);
+    border-radius: 12px;
+    margin: -1px 2rem 0;
+    padding: 1rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    position: relative;
+    z-index: 1;
+  }
+  .rate-today {
+    font-family: 'DM Mono', monospace;
+    font-size: 1.5rem;
+    color: var(--gold);
+    font-weight: 400;
+  }
+  .rate-label {
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.4);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 2px;
+  }
+  .rate-updated {
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.3);
+  }
+  .rate-calc {
+    text-align: right;
+  }
+  .rate-calc input {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(180,150,90,0.3);
+    border-radius: 8px;
+    padding: 6px 12px;
+    color: white;
+    font-family: 'DM Mono', monospace;
+    font-size: 1rem;
+    width: 110px;
+    text-align: right;
+    outline: none;
+  }
+  .rate-calc input:focus { border-color: var(--gold); }
+  .rate-result {
+    font-size: 0.8rem;
+    color: var(--gold-light);
+    margin-top: 4px;
+    text-align: right;
+  }
+
+  /* Portal content */
+  .portal-content {
+    padding: 1.5rem 2rem 3rem;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  /* Tabs within portal */
+  .portal-tabs {
+    display: flex;
+    gap: 2px;
+    background: var(--border);
+    border-radius: 10px;
+    padding: 3px;
+    margin-bottom: 1.5rem;
+  }
+  .portal-tab {
+    flex: 1;
+    background: none; border: none;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.18s;
+  }
+  .portal-tab.active {
+    background: white;
+    color: var(--navy);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+  }
+  .portal-panel { display: none; }
+  .portal-panel.active { display: block; }
+
+  /* Form */
+  .form-section {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  .form-section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 1rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .form-section-title .step-num {
+    width: 22px; height: 22px;
+    background: var(--navy);
+    color: var(--gold);
+    border-radius: 50%;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .form-row { margin-bottom: 1rem; }
+  .form-row:last-child { margin-bottom: 0; }
+  .form-row label {
+    display: block;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 6px;
+  }
+  .form-row input, .form-row select, .form-row textarea {
+    width: 100%;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.92rem;
+    color: var(--text-primary);
+    background: var(--cream);
+    outline: none;
+    transition: border-color 0.18s, background 0.18s;
+    appearance: none;
+  }
+  .form-row input:focus, .form-row select:focus, .form-row textarea:focus {
+    border-color: var(--gold);
+    background: white;
+  }
+  .form-row textarea { resize: vertical; min-height: 70px; }
+  .form-two { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+  /* Amount highlight */
+  .amount-preview {
+    background: var(--gold-pale);
+    border: 1px solid rgba(180,150,90,0.3);
+    border-radius: 10px;
+    padding: 10px 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 8px;
+  }
+  .amount-preview-label { font-size: 0.78rem; color: var(--text-secondary); }
+  .amount-preview-value {
+    font-family: 'DM Mono', monospace;
+    font-size: 1.1rem;
+    color: var(--navy);
+    font-weight: 400;
+  }
+
+  /* Upload */
+  .upload-zone {
+    border: 2px dashed var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: var(--cream);
+    position: relative;
+  }
+  .upload-zone:hover { border-color: var(--gold); background: var(--gold-pale); }
+  .upload-zone input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+  .upload-icon { font-size: 1.8rem; margin-bottom: 6px; }
+  .upload-text { font-size: 0.85rem; color: var(--text-secondary); }
+  .upload-text strong { color: var(--navy); }
+  .upload-preview {
+    display: none;
+    align-items: center;
+    gap: 10px;
+    background: var(--success-bg);
+    border: 1px solid rgba(45,122,95,0.25);
+    border-radius: 10px;
+    padding: 10px 14px;
+    margin-top: 8px;
+  }
+  .upload-preview.show { display: flex; }
+  .upload-preview-name { font-size: 0.85rem; color: var(--success); font-weight: 500; }
+
+  /* Submit button */
+  .btn-primary {
+    width: 100%;
+    background: var(--navy);
+    color: var(--gold);
+    border: none;
+    border-radius: 12px;
+    padding: 14px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 0.02em;
+    margin-top: 0.5rem;
+  }
+  .btn-primary:hover { background: var(--navy-light); transform: translateY(-1px); }
+  .btn-primary:active { transform: translateY(0); }
+  .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+  /* Tracking */
+  .track-search {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  .track-input-row {
+    display: flex; gap: 8px;
+  }
+  .track-input-row input {
+    flex: 1;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.95rem;
+    outline: none;
+    background: var(--cream);
+    text-transform: uppercase;
+  }
+  .track-input-row input:focus { border-color: var(--gold); background: white; }
+  .track-input-row input::placeholder { text-transform: none; font-family: 'DM Sans', sans-serif; font-size: 0.85rem; color: var(--text-muted); }
+  .btn-search {
+    background: var(--navy);
+    color: var(--gold);
+    border: none;
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .track-result { display: none; }
+  .track-result.show { display: block; }
+  .track-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+  }
+  .track-card-header {
+    background: var(--navy);
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  .track-ref {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--gold);
+  }
+  .track-name { color: white; font-weight: 500; margin-top: 2px; font-size: 0.95rem; }
+  .track-status-badge {
+    font-size: 0.72rem;
+    font-weight: 500;
+    padding: 4px 10px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+  }
+  .track-card-body { padding: 1.5rem; }
+
+  /* Progress bar */
+  .progress-steps {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 1.5rem;
+    position: relative;
+  }
+  .progress-steps::before {
+    content: '';
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    right: 14px;
+    height: 2px;
+    background: var(--border);
+    z-index: 0;
+  }
+  .progress-line {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    height: 2px;
+    background: var(--gold);
+    z-index: 1;
+    transition: width 0.5s ease;
+  }
+  .step {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    z-index: 2;
+  }
+  .step-dot {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: white;
+    border: 2px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.7rem;
+    transition: all 0.3s;
+  }
+  .step.done .step-dot { background: var(--gold); border-color: var(--gold); color: white; }
+  .step.active .step-dot { background: white; border-color: var(--gold); box-shadow: 0 0 0 4px rgba(180,150,90,0.2); }
+  .step-label { font-size: 0.68rem; color: var(--text-muted); text-align: center; line-height: 1.3; }
+  .step.done .step-label, .step.active .step-label { color: var(--text-secondary); }
+
+  .track-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+  }
+  .track-detail {
+    background: var(--cream);
+    border-radius: 10px;
+    padding: 10px 12px;
+  }
+  .track-detail-label { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 3px; }
+  .track-detail-value { font-size: 0.9rem; font-weight: 500; color: var(--text-primary); }
+  .track-detail-value.mono { font-family: 'DM Mono', monospace; font-weight: 400; }
+
+  /* Success state */
+  .success-screen {
+    display: none;
+    text-align: center;
+    padding: 2rem;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+  }
+  .success-screen.show { display: block; }
+  .success-icon {
+    width: 60px; height: 60px;
+    background: var(--success-bg);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem;
+    margin: 0 auto 1rem;
+  }
+  .success-ref {
+    font-family: 'DM Mono', monospace;
+    font-size: 1.3rem;
+    color: var(--navy);
+    background: var(--gold-pale);
+    border: 1px solid rgba(180,150,90,0.3);
+    border-radius: 10px;
+    padding: 10px 20px;
+    display: inline-block;
+    margin: 1rem 0;
+    letter-spacing: 0.1em;
+  }
+
+  /* ══════════════════════════════════════
+     OPERADOR — DASHBOARD
+  ══════════════════════════════════════ */
+  .dashboard {
+    background: #0d1117;
+    min-height: calc(100vh - 60px);
+    padding: 1.5rem;
+    color: #e6edf3;
+  }
+
+  /* Stats row */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 1.5rem;
+  }
+  @media(max-width: 600px) { .stats-row { grid-template-columns: 1fr 1fr; } }
+  .stat-card {
+    background: #161b22;
+    border: 1px solid #21262d;
+    border-radius: 12px;
+    padding: 1rem 1.2rem;
+  }
+  .stat-label { font-size: 0.72rem; color: #7d8590; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
+  .stat-value { font-family: 'DM Mono', monospace; font-size: 1.6rem; color: #e6edf3; font-weight: 400; }
+  .stat-sub { font-size: 0.72rem; color: #7d8590; margin-top: 4px; }
+  .stat-card.highlight { border-color: rgba(180,150,90,0.4); }
+  .stat-card.highlight .stat-value { color: var(--gold); }
+
+  /* Pipeline board */
+  .pipeline-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+  }
+  .pipeline-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-weight: 500;
+    color: #e6edf3;
+  }
+  .btn-new {
+    background: var(--gold);
+    color: var(--navy);
+    border: none;
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .btn-new:hover { background: var(--gold-light); }
+
+  .board {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    overflow-x: auto;
+  }
+  @media(max-width: 700px) { .board { grid-template-columns: repeat(2, 1fr); } }
+
+  .board-col {
+    background: #161b22;
+    border: 1px solid #21262d;
+    border-radius: 12px;
+    padding: 0.75rem;
+    min-height: 300px;
+  }
+  .col-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid #21262d;
+  }
+  .col-title { font-size: 0.75rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.07em; }
+  .col-count {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    background: #21262d;
+    padding: 2px 7px;
+    border-radius: 10px;
+    color: #7d8590;
+  }
+
+  /* Status colors */
+  .col-header.status-pending .col-title { color: #7d8590; }
+  .col-header.status-receipt .col-title { color: #79c0ff; }
+  .col-header.status-verified .col-title { color: var(--gold); }
+  .col-header.status-bolivia .col-title { color: #7ee787; }
+  .col-header.status-done .col-title { color: #56d364; }
+
+  /* Transaction cards */
+  .tx-card {
+    background: #0d1117;
+    border: 1px solid #21262d;
+    border-radius: 10px;
+    padding: 10px 12px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: all 0.18s;
+    position: relative;
+  }
+  .tx-card:hover { border-color: #388bfd; transform: translateY(-1px); }
+  .tx-card.flagged { border-color: #f85149; }
+  .tx-ref {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    color: #7d8590;
+    margin-bottom: 3px;
+  }
+  .tx-name { font-size: 0.82rem; color: #e6edf3; font-weight: 500; margin-bottom: 6px; }
+  .tx-amount-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  .tx-eur { font-family: 'DM Mono', monospace; font-size: 0.95rem; color: #e6edf3; }
+  .tx-bob { font-size: 0.72rem; color: #7d8590; }
+  .tx-time { font-size: 0.68rem; color: #7d8590; margin-top: 6px; }
+  .tx-flag {
+    position: absolute;
+    top: 8px; right: 8px;
+    font-size: 0.7rem;
+    background: rgba(248,81,73,0.15);
+    color: #f85149;
+    border-radius: 4px;
+    padding: 2px 5px;
+  }
+
+  /* ─── MODAL ─── */
+  .modal-overlay {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.7);
+    z-index: 1000;
+    display: flex; align-items: center; justify-content: center;
+    padding: 1rem;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.2s;
+  }
+  .modal-overlay.open { opacity: 1; pointer-events: all; }
+  .modal {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 16px;
+    width: 100%;
+    max-width: 560px;
+    max-height: 90vh;
+    overflow-y: auto;
+    transform: translateY(20px);
+    transition: transform 0.2s;
+  }
+  .modal-overlay.open .modal { transform: translateY(0); }
+  .modal-header {
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid #21262d;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .modal-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #e6edf3;
+  }
+  .modal-ref { font-family: 'DM Mono', monospace; font-size: 0.8rem; color: var(--gold); }
+  .modal-close {
+    background: none; border: none;
+    color: #7d8590; font-size: 1.3rem;
+    cursor: pointer; line-height: 1;
+    padding: 4px 8px; border-radius: 6px;
+  }
+  .modal-close:hover { color: #e6edf3; background: #21262d; }
+  .modal-body { padding: 1.5rem; }
+  .modal-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 1.25rem;
+  }
+  .modal-field {
+    background: #0d1117;
+    border: 1px solid #21262d;
+    border-radius: 10px;
+    padding: 10px 12px;
+  }
+  .modal-field-label { font-size: 0.68rem; color: #7d8590; text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 4px; }
+  .modal-field-value { font-size: 0.9rem; color: #e6edf3; }
+  .modal-field-value.mono { font-family: 'DM Mono', monospace; font-size: 0.88rem; }
+  .modal-field-value.gold { color: var(--gold); }
+  .modal-field-value.danger { color: #f85149; }
+  .modal-section-title {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #7d8590;
+    margin: 1.25rem 0 0.6rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid #21262d;
+  }
+
+  /* Receipt image preview */
+  .receipt-preview {
+    background: #0d1117;
+    border: 1px solid #21262d;
+    border-radius: 10px;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 1rem;
+  }
+  .receipt-thumb {
+    width: 60px; height: 60px;
+    background: #21262d;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+  }
+  .receipt-info { flex: 1; }
+  .receipt-name { font-size: 0.85rem; color: #e6edf3; margin-bottom: 4px; }
+  .receipt-meta { font-size: 0.72rem; color: #7d8590; }
+  .receipt-actions { display: flex; gap: 8px; }
+
+  /* Fraud flags */
+  .fraud-check {
+    background: #0d1117;
+    border: 1px solid #21262d;
+    border-radius: 10px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+  .fraud-check-title { font-size: 0.78rem; font-weight: 500; color: #e6edf3; margin-bottom: 0.75rem; }
+  .fraud-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 0;
+    border-bottom: 1px solid #21262d;
+    font-size: 0.82rem;
+  }
+  .fraud-item:last-child { border-bottom: none; }
+  .fraud-dot {
+    width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+  }
+  .fraud-dot.ok { background: #56d364; }
+  .fraud-dot.warn { background: #d29922; }
+  .fraud-dot.fail { background: #f85149; }
+  .fraud-label { color: #7d8590; flex: 1; }
+  .fraud-result { font-size: 0.75rem; }
+  .fraud-result.ok { color: #56d364; }
+  .fraud-result.warn { color: #d29922; }
+  .fraud-result.fail { color: #f85149; }
+
+  /* Action buttons */
+  .modal-actions { display: flex; flex-direction: column; gap: 8px; margin-top: 1rem; }
+  .btn-action {
+    border: none;
+    border-radius: 10px;
+    padding: 11px 16px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .btn-action.advance { background: var(--gold); color: var(--navy); }
+  .btn-action.advance:hover { background: var(--gold-light); }
+  .btn-action.danger { background: rgba(248,81,73,0.12); color: #f85149; border: 1px solid rgba(248,81,73,0.25); }
+  .btn-action.danger:hover { background: rgba(248,81,73,0.2); }
+  .btn-action.secondary { background: #21262d; color: #e6edf3; }
+  .btn-action.secondary:hover { background: #30363d; }
+  .btn-action .action-icon { font-size: 1rem; }
+  .btn-action .action-desc { font-size: 0.72rem; opacity: 0.7; font-weight: 400; margin-left: auto; }
+
+  /* Reconciliation view */
+  .recon-table {
+    background: #161b22;
+    border: 1px solid #21262d;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-top: 1rem;
+  }
+  .recon-table table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.82rem;
+  }
+  .recon-table th {
+    background: #0d1117;
+    padding: 10px 14px;
+    text-align: left;
+    font-size: 0.7rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: #7d8590;
+    border-bottom: 1px solid #21262d;
+  }
+  .recon-table td {
+    padding: 10px 14px;
+    border-bottom: 1px solid #0d1117;
+    color: #e6edf3;
+  }
+  .recon-table tr:last-child td { border-bottom: none; }
+  .recon-table .mono { font-family: 'DM Mono', monospace; font-size: 0.8rem; }
+  .recon-table .gold { color: var(--gold); }
+  .recon-table .green { color: #56d364; }
+  .recon-table .muted { color: #7d8590; }
+
+  /* Status badges */
+  .badge {
+    display: inline-block;
+    font-size: 0.68rem;
+    font-weight: 500;
+    padding: 3px 8px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .badge-pending { background: rgba(125,133,144,0.15); color: #7d8590; }
+  .badge-receipt { background: rgba(121,192,255,0.15); color: #79c0ff; }
+  .badge-verified { background: rgba(180,150,90,0.15); color: var(--gold); }
+  .badge-bolivia { background: rgba(126,231,135,0.15); color: #7ee787; }
+  .badge-done { background: rgba(86,211,100,0.2); color: #56d364; }
+  .badge-flagged { background: rgba(248,81,73,0.15); color: #f85149; }
+
+  /* Dashboard tabs */
+  .dash-tabs { display: flex; gap: 4px; margin-bottom: 1.5rem; }
+  .dash-tab {
+    background: none; border: 1px solid #21262d;
+    color: #7d8590;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 500;
+    padding: 7px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .dash-tab:hover { color: #e6edf3; border-color: #388bfd; }
+  .dash-tab.active { background: #21262d; color: #e6edf3; border-color: #30363d; }
+  .dash-panel { display: none; }
+  .dash-panel.active { display: block; }
+
+  /* WhatsApp message preview */
+  .wa-messages { display: flex; flex-direction: column; gap: 8px; }
+  .wa-msg {
+    background: #0d1117;
+    border: 1px solid #21262d;
+    border-radius: 10px;
+    padding: 10px 14px;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .wa-msg-label { font-size: 0.68rem; color: #7d8590; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
+  .wa-msg-text { font-size: 0.82rem; color: #e6edf3; line-height: 1.5; }
+  .wa-msg-text .var { color: var(--gold); font-family: 'DM Mono', monospace; font-size: 0.78rem; }
+  .wa-icon { font-size: 1.2rem; flex-shrink: 0; }
+  .wa-copy {
+    background: none; border: 1px solid #21262d;
+    color: #7d8590; border-radius: 6px;
+    padding: 4px 8px; font-size: 0.72rem;
+    cursor: pointer; margin-left: auto; align-self: flex-start;
+    white-space: nowrap;
+    transition: all 0.15s;
+  }
+  .wa-copy:hover { color: #e6edf3; border-color: #30363d; }
+
+  /* Rate settings */
+  .rate-settings {
+    background: #161b22;
+    border: 1px solid #21262d;
+    border-radius: 12px;
+    padding: 1.25rem;
+    margin-bottom: 1rem;
+  }
+  .rate-settings h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    color: #e6edf3;
+    margin-bottom: 1rem;
+  }
+  .rate-input-row { display: flex; gap: 10px; align-items: flex-end; }
+  .rate-input-row input {
+    flex: 1;
+    background: #0d1117;
+    border: 1px solid #21262d;
+    border-radius: 8px;
+    padding: 10px 14px;
+    color: #e6edf3;
+    font-family: 'DM Mono', monospace;
+    font-size: 1rem;
+    outline: none;
+  }
+  .rate-input-row input:focus { border-color: var(--gold); }
+  .rate-input-row button {
+    background: var(--gold); color: var(--navy);
+    border: none; border-radius: 8px;
+    padding: 10px 18px; cursor: pointer;
+    font-weight: 500; font-size: 0.85rem;
+    white-space: nowrap;
+  }
+
+  /* Notifications */
+  .toast {
+    position: fixed;
+    bottom: 20px; right: 20px;
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 12px;
+    padding: 12px 16px;
+    font-size: 0.85rem;
+    color: #e6edf3;
+    z-index: 2000;
+    transform: translateY(80px);
+    opacity: 0;
+    transition: all 0.3s;
+    max-width: 300px;
+  }
+  .toast.show { transform: translateY(0); opacity: 1; }
+  .toast.success { border-color: rgba(86,211,100,0.4); }
+  .toast.danger { border-color: rgba(248,81,73,0.4); }
+
+  /* Responsive */
+  @media(max-width: 500px) {
+    .portal-hero h1 { font-size: 1.6rem; }
+    .rate-banner { flex-direction: column; }
+    .form-two { grid-template-columns: 1fr; }
+    .stats-row { grid-template-columns: 1fr 1fr; }
+    .board { grid-template-columns: 1fr; }
+    .track-details { grid-template-columns: 1fr; }
+    .modal-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ─── NAV ─── -->
+<nav class=&quot;top-nav&quot;>
+  <div class=&quot;nav-brand&quot;>Envío<span>Bolivia</span></div>
+  <div class=&quot;nav-tabs&quot;>
+    <button class=&quot;nav-tab active&quot; onclick=&quot;switchView('portal')&quot;>Enviar</button>
+    <button class=&quot;nav-tab&quot; onclick=&quot;switchView('dashboard')&quot;>Operador</button>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════
+     VISTA: PORTAL CLIENTE
+═══════════════════════════════════ -->
+<div id=&quot;view-portal&quot; class=&quot;view active&quot;>
+
+  <div class=&quot;portal-hero&quot;>
+    <h1>Envía dinero a Bolivia</h1>
+    <p>Rápido, seguro y sin sorpresas</p>
+  </div>
+
+  <div class=&quot;rate-banner&quot;>
+    <div>
+      <div class=&quot;rate-label&quot;>Tasa hoy · EUR → BOB</div>
+      <div class=&quot;rate-today&quot; id=&quot;display-rate&quot;>7.12</div>
+      <div class=&quot;rate-updated&quot; id=&quot;rate-time&quot;>Actualizada hoy</div>
+    </div>
+    <div class=&quot;rate-calc&quot;>
+      <div style=&quot;font-size:0.72rem;color:rgba(255,255,255,0.4);margin-bottom:4px;&quot;>Calculadora</div>
+      <input type=&quot;number&quot; id=&quot;calc-eur&quot; placeholder=&quot;€ 100&quot; oninput=&quot;calcRate(this.value)&quot;>
+      <div class=&quot;rate-result&quot; id=&quot;calc-result&quot;>= — BOB</div>
+    </div>
+  </div>
+
+  <div class=&quot;portal-content&quot;>
+    <div class=&quot;portal-tabs&quot; style=&quot;margin-top:1.5rem;&quot;>
+      <button class=&quot;portal-tab active&quot; onclick=&quot;switchPortalTab('send')&quot;>Nueva transferencia</button>
+      <button class=&quot;portal-tab&quot; onclick=&quot;switchPortalTab('track')&quot;>Seguimiento</button>
+    </div>
+
+    <!-- Panel: Nueva transferencia -->
+    <div id=&quot;panel-send&quot; class=&quot;portal-panel active&quot;>
+
+      <div id=&quot;form-view&quot;>
+        <div class=&quot;form-section&quot;>
+          <div class=&quot;form-section-title&quot;>
+            <span class=&quot;step-num&quot;>1</span> Tus datos
+          </div>
+          <div class=&quot;form-two&quot;>
+            <div class=&quot;form-row&quot;>
+              <label>Nombre completo</label>
+              <input type=&quot;text&quot; id=&quot;f-nombre&quot; placeholder=&quot;Tu nombre y apellido&quot;>
+            </div>
+            <div class=&quot;form-row&quot;>
+              <label>WhatsApp</label>
+              <input type=&quot;tel&quot; id=&quot;f-whatsapp&quot; placeholder=&quot;+34 600 000 000&quot;>
+            </div>
+          </div>
+          <div class=&quot;form-row&quot;>
+            <label>País desde donde envías</label>
+            <select id=&quot;f-pais&quot;>
+              <option value=&quot;&quot;>Selecciona...</option>
+              <option>España</option>
+              <option>Italia</option>
+              <option>Alemania</option>
+              <option>Francia</option>
+              <option>Reino Unido</option>
+              <option>Países Bajos</option>
+              <option>Otro</option>
+            </select>
+          </div>
+        </div>
+
+        <div class=&quot;form-section&quot;>
+          <div class=&quot;form-section-title&quot;>
+            <span class=&quot;step-num&quot;>2</span> Monto a enviar
+          </div>
+          <div class=&quot;form-row&quot;>
+            <label>Monto en EUR</label>
+            <input type=&quot;number&quot; id=&quot;f-monto&quot; placeholder=&quot;0.00&quot; oninput=&quot;updateAmountPreview()&quot;>
+          </div>
+          <div class=&quot;amount-preview&quot; id=&quot;amount-preview&quot; style=&quot;display:none;&quot;>
+            <span class=&quot;amount-preview-label&quot;>Tu destinatario recibe aprox.</span>
+            <span class=&quot;amount-preview-value&quot; id=&quot;preview-bob&quot;>— BOB</span>
+          </div>
+        </div>
+
+        <div class=&quot;form-section&quot;>
+          <div class=&quot;form-section-title&quot;>
+            <span class=&quot;step-num&quot;>3</span> Datos del destinatario en Bolivia
+          </div>
+          <div class=&quot;form-two&quot;>
+            <div class=&quot;form-row&quot;>
+              <label>Nombre completo</label>
+              <input type=&quot;text&quot; id=&quot;f-dest-nombre&quot; placeholder=&quot;Nombre y apellido&quot;>
+            </div>
+            <div class=&quot;form-row&quot;>
+              <label>CI / DNI destinatario</label>
+              <input type=&quot;text&quot; id=&quot;f-dest-ci&quot; placeholder=&quot;Número de carnet&quot;>
+            </div>
+          </div>
+          <div class=&quot;form-row&quot;>
+            <label>Banco en Bolivia</label>
+            <select id=&quot;f-banco&quot;>
+              <option value=&quot;&quot;>Selecciona banco...</option>
+              <option>Banco Nacional de Bolivia (BNB)</option>
+              <option>Banco Mercantil Santa Cruz (BMSC)</option>
+              <option>Banco BISA</option>
+              <option>Banco Económico</option>
+              <option>Banco Ganadero</option>
+              <option>Banco FIE</option>
+              <option>Banco Unión</option>
+              <option>Banco Prodem</option>
+              <option>Otro banco boliviano</option>
+            </select>
+          </div>
+          <div class=&quot;form-row&quot;>
+            <label>Número de cuenta</label>
+            <input type=&quot;text&quot; id=&quot;f-cuenta&quot; placeholder=&quot;Número de cuenta bancaria&quot;>
+          </div>
+        </div>
+
+        <div class=&quot;form-section&quot;>
+          <div class=&quot;form-section-title&quot;>
+            <span class=&quot;step-num&quot;>4</span> Sube tu comprobante de pago
+          </div>
+          <p style=&quot;font-size:0.82rem;color:var(--text-secondary);margin-bottom:1rem;line-height:1.5;&quot;>
+            Realiza la transferencia a nuestra cuenta europea y sube el comprobante original de tu banco. <strong>Importante: sin comprobante válido no procesamos el pago.</strong>
+          </p>
+          <div style=&quot;background:var(--gold-pale);border:1px solid rgba(180,150,90,0.25);border-radius:10px;padding:10px 14px;margin-bottom:1rem;font-size:0.8rem;color:var(--text-secondary);&quot;>
+            <strong style=&quot;color:var(--navy);&quot;>Cuenta destino (Europa):</strong><br>
+            IBAN: ES00 0000 0000 0000 0000 0000<br>
+            Titular: EnvíoBolivia S.L.<br>
+            Concepto: tu nombre completo
+          </div>
+          <div class=&quot;upload-zone&quot; id=&quot;upload-zone&quot;>
+            <input type=&quot;file&quot; id=&quot;f-comprobante&quot; accept=&quot;image/*,.pdf&quot; onchange=&quot;handleFileUpload(this)&quot;>
+            <div class=&quot;upload-icon&quot;>📎</div>
+            <div class=&quot;upload-text&quot;><strong>Toca para subir</strong> o arrastra el archivo<br><span style=&quot;font-size:0.75rem;color:var(--text-muted);&quot;>JPG, PNG, PDF — máx. 5 MB</span></div>
+          </div>
+          <div class=&quot;upload-preview&quot; id=&quot;upload-preview&quot;>
+            <span style=&quot;font-size:1.2rem;&quot;>✅</span>
+            <span class=&quot;upload-preview-name&quot; id=&quot;upload-name&quot;>archivo.jpg</span>
+          </div>
+        </div>
+
+        <button class=&quot;btn-primary&quot; onclick=&quot;submitTransfer()&quot;>Enviar solicitud de transferencia →</button>
+      </div>
+
+      <!-- Success screen -->
+      <div class=&quot;success-screen&quot; id=&quot;success-screen&quot;>
+        <div class=&quot;success-icon&quot;>✅</div>
+        <h2 style=&quot;font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:var(--navy);margin-bottom:0.5rem;&quot;>¡Solicitud recibida!</h2>
+        <p style=&quot;font-size:0.88rem;color:var(--text-secondary);line-height:1.6;&quot;>Tu número de referencia es:</p>
+        <div class=&quot;success-ref&quot; id=&quot;success-ref-display&quot;>TXN-000</div>
+        <p style=&quot;font-size:0.82rem;color:var(--text-secondary);line-height:1.6;margin-bottom:1rem;&quot;>
+          Guarda este número. Te contactaremos por WhatsApp para confirmar el pago.<br>
+          Puedes hacer seguimiento de tu transferencia en cualquier momento.
+        </p>
+        <button class=&quot;btn-primary&quot; onclick=&quot;trackFromSuccess()&quot; style=&quot;max-width:300px;margin:0 auto;&quot;>Ver estado de mi transferencia</button>
+        <button onclick=&quot;resetForm()&quot; style=&quot;background:none;border:none;color:var(--text-secondary);font-size:0.85rem;margin-top:0.75rem;cursor:pointer;text-decoration:underline;display:block;text-align:center;width:100%;&quot;>Enviar otra transferencia</button>
+      </div>
+
+    </div>
+
+    <!-- Panel: Seguimiento -->
+    <div id=&quot;panel-track&quot; class=&quot;portal-panel&quot;>
+      <div class=&quot;track-search&quot;>
+        <p style=&quot;font-size:0.85rem;color:var(--text-secondary);margin-bottom:0.75rem;&quot;>Ingresa tu número de referencia para ver el estado actual.</p>
+        <div class=&quot;track-input-row&quot;>
+          <input type=&quot;text&quot; id=&quot;track-input&quot; placeholder=&quot;Ej: TXN-001&quot; oninput=&quot;this.value=this.value.toUpperCase()&quot;>
+          <button class=&quot;btn-search&quot; onclick=&quot;searchTransfer()&quot;>Buscar</button>
+        </div>
+      </div>
+
+      <div class=&quot;track-result&quot; id=&quot;track-result&quot;>
+        <div class=&quot;track-card&quot;>
+          <div class=&quot;track-card-header&quot;>
+            <div>
+              <div class=&quot;track-ref&quot; id=&quot;tr-ref&quot;>TXN-001</div>
+              <div class=&quot;track-name&quot; id=&quot;tr-name&quot;>—</div>
+            </div>
+            <span class=&quot;track-status-badge&quot; id=&quot;tr-badge&quot;>—</span>
+          </div>
+          <div class=&quot;track-card-body&quot;>
+            <div class=&quot;progress-steps&quot; id=&quot;progress-steps&quot;>
+              <div class=&quot;progress-line&quot; id=&quot;progress-line&quot;></div>
+              <div class=&quot;step&quot; id=&quot;ps-1&quot;>
+                <div class=&quot;step-dot&quot;>1</div>
+                <div class=&quot;step-label&quot;>Recibido</div>
+              </div>
+              <div class=&quot;step&quot; id=&quot;ps-2&quot;>
+                <div class=&quot;step-dot&quot;>2</div>
+                <div class=&quot;step-label&quot;>Comprobante</div>
+              </div>
+              <div class=&quot;step&quot; id=&quot;ps-3&quot;>
+                <div class=&quot;step-dot&quot;>3</div>
+                <div class=&quot;step-label&quot;>Verificado</div>
+              </div>
+              <div class=&quot;step&quot; id=&quot;ps-4&quot;>
+                <div class=&quot;step-dot&quot;>4</div>
+                <div class=&quot;step-label&quot;>En Bolivia</div>
+              </div>
+              <div class=&quot;step&quot; id=&quot;ps-5&quot;>
+                <div class=&quot;step-dot&quot;>✓</div>
+                <div class=&quot;step-label&quot;>Completado</div>
+              </div>
+            </div>
+            <div class=&quot;track-details&quot;>
+              <div class=&quot;track-detail&quot;>
+                <div class=&quot;track-detail-label&quot;>Monto enviado</div>
+                <div class=&quot;track-detail-value mono&quot; id=&quot;tr-eur&quot;>—</div>
+              </div>
+              <div class=&quot;track-detail&quot;>
+                <div class=&quot;track-detail-label&quot;>Destinatario recibe</div>
+                <div class=&quot;track-detail-value mono&quot; id=&quot;tr-bob&quot;>—</div>
+              </div>
+              <div class=&quot;track-detail&quot;>
+                <div class=&quot;track-detail-label&quot;>Destinatario</div>
+                <div class=&quot;track-detail-value&quot; id=&quot;tr-dest&quot;>—</div>
+              </div>
+              <div class=&quot;track-detail&quot;>
+                <div class=&quot;track-detail-label&quot;>Fecha solicitud</div>
+                <div class=&quot;track-detail-value&quot; id=&quot;tr-date&quot;>—</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════
+     VISTA: DASHBOARD OPERADOR
+═══════════════════════════════════ -->
+<div id=&quot;view-dashboard&quot; class=&quot;view&quot;>
+  <div class=&quot;dashboard&quot;>
+
+    <!-- Stats -->
+    <div class=&quot;stats-row&quot;>
+      <div class=&quot;stat-card highlight&quot;>
+        <div class=&quot;stat-label&quot;>Este mes</div>
+        <div class=&quot;stat-value&quot; id=&quot;stat-month&quot;>68</div>
+        <div class=&quot;stat-sub&quot;>transferencias</div>
+      </div>
+      <div class=&quot;stat-card&quot;>
+        <div class=&quot;stat-label&quot;>Pendientes</div>
+        <div class=&quot;stat-value&quot; id=&quot;stat-pending&quot;>3</div>
+        <div class=&quot;stat-sub&quot;>requieren acción</div>
+      </div>
+      <div class=&quot;stat-card&quot;>
+        <div class=&quot;stat-label&quot;>Volumen EUR</div>
+        <div class=&quot;stat-value&quot; id=&quot;stat-vol&quot;>€18.4k</div>
+        <div class=&quot;stat-sub&quot;>este mes</div>
+      </div>
+      <div class=&quot;stat-card&quot;>
+        <div class=&quot;stat-label&quot;>Marcadas</div>
+        <div class=&quot;stat-value&quot; id=&quot;stat-flagged&quot; style=&quot;color:#f85149;&quot;>1</div>
+        <div class=&quot;stat-sub&quot;>sospechosas</div>
+      </div>
+    </div>
+
+    <!-- Dash tabs -->
+    <div class=&quot;dash-tabs&quot;>
+      <button class=&quot;dash-tab active&quot; onclick=&quot;switchDashTab('pipeline')&quot;>Pipeline</button>
+      <button class=&quot;dash-tab&quot; onclick=&quot;switchDashTab('recon')&quot;>Cuadratura</button>
+      <button class=&quot;dash-tab&quot; onclick=&quot;switchDashTab('messages')&quot;>Plantillas WA</button>
+      <button class=&quot;dash-tab&quot; onclick=&quot;switchDashTab('settings')&quot;>Configuración</button>
+    </div>
+
+    <!-- Panel: Pipeline -->
+    <div id=&quot;dash-pipeline&quot; class=&quot;dash-panel active&quot;>
+      <div class=&quot;pipeline-header&quot;>
+        <div class=&quot;pipeline-title&quot;>Pipeline de transferencias</div>
+        <button class=&quot;btn-new&quot; onclick=&quot;openNewTxModal()&quot;>+ Nueva manual</button>
+      </div>
+
+      <div class=&quot;board&quot; id=&quot;board&quot;>
+        <!-- Columns rendered by JS -->
+      </div>
+    </div>
+
+    <!-- Panel: Cuadratura -->
+    <div id=&quot;dash-recon&quot; class=&quot;dash-panel&quot;>
+      <div class=&quot;recon-table&quot;>
+        <table>
+          <thead>
+            <tr>
+              <th>REF</th>
+              <th>Cliente</th>
+              <th>EUR recibido</th>
+              <th>BOB pagado</th>
+              <th>Tasa</th>
+              <th>Margen</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody id=&quot;recon-body&quot;>
+          </tbody>
+        </table>
+      </div>
+      <div style=&quot;margin-top:1rem;background:#161b22;border:1px solid #21262d;border-radius:12px;padding:1rem;display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;&quot;>
+        <div>
+          <div class=&quot;stat-label&quot;>Total EUR recibido</div>
+          <div style=&quot;font-family:'DM Mono',monospace;font-size:1.2rem;color:var(--gold);&quot; id=&quot;recon-eur-total&quot;>€0</div>
+        </div>
+        <div>
+          <div class=&quot;stat-label&quot;>Total BOB pagado</div>
+          <div style=&quot;font-family:'DM Mono',monospace;font-size:1.2rem;color:#7ee787;&quot; id=&quot;recon-bob-total&quot;>Bs. 0</div>
+        </div>
+        <div>
+          <div class=&quot;stat-label&quot;>Margen estimado</div>
+          <div style=&quot;font-family:'DM Mono',monospace;font-size:1.2rem;color:#e6edf3;&quot; id=&quot;recon-margin-total&quot;>€0</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Panel: Plantillas WA -->
+    <div id=&quot;dash-messages&quot; class=&quot;dash-panel&quot;>
+      <p style=&quot;font-size:0.82rem;color:#7d8590;margin-bottom:1rem;&quot;>Copia y pega estas plantillas en WhatsApp. Reemplaza los valores en <span style=&quot;color:var(--gold);font-family:'DM Mono',monospace;&quot;>[corchetes]</span>.</p>
+      <div class=&quot;wa-messages&quot; id=&quot;wa-messages&quot;></div>
+    </div>
+
+    <!-- Panel: Configuración -->
+    <div id=&quot;dash-settings&quot; class=&quot;dash-panel&quot;>
+      <div class=&quot;rate-settings&quot;>
+        <h3>Tasa de cambio del día</h3>
+        <p style=&quot;font-size:0.8rem;color:#7d8590;margin-bottom:1rem;&quot;>Esta tasa se muestra al cliente en el portal y se usa para calcular el monto en BOB.</p>
+        <div class=&quot;rate-input-row&quot;>
+          <div>
+            <div style=&quot;font-size:0.72rem;color:#7d8590;margin-bottom:4px;text-transform:uppercase;letter-spacing:0.07em;&quot;>1 EUR = X BOB</div>
+            <input type=&quot;number&quot; id=&quot;rate-input-val&quot; step=&quot;0.01&quot; value=&quot;7.12&quot;>
+          </div>
+          <button onclick=&quot;updateRate()&quot;>Actualizar tasa</button>
+        </div>
+        <div style=&quot;margin-top:0.75rem;font-size:0.78rem;color:#7d8590;&quot;>
+          Tasa actual del mercado de referencia (no oficial): ~7.00 BOB/EUR · Tu spread: <span style=&quot;color:var(--gold);&quot; id=&quot;spread-display&quot;>0.12 BOB (≈1.7%)</span>
+        </div>
+      </div>
+
+      <div class=&quot;rate-settings&quot;>
+        <h3>Cuenta bancaria europea</h3>
+        <div style=&quot;display:grid;grid-template-columns:1fr 1fr;gap:10px;&quot;>
+          <div class=&quot;modal-field&quot;>
+            <div class=&quot;modal-field-label&quot;>Banco</div>
+            <div class=&quot;modal-field-value&quot;>Revolut Business</div>
+          </div>
+          <div class=&quot;modal-field&quot;>
+            <div class=&quot;modal-field-label&quot;>Titular</div>
+            <div class=&quot;modal-field-value&quot;>EnvíoBolivia S.L.</div>
+          </div>
+          <div class=&quot;modal-field&quot; style=&quot;grid-column:span 2;&quot;>
+            <div class=&quot;modal-field-label&quot;>IBAN</div>
+            <div class=&quot;modal-field-value mono&quot;>ES00 0000 0000 0000 0000 0000</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ─── MODAL: Detalle de transferencia ─── -->
+<div class=&quot;modal-overlay&quot; id=&quot;tx-modal&quot; onclick=&quot;closeModalOutside(event)&quot;>
+  <div class=&quot;modal&quot; id=&quot;modal-content&quot;>
+    <div class=&quot;modal-header&quot;>
+      <div>
+        <div class=&quot;modal-ref&quot; id=&quot;m-ref&quot;>TXN-000</div>
+        <div class=&quot;modal-title&quot; id=&quot;m-name&quot;>—</div>
+      </div>
+      <button class=&quot;modal-close&quot; onclick=&quot;closeModal()&quot;>×</button>
+    </div>
+    <div class=&quot;modal-body&quot;>
+
+      <!-- Info grid -->
+      <div class=&quot;modal-grid&quot;>
+        <div class=&quot;modal-field&quot;>
+          <div class=&quot;modal-field-label&quot;>Monto EUR</div>
+          <div class=&quot;modal-field-value mono gold&quot; id=&quot;m-eur&quot;>—</div>
+        </div>
+        <div class=&quot;modal-field&quot;>
+          <div class=&quot;modal-field-label&quot;>Monto BOB</div>
+          <div class=&quot;modal-field-value mono&quot; id=&quot;m-bob&quot;>—</div>
+        </div>
+        <div class=&quot;modal-field&quot;>
+          <div class=&quot;modal-field-label&quot;>WhatsApp</div>
+          <div class=&quot;modal-field-value&quot; id=&quot;m-wa&quot;>—</div>
+        </div>
+        <div class=&quot;modal-field&quot;>
+          <div class=&quot;modal-field-label&quot;>País de envío</div>
+          <div class=&quot;modal-field-value&quot; id=&quot;m-pais&quot;>—</div>
+        </div>
+        <div class=&quot;modal-field&quot;>
+          <div class=&quot;modal-field-label&quot;>Destinatario</div>
+          <div class=&quot;modal-field-value&quot; id=&quot;m-dest&quot;>—</div>
+        </div>
+        <div class=&quot;modal-field&quot;>
+          <div class=&quot;modal-field-label&quot;>Banco Bolivia</div>
+          <div class=&quot;modal-field-value&quot; id=&quot;m-banco&quot;>—</div>
+        </div>
+        <div class=&quot;modal-field&quot; style=&quot;grid-column:span 2;&quot;>
+          <div class=&quot;modal-field-label&quot;>Cuenta Bolivia</div>
+          <div class=&quot;modal-field-value mono&quot; id=&quot;m-cuenta&quot;>—</div>
+        </div>
+      </div>
+
+      <!-- Estado actual -->
+      <div class=&quot;modal-section-title&quot;>Estado actual</div>
+      <div style=&quot;margin-bottom:1rem;&quot;>
+        <span class=&quot;badge&quot; id=&quot;m-status-badge&quot;>—</span>
+        <span style=&quot;font-size:0.8rem;color:#7d8590;margin-left:8px;&quot; id=&quot;m-status-date&quot;>—</span>
+      </div>
+
+      <!-- Comprobante -->
+      <div class=&quot;modal-section-title&quot;>Comprobante recibido</div>
+      <div class=&quot;receipt-preview&quot;>
+        <div class=&quot;receipt-thumb&quot; id=&quot;m-receipt-thumb&quot;>📄</div>
+        <div class=&quot;receipt-info&quot;>
+          <div class=&quot;receipt-name&quot; id=&quot;m-receipt-name&quot;>Sin comprobante</div>
+          <div class=&quot;receipt-meta&quot; id=&quot;m-receipt-meta&quot;>—</div>
+        </div>
+        <div class=&quot;receipt-actions&quot;>
+          <button style=&quot;background:none;border:1px solid #30363d;color:#79c0ff;border-radius:6px;padding:5px 10px;font-size:0.75rem;cursor:pointer;&quot; id=&quot;m-view-receipt&quot;>Ver</button>
+        </div>
+      </div>
+
+      <!-- Fraud checks -->
+      <div class=&quot;modal-section-title&quot;>Verificación de fraude</div>
+      <div class=&quot;fraud-check&quot; id=&quot;fraud-checks&quot;></div>
+
+      <!-- Actions -->
+      <div class=&quot;modal-section-title&quot;>Acciones</div>
+      <div class=&quot;modal-actions&quot; id=&quot;modal-actions&quot;></div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ─── TOAST ─── -->
+<div class=&quot;toast&quot; id=&quot;toast&quot;></div>
+
+<script>
+// ═══════════════════════════════════
+// DATA
+// ═══════════════════════════════════
+let currentRate = 7.12;
+let currentTxId = null;
+
+const STATUSES = {
+  pending:  { label: 'Pendiente',    badge: 'badge-pending',  col: 0, step: 0 },
+  receipt:  { label: 'Comprobante',  badge: 'badge-receipt',  col: 1, step: 1 },
+  verified: { label: 'Verificado',   badge: 'badge-verified', col: 2, step: 2 },
+  bolivia:  { label: 'Enviado a Bolivia', badge: 'badge-bolivia', col: 3, step: 3 },
+  done:     { label: 'Completado',   badge: 'badge-done',     col: 4, step: 4 },
+  flagged:  { label: 'Sospechoso',   badge: 'badge-flagged',  col: 0, step: 0 },
+};
+
+const COLS = [
+  { id: 'pending',  title: 'Pendiente',     status: 'status-pending',  filter: ['pending','flagged'] },
+  { id: 'receipt',  title: 'Comprobante',   status: 'status-receipt',  filter: ['receipt'] },
+  { id: 'verified', title: 'Verificado',    status: 'status-verified', filter: ['verified'] },
+  { id: 'bolivia',  title: 'En Bolivia',    status: 'status-bolivia',  filter: ['bolivia'] },
+  { id: 'done',     title: 'Completado',    status: 'status-done',     filter: ['done'] },
+];
+
+let transfers = [
+  { id:'TXN-068', name:'María Condori', wa:'+34 612 345 678', pais:'España', eur:250, bob:1780, dest:'Juan Condori', banco:'BNB', cuenta:'1234567890', status:'receipt', date:'2025-01-27 09:12', receipt:true, receiptName:'transfer_banca.jpg', flagged:false },
+  { id:'TXN-067', name:'Roberto Quispe', wa:'+39 380 123 456', pais:'Italia', eur:150, bob:1068, dest:'Ana Quispe', banco:'BMSC', cuenta:'9876543210', status:'verified', date:'2025-01-27 08:45', receipt:true, receiptName:'captura_ing.png', flagged:false },
+  { id:'TXN-066', name:'Carmen Flores', wa:'+34 699 234 567', pais:'España', eur:400, bob:2848, dest:'Pedro Flores', banco:'BISA', cuenta:'5544332211', status:'pending', date:'2025-01-27 07:30', receipt:false, receiptName:null, flagged:false },
+  { id:'TXN-065', name:'Luis Mamani', wa:'+49 176 345 6789', pais:'Alemania', eur:300, bob:2136, dest:'Rosa Mamani', banco:'Banco Unión', cuenta:'1122334455', status:'flagged', date:'2025-01-26 22:10', receipt:true, receiptName:'recibo.jpg', flagged:true },
+  { id:'TXN-064', name:'Ana Torrez', wa:'+34 611 876 543', pais:'España', eur:200, bob:1424, dest:'Carlos Torrez', banco:'Banco Ganadero', cuenta:'6677889900', status:'bolivia', date:'2025-01-26 15:00', receipt:true, receiptName:'trans.jpg', flagged:false },
+  { id:'TXN-063', name:'José Choque', wa:'+33 6 12 34 56 78', pais:'Francia', eur:500, bob:3560, dest:'Martha Choque', banco:'BMSC', cuenta:'3322114455', status:'done', date:'2025-01-26 11:30', receipt:true, receiptName:'ok.png', flagged:false },
+  { id:'TXN-062', name:'Elena Vargas', wa:'+34 622 111 222', pais:'España', eur:175, bob:1246, dest:'Victor Vargas', banco:'BNB', cuenta:'7788996655', status:'done', date:'2025-01-25 14:20', receipt:true, receiptName:'captura.jpg', flagged:false },
+];
+
+let nextId = 69;
+
+// ═══════════════════════════════════
+// NAV
+// ═══════════════════════════════════
+function switchView(view) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('view-' + view).classList.add('active');
+  event.target.classList.add('active');
+  if (view === 'dashboard') renderBoard();
+}
+
+// ═══════════════════════════════════
+// PORTAL TABS
+// ═══════════════════════════════════
+function switchPortalTab(tab) {
+  document.querySelectorAll('.portal-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.portal-panel').forEach(p => p.classList.remove('active'));
+  event.target.classList.add('active');
+  document.getElementById('panel-' + tab).classList.add('active');
+}
+
+// ═══════════════════════════════════
+// RATE
+// ═══════════════════════════════════
+function calcRate(eur) {
+  const val = parseFloat(eur);
+  if (!val || val <= 0) { document.getElementById('calc-result').textContent = '= — BOB'; return; }
+  const bob = (val * currentRate).toFixed(2);
+  document.getElementById('calc-result').textContent = `= Bs. ${parseFloat(bob).toLocaleString('es-BO')}`;
+}
+
+function updateAmountPreview() {
+  const eur = parseFloat(document.getElementById('f-monto').value);
+  const prev = document.getElementById('amount-preview');
+  if (!eur || eur <= 0) { prev.style.display = 'none'; return; }
+  prev.style.display = 'flex';
+  document.getElementById('preview-bob').textContent = `Bs. ${(eur * currentRate).toLocaleString('es-BO', {minimumFractionDigits:2,maximumFractionDigits:2})}`;
+}
+
+function updateRate() {
+  const newRate = parseFloat(document.getElementById('rate-input-val').value);
+  if (!newRate || newRate < 5 || newRate > 15) { showToast('Tasa inválida (5–15)', 'danger'); return; }
+  currentRate = newRate;
+  document.getElementById('display-rate').textContent = newRate.toFixed(2);
+  const spread = (newRate - 7.00).toFixed(2);
+  const pct = ((spread / 7.00) * 100).toFixed(1);
+  document.getElementById('spread-display').textContent = `${spread} BOB (≈${pct}%)`;
+  const now = new Date();
+  document.getElementById('rate-time').textContent = `Actualizada hoy ${now.getHours()}:${String(now.getMinutes()).padStart(2,'0')}`;
+  showToast(`Tasa actualizada: 1 EUR = ${newRate} BOB ✓`, 'success');
+}
+
+// ═══════════════════════════════════
+// FILE UPLOAD
+// ═══════════════════════════════════
+function handleFileUpload(input) {
+  if (input.files &amp;&amp; input.files[0]) {
+    const file = input.files[0];
+    document.getElementById('upload-name').textContent = file.name;
+    document.getElementById('upload-preview').classList.add('show');
+    document.getElementById('upload-zone').style.opacity = '0.6';
+  }
+}
+
+// ═══════════════════════════════════
+// FORM SUBMIT
+// ═══════════════════════════════════
+function submitTransfer() {
+  const nombre = document.getElementById('f-nombre').value.trim();
+  const wa = document.getElementById('f-whatsapp').value.trim();
+  const pais = document.getElementById('f-pais').value;
+  const monto = parseFloat(document.getElementById('f-monto').value);
+  const destNombre = document.getElementById('f-dest-nombre').value.trim();
+  const banco = document.getElementById('f-banco').value;
+  const cuenta = document.getElementById('f-cuenta').value.trim();
+  const file = document.getElementById('f-comprobante').files[0];
+
+  if (!nombre || !wa || !pais || !monto || !destNombre || !banco || !cuenta) {
+    showToast('Por favor completa todos los campos obligatorios', 'danger'); return;
+  }
+  if (monto < 10 || monto > 5000) {
+    showToast('Monto debe estar entre €10 y €5,000', 'danger'); return;
+  }
+  if (!file) {
+    showToast('Debes subir el comprobante de pago', 'danger'); return;
+  }
+
+  const ref = `TXN-${String(nextId).padStart(3,'0')}`;
+  nextId++;
+  const now = new Date();
+  const dateStr = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')} ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
+
+  transfers.unshift({
+    id: ref, name: nombre, wa, pais, eur: monto,
+    bob: parseFloat((monto * currentRate).toFixed(2)),
+    dest: destNombre, banco, cuenta,
+    status: 'receipt', date: dateStr,
+    receipt: true, receiptName: file.name, flagged: false
+  });
+
+  document.getElementById('success-ref-display').textContent = ref;
+  document.getElementById('form-view').style.display = 'none';
+  document.getElementById('success-screen').classList.add('show');
+}
+
+function resetForm() {
+  document.getElementById('form-view').style.display = 'block';
+  document.getElementById('success-screen').classList.remove('show');
+  ['f-nombre','f-whatsapp','f-monto','f-dest-nombre','f-dest-ci','f-cuenta'].forEach(id => { const el = document.getElementById(id); if(el) el.value=''; });
+  ['f-pais','f-banco'].forEach(id => { const el = document.getElementById(id); if(el) el.selectedIndex=0; });
+  document.getElementById('upload-preview').classList.remove('show');
+  document.getElementById('upload-zone').style.opacity = '1';
+  document.getElementById('amount-preview').style.display = 'none';
+}
+
+function trackFromSuccess() {
+  const ref = document.getElementById('success-ref-display').textContent;
+  switchPortalTab({ target: document.querySelectorAll('.portal-tab')[1] });
+  document.querySelectorAll('.portal-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.portal-tab')[1].classList.add('active');
+  document.querySelectorAll('.portal-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('panel-track').classList.add('active');
+  document.getElementById('track-input').value = ref;
+  searchTransfer();
+}
+
+// ═══════════════════════════════════
+// TRACKING
+// ═══════════════════════════════════
+const STATUS_STEPS = { pending:0, flagged:0, receipt:1, verified:2, bolivia:3, done:4 };
+const STATUS_BADGE_STYLES = {
+  pending:  'background:rgba(125,133,144,0.15);color:#7d8590',
+  receipt:  'background:rgba(121,192,255,0.15);color:#79c0ff',
+  verified: 'background:rgba(180,150,90,0.15);color:#B4965A',
+  bolivia:  'background:rgba(126,231,135,0.15);color:#7ee787',
+  done:     'background:rgba(86,211,100,0.2);color:#56d364',
+  flagged:  'background:rgba(248,81,73,0.15);color:#f85149',
+};
+
+function searchTransfer() {
+  const input = document.getElementById('track-input').value.trim().toUpperCase();
+  const tx = transfers.find(t => t.id === input);
+  const result = document.getElementById('track-result');
+
+  if (!tx) {
+    result.classList.remove('show');
+    showToast('No se encontró la transferencia. Verifica tu número de referencia.', 'danger');
+    return;
+  }
+
+  result.classList.add('show');
+  document.getElementById('tr-ref').textContent = tx.id;
+  document.getElementById('tr-name').textContent = tx.name;
+  document.getElementById('tr-eur').textContent = `€${tx.eur.toLocaleString('es-ES', {minimumFractionDigits:2})}`;
+  document.getElementById('tr-bob').textContent = `Bs. ${tx.bob.toLocaleString('es-BO', {minimumFractionDigits:2})}`;
+  document.getElementById('tr-dest').textContent = tx.dest;
+  document.getElementById('tr-date').textContent = tx.date.split(' ')[0];
+
+  const badge = document.getElementById('tr-badge');
+  badge.textContent = STATUSES[tx.status]?.label || tx.status;
+  badge.setAttribute('style', STATUS_BADGE_STYLES[tx.status] || '');
+
+  // Progress steps
+  const step = STATUS_STEPS[tx.status] || 0;
+  for (let i = 1; i <= 5; i++) {
+    const el = document.getElementById('ps-' + i);
+    el.classList.remove('done', 'active');
+    if (i - 1 < step) el.classList.add('done');
+    else if (i - 1 === step) el.classList.add('active');
+  }
+  const pct = [0, 25, 50, 75, 100][step];
+  document.getElementById('progress-line').style.width = `calc(${pct}% - 28px)`;
+}
+
+// ═══════════════════════════════════
+// DASHBOARD TABS
+// ═══════════════════════════════════
+function switchDashTab(tab) {
+  document.querySelectorAll('.dash-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.dash-panel').forEach(p => p.classList.remove('active'));
+  event.target.classList.add('active');
+  document.getElementById('dash-' + tab).classList.add('active');
+  if (tab === 'recon') renderRecon();
+  if (tab === 'messages') renderMessages();
+}
+
+// ═══════════════════════════════════
+// BOARD
+// ═══════════════════════════════════
+function renderBoard() {
+  const board = document.getElementById('board');
+  board.innerHTML = '';
+  updateStats();
+
+  COLS.forEach(col => {
+    const colTxs = transfers.filter(t => col.filter.includes(t.status));
+    const div = document.createElement('div');
+    div.className = 'board-col';
+    div.innerHTML = `
+      <div class=&quot;col-header ${col.status}&quot;>
+        <span class=&quot;col-title&quot;>${col.title}</span>
+        <span class=&quot;col-count&quot;>${colTxs.length}</span>
+      </div>
+      ${colTxs.map(tx => `
+        <div class=&quot;tx-card ${tx.flagged ? 'flagged' : ''}&quot; onclick=&quot;openModal('${tx.id}')&quot;>
+          ${tx.flagged ? '<span class=&quot;tx-flag&quot;>⚠ Revisar</span>' : ''}
+          <div class=&quot;tx-ref&quot;>${tx.id}</div>
+          <div class=&quot;tx-name&quot;>${tx.name}</div>
+          <div class=&quot;tx-amount-row&quot;>
+            <span class=&quot;tx-eur&quot;>€${tx.eur}</span>
+            <span class=&quot;tx-bob&quot;>Bs. ${tx.bob.toLocaleString()}</span>
+          </div>
+          <div class=&quot;tx-time&quot;>${tx.date}</div>
+        </div>
+      `).join('')}
+    `;
+    board.appendChild(div);
+  });
+}
+
+function updateStats() {
+  const pending = transfers.filter(t => ['pending','receipt','flagged'].includes(t.status)).length;
+  const flagged = transfers.filter(t => t.flagged).length;
+  const vol = transfers.filter(t => t.status === 'done').reduce((s,t) => s+t.eur, 0);
+  document.getElementById('stat-pending').textContent = pending;
+  document.getElementById('stat-flagged').textContent = flagged;
+  document.getElementById('stat-month').textContent = transfers.length;
+  document.getElementById('stat-vol').textContent = '€' + (vol/1000).toFixed(1) + 'k';
+}
+
+// ═══════════════════════════════════
+// MODAL
+// ═══════════════════════════════════
+const ADVANCE = {
+  pending:  { label:'Marcar como comprobante recibido', next:'receipt', icon:'📥' },
+  receipt:  { label:'Confirmar pago recibido en Revolut', next:'verified', icon:'✅' },
+  verified: { label:'Enviar instrucción a Bolivia', next:'bolivia', icon:'🇧🇴' },
+  bolivia:  { label:'Marcar como completado', next:'done', icon:'🎉' },
+  flagged:  { label:'Marcar como verificado (liberar)', next:'receipt', icon:'✅' },
+};
+
+function openModal(id) {
+  const tx = transfers.find(t => t.id === id);
+  if (!tx) return;
+  currentTxId = id;
+
+  document.getElementById('m-ref').textContent = tx.id;
+  document.getElementById('m-name').textContent = tx.name;
+  document.getElementById('m-eur').textContent = `€${tx.eur.toLocaleString('es-ES',{minimumFractionDigits:2})}`;
+  document.getElementById('m-bob').textContent = `Bs. ${tx.bob.toLocaleString('es-BO',{minimumFractionDigits:2})}`;
+  document.getElementById('m-wa').textContent = tx.wa;
+  document.getElementById('m-pais').textContent = tx.pais;
+  document.getElementById('m-dest').textContent = tx.dest;
+  document.getElementById('m-banco').textContent = tx.banco;
+  document.getElementById('m-cuenta').textContent = tx.cuenta;
+  document.getElementById('m-status-date').textContent = tx.date;
+
+  const badge = document.getElementById('m-status-badge');
+  badge.className = 'badge ' + (STATUSES[tx.status]?.badge || '');
+  badge.textContent = STATUSES[tx.status]?.label || tx.status;
+
+  // Receipt
+  document.getElementById('m-receipt-thumb').textContent = tx.receipt ? '🖼️' : '❌';
+  document.getElementById('m-receipt-name').textContent = tx.receiptName || 'Sin comprobante';
+  document.getElementById('m-receipt-meta').textContent = tx.receipt ? `Recibido · ${tx.date}` : 'No se ha subido comprobante';
+
+  // Fraud checks
+  const checks = [
+    { label:'Comprobante subido', ok: tx.receipt, result: tx.receipt ? 'Sí' : 'Faltante', type: tx.receipt ? 'ok' : 'fail' },
+    { label:'Monto coincide con transfer esperada', ok: !tx.flagged, result: tx.flagged ? 'Revisar' : 'OK', type: tx.flagged ? 'warn' : 'ok' },
+    { label:'Cliente tiene historial previo', ok: transfers.filter(t=>t.name===tx.name).length > 1, result: transfers.filter(t=>t.name===tx.name).length > 1 ? 'Sí' : 'Primera vez', type: transfers.filter(t=>t.name===tx.name).length > 1 ? 'ok' : 'warn' },
+    { label:'Imagen no duplicada', ok: !tx.flagged, result: tx.flagged ? 'Posible duplicado' : 'Única', type: tx.flagged ? 'fail' : 'ok' },
+  ];
+  document.getElementById('fraud-checks').innerHTML = `
+    <div class=&quot;fraud-check-title&quot;>Checklist de verificación</div>
+    ${checks.map(c => `
+      <div class=&quot;fraud-item&quot;>
+        <div class=&quot;fraud-dot ${c.type}&quot;></div>
+        <span class=&quot;fraud-label&quot;>${c.label}</span>
+        <span class=&quot;fraud-result ${c.type}&quot;>${c.result}</span>
+      </div>
+    `).join('')}
+  `;
+
+  // Actions
+  const actions = [];
+  if (tx.status !== 'done') {
+    const adv = ADVANCE[tx.status];
+    if (adv) {
+      actions.push(`<button class=&quot;btn-action advance&quot; onclick=&quot;advanceStatus('${tx.id}','${adv.next}')&quot;>
+        <span class=&quot;action-icon&quot;>${adv.icon}</span> ${adv.label}
+        <span class=&quot;action-desc&quot;>→ ${STATUSES[adv.next]?.label || adv.next}</span>
+      </button>`);
+    }
+    if (!tx.flagged) {
+      actions.push(`<button class=&quot;btn-action danger&quot; onclick=&quot;flagTransfer('${tx.id}')&quot;>
+        <span class=&quot;action-icon&quot;>⚠️</span> Marcar como sospechosa
+        <span class=&quot;action-desc&quot;>Pausar y revisar</span>
+      </button>`);
+    } else {
+      actions.push(`<button class=&quot;btn-action secondary&quot; onclick=&quot;unflagTransfer('${tx.id}')&quot;>
+        <span class=&quot;action-icon&quot;>✓</span> Quitar bandera de sospecha
+      </button>`);
+    }
+    actions.push(`<button class=&quot;btn-action secondary&quot; onclick=&quot;copyWA('${tx.id}')&quot;>
+      <span class=&quot;action-icon&quot;>💬</span> Copiar mensaje WhatsApp
+      <span class=&quot;action-desc&quot;>Para ${tx.wa}</span>
+    </button>`);
+  } else {
+    actions.push(`<div style=&quot;text-align:center;padding:1rem;color:#56d364;font-size:0.9rem;&quot;>✓ Transferencia completada</div>`);
+  }
+  document.getElementById('modal-actions').innerHTML = actions.join('');
+
+  document.getElementById('tx-modal').classList.add('open');
+}
+
+function advanceStatus(id, next) {
+  const tx = transfers.find(t => t.id === id);
+  if (!tx) return;
+  tx.status = next;
+  tx.flagged = false;
+  closeModal();
+  renderBoard();
+  showToast(`${id} → ${STATUSES[next]?.label} ✓`, 'success');
+}
+
+function flagTransfer(id) {
+  const tx = transfers.find(t => t.id === id);
+  if (!tx) return;
+  tx.flagged = true;
+  closeModal();
+  renderBoard();
+  showToast(`${id} marcada como sospechosa`, 'danger');
+}
+
+function unflagTransfer(id) {
+  const tx = transfers.find(t => t.id === id);
+  if (!tx) return;
+  tx.flagged = false;
+  closeModal();
+  renderBoard();
+  showToast(`${id}: bandera retirada`, 'success');
+}
+
+function copyWA(id) {
+  const tx = transfers.find(t => t.id === id);
+  if (!tx) return;
+  const msgs = {
+    receipt: `Hola ${tx.name.split(' ')[0]}, recibimos tu comprobante. Referencia: ${tx.id}. Estamos verificando el pago. Te avisamos en máximo 2 horas.`,
+    verified: `✅ Confirmamos recepción de €${tx.eur}. Tu transferencia ${tx.id} está siendo procesada.`,
+    bolivia: `🇧🇴 Tu pago está siendo enviado a ${tx.dest} en Bolivia. Referencia: ${tx.id}.`,
+    done: `✅ ${tx.dest} ha recibido Bs. ${tx.bob}. Tu transferencia ${tx.id} está completada. ¡Gracias!`,
+    flagged: `Hola ${tx.name.split(' ')[0]}, necesitamos verificar tu comprobante ${tx.id}. Por favor envíanos la captura original desde tu banco.`,
+  };
+  const msg = msgs[tx.status] || msgs.receipt;
+  navigator.clipboard.writeText(msg).then(() => showToast('Mensaje copiado al portapapeles ✓', 'success')).catch(() => showToast('Copia: ' + msg.slice(0,40) + '...'));
+  closeModal();
+}
+
+function closeModal() { document.getElementById('tx-modal').classList.remove('open'); }
+function closeModalOutside(e) { if (e.target.id === 'tx-modal') closeModal(); }
+
+function openNewTxModal() {
+  showToast('Para nueva transferencia manual, usa el portal del cliente →', 'success');
+  setTimeout(() => {
+    document.querySelectorAll('.nav-tab')[0].click();
+  }, 1200);
+}
+
+// ═══════════════════════════════════
+// RECON
+// ═══════════════════════════════════
+function renderRecon() {
+  const done = transfers.filter(t => t.status === 'done');
+  const tbody = document.getElementById('recon-body');
+  const marketRate = 7.00;
+
+  let totalEur = 0, totalBob = 0, totalMargin = 0;
+
+  tbody.innerHTML = done.map(tx => {
+    const margin = ((currentRate - marketRate) * tx.eur).toFixed(2);
+    totalEur += tx.eur;
+    totalBob += tx.bob;
+    totalMargin += parseFloat(margin);
+    return `
+      <tr>
+        <td class=&quot;mono gold&quot;>${tx.id}</td>
+        <td>${tx.name}</td>
+        <td class=&quot;mono&quot;>€${tx.eur.toLocaleString()}</td>
+        <td class=&quot;mono green&quot;>Bs. ${tx.bob.toLocaleString()}</td>
+        <td class=&quot;mono muted&quot;>${currentRate}</td>
+        <td class=&quot;mono&quot;>€${margin}</td>
+        <td><span class=&quot;badge badge-done&quot;>Completado</span></td>
+      </tr>
+    `;
+  }).join('');
+
+  document.getElementById('recon-eur-total').textContent = `€${totalEur.toLocaleString('es-ES', {minimumFractionDigits:2})}`;
+  document.getElementById('recon-bob-total').textContent = `Bs. ${totalBob.toLocaleString('es-BO', {minimumFractionDigits:2})}`;
+  document.getElementById('recon-margin-total').textContent = `€${totalMargin.toFixed(2)}`;
+}
+
+// ═══════════════════════════════════
+// WA MESSAGES
+// ═══════════════════════════════════
+const WA_TEMPLATES = [
+  {
+    label: 'Comprobante recibido',
+    icon: '📥',
+    text: `Hola [nombre], recibimos tu solicitud de transferencia. Referencia: [TXN-XXX]. Estamos verificando tu comprobante de pago. Te avisamos en máximo 2 horas. Seguimiento: [link tracking]`,
+  },
+  {
+    label: 'Pago confirmado',
+    icon: '✅',
+    text: `✅ Hola [nombre], confirmamos recepción de €[monto] para tu transferencia [TXN-XXX]. El pago ya está siendo procesado en Bolivia.`,
+  },
+  {
+    label: 'Instrucción enviada a Bolivia',
+    icon: '🇧🇴',
+    text: `🇧🇴 Hola [nombre], la instrucción de pago fue enviada a nuestro socio en Bolivia. Tu destinatario [nombre destinatario] recibirá Bs. [monto BOB] en las próximas horas.`,
+  },
+  {
+    label: 'Transferencia completada',
+    icon: '🎉',
+    text: `🎉 ¡Listo! [nombre destinatario] ha recibido Bs. [monto BOB]. Tu transferencia [TXN-XXX] está completada. ¡Gracias por confiar en EnvíoBolivia!`,
+  },
+  {
+    label: 'Comprobante inválido / sospechoso',
+    icon: '⚠️',
+    text: `Hola [nombre], no pudimos verificar tu comprobante de pago para la transferencia [TXN-XXX]. Por favor envíanos la captura original directamente desde tu aplicación bancaria, sin editar. Si tienes dudas, contáctanos.`,
+  },
+  {
+    label: 'Solicitud de link de pago',
+    icon: '💳',
+    text: `Hola, para enviarnos el dinero usa nuestro IBAN: ES00 0000 0000 0000 0000 0000. Titular: EnvíoBolivia S.L. En el concepto escribe tu nombre completo. Una vez transferido, súbenos el comprobante aquí: [link portal]`,
+  },
+];
+
+function renderMessages() {
+  document.getElementById('wa-messages').innerHTML = WA_TEMPLATES.map((m,i) => `
+    <div class=&quot;wa-msg&quot;>
+      <div class=&quot;wa-icon&quot;>${m.icon}</div>
+      <div style=&quot;flex:1;&quot;>
+        <div class=&quot;wa-msg-label&quot;>${m.label}</div>
+        <div class=&quot;wa-msg-text&quot;>${m.text.replace(/\[([^\]]+)\]/g, '<span class=&quot;var&quot;>[$1]</span>')}</div>
+      </div>
+      <button class=&quot;wa-copy&quot; onclick=&quot;copyTemplate(${i})&quot;>Copiar</button>
+    </div>
+  `).join('');
+}
+
+function copyTemplate(i) {
+  navigator.clipboard.writeText(WA_TEMPLATES[i].text).then(() => showToast('Plantilla copiada ✓', 'success'));
+}
+
+// ═══════════════════════════════════
+// TOAST
+// ═══════════════════════════════════
+let toastTimer;
+function showToast(msg, type) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast show ' + (type || '');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 3500);
+}
+
+// ═══════════════════════════════════
+// INIT
+// ═══════════════════════════════════
+renderBoard();
+renderMessages();
+</script>
+</body>
+</html>
+"
+        sandbox="allow-scripts allow-same-origin"
+        loading="lazy"></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- ── PROCESS ── -->
+<div class="div"></div>
+
+<section class="sec">
+  <div class="sec-label">How it was built</div>
+  <h2 class="sec-h2">Designed around<br><em>live operations.</em></h2>
+  <div class="sec-body">
+    <p>The operator couldn't pause. Transfers were coming in daily. The system was designed, validated with real transactions, and handed over in parallel — each component tested before the next was introduced.</p>
+  </div>
+  <div class="proc">
+    <div class="proc-step">
+      <div class="proc-phase">Discovery</div>
+      <div>
+        <h3 class="proc-h3">Mapping the fraud and friction points</h3>
+        <div class="proc-body">Audited a sample of recent transactions to understand where time was lost and where fraud risk was highest. Key finding: <strong>the screenshot verification step had no systematic backstop</strong> — no protocol for handling suspected fraud beyond operator intuition. A second finding: most customer follow-up messages came from the same moment — the silence between payment submission and operator confirmation.</div>
+      </div>
+    </div>
+    <div class="proc-step">
+      <div class="proc-phase">Design</div>
+      <div>
+        <h3 class="proc-h3">The reference code as the keystone</h3>
+        <div class="proc-body">The decision to use a unique reference code in the bank transfer description was the most important design choice. It moved verification from the screenshot — manipulable — to the bank record — authoritative. <strong>One field change eliminated the primary fraud vector.</strong> Everything else: batch reconciliation, matching formula, fraud checklist, is built on that foundation.</div>
+      </div>
+    </div>
+    <div class="proc-step">
+      <div class="proc-phase">Build</div>
+      <div>
+        <h3 class="proc-h3">Tracking system, templates, and pipeline prototype</h3>
+        <div class="proc-body">Built the Google Sheets tracking architecture — Requests, Reconciliation, Summary tabs. Five WhatsApp templates covering every stage. A functional HTML prototype of the client portal and operator dashboard, interactive and usable on mobile, built to demonstrate the target experience and serve as a specification for any future development.</div>
+      </div>
+    </div>
+    <div class="proc-step">
+      <div class="proc-phase">Handover</div>
+      <div>
+        <h3 class="proc-h3">Protocol and independent operation</h3>
+        <div class="proc-body"><strong>The operator was running the full system independently within one week.</strong> The first complete reconciliation round surfaced a payment discrepancy that would previously have passed unnoticed — validating the core design decision before any volume scaled.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── OUTCOMES ── -->
+<div class="div"></div>
+
+<section class="sec">
+  <div class="sec-label">Outcomes</div>
+  <h2 class="sec-h2">Measurable change<br><em>from week one.</em></h2>
+  <div class="out-row">
+    <div class="out-item"><span class="out-num">−70%</span><div class="out-label"><strong>Verification time per day</strong>Batch reconciliation replaced per-transaction manual bank searching</div></div>
+    <div class="out-item"><span class="out-num">100%</span><div class="out-label"><strong>Transactions now traceable</strong>Every request tied to a bank reference — not a screenshot</div></div>
+    <div class="out-item"><span class="out-num">0</span><div class="out-label"><strong>Undetected fraud post-launch</strong>First reconciliation round surfaced a discrepancy that would previously have passed unnoticed</div></div>
+    <div class="out-item"><span class="out-num">5</span><div class="out-label"><strong>Status touchpoints per transfer</strong>Up from zero — eliminating reactive follow-up messages</div></div>
+    <div class="out-item"><span class="out-num">30 min</span><div class="out-label"><strong>Daily full reconciliation</strong>Two 15-min batch rounds cover the complete monthly volume</div></div>
+    <div class="out-item"><span class="out-num">€0</span><div class="out-label"><strong>Additional tooling cost</strong>Designed entirely within WhatsApp and Google Sheets</div></div>
+  </div>
+</section>
+
+<!-- ── RELEVANCE ── -->
+<div class="rel-band">
+  <div class="rel-inner">
+    <div class="sec-label">Why this matters</div>
+    <h2 class="sec-h2" style="margin-bottom:8px;">The broader <em>picture.</em></h2>
+    <p style="font-size:15px;color:var(--muted);max-width:580px;">Community remittance operators aren't an edge case. They're the financial infrastructure for millions of cross-border transfers in corridors where banks and fintechs haven't fully arrived.</p>
+    <div class="rel-grid">
+      <div class="rel-item">
+        <div class="rel-icon">🌍</div>
+        <h3 class="rel-h3">The informal-to-formal transition</h3>
+        <div class="rel-body">Community operators represent the first layer of financial infrastructure for many migrants. Building payment operations systems for this segment is how fintechs and banks begin to serve corridors currently underserved by formal channels — starting with trust and traceability problems exactly like these.</div>
+      </div>
+      <div class="rel-item">
+        <div class="rel-icon">🔍</div>
+        <h3 class="rel-h3">Fraud without APIs</h3>
+        <div class="rel-body">In markets without open banking, the screenshot is the de facto payment proof — and it's fundamentally insecure. The reference-code approach closes the fraud loop without any API access, ML model, or third-party tool. A pattern applicable far beyond this corridor.</div>
+      </div>
+      <div class="rel-item">
+        <div class="rel-icon">💬</div>
+        <h3 class="rel-h3">Trust as a product feature</h3>
+        <div class="rel-body">Community operators win on the relationship, not the rate. Every design decision was evaluated against one question: does this make the customer feel safer and more informed without making the interaction feel impersonal? Status updates weren't a nice-to-have — they were the product feature that protected the operator's competitive moat.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── LEARNINGS ── -->
+<section class="sec">
+  <div class="sec-label">Product learnings</div>
+  <h2 class="sec-h2">What this project<br><em>sharpened.</em></h2>
+  <div class="learn-grid">
+    <div class="learn-card">
+      <h3 class="learn-h3">Move verification upstream, not downstream</h3>
+      <div class="learn-body">The temptation is to build better screenshot detection. The right move is to make the screenshot irrelevant. By requiring a reference code in the bank transfer description, verification happens at the bank — the only authoritative source. The screenshot becomes a secondary confirmation, not the primary one.</div>
+    </div>
+    <div class="learn-card">
+      <h3 class="learn-h3">Silence is a product failure</h3>
+      <div class="learn-body">Most customer follow-up messages weren't about problems — they were about uncertainty. The absence of a status update was experienced as something going wrong. Five structured touchpoints eliminated this entirely. The transfer didn't get faster, but customers felt more in control of it.</div>
+    </div>
+    <div class="learn-card">
+      <h3 class="learn-h3">Batch reconciliation is a design choice</h3>
+      <div class="learn-body">Real-time per-transaction verification sounds better. At 200 monthly transfers across multiple banks with no API access, it produces worse outcomes than two disciplined daily rounds. Batch reconciliation is the right design for this context — predictable, auditable, far less error-prone than reactive individual checks.</div>
+    </div>
+    <div class="learn-card">
+      <h3 class="learn-h3">The trust model is the moat</h3>
+      <div class="learn-body">Community operators compete on the relationship, not the rate. The system was designed to protect and reinforce that relationship — not to make the operator more like a fintech. The right outcome isn't "as good as Wise." It's "more trustworthy than before, still personal."</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── DELIVERABLES ── -->
+<div class="div"></div>
+
+<section class="sec">
+  <div class="sec-label">Deliverables</div>
+  <h2 class="sec-h2">What was<br><em>handed over.</em></h2>
+  <div class="del-list">
+    <div class="del-item"><div class="del-icon">🎬</div><div class="del-name">Interactive customer journey demo — 7 screens, step-by-step from sender to confirmation</div><span class="del-tag">HTML · Interactive</span></div>
+    <div class="del-item"><div class="del-icon">⚙️</div><div class="del-name">Full system prototype — client portal with rate calculator, form, tracking + operator pipeline dashboard</div><span class="del-tag">HTML · Live prototype</span></div>
+    <div class="del-item"><div class="del-icon">📊</div><div class="del-name">Google Sheets tracking system — Requests, Reconciliation, Summary with MATCH formula logic</div><span class="del-tag">XLSX · Ready to use</span></div>
+    <div class="del-item"><div class="del-icon">💬</div><div class="del-name">5 WhatsApp message templates — intake, each status stage, exception handling</div><span class="del-tag">Copy · Ready to paste</span></div>
+    <div class="del-item"><div class="del-icon">📋</div><div class="del-name">Operational protocol — reconciliation rounds, fraud response, exception playbook</div><span class="del-tag">Documentation</span></div>
+    <div class="del-item"><div class="del-icon">🔖</div><div class="del-name">Reference code system — naming convention, assignment protocol, customer instructions</div><span class="del-tag">System Design</span></div>
+  </div>
+</section>
+
+<!-- ── CTA ── -->
+<div class="div"></div>
+<section>
+  <div class="cta-sec">
+    <div>
+      <h2 class="cta-h2">Working on a cross-border<br><em>payments challenge?</em></h2>
+      <p class="cta-sub">I work with payment operators, fintechs, and product teams on reconciliation design, fraud prevention, and cross-border operations. If you're building in this space, I'd like to talk.</p>
+    </div>
+    <a href="mailto:pablo@pablomontenegro.ie" class="cta-btn">Get in touch</a>
+  </div>
+</section>
+
+<footer>
+  <span class="foot-note">Pablo Montenegro · pablomontenegro.ie</span>
+  <span class="foot-note">Cross-Border Payments · Consulting · 2024</span>
+</footer>
+
+<script>
+function switchTab(id, btn) {
+  document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('on'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('on'));
+  document.getElementById('tab-' + id).classList.add('on');
+  btn.classList.add('on');
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Karigab — Payment Operations System · Pablo Montenegro</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy:    #0A1226;
+  --navy2:   #111D35;
+  --navy3:   #1A2A44;
+  --gold:    #B4965A;
+  --gold2:   #D4B47A;
+  --gold3:   #F0DFB8;
+  --cream:   #FAF7F2;
+  --cream2:  #F0EBE1;
+  --white:   #FFFFFF;
+  --muted:   #8892A4;
+  --border:  rgba(180,150,90,.18);
+  --border2: rgba(255,255,255,.08);
+
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --sans:  'DM Sans', sans-serif;
+  --mono:  'DM Mono', monospace;
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+
+body {
+  background: var(--navy);
+  color: var(--cream);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── GRAIN OVERLAY ── */
+body::before {
+  content:'';
+  position:fixed; inset:0; z-index:0; pointer-events:none;
+  opacity:.025;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 200px;
+}
+
+/* ── SECTIONS ── */
+section, nav, footer { position:relative; z-index:1; }
+
+/* ── NAV ── */
+nav {
+  padding: 20px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border2);
+  position: sticky; top:0;
+  background: rgba(10,18,38,.92);
+  backdrop-filter: blur(16px);
+  z-index: 100;
+}
+
+.nav-brand {
+  font-family: var(--serif);
+  font-size: 15px;
+  font-weight: 300;
+  color: var(--gold);
+  letter-spacing: .04em;
+  text-decoration: none;
+}
+
+.nav-back {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: .08em;
+  color: var(--muted);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: color .2s;
+}
+
+.nav-back:hover { color: var(--gold); }
+
+/* ── HERO ── */
+.hero {
+  padding: 100px 48px 80px;
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 40px;
+  align-items: end;
+}
+
+@media (max-width:720px) {
+  .hero { grid-template-columns:1fr; padding:60px 24px 48px; }
+  nav { padding:16px 24px; }
+}
+
+.hero-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.hero-tag {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: .14em;
+  color: var(--gold);
+  text-transform: uppercase;
+}
+
+.hero-title {
+  font-family: var(--serif);
+  font-size: clamp(42px, 5.5vw, 72px);
+  font-weight: 300;
+  line-height: 1.08;
+  color: var(--white);
+}
+
+.hero-title em {
+  font-style: italic;
+  color: var(--gold2);
+}
+
+.hero-sub {
+  font-size: 17px;
+  color: var(--muted);
+  max-width: 520px;
+  line-height: 1.75;
+  font-weight: 300;
+}
+
+.hero-badges {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.badge {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .08em;
+  padding: 5px 14px;
+  border-radius: 2px;
+  border: 1px solid var(--border);
+  color: var(--gold3);
+  text-transform: uppercase;
+}
+
+.hero-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  padding-left: 40px;
+  border-left: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.stat { text-align: right; }
+
+.stat-num {
+  font-family: var(--serif);
+  font-size: 44px;
+  font-weight: 300;
+  color: var(--gold);
+  line-height: 1;
+  display: block;
+}
+
+.stat-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .08em;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+/* ── DIVIDER ── */
+.divider {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 48px;
+  border-top: 1px solid var(--border);
+}
+
+/* ── SECTION BASE ── */
+.section {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 72px 48px;
+}
+
+@media(max-width:720px) { .section { padding:48px 24px; } }
+
+.section-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .14em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.section-title {
+  font-family: var(--serif);
+  font-size: clamp(28px,3.5vw,42px);
+  font-weight: 300;
+  color: var(--white);
+  line-height: 1.2;
+  margin-bottom: 32px;
+}
+
+.section-title em { font-style:italic; color:var(--gold2); }
+
+.section-body {
+  font-size: 16px;
+  color: rgba(250,247,242,.72);
+  line-height: 1.85;
+  max-width: 680px;
+}
+
+.section-body p + p { margin-top: 20px; }
+
+.section-body strong { color: var(--cream); font-weight: 500; }
+
+/* ── CONTEXT BAND ── */
+.context-band {
+  background: var(--navy2);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 56px 48px;
+}
+
+.context-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: start;
+}
+
+@media(max-width:720px) { .context-inner { grid-template-columns:1fr; gap:40px; } }
+
+/* ── CHALLENGE BLOCK ── */
+.challenge-block {
+  background: var(--navy3);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  padding: 28px 32px;
+  margin-top: 32px;
+}
+
+.challenge-title {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .12em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.challenge-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.challenge-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 14px;
+  color: rgba(250,247,242,.7);
+  line-height: 1.6;
+}
+
+.challenge-list li::before {
+  content: '—';
+  color: var(--gold);
+  flex-shrink: 0;
+  font-family: var(--mono);
+  font-size: 12px;
+  margin-top: 2px;
+}
+
+/* ── SOLUTION GRID ── */
+.solution-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  margin-top: 48px;
+}
+
+@media(max-width:720px) { .solution-grid { grid-template-columns:1fr; } }
+
+.sol-item {
+  background: var(--navy);
+  padding: 32px;
+  position: relative;
+  transition: background .2s;
+}
+
+.sol-item:hover { background: var(--navy2); }
+
+.sol-num {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .1em;
+  color: var(--gold);
+  margin-bottom: 14px;
+  display: block;
+}
+
+.sol-title {
+  font-family: var(--serif);
+  font-size: 20px;
+  font-weight: 400;
+  color: var(--white);
+  margin-bottom: 10px;
+  line-height: 1.3;
+}
+
+.sol-body {
+  font-size: 13.5px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.sol-tag {
+  display: inline-block;
+  margin-top: 14px;
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: .08em;
+  padding: 3px 10px;
+  border: 1px solid var(--border);
+  color: var(--gold3);
+  border-radius: 1px;
+}
+
+/* ── PROCESS TIMELINE ── */
+.process-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-top: 48px;
+  border-left: 1px solid var(--border);
+  padding-left: 32px;
+}
+
+.process-step {
+  padding: 28px 0;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 32px;
+  align-items: start;
+}
+
+.process-step::before {
+  content: '';
+  position: absolute;
+  left: -37px;
+  top: 32px;
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--navy);
+  border: 1px solid var(--gold);
+}
+
+.process-step:last-child { border-bottom: none; }
+
+.step-phase {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .08em;
+  color: var(--gold);
+  text-transform: uppercase;
+  padding-top: 2px;
+  line-height: 1.5;
+}
+
+.step-title {
+  font-family: var(--serif);
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+
+.step-body {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.step-body strong { color: var(--cream); font-weight: 500; }
+
+/* ── OUTCOMES ── */
+.outcomes-row {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  margin-top: 48px;
+}
+
+@media(max-width:720px) { .outcomes-row { grid-template-columns:1fr; } }
+
+.outcome-item {
+  background: var(--navy);
+  padding: 36px 32px;
+  text-align: center;
+}
+
+.outcome-num {
+  font-family: var(--serif);
+  font-size: clamp(36px,4vw,52px);
+  font-weight: 300;
+  color: var(--gold);
+  line-height: 1;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.outcome-label {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.outcome-label strong { color: var(--cream); display:block; font-weight:500; margin-bottom:4px; }
+
+/* ── LEARNINGS ── */
+.learnings-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-top: 48px;
+}
+
+@media(max-width:720px) { .learnings-grid { grid-template-columns:1fr; } }
+
+.learning-card {
+  border: 1px solid var(--border);
+  padding: 28px 30px;
+  position: relative;
+  transition: border-color .2s;
+}
+
+.learning-card:hover { border-color: rgba(180,150,90,.4); }
+
+.learning-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 3px; height: 100%;
+  background: var(--gold);
+  opacity: 0;
+  transition: opacity .2s;
+}
+
+.learning-card:hover::before { opacity: 1; }
+
+.learning-title {
+  font-family: var(--serif);
+  font-size: 17px;
+  font-weight: 400;
+  color: var(--white);
+  margin-bottom: 10px;
+  line-height: 1.35;
+}
+
+.learning-body {
+  font-size: 13.5px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+/* ── RELEVANCE BAND ── */
+.relevance-band {
+  background: linear-gradient(135deg, var(--navy2) 0%, var(--navy3) 100%);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 72px 48px;
+}
+
+.relevance-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.relevance-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 32px;
+  margin-top: 48px;
+}
+
+@media(max-width:720px) { .relevance-grid { grid-template-columns:1fr; } }
+
+.relevance-item {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.relevance-icon {
+  font-size: 24px;
+  width: 48px; height: 48px;
+  border: 1px solid var(--border);
+  display: flex; align-items:center; justify-content:center;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.relevance-title {
+  font-family: var(--serif);
+  font-size: 17px;
+  font-weight: 400;
+  color: var(--white);
+  line-height: 1.3;
+}
+
+.relevance-body {
+  font-size: 13.5px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+/* ── DELIVERABLES ── */
+.deliverables-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border: 1px solid var(--border);
+  margin-top: 48px;
+}
+
+.del-item {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 18px 28px;
+  border-bottom: 1px solid var(--border);
+  transition: background .15s;
+}
+
+.del-item:last-child { border-bottom: none; }
+.del-item:hover { background: var(--navy2); }
+
+.del-icon {
+  font-size: 18px;
+  width: 36px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.del-name {
+  font-size: 14px;
+  color: var(--cream);
+  flex: 1;
+  font-weight: 400;
+}
+
+.del-tag {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: .08em;
+  color: var(--gold);
+  border: 1px solid var(--border);
+  padding: 3px 10px;
+  border-radius: 1px;
+  white-space: nowrap;
+  text-transform: uppercase;
+}
+
+/* ── CTA / FOOTER ── */
+.cta-section {
+  padding: 80px 48px;
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 48px;
+  align-items: center;
+}
+
+@media(max-width:720px) { .cta-section { grid-template-columns:1fr; padding:48px 24px; } }
+
+.cta-title {
+  font-family: var(--serif);
+  font-size: clamp(24px,3vw,36px);
+  font-weight: 300;
+  color: var(--white);
+  line-height: 1.25;
+  margin-bottom: 12px;
+}
+
+.cta-title em { font-style:italic; color:var(--gold2); }
+
+.cta-sub {
+  font-size: 14px;
+  color: var(--muted);
+  max-width: 480px;
+}
+
+.cta-btn {
+  display: inline-block;
+  padding: 14px 32px;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: .1em;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: all .2s;
+  white-space: nowrap;
+}
+
+.cta-btn:hover {
+  background: var(--gold);
+  color: var(--navy);
+}
+
+footer {
+  border-top: 1px solid var(--border);
+  padding: 28px 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-note {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .08em;
+  color: var(--muted);
+}
+
+/* ── QUOTE ── */
+.pull-quote {
+  border-left: 2px solid var(--gold);
+  padding: 20px 32px;
+  margin: 40px 0;
+  max-width: 640px;
+}
+
+.pull-quote-text {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--cream);
+  line-height: 1.5;
+}
+
+.pull-quote-attr {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .08em;
+  color: var(--gold);
+  margin-top: 12px;
+  text-transform: uppercase;
+}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(20px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+
+.fade-up {
+  animation: fadeUp .6s ease both;
+}
+
+.fade-up:nth-child(1) { animation-delay:.1s; }
+.fade-up:nth-child(2) { animation-delay:.2s; }
+.fade-up:nth-child(3) { animation-delay:.3s; }
+.fade-up:nth-child(4) { animation-delay:.4s; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-brand">Pablo Montenegro</a>
+  <a href="#" class="nav-back">← Back to work</a>
+</nav>
+
+
+<!-- ══════════════════════════════════════
+     HERO
+══════════════════════════════════════ -->
+<section>
+  <div class="hero">
+    <div class="hero-meta fade-up">
+      <div class="hero-tag">Payment Operations · Product Consulting · 2025</div>
+      <h1 class="hero-title">
+        Designing a payment<br>
+        operations system for<br>
+        <em>social-first retail.</em>
+      </h1>
+      <p class="hero-sub">
+        How a Bolivian fashion retailer scaling through TikTok Live got a complete payment collection and inventory management system — operational in 7 days, at zero tooling cost.
+      </p>
+      <div class="hero-badges">
+        <span class="badge">Payment Operations</span>
+        <span class="badge">Retail · Bolivia</span>
+        <span class="badge">WhatsApp Commerce</span>
+        <span class="badge">Inventory Systems</span>
+      </div>
+    </div>
+
+    <div class="hero-stats fade-up">
+      <div class="stat">
+        <span class="stat-num">−85%</span>
+        <span class="stat-label">Operational workload</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">Bs.0</span>
+        <span class="stat-label">Tooling cost</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">7</span>
+        <span class="stat-label">Days to ship</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+
+<!-- ══════════════════════════════════════
+     CONTEXT
+══════════════════════════════════════ -->
+<div class="context-band">
+  <div class="context-inner">
+
+    <div>
+      <div class="section-label">Context</div>
+      <h2 class="section-title" style="margin-bottom:20px;">A physical store<br><em>going digital.</em></h2>
+      <div class="section-body">
+        <p>Karigab is a fashion retailer based in Bolivia with an established physical store. Recognising the reach of TikTok Live, the team began hosting daily live shows where a host presents garments directly to thousands of viewers — a format that turned followers into buyers overnight.</p>
+        <p>The channel worked. Orders came in. But the operational backbone hadn't caught up. Every sale was managed manually across WhatsApp, mental notes, and spreadsheets that didn't talk to each other.</p>
+      </div>
+    </div>
+
+    <div>
+      <div class="challenge-block">
+        <div class="challenge-title">The challenges</div>
+        <ul class="challenge-list">
+          <li>Duplicate orders — two customers claiming the same item with no stock lock</li>
+          <li>No unified inventory — physical store and TikTok channel operating in silos</li>
+          <li>Payment validation done by memory — no systematic check against bank movements</li>
+          <li>30+ WhatsApp messages per live session, each answered manually from scratch</li>
+          <li>No operational visibility — the owner had no daily view of revenue, pending orders or stock risk</li>
+          <li>Non-technical team — any solution had to work with WhatsApp and Google Sheets only</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════
+     APPROACH
+══════════════════════════════════════ -->
+<section class="section">
+  <div class="section-label">Approach</div>
+  <h2 class="section-title">Systems thinking over<br><em>tool recommendations.</em></h2>
+  <div class="section-body">
+    <p>The instinct in these projects is to reach for a SaaS tool. I didn't. The constraint — a non-technical team, zero budget, live operations that couldn't stop — meant the solution had to be built around what already existed: WhatsApp, Google Sheets, and a functioning physical store.</p>
+    <p>The work started with the operational flow, not the technology. Understanding exactly where time was lost, where errors were introduced, and where the two channels (physical and digital) diverged.</p>
+  </div>
+
+  <div class="pull-quote">
+    <div class="pull-quote-text">"The real problem wasn't the tools. It was the absence of a system. The tools were already there."</div>
+    <div class="pull-quote-attr">Observation from discovery — Week 1</div>
+  </div>
+
+  <div class="solution-grid">
+    <div class="sol-item">
+      <span class="sol-num">01</span>
+      <div class="sol-title">SKU system & physical labelling</div>
+      <div class="sol-body">Designed a four-part garment code (Category · Colour · Size · Number) printable on standard A4. Every item gets a unique identifier before it enters inventory. The code travels from the physical tag to the WhatsApp conversation to the spreadsheet row.</div>
+      <span class="sol-tag">Inventory · Operations</span>
+    </div>
+    <div class="sol-item">
+      <span class="sol-num">02</span>
+      <div class="sol-title">WhatsApp-native checkout flow</div>
+      <div class="sol-body">Redesigned the full customer journey within WhatsApp Business — six response templates replacing all manual writing, a pre-assigned order number used as payment reference, and a structured conversation protocol the team could follow without training.</div>
+      <span class="sol-tag">UX · Payment Flow</span>
+    </div>
+    <div class="sol-item">
+      <span class="sol-num">03</span>
+      <div class="sol-title">Unified inventory — one source of truth</div>
+      <div class="sol-body">Built a Google Sheets architecture with two linked tabs: Orders and Stock. Columns for WA Sales and Physical Store Sales feed a single Available figure. The physical team syncs once at close of day — enough to keep the live channel accurate.</div>
+      <span class="sol-tag">Data · Inventory</span>
+    </div>
+    <div class="sol-item">
+      <span class="sol-num">04</span>
+      <div class="sol-title">Bank reconciliation by batch</div>
+      <div class="sol-body">Designed a semi-automated match process: the operator enters the bank-received amount in a single column — the MATCH formula compares it against the order total and returns MATCH ✅, REVIEW ⚠️, or PENDING. Two 15-minute rounds per day replace 30+ individual checks.</div>
+      <span class="sol-tag">Payment Validation · Reconciliation</span>
+    </div>
+    <div class="sol-item">
+      <span class="sol-num">05</span>
+      <div class="sol-title">Operations dashboard</div>
+      <div class="sol-body">A Summary tab showing the owner — in under 2 minutes each morning — today's revenue, unconfirmed orders, match exceptions, and critical stock alerts. Pending items disappear automatically when resolved. No manual curation needed.</div>
+      <span class="sol-tag">Visibility · Reporting</span>
+    </div>
+    <div class="sol-item">
+      <span class="sol-num">06</span>
+      <div class="sol-title">Role protocols & team playbook</div>
+      <div class="sol-body">Defined three operational roles — owner, TikTok host, and WhatsApp operator — each with a daily checklist, clear scope, and permissions in the shared spreadsheet. The system works because ownership is explicit, not assumed.</div>
+      <span class="sol-tag">Operations · Team Design</span>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════
+     PROCESS
+══════════════════════════════════════ -->
+<div class="divider"></div>
+
+<section class="section">
+  <div class="section-label">How it was built</div>
+  <h2 class="section-title">Seven days.<br><em>Zero downtime.</em></h2>
+  <div class="section-body">
+    <p>The store couldn't pause operations. The system was designed and handed over in parallel with daily live sessions — each piece validated in real conditions before the next was built.</p>
+  </div>
+
+  <div class="process-timeline">
+
+    <div class="process-step">
+      <div class="step-phase">Discovery<br>Day 1–2</div>
+      <div>
+        <div class="step-title">Mapping the real operational flow</div>
+        <div class="step-body">Documented the complete as-is process: TikTok live → WhatsApp → payment → dispatch. Timed each step. Identified where orders were lost, where duplicates happened, and where the physical and digital channels diverged. The primary finding: <strong>stock verification and payment matching were consuming over 60% of daily operational time.</strong></div>
+      </div>
+    </div>
+
+    <div class="process-step">
+      <div class="step-phase">Design<br>Day 3–4</div>
+      <div>
+        <div class="step-title">System architecture & flow redesign</div>
+        <div class="step-body">Designed the SKU structure, the Google Sheets schema (Orders + Stock + Summary tabs), the WhatsApp conversation protocol, and the bank reconciliation logic. Every decision was tested against one constraint: <strong>can a non-technical operator run this alone?</strong></div>
+      </div>
+    </div>
+
+    <div class="process-step">
+      <div class="step-phase">Build<br>Day 5–6</div>
+      <div>
+        <div class="step-title">Spreadsheet build & template setup</div>
+        <div class="step-body">Built the Google Sheets system with formulas, conditional formatting, data validation, and the MATCH reconciliation logic. Configured WhatsApp Business with six response templates. Labelled the first batch of 30 garments for the next live session.</div>
+      </div>
+    </div>
+
+    <div class="process-step">
+      <div class="step-phase">Launch<br>Day 7</div>
+      <div>
+        <div class="step-title">First live with the system running</div>
+        <div class="step-body">The team ran their first TikTok Live with the new system. The host presented garment codes on camera. The WhatsApp operator handled messages using templates. Orders flowed into the spreadsheet in real time. <strong>The post-live workload — previously 6+ hours — was completed in under 2.5 hours including bank reconciliation.</strong></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════
+     OUTCOMES
+══════════════════════════════════════ -->
+<div class="divider"></div>
+
+<section class="section">
+  <div class="section-label">Outcomes</div>
+  <h2 class="section-title">Measurable results<br><em>from day one.</em></h2>
+
+  <div class="outcomes-row">
+    <div class="outcome-item">
+      <span class="outcome-num">−85%</span>
+      <div class="outcome-label">
+        <strong>Daily operational workload</strong>
+        Post-live processing dropped from 6+ hours to under 2.5 hours including bank reconciliation
+      </div>
+    </div>
+    <div class="outcome-item">
+      <span class="outcome-num">0</span>
+      <div class="outcome-label">
+        <strong>Duplicate orders</strong>
+        The RESERVED status protocol eliminated inventory conflicts across both channels
+      </div>
+    </div>
+    <div class="outcome-item">
+      <span class="outcome-num">30 min</span>
+      <div class="outcome-label">
+        <strong>To reconcile 30+ payments</strong>
+        Two batch rounds per day replaced individual per-payment bank checks
+      </div>
+    </div>
+    <div class="outcome-item">
+      <span class="outcome-num">Bs.0</span>
+      <div class="outcome-label">
+        <strong>Monthly tooling cost</strong>
+        Built entirely on WhatsApp Business, Google Sheets, and standard bank apps
+      </div>
+    </div>
+    <div class="outcome-item">
+      <span class="outcome-num">7 days</span>
+      <div class="outcome-label">
+        <strong>From discovery to live</strong>
+        Designed, built, and deployed without pausing daily operations
+      </div>
+    </div>
+    <div class="outcome-item">
+      <span class="outcome-num">1</span>
+      <div class="outcome-label">
+        <strong>Inventory for both channels</strong>
+        Physical store and TikTok sales now deduct from a single source of truth
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════
+     LEARNINGS
+══════════════════════════════════════ -->
+<div class="relevance-band">
+  <div class="relevance-inner">
+    <div class="section-label">Why this matters</div>
+    <h2 class="section-title" style="margin-bottom:8px;">The broader <em>relevance.</em></h2>
+    <p style="font-size:15px;color:var(--muted);margin-bottom:0;max-width:580px;">This project sits at the intersection of three dynamics shaping payments globally.</p>
+
+    <div class="relevance-grid">
+      <div class="relevance-item">
+        <div class="relevance-icon">📱</div>
+        <div class="relevance-title">Social commerce is the new checkout</div>
+        <div class="relevance-body">TikTok Live, Instagram Shops, and WhatsApp Commerce are where a growing share of transactions in emerging markets begin — and often complete. Building payment rails for this channel is the next frontier for fintechs expanding beyond traditional e-commerce.</div>
+      </div>
+      <div class="relevance-item">
+        <div class="relevance-icon">🏦</div>
+        <div class="relevance-title">Bank reconciliation without APIs</div>
+        <div class="relevance-body">In markets where banks don't offer open APIs, merchants still need a way to verify that money arrived. This project demonstrates a structured, scalable reconciliation approach that works today — and points to where automation can be layered in as infrastructure matures.</div>
+      </div>
+      <div class="relevance-item">
+        <div class="relevance-icon">🔄</div>
+        <div class="relevance-title">Omnichannel for businesses without platforms</div>
+        <div class="relevance-body">The unified inventory problem — one source of truth for physical and digital sales — isn't unique to Karigab. It's the same challenge facing thousands of growing retailers across Latin America, Africa, and Southeast Asia who operate outside formal e-commerce platforms.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════
+     LEARNINGS
+══════════════════════════════════════ -->
+<section class="section">
+  <div class="section-label">Product learnings</div>
+  <h2 class="section-title">What this project<br><em>reinforced.</em></h2>
+
+  <div class="learnings-grid">
+    <div class="learning-card">
+      <div class="learning-title">Constraints produce better design</div>
+      <div class="learning-body">No budget, no technical team, no downtime allowed. Each constraint eliminated an option and forced a simpler, more resilient solution. The result is a system anyone on the team can operate and maintain independently.</div>
+    </div>
+    <div class="learning-card">
+      <div class="learning-title">The reference field is the whole trick</div>
+      <div class="learning-body">Asking customers to include the order number (KAR-047) in their bank transfer reference reduced payment matching time from 5 minutes per transaction to under 20 seconds. One field. Massive operational leverage.</div>
+    </div>
+    <div class="learning-card">
+      <div class="learning-title">Batch beats real-time at low volume</div>
+      <div class="learning-body">With 30+ daily payments across multiple banks, real-time validation per transaction was operationally impossible. Two 15-minute batch rounds proved more reliable and less error-prone than reactive individual checks.</div>
+    </div>
+    <div class="learning-card">
+      <div class="learning-title">Roles before tools</div>
+      <div class="learning-body">The system only works because ownership is explicit. Defining who does what — host, operator, owner — before assigning any tool access meant the spreadsheet permissions and protocols matched actual workflow. No gaps, no overlaps.</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════
+     DELIVERABLES
+══════════════════════════════════════ -->
+<div class="divider"></div>
+
+<section class="section">
+  <div class="section-label">Deliverables</div>
+  <h2 class="section-title">What was<br><em>handed over.</em></h2>
+
+  <div class="deliverables-list">
+    <div class="del-item">
+      <div class="del-icon">🗺️</div>
+      <div class="del-name">End-to-end operational flow — 7 phases, role assignments, time estimates</div>
+      <span class="del-tag">Interactive HTML</span>
+    </div>
+    <div class="del-item">
+      <div class="del-icon">📊</div>
+      <div class="del-name">Google Sheets system — Orders, Stock, Summary with reconciliation logic</div>
+      <span class="del-tag">XLSX · Ready to use</span>
+    </div>
+    <div class="del-item">
+      <div class="del-icon">🏷️</div>
+      <div class="del-name">SKU system & printable label templates — A4, 6 per sheet</div>
+      <span class="del-tag">Interactive HTML</span>
+    </div>
+    <div class="del-item">
+      <div class="del-icon">💬</div>
+      <div class="del-name">6 WhatsApp message templates — confirmation, payment, reminder, error handling</div>
+      <span class="del-tag">Copy · Ready to paste</span>
+    </div>
+    <div class="del-item">
+      <div class="del-icon">📋</div>
+      <div class="del-name">Team playbook — daily checklists and protocols for 3 roles</div>
+      <span class="del-tag">Documentation</span>
+    </div>
+    <div class="del-item">
+      <div class="del-icon">🎬</div>
+      <div class="del-name">Interactive system demo — storyboard walkthrough of a complete sale</div>
+      <span class="del-tag">Interactive HTML</span>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════
+     CTA
+══════════════════════════════════════ -->
+<div class="divider"></div>
+
+<section>
+  <div class="cta-section">
+    <div>
+      <h2 class="cta-title">Working on a similar<br><em>operations challenge?</em></h2>
+      <p class="cta-sub">I work with product teams and growing businesses on payment flows, operational design, and collections systems. If you're building in this space, I'd be glad to talk.</p>
+    </div>
+    <a href="mailto:pablo@pablomontenegro.ie" class="cta-btn">Get in touch</a>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-note">Pablo Montenegro · pablomontenegro.ie</span>
+  <span class="footer-note">Payment Operations · Product Consulting · 2025</span>
+</footer>
+
+</body>
+</html>
