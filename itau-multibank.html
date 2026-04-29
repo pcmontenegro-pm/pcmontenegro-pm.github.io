@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Multi-Bank Payment Button · Itaú Chile · Pablo Montenegro</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0A1226;--navy2:#111D35;--navy3:#1A2A44;
+  --gold:#B4965A;--gold2:#D4B47A;--cream:#FAF7F2;
+  --white:#FFF;--muted:#8892A4;
+  --border:rgba(180,150,90,.15);--border2:rgba(255,255,255,.07);
+  --serif:'Cormorant Garamond',serif;--sans:'DM Sans',sans-serif;--mono:'DM Mono',monospace;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--navy);color:var(--cream);font-family:var(--sans);font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased;}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.022;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:220px;}
+body>*{position:relative;z-index:1;}
+a{color:inherit;text-decoration:none;}
+
+nav{position:sticky;top:0;z-index:200;padding:0 48px;height:60px;display:flex;align-items:center;justify-content:space-between;background:rgba(10,18,38,.94);backdrop-filter:blur(20px);border-bottom:1px solid var(--border2);}
+.nav-brand{font-family:var(--serif);font-size:15px;font-style:italic;font-weight:300;color:var(--gold);}
+.nav-right{display:flex;align-items:center;gap:14px;}
+.nav-lang{display:flex;border:1px solid var(--border);border-radius:2px;overflow:hidden;}
+.lang-btn{padding:4px 10px;font-family:var(--mono);font-size:10px;letter-spacing:.08em;background:transparent;border:none;color:var(--muted);cursor:pointer;transition:all .15s;}
+.lang-btn.active{background:var(--gold);color:var(--navy);font-weight:500;}
+.nav-back{font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--muted);transition:color .2s;}
+.nav-back:hover{color:var(--gold);}
+
+.hero{padding:80px 48px 64px;max-width:1100px;margin:0 auto;}
+.hero-tag{font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--gold);text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:12px;}
+.sep{width:32px;height:1px;background:var(--border);}
+.hero-h1{font-family:var(--serif);font-size:clamp(38px,5vw,66px);font-weight:300;line-height:1.08;color:var(--white);margin-bottom:16px;}
+.hero-h1 em{font-style:italic;color:var(--gold2);}
+.hero-sub{font-size:17px;color:var(--muted);max-width:580px;line-height:1.75;font-weight:300;margin-bottom:28px;}
+.hero-meta{display:flex;gap:24px;flex-wrap:wrap;font-family:var(--mono);font-size:10px;letter-spacing:.06em;color:var(--muted);text-transform:uppercase;}
+.confidential{margin-top:20px;display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:9px;letter-spacing:.08em;color:#6B7585;border:1px solid var(--border);padding:5px 12px;border-radius:2px;}
+
+.section{padding:72px 48px;}
+.section-inner{max-width:1100px;margin:0 auto;}
+.sec-tag{font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--gold);text-transform:uppercase;margin-bottom:10px;display:block;}
+.sec-h2{font-family:var(--serif);font-size:clamp(26px,3.5vw,40px);font-weight:300;color:var(--white);line-height:1.2;margin-bottom:28px;}
+.sec-h2 em{font-style:italic;color:var(--gold2);}
+.body-text{font-size:15px;color:rgba(250,247,242,.72);line-height:1.85;max-width:700px;}
+.body-text p+p{margin-top:16px;}
+.body-text strong{color:var(--cream);font-weight:500;}
+
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;}
+.card{background:var(--navy2);border:1px solid var(--border);padding:28px;}
+.card-label{font-family:var(--mono);font-size:9px;letter-spacing:.1em;color:var(--gold);text-transform:uppercase;margin-bottom:10px;}
+.card-body{font-size:13.5px;color:var(--muted);line-height:1.7;}
+.card-body li{list-style:none;padding-left:14px;position:relative;margin-bottom:6px;}
+.card-body li::before{content:'—';position:absolute;left:0;color:var(--gold);font-family:var(--mono);font-size:11px;}
+
+.items-list{display:flex;flex-direction:column;gap:0;border:1px solid var(--border);}
+.list-item{display:flex;align-items:flex-start;gap:20px;padding:18px 22px;border-bottom:1px solid var(--border);font-size:14px;line-height:1.6;transition:background .15s;}
+.list-item:last-child{border-bottom:none;}
+.list-item:hover{background:var(--navy2);}
+.li-num{font-family:var(--mono);font-size:11px;color:var(--gold);flex-shrink:0;padding-top:2px;}
+.li-text{color:var(--muted);}
+.li-text strong{color:var(--cream);font-weight:500;}
+
+/* MULTIBANK FLOW DIAGRAM */
+.flow-multi{display:flex;align-items:stretch;gap:0;margin-top:40px;border:1px solid var(--border);}
+.flow-banks{flex:1;display:flex;flex-direction:column;gap:1px;background:var(--border);}
+.flow-bank-item{background:var(--navy);padding:18px 22px;flex:1;display:flex;align-items:center;gap:14px;}
+.flow-bank-item.highlight{background:rgba(180,150,90,.05);}
+.bank-icon{width:36px;height:36px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:11px;font-weight:500;color:white;flex-shrink:0;}
+.bank-name{font-size:13px;color:var(--cream);}
+.bank-sub{font-size:11px;color:var(--muted);}
+.flow-center{width:120px;flex-shrink:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(180,150,90,.06);border-left:1px solid var(--border);border-right:1px solid var(--border);padding:20px 12px;gap:12px;}
+.flow-center-label{font-family:var(--mono);font-size:8px;letter-spacing:.1em;color:var(--gold);text-transform:uppercase;text-align:center;}
+.flow-center-icon{font-size:22px;}
+.flow-center-badge{background:var(--gold);color:var(--navy);font-family:var(--mono);font-size:8px;font-weight:500;padding:3px 8px;border-radius:2px;text-transform:uppercase;letter-spacing:.06em;}
+.flow-right{flex:1;display:flex;flex-direction:column;justify-content:center;padding:28px;background:var(--navy2);}
+.flow-right-title{font-family:var(--serif);font-size:20px;font-weight:400;color:var(--white);margin-bottom:8px;}
+.flow-right-subs{display:flex;flex-direction:column;gap:6px;margin-top:12px;}
+.flow-right-sub{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted);}
+.flow-right-sub::before{content:'✓';color:var(--gold);font-family:var(--mono);font-size:11px;flex-shrink:0;}
+
+/* ACCESS MODEL */
+.access-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border);margin-top:40px;}
+.access-card{background:var(--navy);padding:28px;}
+.access-icon{font-size:24px;margin-bottom:12px;}
+.access-title{font-family:var(--serif);font-size:20px;font-weight:400;color:var(--white);margin-bottom:8px;}
+.access-sub{font-family:var(--mono);font-size:9px;letter-spacing:.08em;color:var(--gold);text-transform:uppercase;margin-bottom:12px;}
+.access-body{font-size:13.5px;color:var(--muted);line-height:1.7;}
+.access-for{margin-top:12px;font-family:var(--mono);font-size:9px;color:var(--muted2,#6B7585);letter-spacing:.06em;text-transform:uppercase;}
+
+.outcomes-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);margin-top:40px;}
+.oc-item{background:var(--navy);padding:28px;text-align:center;}
+.oc-num{font-family:var(--serif);font-size:36px;font-weight:300;color:var(--gold);line-height:1;display:block;margin-bottom:6px;}
+.oc-label{font-size:13px;color:var(--muted);line-height:1.5;}
+.oc-label strong{color:var(--cream);display:block;font-weight:500;margin-bottom:3px;}
+
+.rel-band{background:var(--navy2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+.rel-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border);margin-top:36px;}
+.rel-item{background:var(--navy);padding:24px;}
+.rel-icon{font-size:20px;margin-bottom:10px;}
+.rel-title{font-family:var(--serif);font-size:16px;font-weight:400;color:var(--white);margin-bottom:6px;}
+.rel-body{font-size:13px;color:var(--muted);line-height:1.65;}
+
+.cta-bar{padding:64px 48px;display:flex;justify-content:space-between;align-items:center;max-width:1100px;margin:0 auto;flex-wrap:wrap;gap:24px;}
+.cta-links{display:flex;gap:12px;flex-wrap:wrap;}
+.btn-g{display:inline-block;padding:10px 24px;border:1px solid var(--gold);color:var(--gold);font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;transition:all .2s;}
+.btn-g:hover{background:var(--gold);color:var(--navy);}
+.btn-m{display:inline-block;padding:10px 24px;border:1px solid var(--border);color:var(--muted);font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;transition:all .2s;}
+.btn-m:hover{border-color:var(--gold);color:var(--gold);}
+
+footer{border-top:1px solid var(--border);padding:22px 48px;display:flex;justify-content:space-between;}
+.foot-note{font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:.04em;}
+
+@media(max-width:768px){
+  nav{padding:0 20px;}
+  .hero,.section{padding-left:24px;padding-right:24px;}
+  .hero{padding-top:56px;padding-bottom:48px;}
+  .section{padding-top:48px;padding-bottom:48px;}
+  .two-col,.outcomes-row,.rel-grid,.access-grid{grid-template-columns:1fr;}
+  .flow-multi{flex-direction:column;}
+  .flow-center{width:100%;flex-direction:row;padding:14px 20px;}
+  .cta-bar{padding:48px 24px;}
+  footer{padding:20px 24px;flex-direction:column;gap:8px;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="https://pablomontenegro.ie" class="nav-brand">Pablo Montenegro</a>
+  <div class="nav-right">
+    <div class="nav-lang">
+      <button onclick="setLang('en')" id="btn-en" class="lang-btn active">EN</button>
+      <button onclick="setLang('es')" id="btn-es" class="lang-btn">ES</button>
+    </div>
+    <a href="https://pablomontenegro.ie/#work" class="nav-back" data-en="← Back to work" data-es="← Volver al trabajo">← Back to work</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-tag">
+    <span>Itaú Bank Chile</span>
+    <span class="sep"></span>
+    <span data-en="B2B Payments · Enterprise" data-es="Pagos B2B · Empresa">B2B Payments · Enterprise</span>
+    <span class="sep"></span>
+    <span>2022–2023</span>
+  </div>
+  <h1 class="hero-h1">Multi-Bank <em>Payment Button</em></h1>
+  <p class="hero-sub" data-en="Creating a multi-bank payment initiation model for corporate clients — one integration layer, multiple bank sources, high-value transactions." data-es="Creación de un modelo de iniciación de pago multibanco para clientes corporativos — una capa de integración, múltiples fuentes bancarias, transacciones de alto valor.">Creating a multi-bank payment initiation model for corporate clients — one integration layer, multiple bank sources, high-value transactions.</p>
+  <div class="hero-meta">
+    <span>Senior Product Owner</span>
+    <span class="sep"></span>
+    <span data-en="B2B Payments" data-es="Pagos B2B">B2B Payments</span>
+    <span class="sep"></span>
+    <span data-en="Enterprise Infrastructure" data-es="Infraestructura Empresarial">Enterprise Infrastructure</span>
+  </div>
+  <div class="confidential">🔒 <span data-en="Metrics are directional. Sensitive commercial detail omitted." data-es="Las métricas son direccionales. Detalle comercial sensible omitido.">Metrics are directional. Sensitive commercial detail omitted.</span></div>
+</div>
+
+<!-- EXEC SUMMARY -->
+<section class="section" style="background:var(--navy2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+  <div class="section-inner two-col">
+    <div>
+      <span class="sec-tag" data-en="Executive Summary" data-es="Resumen Ejecutivo">Executive Summary</span>
+      <h2 class="sec-h2" data-en="One integration.<br><em>Every bank.</em>" data-es="Una integración.<br><em>Todos los bancos.</em>">One integration.<br><em>Every bank.</em></h2>
+      <div class="body-text">
+        <p data-en="Corporate clients of Itaú Chile needed to receive high-value payments from their own customers — who held accounts at different Chilean banks. Without a unified solution, each bank required a separate integration or manual workaround, creating fragmentation, friction and reconciliation complexity." data-es="Los clientes corporativos de Itaú Chile necesitaban recibir pagos de alto valor de sus propios clientes — quienes tenían cuentas en diferentes bancos chilenos. Sin una solución unificada, cada banco requería una integración separada o un proceso manual alternativo, creando fragmentación, fricción y complejidad de reconciliación.">Corporate clients of Itaú Chile needed to receive high-value payments from their own customers — who held accounts at different Chilean banks. Without a unified solution, each bank required a separate integration or manual workaround, creating fragmentation, friction and reconciliation complexity.</p>
+        <p data-en="The Multi-Bank Payment Button created a single integration model — API for technically capable clients, web portal for operational users — enabling payment initiation across multiple Chilean banks through one access point, with same-day payment capabilities." data-es="El Botón de Pago Multibanco creó un modelo de integración único — API para clientes con capacidad técnica, portal web para usuarios operativos — habilitando la iniciación de pagos a través de múltiples bancos chilenos desde un único punto de acceso, con capacidades de pago en el mismo día.">The Multi-Bank Payment Button created a single integration model — API for technically capable clients, web portal for operational users — enabling payment initiation across multiple Chilean banks through one access point, with same-day payment capabilities.</p>
+      </div>
+    </div>
+    <div>
+      <div class="card" style="margin-bottom:16px;">
+        <div class="card-label" data-en="Before — Fragmented payment flows" data-es="Antes — Flujos de pago fragmentados">Before — Fragmented payment flows</div>
+        <ul class="card-body">
+          <li data-en="Separate integration or process per bank" data-es="Integración o proceso separado por banco">Separate integration or process per bank</li>
+          <li data-en="Manual or slow payment handling for some banks" data-es="Manejo manual o lento de pagos para algunos bancos">Manual or slow payment handling for some banks</li>
+          <li data-en="Complex reconciliation across multiple sources" data-es="Reconciliación compleja entre múltiples fuentes">Complex reconciliation across multiple sources</li>
+          <li data-en="High friction for corporate client adoption" data-es="Alta fricción para la adopción de clientes corporativos">High friction for corporate client adoption</li>
+          <li data-en="Operational overhead for each bank relationship" data-es="Carga operativa para cada relación bancaria">Operational overhead for each bank relationship</li>
+        </ul>
+      </div>
+      <div class="card" style="border-color:rgba(180,150,90,.3);background:rgba(180,150,90,.04);">
+        <div class="card-label" style="color:var(--gold);" data-en="After — Unified payment model" data-es="Después — Modelo de pago unificado">After — Unified payment model</div>
+        <ul class="card-body">
+          <li data-en="One integration — API or portal access" data-es="Una integración — acceso API o portal">One integration — API or portal access</li>
+          <li data-en="Multi-bank payment initiation from a single point" data-es="Iniciación de pago multibanco desde un único punto">Multi-bank payment initiation from a single point</li>
+          <li data-en="Same-day payment capability for high-value transfers" data-es="Capacidad de pago en el mismo día para transferencias de alto valor">Same-day payment capability for high-value transfers</li>
+          <li data-en="Simplified reconciliation for corporate clients" data-es="Reconciliación simplificada para clientes corporativos">Simplified reconciliation for corporate clients</li>
+          <li data-en="Scalable model for broader corporate adoption" data-es="Modelo escalable para mayor adopción corporativa">Scalable model for broader corporate adoption</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FLOW DIAGRAM -->
+<section class="section">
+  <div class="section-inner">
+    <span class="sec-tag" data-en="Integration Architecture" data-es="Arquitectura de Integración">Integration Architecture</span>
+    <h2 class="sec-h2" data-en="Multiple banks.<br><em>One access point.</em>" data-es="Múltiples bancos.<br><em>Un punto de acceso.</em>">Multiple banks.<br><em>One access point.</em></h2>
+    <div class="flow-multi">
+      <div class="flow-banks">
+        <div class="flow-bank-item">
+          <div class="bank-icon" style="background:#E31837;">S</div>
+          <div><div class="bank-name">Banco Santander</div><div class="bank-sub" data-en="High-value corporate payer" data-es="Pagador corporativo de alto valor">High-value corporate payer</div></div>
+        </div>
+        <div class="flow-bank-item">
+          <div class="bank-icon" style="background:#004A97;">I</div>
+          <div><div class="bank-name">Itaú</div><div class="bank-sub" data-en="High-value corporate payer" data-es="Pagador corporativo de alto valor">High-value corporate payer</div></div>
+        </div>
+        <div class="flow-bank-item">
+          <div class="bank-icon" style="background:#009CDE;">B</div>
+          <div><div class="bank-name">BancoEstado</div><div class="bank-sub" data-en="High-value corporate payer" data-es="Pagador corporativo de alto valor">High-value corporate payer</div></div>
+        </div>
+        <div class="flow-bank-item" style="opacity:.5;">
+          <div class="bank-icon" style="background:#444;">+</div>
+          <div><div class="bank-name" data-en="Other Chilean banks" data-es="Otros bancos chilenos">Other Chilean banks</div><div class="bank-sub" data-en="Scalable to full market" data-es="Escalable al mercado completo">Scalable to full market</div></div>
+        </div>
+      </div>
+      <div class="flow-center">
+        <div class="flow-center-icon">⚡</div>
+        <div class="flow-center-label" data-en="Multi-Bank Integration Layer" data-es="Capa de Integración Multibanco">Multi-Bank Integration Layer</div>
+        <div class="flow-center-badge" data-en="One model" data-es="Un modelo">One model</div>
+      </div>
+      <div class="flow-right">
+        <div class="flow-right-title" data-en="Corporate client — single access point" data-es="Cliente corporativo — punto de acceso único">Corporate client — single access point</div>
+        <div class="body-text" style="font-size:13px;margin-bottom:12px;" data-en="Receives payments from any Chilean bank through one integration. No per-bank setup required." data-es="Recibe pagos de cualquier banco chileno a través de una integración. Sin configuración por banco.">Receives payments from any Chilean bank through one integration. No per-bank setup required.</div>
+        <div class="flow-right-subs">
+          <div class="flow-right-sub" data-en="Same-day payment receipt" data-es="Recepción de pago en el mismo día">Same-day payment receipt</div>
+          <div class="flow-right-sub" data-en="Unified reconciliation" data-es="Reconciliación unificada">Unified reconciliation</div>
+          <div class="flow-right-sub" data-en="CLP 50M+ average ticket" data-es="Ticket promedio CLP 50M+">CLP 50M+ average ticket</div>
+          <div class="flow-right-sub" data-en="API or portal access" data-es="Acceso API o portal">API or portal access</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM + CHALLENGE -->
+<section class="section" style="background:var(--navy2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+  <div class="section-inner two-col">
+    <div>
+      <span class="sec-tag" data-en="The Problem" data-es="El Problema">The Problem</span>
+      <h2 class="sec-h2" data-en="High-value payments held back<br><em>by integration complexity.</em>" data-es="Pagos de alto valor frenados<br><em>por complejidad de integración.</em>">High-value payments held back<br><em>by integration complexity.</em></h2>
+      <div class="body-text">
+        <p data-en="Corporate clients handling large transactions — with average tickets above CLP 50 million — were limited by the fragmentation of the Chilean banking system. Their payers used different banks, and there was no single way to receive those payments without building and maintaining separate bank relationships or manual processes." data-es="Los clientes corporativos que manejaban transacciones grandes — con tickets promedio superiores a CLP 50 millones — estaban limitados por la fragmentación del sistema bancario chileno. Sus pagadores usaban diferentes bancos, y no había una sola forma de recibir esos pagos sin construir y mantener relaciones bancarias separadas o procesos manuales.">Corporate clients handling large transactions — with average tickets above CLP 50 million — were limited by the fragmentation of the Chilean banking system. Their payers used different banks, and there was no single way to receive those payments without building and maintaining separate bank relationships or manual processes.</p>
+        <p data-en="The result: payment delays, reconciliation overhead, and a product offering that couldn't compete with the simplicity of a single integrated solution. The commercial opportunity was clear — but the product had to be built from scratch." data-es="El resultado: retrasos en los pagos, carga de reconciliación y una oferta de producto que no podía competir con la simplicidad de una solución integrada única. La oportunidad comercial era clara — pero el producto tenía que construirse desde cero.">The result: payment delays, reconciliation overhead, and a product offering that couldn't compete with the simplicity of a single integrated solution. The commercial opportunity was clear — but the product had to be built from scratch.</p>
+      </div>
+    </div>
+    <div>
+      <span class="sec-tag" data-en="Product Challenge" data-es="Desafío de Producto">Product Challenge</span>
+      <h2 class="sec-h2" data-en="What made it <em>difficult.</em>" data-es="Por qué fue <em>difícil.</em>">What made it <em>difficult.</em></h2>
+      <div class="items-list">
+        <div class="list-item">
+          <span class="li-num">01</span>
+          <span class="li-text" data-en="<strong>Multi-bank technical integration:</strong> Each bank had its own API specifications, authentication models and message formats. A single abstraction layer had to handle all of them reliably." data-es="<strong>Integración técnica multibanco:</strong> Cada banco tenía sus propias especificaciones de API, modelos de autenticación y formatos de mensajes. Una única capa de abstracción tenía que manejarlos todos de forma confiable."><strong>Multi-bank technical integration:</strong> Each bank had its own API specifications, authentication models and message formats. A single abstraction layer had to handle all of them reliably.</span>
+        </div>
+        <div class="list-item">
+          <span class="li-num">02</span>
+          <span class="li-text" data-en="<strong>Dual access model design:</strong> Different corporate clients had different technical capabilities. Designing a product that worked equally well as an API integration and as a web portal — without compromising either — required deliberate trade-off decisions." data-es="<strong>Diseño de modelo de acceso dual:</strong> Diferentes clientes corporativos tenían diferentes capacidades técnicas. Diseñar un producto que funcionara igualmente bien como integración API y como portal web — sin comprometer ninguno — requirió decisiones deliberadas de trade-off."><strong>Dual access model design:</strong> Different corporate clients had different technical capabilities. Designing a product that worked equally well as an API integration and as a web portal — without compromising either — required deliberate trade-off decisions.</span>
+        </div>
+        <div class="list-item">
+          <span class="li-num">03</span>
+          <span class="li-text" data-en="<strong>High-value transaction risk:</strong> Payments at CLP 50M+ ticket size required careful error handling, payment confirmation design and reconciliation logic — where a missed or duplicated transaction had significant commercial and operational consequences." data-es="<strong>Riesgo en transacciones de alto valor:</strong> Los pagos con tickets de CLP 50M+ requerían manejo cuidadoso de errores, diseño de confirmación de pago y lógica de reconciliación — donde una transacción perdida o duplicada tenía consecuencias comerciales y operativas significativas."><strong>High-value transaction risk:</strong> Payments at CLP 50M+ ticket size required careful error handling, payment confirmation design and reconciliation logic — where a missed or duplicated transaction had significant commercial and operational consequences.</span>
+        </div>
+        <div class="list-item">
+          <span class="li-num">04</span>
+          <span class="li-text" data-en="<strong>Corporate client onboarding:</strong> The target segment included sophisticated corporate clients with their own IT and finance teams. The onboarding experience had to match the expectations of enterprise buyers, not retail users." data-es="<strong>Onboarding de clientes corporativos:</strong> El segmento objetivo incluía clientes corporativos sofisticados con sus propios equipos de TI y finanzas. La experiencia de onboarding tenía que cumplir con las expectativas de compradores empresariales, no usuarios retail."><strong>Corporate client onboarding:</strong> The target segment included sophisticated corporate clients with their own IT and finance teams. The onboarding experience had to match the expectations of enterprise buyers, not retail users.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MY ROLE + DECISIONS -->
+<section class="section">
+  <div class="section-inner two-col">
+    <div>
+      <span class="sec-tag" data-en="My Role" data-es="Mi Rol">My Role</span>
+      <h2 class="sec-h2" data-en="Defining the product<br><em>from first principles.</em>" data-es="Definiendo el producto<br><em>desde los principios básicos.</em>">Defining the product<br><em>from first principles.</em></h2>
+      <div class="body-text">
+        <p data-en="I led product definition for the Multi-Bank Payment Button from the initial commercial opportunity through to pilot rollout. This included defining the integration architecture requirements, the dual access model, the onboarding journey for corporate clients, and the pilot selection criteria." data-es="Lideré la definición del producto para el Botón de Pago Multibanco desde la oportunidad comercial inicial hasta el rollout piloto. Esto incluyó definir los requisitos de arquitectura de integración, el modelo de acceso dual, el journey de onboarding para clientes corporativos y los criterios de selección del piloto.">I led product definition for the Multi-Bank Payment Button from the initial commercial opportunity through to pilot rollout. This included defining the integration architecture requirements, the dual access model, the onboarding journey for corporate clients, and the pilot selection criteria.</p>
+        <p data-en="I worked closely with technology teams on the API design and with commercial teams on the go-to-market approach, while coordinating operational and risk requirements across the product lifecycle." data-es="Trabajé estrechamente con los equipos de tecnología en el diseño de la API y con los equipos comerciales en el enfoque go-to-market, mientras coordinaba los requisitos operativos y de riesgo a lo largo del ciclo de vida del producto.">I worked closely with technology teams on the API design and with commercial teams on the go-to-market approach, while coordinating operational and risk requirements across the product lifecycle.</p>
+      </div>
+    </div>
+    <div>
+      <span class="sec-tag" data-en="Key Decisions" data-es="Decisiones Clave">Key Decisions</span>
+      <h2 class="sec-h2" data-en="What I <em>decided.</em>" data-es="Qué <em>decidí.</em>">What I <em>decided.</em></h2>
+      <div class="items-list">
+        <div class="list-item">
+          <span class="li-num">01</span>
+          <span class="li-text" data-en="<strong>Dual access model from day one:</strong> Rather than building API-only and adding a portal later, both access channels were defined in the initial scope — ensuring we served both technically capable and operationally-focused corporate clients from the first release." data-es="<strong>Modelo de acceso dual desde el primer día:</strong> En lugar de construir solo API y agregar un portal después, ambos canales de acceso se definieron en el alcance inicial — asegurando que servíamos tanto a clientes corporativos con capacidad técnica como a los operativos desde el primer lanzamiento."><strong>Dual access model from day one:</strong> Rather than building API-only and adding a portal later, both access channels were defined in the initial scope — ensuring we served both technically capable and operationally-focused corporate clients from the first release.</span>
+        </div>
+        <div class="list-item">
+          <span class="li-num">02</span>
+          <span class="li-text" data-en="<strong>Pilot with three selected companies:</strong> Rather than a broad launch, I recommended starting with three corporate clients that represented different integration profiles — API integrators, portal users, and hybrid — to surface the broadest set of real issues before scaling." data-es="<strong>Piloto con tres empresas seleccionadas:</strong> En lugar de un lanzamiento amplio, recomendé comenzar con tres clientes corporativos que representaban diferentes perfiles de integración — integradores de API, usuarios de portal e híbridos — para identificar el conjunto más amplio de problemas reales antes de escalar."><strong>Pilot with three selected companies:</strong> Rather than a broad launch, I recommended starting with three corporate clients that represented different integration profiles — API integrators, portal users, and hybrid — to surface the broadest set of real issues before scaling.</span>
+        </div>
+        <div class="list-item">
+          <span class="li-num">03</span>
+          <span class="li-text" data-en="<strong>Payment confirmation as a first-class feature:</strong> At high-value ticket sizes, ambiguity about whether a payment was received — or was pending, failed, or duplicated — was unacceptable. I prioritised payment status clarity over speed of the initial release." data-es="<strong>Confirmación de pago como función de primer nivel:</strong> Con tickets de alto valor, la ambigüedad sobre si un pago fue recibido — o estaba pendiente, falló o se duplicó — era inaceptable. Prioricé la claridad del estado del pago sobre la velocidad del lanzamiento inicial."><strong>Payment confirmation as a first-class feature:</strong> At high-value ticket sizes, ambiguity about whether a payment was received — or was pending, failed, or duplicated — was unacceptable. I prioritised payment status clarity over speed of the initial release.</span>
+        </div>
+        <div class="list-item">
+          <span class="li-num">04</span>
+          <span class="li-text" data-en="<strong>Target 40 corporate clients in the first year:</strong> Set a specific, measurable adoption target with the commercial team — not just 'launch and see'. This created shared accountability between product and commercial for the rollout phase." data-es="<strong>Objetivo de 40 clientes corporativos en el primer año:</strong> Establecí un objetivo de adopción específico y medible con el equipo comercial — no solo 'lanzar y ver'. Esto creó responsabilidad compartida entre producto y comercial para la fase de rollout."><strong>Target 40 corporate clients in the first year:</strong> Set a specific, measurable adoption target with the commercial team — not just 'launch and see'. This created shared accountability between product and commercial for the rollout phase.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DUAL ACCESS MODEL -->
+<section class="section" style="background:var(--navy2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+  <div class="section-inner">
+    <span class="sec-tag" data-en="Product Design · Dual Access Model" data-es="Diseño de Producto · Modelo de Acceso Dual">Product Design · Dual Access Model</span>
+    <h2 class="sec-h2" data-en="One product.<br><em>Two ways to access it.</em>" data-es="Un producto.<br><em>Dos formas de acceder.</em>">One product.<br><em>Two ways to access it.</em></h2>
+    <div class="body-text">
+      <p data-en="The key product insight was that corporate clients have fundamentally different integration capabilities. A single access model would have excluded one group or created a poor experience for the other. The dual access model resolved this without creating two separate products." data-es="El insight clave del producto fue que los clientes corporativos tienen capacidades de integración fundamentalmente diferentes. Un modelo de acceso único habría excluido a un grupo o creado una mala experiencia para el otro. El modelo de acceso dual resolvió esto sin crear dos productos separados.">The key product insight was that corporate clients have fundamentally different integration capabilities. A single access model would have excluded one group or created a poor experience for the other. The dual access model resolved this without creating two separate products.</p>
+    </div>
+    <div class="access-grid">
+      <div class="access-card">
+        <div class="access-icon">⚙️</div>
+        <div class="access-sub" data-en="Access model 1" data-es="Modelo de acceso 1">Access model 1</div>
+        <div class="access-title" data-en="API Integration" data-es="Integración API">API Integration</div>
+        <div class="access-body" data-en="For corporate clients with IT capability and existing payment infrastructure. Direct system-to-system integration with Itaú's multi-bank API. Enables automated payment initiation, real-time status retrieval and programmatic reconciliation." data-es="Para clientes corporativos con capacidad de TI e infraestructura de pagos existente. Integración directa sistema-a-sistema con la API multibanco de Itaú. Habilita iniciación de pagos automática, recuperación de estado en tiempo real y reconciliación programática.">For corporate clients with IT capability and existing payment infrastructure. Direct system-to-system integration with Itaú's multi-bank API. Enables automated payment initiation, real-time status retrieval and programmatic reconciliation.</div>
+        <div class="access-for" data-en="For: Technology-led corporate clients" data-es="Para: Clientes corporativos liderados por tecnología">For: Technology-led corporate clients</div>
+      </div>
+      <div class="access-card" style="background:rgba(180,150,90,.04);border-color:rgba(180,150,90,.2);">
+        <div class="access-icon">🖥️</div>
+        <div class="access-sub" data-en="Access model 2" data-es="Modelo de acceso 2">Access model 2</div>
+        <div class="access-title" data-en="Web Portal" data-es="Portal Web">Web Portal</div>
+        <div class="access-body" data-en="For corporate clients whose finance or operations teams manage payments directly. A web-based interface for payment initiation, status monitoring and basic reconciliation — no IT integration required. Enables faster commercial onboarding." data-es="Para clientes corporativos cuyos equipos de finanzas u operaciones gestionan pagos directamente. Una interfaz web para iniciación de pagos, monitoreo de estado y reconciliación básica — sin integración de TI requerida. Permite un onboarding comercial más rápido.">For corporate clients whose finance or operations teams manage payments directly. A web-based interface for payment initiation, status monitoring and basic reconciliation — no IT integration required. Enables faster commercial onboarding.</div>
+        <div class="access-for" data-en="For: Operations-led corporate clients" data-es="Para: Clientes corporativos liderados por operaciones">For: Operations-led corporate clients</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OUTCOMES -->
+<section class="section">
+  <div class="section-inner">
+    <span class="sec-tag" data-en="Outcomes · Directional Results" data-es="Resultados · Dirección General">Outcomes · Directional Results</span>
+    <h2 class="sec-h2" data-en="What the pilot<br><em>demonstrated.</em>" data-es="Lo que el piloto<br><em>demostró.</em>">What the pilot<br><em>demonstrated.</em></h2>
+    <div class="outcomes-row">
+      <div class="oc-item">
+        <span class="oc-num">5d→1d</span>
+        <div class="oc-label"><strong data-en="Payment processing time" data-es="Tiempo de procesamiento de pagos">Payment processing time</strong><span data-en="Directional improvement for high-value inter-bank transfers in the pilot cohort" data-es="Mejora direccional para transferencias interbancarias de alto valor en la cohorte piloto">Directional improvement for high-value inter-bank transfers in the pilot cohort</span></div>
+      </div>
+      <div class="oc-item">
+        <span class="oc-num">CLP 50M+</span>
+        <div class="oc-label"><strong data-en="Average ticket size" data-es="Tamaño promedio del ticket">Average ticket size</strong><span data-en="Transaction profile of the initial pilot companies — high-value B2B payment corridor" data-es="Perfil de transacción de las empresas piloto iniciales — corredor de pago B2B de alto valor">Transaction profile of the initial pilot companies — high-value B2B payment corridor</span></div>
+      </div>
+      <div class="oc-item">
+        <span class="oc-num">3 co.</span>
+        <div class="oc-label"><strong data-en="Pilot cohort" data-es="Cohorte piloto">Pilot cohort</strong><span data-en="Three selected corporate clients — representing API, portal and hybrid integration profiles" data-es="Tres clientes corporativos seleccionados — representando perfiles de integración API, portal e híbrido">Three selected corporate clients — representing API, portal and hybrid integration profiles</span></div>
+      </div>
+    </div>
+    <div class="body-text" style="margin-top:28px;">
+      <p data-en="The pilot established that the dual access model worked in practice — both the API and portal paths were adopted by different client profiles as expected. The commercial team used the pilot results to support a broader rollout plan targeting 40 corporate clients in the first full year of operation." data-es="El piloto estableció que el modelo de acceso dual funcionaba en la práctica — tanto la ruta API como la del portal fueron adoptadas por diferentes perfiles de clientes según lo esperado. El equipo comercial usó los resultados del piloto para apoyar un plan de rollout más amplio que apuntaba a 40 clientes corporativos en el primer año completo de operación.">The pilot established that the dual access model worked in practice — both the API and portal paths were adopted by different client profiles as expected. The commercial team used the pilot results to support a broader rollout plan targeting 40 corporate clients in the first full year of operation.</p>
+    </div>
+  </div>
+</section>
+
+<!-- EUROPE RELEVANCE -->
+<section class="section rel-band">
+  <div class="section-inner">
+    <span class="sec-tag" data-en="European Relevance" data-es="Relevancia Europea">European Relevance</span>
+    <h2 class="sec-h2" data-en="Why this translates to <em>European roles.</em>" data-es="Por qué esto se traduce a <em>roles europeos.</em>">Why this translates to <em>European roles.</em></h2>
+    <div class="rel-grid">
+      <div class="rel-item">
+        <div class="rel-icon">🏦</div>
+        <div class="rel-title" data-en="Open Banking & PSD2 payment initiation" data-es="Open Banking e iniciación de pagos PSD2">Open Banking & PSD2 payment initiation</div>
+        <div class="rel-body" data-en="The Multi-Bank Payment Button is structurally equivalent to PSD2 payment initiation — a single integration layer enabling payment from multiple bank accounts. The product challenges are the same: multi-bank normalisation, dual access models and enterprise onboarding." data-es="El Botón de Pago Multibanco es estructuralmente equivalente a la iniciación de pagos PSD2 — una única capa de integración que habilita pagos desde múltiples cuentas bancarias. Los desafíos del producto son los mismos: normalización multibanco, modelos de acceso dual y onboarding empresarial.">The Multi-Bank Payment Button is structurally equivalent to PSD2 payment initiation — a single integration layer enabling payment from multiple bank accounts. The product challenges are the same: multi-bank normalisation, dual access models and enterprise onboarding.</div>
+      </div>
+      <div class="rel-item">
+        <div class="rel-icon">🔗</div>
+        <div class="rel-title" data-en="B2B payment orchestration" data-es="Orquestación de pagos B2B">B2B payment orchestration</div>
+        <div class="rel-body" data-en="GoCardless, Modulr, Volt, and similar players in Europe are solving the same problem — abstracting bank complexity behind a single API for corporate clients. Building this product in a regulated banking context demonstrates the PM depth that these roles require." data-es="GoCardless, Modulr, Volt y actores similares en Europa están resolviendo el mismo problema — abstraer la complejidad bancaria detrás de una única API para clientes corporativos. Construir este producto en un contexto bancario regulado demuestra la profundidad de PM que estos roles requieren.">GoCardless, Modulr, Volt, and similar players in Europe are solving the same problem — abstracting bank complexity behind a single API for corporate clients. Building this product in a regulated banking context demonstrates the PM depth that these roles require.</div>
+      </div>
+      <div class="rel-item">
+        <div class="rel-icon">🏢</div>
+        <div class="rel-title" data-en="Enterprise product management" data-es="Gestión de producto empresarial">Enterprise product management</div>
+        <div class="rel-body" data-en="Managing a product pilot with corporate clients — who have their own IT, finance and procurement processes — requires different PM skills than consumer products. Defining onboarding journeys, API documentation requirements and pilot selection criteria for enterprise buyers is a specific capability." data-es="Gestionar un piloto de producto con clientes corporativos — que tienen sus propios procesos de TI, finanzas y aprovisionamiento — requiere habilidades de PM diferentes a las de productos consumer. Definir journeys de onboarding, requisitos de documentación de API y criterios de selección de piloto para compradores empresariales es una capacidad específica.">Managing a product pilot with corporate clients — who have their own IT, finance and procurement processes — requires different PM skills than consumer products. Defining onboarding journeys, API documentation requirements and pilot selection criteria for enterprise buyers is a specific capability.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LEARNINGS -->
+<section class="section">
+  <div class="section-inner">
+    <span class="sec-tag" data-en="Product Learnings" data-es="Aprendizajes de Producto">Product Learnings</span>
+    <h2 class="sec-h2" data-en="What this shows about <em>how I work.</em>" data-es="Lo que esto dice de <em>cómo trabajo.</em>">What this shows about <em>how I work.</em></h2>
+    <div class="two-col">
+      <div class="body-text">
+        <p data-en="<strong>Different clients need different access models.</strong> A single access model would have forced corporate clients into an experience that didn't fit their actual working environment. Designing for two different user types from the beginning was the correct call — not scope creep." data-es="<strong>Diferentes clientes necesitan diferentes modelos de acceso.</strong> Un modelo de acceso único habría forzado a los clientes corporativos a una experiencia que no se adaptaba a su entorno de trabajo real. Diseñar para dos tipos de usuarios diferentes desde el principio fue la decisión correcta — no era scope creep."><strong>Different clients need different access models.</strong> A single access model would have forced corporate clients into an experience that didn't fit their actual working environment. Designing for two different user types from the beginning was the correct call — not scope creep.</p>
+        <p data-en="<strong>Pilots are discovery, not validation.</strong> The three-company pilot was treated as a structured learning exercise — not just a technical test. Each client was selected to represent a different integration profile, giving us coverage across the range of real-world conditions we'd face at scale." data-es="<strong>Los pilotos son discovery, no validación.</strong> El piloto de tres empresas se trató como un ejercicio de aprendizaje estructurado — no solo una prueba técnica. Cada cliente fue seleccionado para representar un perfil de integración diferente, dándonos cobertura en el rango de condiciones del mundo real que enfrentaríamos a escala."><strong>Pilots are discovery, not validation.</strong> The three-company pilot was treated as a structured learning exercise — not just a technical test. Each client was selected to represent a different integration profile, giving us coverage across the range of real-world conditions we'd face at scale.</p>
+      </div>
+      <div class="body-text">
+        <p data-en="<strong>At high-value tickets, confirmation is a product feature.</strong> When a transaction is CLP 50M+, the moment between payment initiation and confirmed receipt carries real risk. Designing clear payment status states — pending, confirmed, failed, duplicate — was a core product decision, not a UI detail." data-es="<strong>Con tickets de alto valor, la confirmación es una función del producto.</strong> Cuando una transacción es de CLP 50M+, el momento entre la iniciación del pago y la recepción confirmada conlleva riesgo real. Diseñar estados claros de estado del pago — pendiente, confirmado, fallido, duplicado — fue una decisión central del producto, no un detalle de UI."><strong>At high-value tickets, confirmation is a product feature.</strong> When a transaction is CLP 50M+, the moment between payment initiation and confirmed receipt carries real risk. Designing clear payment status states — pending, confirmed, failed, duplicate — was a core product decision, not a UI detail.</p>
+        <p data-en="<strong>Adoption targets create shared accountability.</strong> Setting a specific target of 40 corporate clients in year one wasn't just a metric — it created a shared commercial and product conversation that didn't exist before. Without a number, 'rollout' becomes indefinitely deferrable." data-es="<strong>Los objetivos de adopción crean responsabilidad compartida.</strong> Establecer un objetivo específico de 40 clientes corporativos en el año uno no fue solo una métrica — creó una conversación comercial y de producto compartida que no existía antes. Sin un número, el 'rollout' se vuelve indefinidamente diferible."><strong>Adoption targets create shared accountability.</strong> Setting a specific target of 40 corporate clients in year one wasn't just a metric — it created a shared commercial and product conversation that didn't exist before. Without a number, 'rollout' becomes indefinitely deferrable.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div style="border-top:1px solid var(--border);">
+  <div class="cta-bar">
+    <div>
+      <div style="font-family:var(--serif);font-size:22px;font-weight:300;color:var(--white);margin-bottom:6px;" data-en="See more Itaú case studies" data-es="Ver más casos de estudio de Itaú">See more Itaú case studies</div>
+      <div style="font-size:13px;color:var(--muted);" data-en="ePAC and PAC 2.0" data-es="ePAC y PAC 2.0">ePAC and PAC 2.0</div>
+    </div>
+    <div class="cta-links">
+      <a href="itau-epac.html" class="btn-g" data-en="ePAC →" data-es="ePAC →">ePAC →</a>
+      <a href="itau-pac20.html" class="btn-g" data-en="PAC 2.0 →" data-es="PAC 2.0 →">PAC 2.0 →</a>
+      <a href="https://pablomontenegro.ie/#work" class="btn-m" data-en="← All work" data-es="← Todo el trabajo">← All work</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <span class="foot-note">Pablo Montenegro · pablomontenegro.ie</span>
+  <span class="foot-note" data-en="Itaú Bank Chile · B2B Payments · 2022–2023" data-es="Itaú Bank Chile · Pagos B2B · 2022–2023">Itaú Bank Chile · B2B Payments · 2022–2023</span>
+</footer>
+
+<script>
+var LANG=localStorage.getItem('pm_lang')||'en';
+function setLang(l){LANG=l;localStorage.setItem('pm_lang',l);
+  document.getElementById('btn-en').classList.toggle('active',l==='en');
+  document.getElementById('btn-es').classList.toggle('active',l==='es');
+  document.querySelectorAll('[data-en]').forEach(function(e){var t=l==='es'?e.getAttribute('data-es'):e.getAttribute('data-en');if(t)e.innerHTML=t;});
+  document.documentElement.lang=l;}
+document.addEventListener('DOMContentLoaded',function(){setLang(LANG);});
+</script>
+</body>
+</html>

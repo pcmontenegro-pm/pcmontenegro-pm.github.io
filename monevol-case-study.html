@@ -1,0 +1,1412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Monevol 360 — Personal Finance Product · Pablo Montenegro · Senior PM Case Study">
+<title>Monevol 360 — Personal Finance Product · Pablo Montenegro</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+/* ── TOKENS ─────────────────────────────────────────────────── */
+:root {
+  --navy:   #0A1226; --navy2:  #111D35; --navy3:  #1A2A44;
+  --gold:   #B4965A; --gold2:  #D4B47A; --gold3:  #F0DFB8;
+  --cream:  #FAF7F2; --cream2: #F0EBE1;
+  --white:  #FFFFFF; --muted:  #8892A4; --muted2: #6B7585;
+  --border: rgba(180,150,90,.15); --border2: rgba(255,255,255,.07);
+  --green:  #2D7A5F; --green2: #3DAA85;
+  --serif:  'Cormorant Garamond', Georgia, serif;
+  --sans:   'DM Sans', sans-serif;
+  --mono:   'DM Mono', monospace;
+}
+
+/* ── RESET ─────────────────────────────────────────────────── */
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; font-size:16px; }
+body {
+  background:var(--navy); color:var(--cream);
+  font-family:var(--sans); line-height:1.7;
+  -webkit-font-smoothing:antialiased; overflow-x:hidden;
+}
+img { display:block; max-width:100%; }
+a { color:inherit; text-decoration:none; }
+
+/* ── GRAIN ─────────────────────────────────────────────────── */
+body::before {
+  content:''; position:fixed; inset:0; z-index:0; pointer-events:none;
+  opacity:.022;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:220px;
+}
+body > * { position:relative; z-index:1; }
+
+/* ── NAV ───────────────────────────────────────────────────── */
+nav {
+  position:sticky; top:0; z-index:200;
+  padding:0 48px; height:60px;
+  display:flex; align-items:center; justify-content:space-between;
+  background:rgba(10,18,38,.94); backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border2);
+}
+.nav-brand { font-family:var(--serif); font-size:15px; font-style:italic; font-weight:300; color:var(--gold); }
+.nav-back {
+  font-family:var(--mono); font-size:11px; letter-spacing:.08em;
+  color:var(--muted); transition:color .2s;
+  display:flex; align-items:center; gap:6px;
+}
+.nav-back:hover { color:var(--gold); }
+.nav-lang {
+  display:flex; gap:0; border:1px solid var(--border); border-radius:2px; overflow:hidden;
+}
+.lang-btn {
+  padding:4px 10px; font-family:var(--mono); font-size:10px; letter-spacing:.08em;
+  background:transparent; border:none; color:var(--muted); cursor:pointer; transition:all .15s;
+}
+.lang-btn.active { background:var(--gold); color:var(--navy); font-weight:500; }
+.nav-right { display:flex; align-items:center; gap:14px; }
+
+/* ── HERO ──────────────────────────────────────────────────── */
+.hero {
+  min-height:92vh; padding:80px 48px 60px;
+  display:flex; flex-direction:column; justify-content:center;
+  position:relative; overflow:hidden;
+}
+.hero-bg {
+  position:absolute; inset:0; z-index:0;
+  background:
+    radial-gradient(ellipse at 75% 25%, rgba(180,150,90,.09) 0%, transparent 55%),
+    radial-gradient(ellipse at 15% 75%, rgba(45,122,95,.07) 0%, transparent 50%);
+}
+.hero-inner {
+  max-width:1100px; margin:0 auto; width:100%;
+  position:relative; z-index:1;
+  display:grid; grid-template-columns:1fr 420px; gap:64px; align-items:center;
+}
+.hero-tag {
+  font-family:var(--mono); font-size:11px; letter-spacing:.14em;
+  color:var(--gold); text-transform:uppercase; margin-bottom:20px; display:block;
+}
+.hero-h1 {
+  font-family:var(--serif); font-size:clamp(44px,5.5vw,76px);
+  font-weight:300; line-height:1.06; color:var(--white); margin-bottom:20px;
+}
+.hero-h1 em { font-style:italic; color:var(--gold2); }
+.hero-sub {
+  font-size:17px; color:var(--muted); max-width:520px;
+  line-height:1.8; font-weight:300; margin-bottom:32px;
+}
+.hero-badges { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:32px; }
+.badge {
+  font-family:var(--mono); font-size:10px; letter-spacing:.08em;
+  padding:5px 14px; border-radius:2px; border:1px solid var(--border);
+  color:var(--gold3); text-transform:uppercase;
+}
+.hero-ctas { display:flex; gap:12px; }
+.btn-gold {
+  padding:11px 28px; background:var(--gold); color:var(--navy);
+  font-size:13px; font-weight:500; border-radius:2px; transition:all .2s;
+  display:inline-block;
+}
+.btn-gold:hover { background:var(--gold2); transform:translateY(-1px); }
+.btn-ghost {
+  padding:10px 24px; border:1px solid var(--border); color:var(--cream);
+  font-size:13px; border-radius:2px; transition:all .2s; display:inline-block;
+}
+.btn-ghost:hover { border-color:var(--gold); color:var(--gold); }
+
+/* ── HERO MOCKUP ───────────────────────────────────────────── */
+.hero-visual {
+  display:flex; justify-content:center; align-items:center;
+  position:relative;
+}
+.phone-hero {
+  width:220px; background:#0d1520;
+  border-radius:32px; padding:10px;
+  box-shadow:0 24px 80px rgba(0,0,0,.6), 0 0 0 1px rgba(255,255,255,.06);
+  position:relative; z-index:2;
+}
+.phone-screen {
+  border-radius:24px; overflow:hidden;
+  background:linear-gradient(160deg,#0f1e30 0%,#0a1220 100%);
+  height:420px; display:flex; flex-direction:column;
+}
+.phone-notch {
+  height:32px; background:#0d1520;
+  display:flex; align-items:center; justify-content:center;
+}
+.phone-notch-bar {
+  width:60px; height:5px; background:#1a2535; border-radius:10px;
+}
+.screen-content { flex:1; padding:16px; overflow:hidden; }
+.screen-header {
+  display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;
+}
+.screen-greeting { font-size:11px; color:rgba(180,150,90,.7); font-family:var(--mono); }
+.screen-name { font-family:var(--serif); font-size:15px; color:var(--white); }
+.screen-avatar {
+  width:28px; height:28px; border-radius:50%;
+  background:linear-gradient(135deg, var(--gold), var(--gold2));
+  display:flex; align-items:center; justify-content:center;
+  font-size:12px; font-weight:600; color:var(--navy);
+}
+.balance-card {
+  background:linear-gradient(135deg,rgba(180,150,90,.15),rgba(180,150,90,.05));
+  border:1px solid rgba(180,150,90,.2); border-radius:12px;
+  padding:14px; margin-bottom:12px;
+}
+.balance-label { font-family:var(--mono); font-size:8px; letter-spacing:.1em; color:var(--muted); text-transform:uppercase; }
+.balance-amount { font-family:var(--serif); font-size:28px; font-weight:300; color:var(--gold); line-height:1.1; }
+.balance-sub { font-size:9px; color:var(--muted); margin-top:2px; }
+.balance-row { display:flex; gap:8px; margin-top:10px; }
+.balance-mini { flex:1; text-align:center; }
+.balance-mini-n { font-family:var(--mono); font-size:11px; font-weight:500; }
+.income-n { color:#3DAA85; }
+.expense-n { color:#E05555; }
+.balance-mini-l { font-size:8px; color:var(--muted); }
+
+.quick-actions {
+  display:grid; grid-template-columns:repeat(4,1fr); gap:6px; margin-bottom:12px;
+}
+.qa-item { text-align:center; }
+.qa-icon {
+  width:32px; height:32px; border-radius:10px; margin:0 auto 4px;
+  display:flex; align-items:center; justify-content:center; font-size:13px;
+}
+.qa-label { font-size:8px; color:var(--muted); font-family:var(--mono); }
+
+.budget-section { margin-bottom:10px; }
+.budget-title { font-size:9px; font-family:var(--mono); color:var(--muted); letter-spacing:.06em; text-transform:uppercase; margin-bottom:8px; }
+.budget-item { margin-bottom:6px; }
+.budget-row { display:flex; justify-content:space-between; font-size:9px; margin-bottom:3px; }
+.budget-cat { color:rgba(250,247,242,.7); }
+.budget-pct { font-family:var(--mono); }
+.budget-bar { height:3px; background:rgba(255,255,255,.08); border-radius:2px; overflow:hidden; }
+.budget-fill { height:100%; border-radius:2px; }
+
+.screen-nav {
+  height:44px; background:#0d1520;
+  display:flex; align-items:center; justify-content:space-around; padding:0 12px;
+}
+.nav-icon { font-size:16px; opacity:.4; }
+.nav-icon.active { opacity:1; }
+
+/* ── METRICS ROW ───────────────────────────────────────────── */
+.metrics-band {
+  background:var(--navy2); border-top:1px solid var(--border); border-bottom:1px solid var(--border);
+  padding:0;
+}
+.metrics-inner {
+  max-width:1100px; margin:0 auto;
+  display:grid; grid-template-columns:repeat(4,1fr); gap:0;
+}
+.metric-item {
+  padding:28px 32px; border-right:1px solid var(--border);
+  text-align:center;
+}
+.metric-item:last-child { border-right:none; }
+.metric-num {
+  font-family:var(--serif); font-size:40px; font-weight:300;
+  color:var(--gold); line-height:1; display:block; margin-bottom:6px;
+}
+.metric-label { font-family:var(--mono); font-size:10px; letter-spacing:.08em; color:var(--muted); text-transform:uppercase; }
+
+/* ── SECTIONS ──────────────────────────────────────────────── */
+.section { padding:88px 48px; }
+.section-inner { max-width:1100px; margin:0 auto; }
+.section-tag {
+  font-family:var(--mono); font-size:10px; letter-spacing:.14em;
+  color:var(--gold); text-transform:uppercase; margin-bottom:12px; display:block;
+}
+.section-h2 {
+  font-family:var(--serif); font-size:clamp(30px,4vw,50px);
+  font-weight:300; color:var(--white); line-height:1.15; margin-bottom:32px;
+}
+.section-h2 em { font-style:italic; color:var(--gold2); }
+.section-body {
+  font-size:16px; color:rgba(250,247,242,.72);
+  line-height:1.85; max-width:680px;
+}
+.section-body p+p { margin-top:18px; }
+.section-body strong { color:var(--cream); font-weight:500; }
+
+/* ── TWO-COL ───────────────────────────────────────────────── */
+.two-col { display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:start; }
+.divider { max-width:1100px; margin:0 auto; border-top:1px solid var(--border); }
+
+/* ── PROBLEM BAND ──────────────────────────────────────────── */
+.problem-band { background:var(--navy2); border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+.stat-grid {
+  display:grid; grid-template-columns:repeat(3,1fr);
+  gap:1px; background:var(--border);
+  border:1px solid var(--border); margin-top:48px;
+}
+.stat-card { background:var(--navy); padding:32px; }
+.stat-big {
+  font-family:var(--serif); font-size:44px; font-weight:300;
+  color:var(--gold); line-height:1; display:block; margin-bottom:8px;
+}
+.stat-desc { font-size:13px; color:var(--muted); line-height:1.6; }
+.stat-desc strong { color:var(--cream); font-weight:500; }
+
+/* ── INSIGHT CARDS ─────────────────────────────────────────── */
+.insight-grid {
+  display:grid; grid-template-columns:repeat(3,1fr);
+  gap:1px; background:var(--border); border:1px solid var(--border); margin-top:48px;
+}
+.insight-card { background:var(--navy); padding:28px; transition:background .2s; }
+.insight-card:hover { background:var(--navy2); }
+.insight-icon { font-size:22px; margin-bottom:14px; }
+.insight-title {
+  font-family:var(--serif); font-size:18px; font-weight:400;
+  color:var(--white); margin-bottom:8px; line-height:1.3;
+}
+.insight-body { font-size:13px; color:var(--muted); line-height:1.7; }
+.insight-quote {
+  margin-top:12px; padding:10px 14px;
+  border-left:2px solid var(--border);
+  font-size:12px; color:var(--muted2); font-style:italic; line-height:1.55;
+}
+
+/* ── PULL QUOTE ────────────────────────────────────────────── */
+.pull-quote {
+  border-left:2px solid var(--gold); padding:20px 32px;
+  margin:40px 0; max-width:640px;
+}
+.pq-text { font-family:var(--serif); font-size:22px; font-weight:300; font-style:italic; color:var(--cream); line-height:1.5; }
+.pq-attr { font-family:var(--mono); font-size:10px; letter-spacing:.08em; color:var(--gold); margin-top:10px; text-transform:uppercase; }
+
+/* ── FEATURE CARDS ─────────────────────────────────────────── */
+.feature-grid {
+  display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+  gap:1px; background:var(--border); border:1px solid var(--border); margin-top:48px;
+}
+.feature-card { background:var(--navy); padding:30px; transition:background .2s; }
+.feature-card:hover { background:var(--navy2); }
+.fc-num { font-family:var(--mono); font-size:10px; letter-spacing:.1em; color:var(--gold); margin-bottom:14px; display:block; }
+.fc-title { font-family:var(--serif); font-size:20px; font-weight:400; color:var(--white); margin-bottom:10px; line-height:1.3; }
+.fc-title em { font-style:italic; color:var(--gold2); }
+.fc-body { font-size:13.5px; color:var(--muted); line-height:1.7; margin-bottom:12px; }
+.fc-why { font-family:var(--mono); font-size:10px; color:var(--gold); letter-spacing:.04em; }
+
+/* ── PRIORITISATION MATRIX ─────────────────────────────────── */
+.matrix-wrap { margin-top:48px; }
+.matrix-grid {
+  display:grid; grid-template-columns:1fr 1fr; gap:1px;
+  background:var(--border); border:1px solid var(--border);
+}
+.matrix-cell { background:var(--navy); padding:24px 28px; }
+.matrix-cell.highlight { background:rgba(180,150,90,.06); }
+.matrix-quadrant { font-family:var(--mono); font-size:9px; letter-spacing:.1em; color:var(--gold); text-transform:uppercase; margin-bottom:10px; }
+.matrix-items { display:flex; flex-direction:column; gap:6px; }
+.matrix-item { display:flex; align-items:center; gap:8px; font-size:13px; color:var(--cream); }
+.matrix-dot { width:6px; height:6px; border-radius:50%; flex-shrink:0; }
+.dot-gold { background:var(--gold); }
+.dot-green { background:var(--green2); }
+.dot-muted { background:var(--muted); }
+
+/* ── METRICS SECTION ───────────────────────────────────────── */
+.kpi-grid {
+  display:grid; grid-template-columns:repeat(3,1fr);
+  gap:16px; margin-top:48px;
+}
+.kpi-card { border:1px solid var(--border); padding:24px; position:relative; transition:border-color .2s; }
+.kpi-card:hover { border-color:rgba(180,150,90,.35); }
+.kpi-card::before { content:''; position:absolute; top:0; left:0; width:3px; height:100%; background:var(--gold); opacity:0; transition:opacity .2s; }
+.kpi-card:hover::before { opacity:1; }
+.kpi-name { font-family:var(--mono); font-size:9px; letter-spacing:.1em; color:var(--gold); text-transform:uppercase; margin-bottom:10px; }
+.kpi-value { font-family:var(--serif); font-size:28px; font-weight:300; color:var(--white); line-height:1; margin-bottom:6px; }
+.kpi-desc { font-size:12px; color:var(--muted); line-height:1.5; }
+
+/* ── ROADMAP ───────────────────────────────────────────────── */
+.roadmap-wrap { margin-top:48px; }
+.roadmap-phases { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--border); border:1px solid var(--border); }
+.phase-card { background:var(--navy); padding:28px; }
+.phase-label { font-family:var(--mono); font-size:9px; letter-spacing:.1em; color:var(--gold); text-transform:uppercase; margin-bottom:6px; }
+.phase-title { font-family:var(--serif); font-size:20px; font-weight:400; color:var(--white); margin-bottom:16px; line-height:1.2; }
+.phase-title em { font-style:italic; color:var(--gold2); }
+.phase-items { display:flex; flex-direction:column; gap:8px; }
+.phase-item { display:flex; align-items:flex-start; gap:10px; font-size:13px; color:var(--muted); line-height:1.5; }
+.phase-item::before { content:'→'; color:var(--gold); flex-shrink:0; font-family:var(--mono); font-size:11px; margin-top:2px; }
+.phase-horizon { font-family:var(--mono); font-size:10px; color:var(--muted2); border:1px solid var(--border); display:inline-block; padding:3px 10px; border-radius:20px; margin-top:16px; }
+
+/* ── MOCKUPS GALLERY ───────────────────────────────────────── */
+.mockups-section { background:var(--navy2); border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+.mockups-row {
+  display:flex; gap:20px; overflow-x:auto;
+  padding:32px 0 8px; scroll-snap-type:x mandatory;
+  scrollbar-width:thin; scrollbar-color:var(--border) transparent;
+}
+.mockup-phone {
+  flex-shrink:0; width:180px;
+  scroll-snap-align:start;
+}
+.mockup-phone-shell {
+  background:#0d1520; border-radius:28px; padding:8px;
+  box-shadow:0 12px 40px rgba(0,0,0,.5), 0 0 0 1px rgba(255,255,255,.05);
+}
+.mockup-screen {
+  border-radius:22px; overflow:hidden; height:340px;
+  display:flex; flex-direction:column;
+}
+.ms-notch { height:24px; background:#0a1220; display:flex; align-items:center; justify-content:center; }
+.ms-notch-bar { width:40px; height:4px; background:#1a2535; border-radius:10px; }
+.ms-body { flex:1; padding:12px; display:flex; flex-direction:column; gap:8px; }
+.ms-label { font-family:var(--mono); font-size:7px; letter-spacing:.08em; color:var(--muted); text-transform:uppercase; margin-bottom:2px; }
+.ms-title { font-family:var(--serif); font-size:13px; color:var(--white); margin-bottom:10px; }
+.mockup-caption { font-family:var(--mono); font-size:9px; color:var(--muted); text-align:center; margin-top:10px; letter-spacing:.06em; }
+
+/* Budget screen */
+.bud-total { background:rgba(180,150,90,.1); border:1px solid rgba(180,150,90,.2); border-radius:8px; padding:10px; text-align:center; }
+.bud-total-n { font-family:var(--serif); font-size:22px; color:var(--gold); }
+.bud-total-l { font-size:8px; color:var(--muted); font-family:var(--mono); }
+.bud-cats { display:flex; flex-direction:column; gap:5px; }
+.bud-cat-row { display:flex; align-items:center; gap:6px; }
+.bud-cat-icon { font-size:10px; width:16px; }
+.bud-cat-info { flex:1; }
+.bud-cat-bar-wrap { height:3px; background:rgba(255,255,255,.06); border-radius:2px; margin-top:2px; }
+.bud-cat-bar { height:100%; border-radius:2px; }
+.bud-cat-name { font-size:8px; color:var(--muted); }
+.bud-cat-pct { font-family:var(--mono); font-size:8px; color:var(--cream); }
+
+/* Savings screen */
+.sav-goal { border:1px solid var(--border); border-radius:8px; padding:10px; margin-bottom:6px; }
+.sav-goal-name { font-size:9px; color:var(--cream); margin-bottom:4px; }
+.sav-goal-bar-wrap { height:4px; background:rgba(255,255,255,.06); border-radius:2px; margin-bottom:4px; }
+.sav-goal-bar { height:100%; border-radius:2px; background:var(--green2); }
+.sav-goal-row { display:flex; justify-content:space-between; font-family:var(--mono); font-size:7px; }
+.sav-pct { color:var(--green2); }
+.sav-rem { color:var(--muted); }
+
+/* Transactions screen */
+.tx-item { display:flex; align-items:center; gap:8px; padding:5px 0; border-bottom:1px solid rgba(255,255,255,.04); }
+.tx-icon { width:24px; height:24px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:10px; flex-shrink:0; }
+.tx-info { flex:1; }
+.tx-name { font-size:9px; color:var(--cream); }
+.tx-cat { font-size:7px; color:var(--muted); font-family:var(--mono); }
+.tx-amount { font-family:var(--mono); font-size:9px; font-weight:500; }
+
+/* Education screen */
+.edu-card { background:rgba(45,122,95,.1); border:1px solid rgba(45,122,95,.2); border-radius:8px; padding:10px; margin-bottom:6px; }
+.edu-card-tag { font-family:var(--mono); font-size:7px; color:var(--green2); letter-spacing:.06em; margin-bottom:4px; }
+.edu-card-title { font-size:10px; color:var(--white); font-family:var(--serif); line-height:1.3; }
+.edu-progress { display:flex; align-items:center; gap:6px; margin-top:6px; }
+.edu-prog-bar { flex:1; height:2px; background:rgba(255,255,255,.06); border-radius:1px; }
+.edu-prog-fill { height:100%; background:var(--green2); border-radius:1px; }
+.edu-prog-label { font-size:7px; color:var(--muted); font-family:var(--mono); }
+
+/* Alerts screen */
+.alert-item { border-left:2px solid var(--gold); padding:8px 10px; margin-bottom:6px; background:rgba(180,150,90,.05); border-radius:0 6px 6px 0; }
+.alert-title { font-size:9px; color:var(--cream); margin-bottom:2px; }
+.alert-body { font-size:8px; color:var(--muted); line-height:1.4; }
+.alert-time { font-family:var(--mono); font-size:7px; color:var(--muted2); margin-top:3px; }
+
+/* Bank connect screen */
+.bank-connect { text-align:center; padding:10px 0; }
+.bank-connect-icon { font-size:28px; margin-bottom:6px; }
+.bank-connect-title { font-family:var(--serif); font-size:12px; color:var(--white); margin-bottom:4px; }
+.bank-connect-sub { font-size:8px; color:var(--muted); margin-bottom:12px; line-height:1.4; }
+.bank-list { display:flex; flex-direction:column; gap:4px; }
+.bank-item { display:flex; align-items:center; gap:6px; border:1px solid var(--border); border-radius:6px; padding:6px 8px; }
+.bank-logo { width:18px; height:18px; border-radius:4px; display:flex; align-items:center; justify-content:center; font-size:9px; font-weight:700; color:white; }
+.bank-name { font-size:8px; color:var(--cream); }
+.bank-status { margin-left:auto; font-family:var(--mono); font-size:7px; color:var(--green2); }
+
+/* ── GROWTH SECTION ────────────────────────────────────────── */
+.growth-grid {
+  display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-top:48px;
+}
+.growth-card { border:1px solid var(--border); padding:26px; transition:border-color .2s; }
+.growth-card:hover { border-color:rgba(180,150,90,.35); }
+.growth-title { font-family:var(--serif); font-size:18px; font-weight:400; color:var(--white); margin-bottom:10px; }
+.growth-body { font-size:13.5px; color:var(--muted); line-height:1.7; }
+.growth-items { display:flex; flex-direction:column; gap:6px; margin-top:10px; }
+.growth-item { display:flex; align-items:flex-start; gap:8px; font-size:13px; color:var(--muted); }
+.growth-item::before { content:'·'; color:var(--gold); flex-shrink:0; font-size:18px; line-height:1; }
+
+/* ── RELEVANCE ─────────────────────────────────────────────── */
+.relevance-band { background:linear-gradient(135deg,var(--navy2),var(--navy3)); border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+.rel-grid {
+  display:grid; grid-template-columns:repeat(3,1fr); gap:32px; margin-top:48px;
+}
+.rel-item { display:flex; flex-direction:column; gap:10px; }
+.rel-icon { font-size:24px; width:48px; height:48px; border:1px solid var(--border); display:flex; align-items:center; justify-content:center; border-radius:2px; flex-shrink:0; }
+.rel-title { font-family:var(--serif); font-size:17px; font-weight:400; color:var(--white); line-height:1.3; }
+.rel-body { font-size:13.5px; color:var(--muted); line-height:1.7; }
+
+/* ── LEARNINGS ─────────────────────────────────────────────── */
+.learn-grid { display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-top:48px; }
+.learn-card { border:1px solid var(--border); padding:28px; position:relative; transition:border-color .2s; }
+.learn-card:hover { border-color:rgba(180,150,90,.4); }
+.learn-card::before { content:''; position:absolute; top:0; left:0; width:3px; height:100%; background:var(--gold); opacity:0; transition:opacity .2s; }
+.learn-card:hover::before { opacity:1; }
+.learn-h3 { font-family:var(--serif); font-size:17px; font-weight:400; color:var(--white); margin-bottom:10px; line-height:1.35; }
+.learn-body { font-size:13.5px; color:var(--muted); line-height:1.7; }
+
+/* ── CTA SECTION ───────────────────────────────────────────── */
+.cta-section {
+  padding:88px 48px;
+  display:grid; grid-template-columns:1fr auto; gap:48px; align-items:center;
+  max-width:1100px; margin:0 auto;
+}
+.cta-h2 { font-family:var(--serif); font-size:clamp(24px,3vw,36px); font-weight:300; color:var(--white); line-height:1.25; margin-bottom:12px; }
+.cta-h2 em { font-style:italic; color:var(--gold2); }
+.cta-sub { font-size:14px; color:var(--muted); max-width:480px; }
+.cta-btn { display:inline-block; padding:14px 32px; border:1px solid var(--gold); color:var(--gold); font-family:var(--mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase; transition:all .2s; white-space:nowrap; }
+.cta-btn:hover { background:var(--gold); color:var(--navy); }
+
+/* ── FOOTER ────────────────────────────────────────────────── */
+footer { border-top:1px solid var(--border); padding:24px 48px; display:flex; justify-content:space-between; align-items:center; }
+.foot-note { font-family:var(--mono); font-size:10px; letter-spacing:.06em; color:var(--muted); }
+
+/* ── ANIMATIONS ────────────────────────────────────────────── */
+@keyframes fadeUp { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:translateY(0); } }
+.fade-up { animation:fadeUp .55s ease both; }
+.fade-up:nth-child(2) { animation-delay:.1s; }
+.fade-up:nth-child(3) { animation-delay:.2s; }
+.reveal { opacity:0; transform:translateY(16px); transition:opacity .5s ease, transform .5s ease; }
+.reveal.visible { opacity:1; transform:translateY(0); }
+
+/* ── LANGUAGE SYSTEM ───────────────────────────────────────── */
+[data-en] { transition:opacity .15s; }
+
+/* ── RESPONSIVE ────────────────────────────────────────────── */
+@media(max-width:960px) {
+  nav { padding:0 24px; }
+  .hero { padding:60px 24px 48px; min-height:auto; }
+  .hero-inner { grid-template-columns:1fr; gap:40px; }
+  .hero-visual { display:none; }
+  .section { padding:56px 24px; }
+  .two-col, .stat-grid, .insight-grid, .roadmap-phases, .rel-grid { grid-template-columns:1fr; }
+  .metrics-inner { grid-template-columns:1fr 1fr; }
+  .feature-grid { grid-template-columns:1fr; }
+  .kpi-grid { grid-template-columns:1fr 1fr; }
+  .growth-grid, .learn-grid { grid-template-columns:1fr; }
+  .cta-section { grid-template-columns:1fr; padding:56px 24px; }
+  .matrix-grid { grid-template-columns:1fr; }
+  footer { flex-direction:column; gap:8px; text-align:center; padding:20px; }
+}
+@media(max-width:480px) {
+  .metrics-inner { grid-template-columns:1fr 1fr; }
+  .kpi-grid { grid-template-columns:1fr; }
+  .hero-ctas { flex-direction:column; }
+  .hero-badges { gap:6px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="https://pablomontenegro.ie" class="nav-brand">Pablo Montenegro</a>
+  <div class="nav-right">
+    <div class="nav-lang">
+      <button onclick="setLang('en')" id="btn-en" class="lang-btn active">EN</button>
+      <button onclick="setLang('es')" id="btn-es" class="lang-btn">ES</button>
+    </div>
+    <a href="https://pablomontenegro.ie/#work" class="nav-back" data-en="← Back to work" data-es="← Volver al trabajo">← Back to work</a>
+  </div>
+</nav>
+
+<!-- ════════════════════ HERO ════════════════════ -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-inner">
+
+    <div class="fade-up">
+      <span class="hero-tag" data-en="Consumer Fintech · Product Design · UX Research · 2024" data-es="Fintech Consumer · Diseño de Producto · Investigación UX · 2024">Consumer Fintech · Product Design · UX Research · 2024</span>
+      <h1 class="hero-h1" data-en="Designing a personal finance app for the <em>underserved majority.</em>" data-es="Diseñando una app de finanzas personales para la <em>mayoría desatendida.</em>">Designing a personal finance app for the <em>underserved majority.</em></h1>
+      <p class="hero-sub" data-en="Monevol 360 is a mobile product designed to help low-to-middle income users in Latin America gain real control over their money — through behavioural design, not financial complexity." data-es="Monevol 360 es un producto móvil diseñado para ayudar a usuarios de ingresos bajos y medios en América Latina a tomar control real de su dinero — a través del diseño conductual, no de la complejidad financiera.">Monevol 360 is a mobile product designed to help low-to-middle income users in Latin America gain real control over their money — through behavioural design, not financial complexity.</p>
+      <div class="hero-badges">
+        <span class="badge" data-en="Personal Finance" data-es="Finanzas Personales">Personal Finance</span>
+        <span class="badge" data-en="Emerging Markets" data-es="Mercados Emergentes">Emerging Markets</span>
+        <span class="badge" data-en="Mobile-First" data-es="Mobile-First">Mobile-First</span>
+        <span class="badge" data-en="Behavioural Design" data-es="Diseño Conductual">Behavioural Design</span>
+        <span class="badge" data-en="UX Research" data-es="Investigación UX">UX Research</span>
+      </div>
+      <div class="hero-ctas">
+        <a href="https://www.figma.com/deck/jMe63yGWCRjxQNrUg5GfXD" class="btn-gold" target="_blank" data-en="View Figma prototype →" data-es="Ver prototipo Figma →">View Figma prototype →</a>
+        <a href="mailto:pc.montenegro@gmail.com" class="btn-ghost" data-en="Get in touch" data-es="Contactar">Get in touch</a>
+      </div>
+    </div>
+
+    <div class="hero-visual fade-up">
+      <div class="phone-hero">
+        <div class="phone-screen">
+          <div class="phone-notch"><div class="phone-notch-bar"></div></div>
+          <div class="screen-content">
+            <div class="screen-header">
+              <div>
+                <div class="screen-greeting">Good morning ☀️</div>
+                <div class="screen-name">María</div>
+              </div>
+              <div class="screen-avatar">M</div>
+            </div>
+            <div class="balance-card">
+              <div class="balance-label">Total balance</div>
+              <div class="balance-amount">CLP 425,300</div>
+              <div class="balance-sub">Updated just now</div>
+              <div class="balance-row">
+                <div class="balance-mini">
+                  <div class="balance-mini-n income-n">+$180K</div>
+                  <div class="balance-mini-l">Income</div>
+                </div>
+                <div class="balance-mini">
+                  <div class="balance-mini-n expense-n">-$94K</div>
+                  <div class="balance-mini-l">Spent</div>
+                </div>
+                <div class="balance-mini">
+                  <div class="balance-mini-n" style="color:var(--gold);">$86K</div>
+                  <div class="balance-mini-l">Saved</div>
+                </div>
+              </div>
+            </div>
+            <div class="quick-actions">
+              <div class="qa-item"><div class="qa-icon" style="background:rgba(180,150,90,.12);">📊</div><div class="qa-label">Budget</div></div>
+              <div class="qa-item"><div class="qa-icon" style="background:rgba(45,122,95,.12);">🎯</div><div class="qa-label">Goals</div></div>
+              <div class="qa-item"><div class="qa-icon" style="background:rgba(26,115,232,.12);">📋</div><div class="qa-label">Txns</div></div>
+              <div class="qa-item"><div class="qa-icon" style="background:rgba(138,43,226,.1);">📚</div><div class="qa-label">Learn</div></div>
+            </div>
+            <div class="budget-section">
+              <div class="budget-title">Budget this month</div>
+              <div class="budget-item">
+                <div class="budget-row"><span class="budget-cat">🏠 Housing</span><span class="budget-pct" style="color:var(--muted);">68%</span></div>
+                <div class="budget-bar"><div class="budget-fill" style="width:68%;background:var(--gold);"></div></div>
+              </div>
+              <div class="budget-item">
+                <div class="budget-row"><span class="budget-cat">🛒 Groceries</span><span class="budget-pct" style="color:#E05555;">92%</span></div>
+                <div class="budget-bar"><div class="budget-fill" style="width:92%;background:#E05555;"></div></div>
+              </div>
+              <div class="budget-item">
+                <div class="budget-row"><span class="budget-cat">🚌 Transport</span><span class="budget-pct" style="color:var(--green2);">45%</span></div>
+                <div class="budget-bar"><div class="budget-fill" style="width:45%;background:var(--green2);"></div></div>
+              </div>
+            </div>
+          </div>
+          <div class="screen-nav">
+            <span class="nav-icon active">🏠</span>
+            <span class="nav-icon">📊</span>
+            <span class="nav-icon">🎯</span>
+            <span class="nav-icon">📚</span>
+            <span class="nav-icon">👤</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- METRICS BAND -->
+<div class="metrics-band">
+  <div class="metrics-inner">
+    <div class="metric-item reveal">
+      <span class="metric-num">34</span>
+      <span class="metric-label" data-en="User interviews · 3 countries" data-es="Entrevistas · 3 países">User interviews · 3 countries</span>
+    </div>
+    <div class="metric-item reveal">
+      <span class="metric-num">98%</span>
+      <span class="metric-label" data-en="Usability task success rate" data-es="Tasa de éxito en pruebas de usabilidad">Usability task success rate</span>
+    </div>
+    <div class="metric-item reveal">
+      <span class="metric-num">60+</span>
+      <span class="metric-label" data-en="Figma frames · Full prototype" data-es="Frames Figma · Prototipo completo">Figma frames · Full prototype</span>
+    </div>
+    <div class="metric-item reveal">
+      <span class="metric-num">11</span>
+      <span class="metric-label" data-en="Card sort participants" data-es="Participantes en card sorting">Card sort participants</span>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════ EXEC SUMMARY ════════════════════ -->
+<section class="section">
+  <div class="section-inner two-col">
+    <div>
+      <span class="section-tag" data-en="Executive Summary" data-es="Resumen Ejecutivo">Executive Summary</span>
+      <h2 class="section-h2" data-en="What Monevol 360 <em>is.</em>" data-es="Qué es <em>Monevol 360.</em>">What Monevol 360 <em>is.</em></h2>
+      <div class="section-body">
+        <p data-en="Monevol 360 is a personal finance mobile app concept built for the underbanked and financially underserved population in Latin America — a segment that represents hundreds of millions of users with smartphones but without meaningful access to tools that help them manage money effectively." data-es="Monevol 360 es un concepto de app móvil de finanzas personales construida para la población no bancarizada y financieramente desatendida en América Latina — un segmento que representa cientos de millones de usuarios con smartphones pero sin acceso real a herramientas que les ayuden a gestionar su dinero efectivamente.">Monevol 360 is a personal finance mobile app concept built for the underbanked and financially underserved population in Latin America — a segment that represents hundreds of millions of users with smartphones but without meaningful access to tools that help them manage money effectively.</p>
+        <p data-en="The product was conceived, researched, designed and validated end-to-end — from 34 qualitative user interviews across Chile, Colombia and Argentina through to a fully tested interactive prototype. This case study documents that process as a <strong>product strategy exercise</strong>, not a design portfolio piece." data-es="El producto fue concebido, investigado, diseñado y validado end-to-end — desde 34 entrevistas cualitativas de usuario en Chile, Colombia y Argentina hasta un prototipo interactivo completamente probado. Este caso documenta ese proceso como un <strong>ejercicio de estrategia de producto</strong>, no una pieza de portfolio de diseño.">The product was conceived, researched, designed and validated end-to-end — from 34 qualitative user interviews across Chile, Colombia and Argentina through to a fully tested interactive prototype. This case study documents that process as a <strong>product strategy exercise</strong>, not a design portfolio piece.</p>
+      </div>
+    </div>
+    <div>
+      <div class="pull-quote" style="margin-top:60px;">
+        <div class="pq-text" data-en="&quot;Most people with irregular income don\"t fail because they spend too much. They fail because they can\'t see what\'s happening until it\'s too late."' data-es="&quot;La mayoría de las personas con ingresos irregulares no fallan porque gastan demasiado. Fallan porque no pueden ver lo que está pasando hasta que es demasiado tarde.&quot;">"Most people with irregular income don't fail because they spend too much. They fail because they can't see what's happening until it's too late."</div>
+        <div class="pq-attr" data-en="User interview finding — Santiago, Chile" data-es="Hallazgo de entrevista de usuario — Santiago, Chile">User interview finding — Santiago, Chile</div>
+      </div>
+      <div style="margin-top:24px;display:flex;flex-direction:column;gap:10px;">
+        <div style="display:flex;align-items:center;gap:12px;font-size:13px;">
+          <span style="color:var(--gold);font-family:var(--mono);font-size:11px;">◆</span>
+          <span style="color:var(--muted);" data-en="Full Design Thinking process — 5 stages executed" data-es="Proceso completo de Design Thinking — 5 etapas ejecutadas">Full Design Thinking process — 5 stages executed</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;font-size:13px;">
+          <span style="color:var(--gold);font-family:var(--mono);font-size:11px;">◆</span>
+          <span style="color:var(--muted);" data-en="Competitor benchmarking across 6 products" data-es="Benchmarking competitivo en 6 productos">Competitor benchmarking across 6 products</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;font-size:13px;">
+          <span style="color:var(--gold);font-family:var(--mono);font-size:11px;">◆</span>
+          <span style="color:var(--muted);" data-en="Card sorting with 11 participants · IA validated" data-es="Card sorting con 11 participantes · IA validada">Card sorting with 11 participants · IA validated</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;font-size:13px;">
+          <span style="color:var(--gold);font-family:var(--mono);font-size:11px;">◆</span>
+          <span style="color:var(--muted);" data-en="Usability testing on 60-frame prototype" data-es="Pruebas de usabilidad en prototipo de 60 frames">Usability testing on 60-frame prototype</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div style="border-top:1px solid var(--border);"><div class="divider"></div></div>
+
+<!-- ════════════════════ MARKET PROBLEM ════════════════════ -->
+<section class="section problem-band">
+  <div class="section-inner">
+    <span class="section-tag" data-en="Market Problem" data-es="Problema de Mercado">Market Problem</span>
+    <h2 class="section-h2" data-en="Financial exclusion isn't a banking problem.<br><em>It's a product problem.</em>" data-es="La exclusión financiera no es un problema bancario.<br><em>Es un problema de producto.</em>">Financial exclusion isn't a banking problem.<br><em>It's a product problem.</em></h2>
+    <div class="section-body">
+      <p data-en="Across Latin America, a large and growing share of the population has access to a smartphone — but not to tools that meaningfully help them manage their financial lives. Existing fintech products are designed for salaried, banked users. They assume stable income, credit history, and financial literacy that most of this segment simply doesn't have." data-es="En América Latina, una gran y creciente parte de la población tiene acceso a un smartphone — pero no a herramientas que les ayuden significativamente a gestionar su vida financiera. Los productos fintech existentes están diseñados para usuarios asalariados y bancarizados. Asumen ingresos estables, historial crediticio y alfabetización financiera que la mayoría de este segmento simplemente no tiene.">Across Latin America, a large and growing share of the population has access to a smartphone — but not to tools that meaningfully help them manage their financial lives. Existing fintech products are designed for salaried, banked users. They assume stable income, credit history, and financial literacy that most of this segment simply doesn't have.</p>
+      <p data-en="The result: people who need financial tools the most are served by the worst ones — spreadsheets, WhatsApp notes, and pure memory. The market gap is not access to banking. It's access to <strong>understanding their own money.</strong>" data-es="El resultado: las personas que más necesitan herramientas financieras son atendidas por las peores — planillas, notas de WhatsApp y memoria pura. La brecha de mercado no es el acceso a la banca. Es el acceso a <strong>entender su propio dinero.</strong>">The result: people who need financial tools the most are served by the worst ones — spreadsheets, WhatsApp notes, and pure memory. The market gap is not access to banking. It's access to <strong>understanding their own money.</strong></p>
+    </div>
+    <div class="stat-grid reveal">
+      <div class="stat-card">
+        <span class="stat-big">70%</span>
+        <div class="stat-desc"><strong data-en="of LATAM adults" data-es="de adultos en LATAM">of LATAM adults</strong> <span data-en="have no budgeting system beyond mental accounting" data-es="no tienen sistema de presupuesto más allá de la contabilidad mental">have no budgeting system beyond mental accounting</span></div>
+      </div>
+      <div class="stat-card">
+        <span class="stat-big">65%</span>
+        <div class="stat-desc"><strong data-en="of research participants" data-es="de los participantes de investigación">of research participants</strong> <span data-en="reported running out of money before month end with no clear reason why" data-es="reportaron quedarse sin dinero antes del fin de mes sin saber claramente por qué">reported running out of money before month end with no clear reason why</span></div>
+      </div>
+      <div class="stat-card">
+        <span class="stat-big">82%</span>
+        <div class="stat-desc"><strong data-en="of interviewees" data-es="de los entrevistados">of interviewees</strong> <span data-en="said they'd use an app that simply showed them where their money goes each month" data-es="dijeron que usarían una app que simplemente les mostrara a dónde va su dinero cada mes">said they'd use an app that simply showed them where their money goes each month</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ USER INSIGHT ════════════════════ -->
+<section class="section">
+  <div class="section-inner">
+    <span class="section-tag" data-en="User Insight · 34 Interviews · Chile, Colombia, Argentina" data-es="Insights de Usuario · 34 Entrevistas · Chile, Colombia, Argentina">User Insight · 34 Interviews · Chile, Colombia, Argentina</span>
+    <h2 class="section-h2" data-en="Five behavioural pain points<br><em>that define the opportunity.</em>" data-es="Cinco puntos de dolor conductuales<br><em>que definen la oportunidad.</em>">Five behavioural pain points<br><em>that define the opportunity.</em></h2>
+    <div class="section-body">
+      <p data-en="Research was conducted across 34 interviews in three countries, validated with card sorting (11 participants) and competitive benchmarking against 6 comparable products. The findings converged on five consistent behavioural patterns — each representing a specific product opportunity." data-es="La investigación se realizó en 34 entrevistas en tres países, validada con card sorting (11 participantes) y benchmarking competitivo contra 6 productos comparables. Los hallazgos convergieron en cinco patrones conductuales consistentes — cada uno representando una oportunidad de producto específica.">Research was conducted across 34 interviews in three countries, validated with card sorting (11 participants) and competitive benchmarking against 6 comparable products. The findings converged on five consistent behavioural patterns — each representing a specific product opportunity.</p>
+    </div>
+    <div class="insight-grid">
+      <div class="insight-card reveal">
+        <div class="insight-icon">📉</div>
+        <div class="insight-title" data-en="Invisible spending patterns" data-es="Patrones de gasto invisibles">Invisible spending patterns</div>
+        <div class="insight-body" data-en="Users couldn't explain where their money went. Not because of recklessness — but because no tool showed them. Expense visibility was the single most-requested capability." data-es="Los usuarios no podían explicar a dónde fue su dinero. No por descuido — sino porque ninguna herramienta se los mostraba. La visibilidad de gastos fue la capacidad más solicitada.">Users couldn't explain where their money went. Not because of recklessness — but because no tool showed them. Expense visibility was the single most-requested capability.</div>
+        <div class="insight-quote" data-en="&quot;I know I spend a lot but I couldn\"t tell you on what. It just disappears."' data-es="&quot;Sé que gasto mucho pero no te podría decir en qué. Simplemente desaparece.&quot;">"I know I spend a lot but I couldn't tell you on what. It just disappears."</div>
+      </div>
+      <div class="insight-card reveal">
+        <div class="insight-icon">🔄</div>
+        <div class="insight-title" data-en="Unstable, irregular income" data-es="Ingresos inestables e irregulares">Unstable, irregular income</div>
+        <div class="insight-body" data-en="Many participants combined part-time work, freelance income, and informal gigs. Monthly budgeting tools built for fixed salaries didn't fit. The product needed to handle income volatility natively." data-es="Muchos participantes combinaban trabajo a tiempo parcial, ingresos freelance y trabajos informales. Las herramientas de presupuesto mensual diseñadas para salarios fijos no encajaban. El producto necesitaba manejar la volatilidad de ingresos nativamente.">Many participants combined part-time work, freelance income, and informal gigs. Monthly budgeting tools built for fixed salaries didn't fit. The product needed to handle income volatility natively.</div>
+        <div class="insight-quote" data-en="&quot;I make different money each month. Apps for saving assume I know what I\"ll earn."' data-es="&quot;Gano diferente cada mes. Las apps de ahorro asumen que sé cuánto voy a ganar.&quot;">"I make different money each month. Apps for saving assume I know what I'll earn."</div>
+      </div>
+      <div class="insight-card reveal">
+        <div class="insight-icon">🎯</div>
+        <div class="insight-title" data-en="No savings discipline or system" data-es="Sin disciplina ni sistema de ahorro">No savings discipline or system</div>
+        <div class="insight-body" data-en="Saving was viewed as what's left over — not a planned behaviour. Without a dedicated system, savings were the first casualty of unexpected expenses. Goal-based framing was the key motivational trigger." data-es="El ahorro era visto como lo que sobra — no como un comportamiento planificado. Sin un sistema dedicado, los ahorros eran la primera víctima de los gastos inesperados. El encuadre basado en metas fue el disparador motivacional clave.">Saving was viewed as what's left over — not a planned behaviour. Without a dedicated system, savings were the first casualty of unexpected expenses. Goal-based framing was the key motivational trigger.</div>
+        <div class="insight-quote" data-en="&quot;I always say I\"ll save. Then something comes up and it\'s gone."' data-es="&quot;Siempre digo que voy a ahorrar. Luego surge algo y se va.&quot;">"I always say I'll save. Then something comes up and it's gone."</div>
+      </div>
+      <div class="insight-card reveal">
+        <div class="insight-icon">📚</div>
+        <div class="insight-title" data-en="Low financial literacy, high desire to learn" data-es="Baja alfabetización financiera, alto deseo de aprender">Low financial literacy, high desire to learn</div>
+        <div class="insight-body" data-en="Users expressed strong interest in financial education — but existing content was either too complex or too generic. Contextual, bite-sized tips triggered by their own financial behaviour were highly valued." data-es="Los usuarios expresaron un fuerte interés en la educación financiera — pero el contenido existente era demasiado complejo o genérico. Los consejos breves y contextuales activados por su propio comportamiento financiero eran muy valorados.">Users expressed strong interest in financial education — but existing content was either too complex or too generic. Contextual, bite-sized tips triggered by their own financial behaviour were highly valued.</div>
+        <div class="insight-quote" data-en="&quot;I want to understand money better. But finance apps talk like bankers.&quot;" data-es="&quot;Quiero entender mejor el dinero. Pero las apps de finanzas hablan como banqueros.&quot;">"I want to understand money better. But finance apps talk like bankers."</div>
+      </div>
+      <div class="insight-card reveal">
+        <div class="insight-icon">⚡</div>
+        <div class="insight-title" data-en="Reactive not proactive financial decisions" data-es="Decisiones financieras reactivas, no proactivas">Reactive not proactive financial decisions</div>
+        <div class="insight-body" data-en="Without alerts or early warnings, users only noticed budget problems after they happened. A proactive alert system — one that surfaces risk before the crisis — was consistently rated as the most useful potential feature." data-es="Sin alertas o advertencias tempranas, los usuarios solo notaban los problemas de presupuesto después de que ocurrían. Un sistema de alertas proactivo — que muestre el riesgo antes de la crisis — fue consistentemente calificado como la característica potencial más útil.">Without alerts or early warnings, users only noticed budget problems after they happened. A proactive alert system — one that surfaces risk before the crisis — was consistently rated as the most useful potential feature.</div>
+        <div class="insight-quote" data-en="&quot;By the time I realise I\"ve overspent, it\'s already too late to fix it."' data-es="&quot;Para cuando me doy cuenta de que gasté de más, ya es demasiado tarde para arreglarlo.&quot;">"By the time I realise I've overspent, it's already too late to fix it."</div>
+      </div>
+      <div class="insight-card reveal" style="background:rgba(180,150,90,.04);">
+        <div class="insight-icon">🔍</div>
+        <div class="insight-title" data-en="Research methodology" data-es="Metodología de investigación">Research methodology</div>
+        <div class="insight-body">
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <div>
+              <div style="font-family:var(--mono);font-size:9px;color:var(--gold);margin-bottom:3px;" data-en="QUALITATIVE INTERVIEWS" data-es="ENTREVISTAS CUALITATIVAS">QUALITATIVE INTERVIEWS</div>
+              <div style="font-size:12px;color:var(--muted);" data-en="34 semi-structured sessions · Chile, Colombia, Argentina · 25–45 min each" data-es="34 sesiones semi-estructuradas · Chile, Colombia, Argentina · 25–45 min cada una">34 semi-structured sessions · Chile, Colombia, Argentina · 25–45 min each</div>
+            </div>
+            <div>
+              <div style="font-family:var(--mono);font-size:9px;color:var(--gold);margin-bottom:3px;" data-en="CARD SORTING" data-es="CARD SORTING">CARD SORTING</div>
+              <div style="font-size:12px;color:var(--muted);" data-en="11 participants · open sort + closed validation · IA structure refined" data-es="11 participantes · clasificación abierta + validación cerrada · estructura IA refinada">11 participants · open sort + closed validation · IA structure refined</div>
+            </div>
+            <div>
+              <div style="font-family:var(--mono);font-size:9px;color:var(--gold);margin-bottom:3px;" data-en="USABILITY TESTING" data-es="PRUEBAS DE USABILIDAD">USABILITY TESTING</div>
+              <div style="font-size:12px;color:var(--muted);" data-en="60-frame Figma prototype · task-based evaluation · 98% task success rate" data-es="Prototipo Figma de 60 frames · evaluación basada en tareas · 98% tasa de éxito">60-frame Figma prototype · task-based evaluation · 98% task success rate</div>
+            </div>
+            <div>
+              <div style="font-family:var(--mono);font-size:9px;color:var(--gold);margin-bottom:3px;" data-en="BENCHMARKING" data-es="BENCHMARKING">BENCHMARKING</div>
+              <div style="font-size:12px;color:var(--muted);" data-en="Fintual, Nubank, Finerio, Wallet, Mobills, Spiñel — feature & UX matrix" data-es="Fintual, Nubank, Finerio, Wallet, Mobills, Spiñel — matriz de features y UX">Fintual, Nubank, Finerio, Wallet, Mobills, Spiñel — feature & UX matrix</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ STRATEGY ════════════════════ -->
+<section class="section" style="background:var(--navy2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+  <div class="section-inner">
+    <span class="section-tag" data-en="Product Strategy" data-es="Estrategia de Producto">Product Strategy</span>
+    <h2 class="section-h2" data-en="Why this segment. Why this solution.<br><em>Why now.</em>" data-es="Por qué este segmento. Por qué esta solución.<br><em>Por qué ahora.</em>">Why this segment. Why this solution.<br><em>Why now.</em></h2>
+    <div class="two-col" style="gap:48px;">
+      <div class="section-body">
+        <p data-en="<strong>Why this segment:</strong> Low-to-middle income users in LATAM are the fastest-growing smartphone-connected population — and the most underserved by existing fintech. They don't lack the need or the intent to manage money better. They lack a tool built for their actual context: irregular income, cash-adjacent behaviour, low financial vocabulary, and zero tolerance for complexity." data-es="<strong>Por qué este segmento:</strong> Los usuarios de ingresos bajos y medios en LATAM son la población con smartphones de más rápido crecimiento — y los más desatendidos por el fintech existente. No carecen de la necesidad o la intención de gestionar mejor su dinero. Les falta una herramienta construida para su contexto real: ingresos irregulares, comportamiento cercano al efectivo, bajo vocabulario financiero y cero tolerancia a la complejidad."><strong>Why this segment:</strong> Low-to-middle income users in LATAM are the fastest-growing smartphone-connected population — and the most underserved by existing fintech. They don't lack the need or the intent to manage money better. They lack a tool built for their actual context: irregular income, cash-adjacent behaviour, low financial vocabulary, and zero tolerance for complexity.</p>
+        <p data-en="<strong>Why this solution:</strong> Behaviour change, not feature overload. Research consistently showed that users wanted clarity, not complexity. A dashboard that tells them the truth about their money — simply, without judgment — outperforms any sophisticated financial planning tool they'll never actually use." data-es="<strong>Por qué esta solución:</strong> Cambio de comportamiento, no sobrecarga de funciones. La investigación mostró consistentemente que los usuarios querían claridad, no complejidad. Un dashboard que les diga la verdad sobre su dinero — de forma simple, sin juicio — supera cualquier herramienta sofisticada de planificación financiera que nunca usarán realmente."><strong>Why this solution:</strong> Behaviour change, not feature overload. Research consistently showed that users wanted clarity, not complexity. A dashboard that tells them the truth about their money — simply, without judgment — outperforms any sophisticated financial planning tool they'll never actually use.</p>
+        <p data-en="<strong>Why now:</strong> Mobile penetration in LATAM has crossed the inflection point. WhatsApp-native behaviours have normalised daily financial conversations on mobile. Neobanks like Nubank have proven willingness-to-pay among underserved users. The rails are ready. The behaviour is ready. The product needed to be built." data-es="<strong>Por qué ahora:</strong> La penetración móvil en LATAM ha cruzado el punto de inflexión. Los comportamientos nativos de WhatsApp han normalizado las conversaciones financieras diarias en móvil. Neobancos como Nubank han probado la disposición a pagar entre usuarios desatendidos. Los rieles están listos. El comportamiento está listo. El producto necesitaba ser construido."><strong>Why now:</strong> Mobile penetration in LATAM has crossed the inflection point. WhatsApp-native behaviours have normalised daily financial conversations on mobile. Neobanks like Nubank have proven willingness-to-pay among underserved users. The rails are ready. The behaviour is ready. The product needed to be built.</p>
+      </div>
+      <div>
+        <div style="border:1px solid var(--border);padding:28px;margin-bottom:16px;">
+          <div style="font-family:var(--mono);font-size:9px;color:var(--gold);letter-spacing:.1em;text-transform:uppercase;margin-bottom:14px;" data-en="Competitive positioning" data-es="Posicionamiento competitivo">Competitive positioning</div>
+          <div style="display:flex;flex-direction:column;gap:12px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;">
+              <span style="color:var(--muted);" data-en="Complexity for underserved users" data-es="Complejidad para usuarios desatendidos">Complexity for underserved users</span>
+              <span style="font-family:var(--mono);color:#E05555;" data-en="High · Gap" data-es="Alta · Brecha">High · Gap</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;">
+              <span style="color:var(--muted);" data-en="Behaviour-first design" data-es="Diseño centrado en comportamiento">Behaviour-first design</span>
+              <span style="font-family:var(--mono);color:var(--green2);" data-en="Monevol · ✓" data-es="Monevol · ✓">Monevol · ✓</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;">
+              <span style="color:var(--muted);" data-en="Irregular income support" data-es="Soporte para ingresos irregulares">Irregular income support</span>
+              <span style="font-family:var(--mono);color:var(--green2);" data-en="Monevol · ✓" data-es="Monevol · ✓">Monevol · ✓</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;">
+              <span style="color:var(--muted);" data-en="Contextual financial education" data-es="Educación financiera contextual">Contextual financial education</span>
+              <span style="font-family:var(--mono);color:var(--green2);" data-en="Monevol · ✓" data-es="Monevol · ✓">Monevol · ✓</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;">
+              <span style="color:var(--muted);" data-en="Credit / investment assumption" data-es="Supuesto de crédito / inversión">Credit / investment assumption</span>
+              <span style="font-family:var(--mono);color:#E05555;" data-en="Competitors · ✓" data-es="Competidores · ✓">Competitors · ✓</span>
+            </div>
+          </div>
+        </div>
+        <div style="border:1px solid var(--border);padding:28px;">
+          <div style="font-family:var(--mono);font-size:9px;color:var(--gold);letter-spacing:.1em;text-transform:uppercase;margin-bottom:14px;" data-en="Target user profile" data-es="Perfil de usuario objetivo">Target user profile</div>
+          <div style="font-size:13px;color:var(--muted);line-height:1.7;" data-en="25–40 years old · Urban or peri-urban · Informal or gig economy income · Smartphone-first (low laptop access) · Low or no credit history · High financial anxiety, low financial vocabulary · Strong social community ties · Motivated by concrete goals, not abstract financial planning" data-es="25–40 años · Urbano o periurbano · Ingresos informales o de gig economy · Smartphone-first (poco acceso a laptop) · Sin historial crediticio o muy bajo · Alta ansiedad financiera, bajo vocabulario financiero · Fuertes vínculos comunitarios · Motivado por metas concretas, no planificación financiera abstracta">25–40 years old · Urban or peri-urban · Informal or gig economy income · Smartphone-first (low laptop access) · Low or no credit history · High financial anxiety, low financial vocabulary · Strong social community ties · Motivated by concrete goals, not abstract financial planning</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ MVP PRIORITISATION ════════════════════ -->
+<section class="section">
+  <div class="section-inner">
+    <span class="section-tag" data-en="MVP Prioritisation · Impact vs Complexity" data-es="Priorización MVP · Impacto vs Complejidad">MVP Prioritisation · Impact vs Complexity</span>
+    <h2 class="section-h2" data-en="What goes in V1.<br><em>And what waits.</em>" data-es="Qué entra en V1.<br><em>Y qué espera.</em>">What goes in V1.<br><em>And what waits.</em></h2>
+    <div class="section-body">
+      <p data-en="Prioritisation was driven by one constraint: the first version must change behaviour without requiring behavioural change to use it. Features that required high cognitive load or external data (bank connections, tax systems) were deferred. Features that delivered immediate value with minimal friction were prioritised." data-es="La priorización fue guiada por una restricción: la primera versión debe cambiar el comportamiento sin requerir cambio de comportamiento para usarla. Las funciones que requerían alta carga cognitiva o datos externos (conexiones bancarias, sistemas fiscales) fueron diferidas. Las que entregaban valor inmediato con mínima fricción fueron priorizadas.">Prioritisation was driven by one constraint: the first version must change behaviour without requiring behavioural change to use it. Features that required high cognitive load or external data (bank connections, tax systems) were deferred. Features that delivered immediate value with minimal friction were prioritised.</p>
+    </div>
+    <div class="matrix-wrap reveal">
+      <div style="display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:center;margin-bottom:8px;">
+        <div></div>
+        <div style="display:flex;justify-content:space-between;font-family:var(--mono);font-size:9px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;padding:0 28px;" data-en="← Lower complexity · Higher complexity →" data-es="← Menor complejidad · Mayor complejidad →">← Lower complexity · Higher complexity →</div>
+      </div>
+      <div style="display:grid;grid-template-columns:auto 1fr;gap:0;align-items:stretch;">
+        <div style="display:flex;flex-direction:column;justify-content:space-around;font-family:var(--mono);font-size:9px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;padding-right:12px;writing-mode:vertical-lr;transform:rotate(180deg);text-align:center;" data-en="Higher impact → Lower impact →" data-es="Mayor impacto → Menor impacto →">Higher impact → Lower impact →</div>
+        <div class="matrix-grid">
+          <div class="matrix-cell highlight">
+            <div class="matrix-quadrant" data-en="🚀 V1 — Build first" data-es="🚀 V1 — Construir primero">🚀 V1 — Build first</div>
+            <div class="matrix-items">
+              <div class="matrix-item"><div class="matrix-dot dot-gold"></div><span data-en="Expense dashboard & visibility" data-es="Dashboard de gastos y visibilidad">Expense dashboard & visibility</span></div>
+              <div class="matrix-item"><div class="matrix-dot dot-gold"></div><span data-en="Monthly budget tracker" data-es="Rastreador de presupuesto mensual">Monthly budget tracker</span></div>
+              <div class="matrix-item"><div class="matrix-dot dot-gold"></div><span data-en="Savings goals" data-es="Metas de ahorro">Savings goals</span></div>
+              <div class="matrix-item"><div class="matrix-dot dot-gold"></div><span data-en="Smart alerts & nudges" data-es="Alertas inteligentes y nudges">Smart alerts & nudges</span></div>
+            </div>
+          </div>
+          <div class="matrix-cell">
+            <div class="matrix-quadrant" data-en="📅 V2 — Plan carefully" data-es="📅 V2 — Planificar con cuidado">📅 V2 — Plan carefully</div>
+            <div class="matrix-items">
+              <div class="matrix-item"><div class="matrix-dot dot-green"></div><span data-en="Bank account connection" data-es="Conexión de cuenta bancaria">Bank account connection</span></div>
+              <div class="matrix-item"><div class="matrix-dot dot-green"></div><span data-en="Income volatility modelling" data-es="Modelado de volatilidad de ingresos">Income volatility modelling</span></div>
+              <div class="matrix-item"><div class="matrix-dot dot-green"></div><span data-en="Social sharing / referrals" data-es="Compartir social / referidos">Social sharing / referrals</span></div>
+            </div>
+          </div>
+          <div class="matrix-cell">
+            <div class="matrix-quadrant" data-en="✅ V1 — Quick wins" data-es="✅ V1 — Victorias rápidas">✅ V1 — Quick wins</div>
+            <div class="matrix-items">
+              <div class="matrix-item"><div class="matrix-dot dot-gold"></div><span data-en="Financial education tips" data-es="Consejos de educación financiera">Financial education tips</span></div>
+              <div class="matrix-item"><div class="matrix-dot dot-gold"></div><span data-en="Expense categorisation" data-es="Categorización de gastos">Expense categorisation</span></div>
+              <div class="matrix-item"><div class="matrix-dot dot-gold"></div><span data-en="Weekly summary insights" data-es="Insights de resumen semanal">Weekly summary insights</span></div>
+            </div>
+          </div>
+          <div class="matrix-cell">
+            <div class="matrix-quadrant" data-en="🔮 V3 — Future state" data-es="🔮 V3 — Estado futuro">🔮 V3 — Future state</div>
+            <div class="matrix-items">
+              <div class="matrix-item"><div class="matrix-dot dot-muted"></div><span data-en="AI spending coach" data-es="Coach de gastos IA">AI spending coach</span></div>
+              <div class="matrix-item"><div class="matrix-dot dot-muted"></div><span data-en="Credit score builder" data-es="Constructor de score crediticio">Credit score builder</span></div>
+              <div class="matrix-item"><div class="matrix-dot dot-muted"></div><span data-en="Investment micro-products" data-es="Micro-productos de inversión">Investment micro-products</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ CORE FEATURES ════════════════════ -->
+<section class="section" style="background:var(--navy2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+  <div class="section-inner">
+    <span class="section-tag" data-en="Core Features · Product Value" data-es="Funciones Principales · Valor del Producto">Core Features · Product Value</span>
+    <h2 class="section-h2" data-en="Seven features.<br><em>One coherent product.</em>" data-es="Siete funciones.<br><em>Un producto coherente.</em>">Seven features.<br><em>One coherent product.</em></h2>
+    <div class="feature-grid">
+      <div class="feature-card reveal">
+        <span class="fc-num">01</span>
+        <div class="fc-title" data-en="Financial <em>Dashboard</em>" data-es="<em>Dashboard</em> Financiero">Financial <em>Dashboard</em></div>
+        <div class="fc-body" data-en="The home screen gives users an immediate, accurate view of their financial position — balance, spending rate, and savings progress — without requiring bank connection. Manual entry with smart categorisation handles the majority of the target segment's behaviour." data-es="La pantalla de inicio da a los usuarios una vista inmediata y precisa de su posición financiera — saldo, tasa de gasto y progreso de ahorros — sin requerir conexión bancaria. El ingreso manual con categorización inteligente maneja la mayoría del comportamiento del segmento objetivo.">The home screen gives users an immediate, accurate view of their financial position — balance, spending rate, and savings progress — without requiring bank connection. Manual entry with smart categorisation handles the majority of the target segment's behaviour.</div>
+        <div class="fc-why" data-en="PM rationale: First-session value. No onboarding friction." data-es="Lógica de PM: Valor en primera sesión. Sin fricción de onboarding.">PM rationale: First-session value. No onboarding friction.</div>
+      </div>
+      <div class="feature-card reveal">
+        <span class="fc-num">02</span>
+        <div class="fc-title" data-en="Budget <em>Tracker</em>" data-es="Rastreador de <em>Presupuesto</em>">Budget <em>Tracker</em></div>
+        <div class="fc-body" data-en="Category-based monthly budgeting with progress bars and colour-coded status. Designed for irregular income: users can set flexible or income-proportional budgets rather than fixed monthly caps. The most-requested feature in user research." data-es="Presupuesto mensual basado en categorías con barras de progreso y estado codificado por colores. Diseñado para ingresos irregulares: los usuarios pueden establecer presupuestos flexibles o proporcionales a los ingresos en lugar de límites mensuales fijos. La función más solicitada en la investigación de usuarios.">Category-based monthly budgeting with progress bars and colour-coded status. Designed for irregular income: users can set flexible or income-proportional budgets rather than fixed monthly caps. The most-requested feature in user research.</div>
+        <div class="fc-why" data-en="PM rationale: Core retention driver. Daily active use hook." data-es="Lógica de PM: Motor principal de retención. Gancho de uso activo diario.">PM rationale: Core retention driver. Daily active use hook.</div>
+      </div>
+      <div class="feature-card reveal">
+        <span class="fc-num">03</span>
+        <div class="fc-title" data-en="Transaction <em>Tracking</em>" data-es="Seguimiento de <em>Transacciones</em>">Transaction <em>Tracking</em></div>
+        <div class="fc-body" data-en="Manual transaction entry with smart category suggestions based on merchant type and past behaviour. Weekly and monthly summaries surface spending patterns the user was previously unaware of. The insight layer is where the behaviour change happens." data-es="Ingreso manual de transacciones con sugerencias de categoría inteligentes basadas en el tipo de comercio y comportamiento pasado. Los resúmenes semanales y mensuales revelan patrones de gasto que el usuario anteriormente desconocía. La capa de insights es donde ocurre el cambio de comportamiento.">Manual transaction entry with smart category suggestions based on merchant type and past behaviour. Weekly and monthly summaries surface spending patterns the user was previously unaware of. The insight layer is where the behaviour change happens.</div>
+        <div class="fc-why" data-en="PM rationale: Solves the core problem. Data engine for future AI." data-es="Lógica de PM: Resuelve el problema central. Motor de datos para IA futura.">PM rationale: Solves the core problem. Data engine for future AI.</div>
+      </div>
+      <div class="feature-card reveal">
+        <span class="fc-num">04</span>
+        <div class="fc-title" data-en="Savings <em>Goals</em>" data-es="Metas de <em>Ahorro</em>">Savings <em>Goals</em></div>
+        <div class="fc-body" data-en="Named, visual savings goals (emergency fund, holiday, new phone) with progress tracking and micro-contribution suggestions. Goal-framing transforms saving from 'what's left over' into an active, motivated behaviour — the most effective behavioural design intervention available." data-es="Metas de ahorro nombradas y visuales (fondo de emergencia, vacaciones, teléfono nuevo) con seguimiento de progreso y sugerencias de micro-contribuciones. El encuadre de metas transforma el ahorro de 'lo que sobra' en un comportamiento activo y motivado — la intervención de diseño conductual más efectiva disponible.">Named, visual savings goals (emergency fund, holiday, new phone) with progress tracking and micro-contribution suggestions. Goal-framing transforms saving from 'what's left over' into an active, motivated behaviour — the most effective behavioural design intervention available.</div>
+        <div class="fc-why" data-en="PM rationale: Emotional engagement. Retention anchor. Referral trigger." data-es="Lógica de PM: Compromiso emocional. Ancla de retención. Disparador de referidos.">PM rationale: Emotional engagement. Retention anchor. Referral trigger.</div>
+      </div>
+      <div class="feature-card reveal">
+        <span class="fc-num">05</span>
+        <div class="fc-title" data-en="Financial <em>Education</em>" data-es="<em>Educación</em> Financiera">Financial <em>Education</em></div>
+        <div class="fc-body" data-en="Contextual, bite-sized financial tips triggered by user behaviour — not a generic learning library. If a user's grocery budget hits 80%, they see a tip about meal planning. If they've created 3 savings goals, they unlock a module on emergency funds. Education as a product feature, not a tab." data-es="Consejos financieros breves y contextuales activados por el comportamiento del usuario — no una biblioteca de aprendizaje genérica. Si el presupuesto de supermercado llega al 80%, ven un consejo sobre planificación de comidas. Si crearon 3 metas de ahorro, desbloquean un módulo sobre fondos de emergencia. La educación como función del producto, no como pestaña.">Contextual, bite-sized financial tips triggered by user behaviour — not a generic learning library. If a user's grocery budget hits 80%, they see a tip about meal planning. If they've created 3 savings goals, they unlock a module on emergency funds. Education as a product feature, not a tab.</div>
+        <div class="fc-why" data-en="PM rationale: Differentiation. Loyalty driver. Low technical cost." data-es="Lógica de PM: Diferenciación. Motor de lealtad. Bajo costo técnico.">PM rationale: Differentiation. Loyalty driver. Low technical cost.</div>
+      </div>
+      <div class="feature-card reveal">
+        <span class="fc-num">06</span>
+        <div class="fc-title" data-en="Smart <em>Alerts</em>" data-es="Alertas <em>Inteligentes</em>">Smart <em>Alerts</em></div>
+        <div class="fc-body" data-en="Proactive push notifications at meaningful financial moments: budget category at 70%, unusual spending spike, savings goal on track or behind, weekly review prompt. The system intervenes before the crisis, not after. Designed to be useful, not annoying — with user-controlled frequency." data-es="Notificaciones push proactivas en momentos financieros significativos: categoría de presupuesto al 70%, pico de gasto inusual, meta de ahorro en curso o atrasada, recordatorio de revisión semanal. El sistema interviene antes de la crisis, no después. Diseñado para ser útil, no molesto — con frecuencia controlada por el usuario.">Proactive push notifications at meaningful financial moments: budget category at 70%, unusual spending spike, savings goal on track or behind, weekly review prompt. The system intervenes before the crisis, not after. Designed to be useful, not annoying — with user-controlled frequency.</div>
+        <div class="fc-why" data-en="PM rationale: Behaviour change mechanism. Re-engagement loop." data-es="Lógica de PM: Mecanismo de cambio conductual. Bucle de reenganche.">PM rationale: Behaviour change mechanism. Re-engagement loop.</div>
+      </div>
+      <div class="feature-card reveal">
+        <span class="fc-num">07</span>
+        <div class="fc-title" data-en="Optional Bank <em>Sync</em>" data-es="Sincronización Bancaria <em>Opcional</em>">Optional Bank <em>Sync</em></div>
+        <div class="fc-body" data-en="Bank connection is V2 — deliberately. V1 builds trust through manual entry and immediate value delivery. When bank sync is introduced, it appears as an optional upgrade that removes friction, not a required step that adds it. Connection rate target: 40%+ after 30 days of manual use." data-es="La conexión bancaria es V2 — deliberadamente. V1 genera confianza a través del ingreso manual y la entrega inmediata de valor. Cuando se introduce la sincronización bancaria, aparece como una actualización opcional que elimina fricción, no un paso requerido que la añade. Objetivo de tasa de conexión: 40%+ después de 30 días de uso manual.">Bank connection is V2 — deliberately. V1 builds trust through manual entry and immediate value delivery. When bank sync is introduced, it appears as an optional upgrade that removes friction, not a required step that adds it. Connection rate target: 40%+ after 30 days of manual use.</div>
+        <div class="fc-why" data-en="PM rationale: Trust first. Data quality follows adoption." data-es="Lógica de PM: Confianza primero. La calidad de datos sigue a la adopción.">PM rationale: Trust first. Data quality follows adoption.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ MOCKUP GALLERY ════════════════════ -->
+<section class="section mockups-section">
+  <div class="section-inner">
+    <span class="section-tag" data-en="App Screens · Interactive Prototype" data-es="Pantallas de la App · Prototipo Interactivo">App Screens · Interactive Prototype</span>
+    <h2 class="section-h2" data-en="60 frames. 7 journeys.<br><em>98% task success.</em>" data-es="60 frames. 7 journeys.<br><em>98% de éxito en tareas.</em>">60 frames. 7 journeys.<br><em>98% task success.</em></h2>
+    <div class="mockups-row">
+
+      <!-- Screen 1: Dashboard -->
+      <div class="mockup-phone">
+        <div class="mockup-phone-shell">
+          <div class="mockup-screen" style="background:linear-gradient(160deg,#0f1e30,#0a1220);">
+            <div class="ms-notch"><div class="ms-notch-bar"></div></div>
+            <div class="ms-body">
+              <div class="ms-title" style="font-size:11px;color:var(--muted);">Good morning, Ana ☀️</div>
+              <div style="background:rgba(180,150,90,.1);border:1px solid rgba(180,150,90,.2);border-radius:10px;padding:12px;text-align:center;">
+                <div style="font-size:8px;color:var(--muted);font-family:var(--mono);">NET BALANCE</div>
+                <div style="font-family:var(--serif);font-size:24px;color:var(--gold);">$423K</div>
+                <div style="display:flex;gap:12px;justify-content:center;margin-top:8px;font-size:8px;">
+                  <span style="color:var(--green2);">↑ $180K</span>
+                  <span style="color:#E05555;">↓ $94K</span>
+                  <span style="color:var(--gold);">→ $86K</span>
+                </div>
+              </div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
+                <div style="background:rgba(45,122,95,.08);border:1px solid rgba(45,122,95,.15);border-radius:6px;padding:8px;text-align:center;">
+                  <div style="font-size:7px;color:var(--green2);font-family:var(--mono);">SAVINGS</div>
+                  <div style="font-family:var(--serif);font-size:14px;color:var(--white);">$86K</div>
+                </div>
+                <div style="background:rgba(180,150,90,.06);border:1px solid rgba(180,150,90,.15);border-radius:6px;padding:8px;text-align:center;">
+                  <div style="font-size:7px;color:var(--gold);font-family:var(--mono);">BUDGET</div>
+                  <div style="font-family:var(--serif);font-size:14px;color:var(--white);">72%</div>
+                </div>
+              </div>
+              <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:6px;padding:8px;">
+                <div style="font-size:7px;color:var(--muted);font-family:var(--mono);margin-bottom:6px;">RECENT</div>
+                <div class="tx-item">
+                  <div class="tx-icon" style="background:rgba(224,85,85,.1);">🛒</div>
+                  <div class="tx-info"><div class="tx-name">Supermercado</div></div>
+                  <div class="tx-amount" style="color:#E05555;">-$12K</div>
+                </div>
+                <div class="tx-item">
+                  <div class="tx-icon" style="background:rgba(45,122,95,.1);">💼</div>
+                  <div class="tx-info"><div class="tx-name">Salario</div></div>
+                  <div class="tx-amount" style="color:var(--green2);">+$180K</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mockup-caption" data-en="Home Dashboard" data-es="Dashboard Principal">Home Dashboard</div>
+      </div>
+
+      <!-- Screen 2: Budget -->
+      <div class="mockup-phone">
+        <div class="mockup-phone-shell">
+          <div class="mockup-screen" style="background:linear-gradient(160deg,#101828,#0a1418);">
+            <div class="ms-notch"><div class="ms-notch-bar"></div></div>
+            <div class="ms-body">
+              <div class="ms-label" data-en="BUDGET · NOVEMBER" data-es="PRESUPUESTO · NOVIEMBRE">BUDGET · NOVEMBER</div>
+              <div class="bud-total">
+                <div class="bud-total-n">$280K</div>
+                <div class="bud-total-l" data-en="of $350K budget used" data-es="de $350K de presupuesto usado">of $350K budget used</div>
+              </div>
+              <div class="bud-cats">
+                <div class="bud-cat-row">
+                  <div class="bud-cat-icon">🏠</div>
+                  <div class="bud-cat-info">
+                    <div style="display:flex;justify-content:space-between;"><span class="bud-cat-name" data-en="Housing" data-es="Vivienda">Housing</span><span class="bud-cat-pct">68%</span></div>
+                    <div class="bud-cat-bar-wrap"><div class="bud-cat-bar" style="width:68%;background:var(--gold);"></div></div>
+                  </div>
+                </div>
+                <div class="bud-cat-row">
+                  <div class="bud-cat-icon">🛒</div>
+                  <div class="bud-cat-info">
+                    <div style="display:flex;justify-content:space-between;"><span class="bud-cat-name" data-en="Groceries" data-es="Supermercado">Groceries</span><span class="bud-cat-pct" style="color:#E05555;">94%</span></div>
+                    <div class="bud-cat-bar-wrap"><div class="bud-cat-bar" style="width:94%;background:#E05555;"></div></div>
+                  </div>
+                </div>
+                <div class="bud-cat-row">
+                  <div class="bud-cat-icon">🚌</div>
+                  <div class="bud-cat-info">
+                    <div style="display:flex;justify-content:space-between;"><span class="bud-cat-name" data-en="Transport" data-es="Transporte">Transport</span><span class="bud-cat-pct" style="color:var(--green2);">45%</span></div>
+                    <div class="bud-cat-bar-wrap"><div class="bud-cat-bar" style="width:45%;background:var(--green2);"></div></div>
+                  </div>
+                </div>
+                <div class="bud-cat-row">
+                  <div class="bud-cat-icon">🎉</div>
+                  <div class="bud-cat-info">
+                    <div style="display:flex;justify-content:space-between;"><span class="bud-cat-name" data-en="Leisure" data-es="Ocio">Leisure</span><span class="bud-cat-pct" style="color:#E8A000;">78%</span></div>
+                    <div class="bud-cat-bar-wrap"><div class="bud-cat-bar" style="width:78%;background:#E8A000;"></div></div>
+                  </div>
+                </div>
+                <div class="bud-cat-row">
+                  <div class="bud-cat-icon">💊</div>
+                  <div class="bud-cat-info">
+                    <div style="display:flex;justify-content:space-between;"><span class="bud-cat-name" data-en="Health" data-es="Salud">Health</span><span class="bud-cat-pct" style="color:var(--green2);">30%</span></div>
+                    <div class="bud-cat-bar-wrap"><div class="bud-cat-bar" style="width:30%;background:var(--green2);"></div></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mockup-caption" data-en="Budget Tracker" data-es="Rastreador de Presupuesto">Budget Tracker</div>
+      </div>
+
+      <!-- Screen 3: Transactions -->
+      <div class="mockup-phone">
+        <div class="mockup-phone-shell">
+          <div class="mockup-screen" style="background:linear-gradient(160deg,#0d1a24,#0a1220);">
+            <div class="ms-notch"><div class="ms-notch-bar"></div></div>
+            <div class="ms-body">
+              <div class="ms-label" data-en="TRANSACTIONS" data-es="TRANSACCIONES">TRANSACTIONS</div>
+              <div style="display:flex;gap:4px;margin-bottom:6px;">
+                <div style="flex:1;background:rgba(180,150,90,.15);border:1px solid rgba(180,150,90,.3);border-radius:4px;padding:4px;text-align:center;font-size:7px;color:var(--gold);font-family:var(--mono);" data-en="ALL" data-es="TODOS">ALL</div>
+                <div style="flex:1;background:transparent;border:1px solid var(--border);border-radius:4px;padding:4px;text-align:center;font-size:7px;color:var(--muted);font-family:var(--mono);" data-en="FOOD" data-es="COMIDA">FOOD</div>
+                <div style="flex:1;background:transparent;border:1px solid var(--border);border-radius:4px;padding:4px;text-align:center;font-size:7px;color:var(--muted);font-family:var(--mono);" data-en="TRANS." data-es="TRANS.">TRANS.</div>
+                <div style="flex:1;background:transparent;border:1px solid var(--border);border-radius:4px;padding:4px;text-align:center;font-size:7px;color:var(--muted);font-family:var(--mono);" data-en="INCOME" data-es="INGRESO">INCOME</div>
+              </div>
+              <div style="font-size:7px;color:var(--muted);font-family:var(--mono);margin-bottom:4px;" data-en="TODAY" data-es="HOY">TODAY</div>
+              <div class="tx-item"><div class="tx-icon" style="background:rgba(224,85,85,.1);">☕</div><div class="tx-info"><div class="tx-name" data-en="Café con leche" data-es="Café con leche">Café con leche</div><div class="tx-cat" data-en="Food & Drink" data-es="Comida y Bebida">Food & Drink</div></div><div class="tx-amount" style="color:#E05555;">-$3K</div></div>
+              <div class="tx-item"><div class="tx-icon" style="background:rgba(26,115,232,.1);">🚌</div><div class="tx-info"><div class="tx-name" data-en="Metro card" data-es="Tarjeta Metro">Metro card</div><div class="tx-cat" data-en="Transport" data-es="Transporte">Transport</div></div><div class="tx-amount" style="color:#E05555;">-$4K</div></div>
+              <div style="font-size:7px;color:var(--muted);font-family:var(--mono);margin:6px 0 4px;" data-en="YESTERDAY" data-es="AYER">YESTERDAY</div>
+              <div class="tx-item"><div class="tx-icon" style="background:rgba(45,122,95,.1);">💼</div><div class="tx-info"><div class="tx-name" data-en="Salary deposit" data-es="Depósito salario">Salary deposit</div><div class="tx-cat" data-en="Income" data-es="Ingreso">Income</div></div><div class="tx-amount" style="color:var(--green2);">+$180K</div></div>
+              <div class="tx-item"><div class="tx-icon" style="background:rgba(224,85,85,.1);">🛒</div><div class="tx-info"><div class="tx-name" data-en="Supermercado Lider" data-es="Supermercado Lider">Supermercado Lider</div><div class="tx-cat" data-en="Groceries" data-es="Supermercado">Groceries</div></div><div class="tx-amount" style="color:#E05555;">-$32K</div></div>
+              <div class="tx-item"><div class="tx-icon" style="background:rgba(138,43,226,.1);">🎬</div><div class="tx-info"><div class="tx-name">Netflix</div><div class="tx-cat" data-en="Subscriptions" data-es="Suscripciones">Subscriptions</div></div><div class="tx-amount" style="color:#E05555;">-$8K</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="mockup-caption" data-en="Expense Categorisation" data-es="Categorización de Gastos">Expense Categorisation</div>
+      </div>
+
+      <!-- Screen 4: Savings Goals -->
+      <div class="mockup-phone">
+        <div class="mockup-phone-shell">
+          <div class="mockup-screen" style="background:linear-gradient(160deg,#0a1a18,#0d1a20);">
+            <div class="ms-notch"><div class="ms-notch-bar"></div></div>
+            <div class="ms-body">
+              <div class="ms-label" data-en="SAVINGS GOALS" data-es="METAS DE AHORRO">SAVINGS GOALS</div>
+              <div style="text-align:center;background:rgba(45,122,95,.08);border:1px solid rgba(45,122,95,.15);border-radius:8px;padding:10px;margin-bottom:8px;">
+                <div style="font-size:7px;color:var(--green2);font-family:var(--mono);margin-bottom:2px;" data-en="TOTAL SAVED" data-es="TOTAL AHORRADO">TOTAL SAVED</div>
+                <div style="font-family:var(--serif);font-size:20px;color:var(--green2);">$86,400</div>
+                <div style="font-size:7px;color:var(--muted);" data-en="across 3 active goals" data-es="en 3 metas activas">across 3 active goals</div>
+              </div>
+              <div class="sav-goal">
+                <div class="sav-goal-name">🚨 <span data-en="Emergency Fund" data-es="Fondo de Emergencia">Emergency Fund</span></div>
+                <div class="sav-goal-bar-wrap"><div class="sav-goal-bar" style="width:58%;"></div></div>
+                <div class="sav-goal-row"><span class="sav-pct">58%</span><span class="sav-rem">$50K <span data-en="to go" data-es="restante">to go</span></span></div>
+              </div>
+              <div class="sav-goal">
+                <div class="sav-goal-name">✈️ <span data-en="Vacation · Patagonia" data-es="Vacaciones · Patagonia">Vacation · Patagonia</span></div>
+                <div class="sav-goal-bar-wrap"><div class="sav-goal-bar" style="width:32%;"></div></div>
+                <div class="sav-goal-row"><span class="sav-pct">32%</span><span class="sav-rem">$68K <span data-en="to go" data-es="restante">to go</span></span></div>
+              </div>
+              <div class="sav-goal">
+                <div class="sav-goal-name">📱 <span data-en="New phone" data-es="Teléfono nuevo">New phone</span></div>
+                <div class="sav-goal-bar-wrap"><div class="sav-goal-bar" style="width:85%;"></div></div>
+                <div class="sav-goal-row"><span class="sav-pct">85%</span><span class="sav-rem">$9K <span data-en="to go" data-es="restante">to go</span></span></div>
+              </div>
+              <div style="background:rgba(180,150,90,.08);border:1px dashed rgba(180,150,90,.25);border-radius:6px;padding:8px;text-align:center;font-size:8px;color:var(--muted);">+ <span data-en="Add new goal" data-es="Agregar nueva meta">Add new goal</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="mockup-caption" data-en="Savings Goals" data-es="Metas de Ahorro">Savings Goals</div>
+      </div>
+
+      <!-- Screen 5: Education -->
+      <div class="mockup-phone">
+        <div class="mockup-phone-shell">
+          <div class="mockup-screen" style="background:linear-gradient(160deg,#0a1828,#101420);">
+            <div class="ms-notch"><div class="ms-notch-bar"></div></div>
+            <div class="ms-body">
+              <div class="ms-label" data-en="FINANCIAL EDUCATION" data-es="EDUCACIÓN FINANCIERA">FINANCIAL EDUCATION</div>
+              <div class="edu-card">
+                <div class="edu-card-tag" data-en="FOR YOU · BASED ON YOUR SPENDING" data-es="PARA TI · BASADO EN TU GASTO">FOR YOU · BASED ON YOUR SPENDING</div>
+                <div class="edu-card-title" data-en="Your grocery budget is at 94%. Here's how to reduce food costs without sacrificing quality." data-es="Tu presupuesto de supermercado está al 94%. Así puedes reducir costos de comida sin sacrificar calidad.">Your grocery budget is at 94%. Here's how to reduce food costs without sacrificing quality.</div>
+                <div class="edu-progress"><div class="edu-prog-bar"><div class="edu-prog-fill" style="width:40%;"></div></div><div class="edu-prog-label">3 <span data-en="min read" data-es="min lectura">min read</span></div></div>
+              </div>
+              <div class="edu-card" style="background:rgba(26,115,232,.06);border-color:rgba(26,115,232,.15);">
+                <div class="edu-card-tag" style="color:#5B9BF5;" data-en="BASICS" data-es="FUNDAMENTOS">BASICS</div>
+                <div class="edu-card-title" data-en="What is an emergency fund and how big should it be?" data-es="¿Qué es un fondo de emergencia y qué tamaño debe tener?">What is an emergency fund and how big should it be?</div>
+                <div class="edu-progress"><div class="edu-prog-bar"><div class="edu-prog-fill" style="width:100%;background:#5B9BF5;"></div></div><div class="edu-prog-label" data-en="Completed ✓" data-es="Completado ✓">Completed ✓</div></div>
+              </div>
+              <div class="edu-card" style="background:rgba(138,43,226,.06);border-color:rgba(138,43,226,.15);">
+                <div class="edu-card-tag" style="color:#9B73F5;" data-en="GOALS" data-es="METAS">GOALS</div>
+                <div class="edu-card-title" data-en="The 50/30/20 rule — does it work for variable income?" data-es="La regla 50/30/20 — ¿funciona para ingresos variables?">The 50/30/20 rule — does it work for variable income?</div>
+                <div class="edu-progress"><div class="edu-prog-bar"><div class="edu-prog-fill" style="width:0%;background:#9B73F5;"></div></div><div class="edu-prog-label">5 <span data-en="min read" data-es="min lectura">min read</span></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mockup-caption" data-en="Financial Education" data-es="Educación Financiera">Financial Education</div>
+      </div>
+
+      <!-- Screen 6: Alerts -->
+      <div class="mockup-phone">
+        <div class="mockup-phone-shell">
+          <div class="mockup-screen" style="background:linear-gradient(160deg,#0f1520,#0a1218);">
+            <div class="ms-notch"><div class="ms-notch-bar"></div></div>
+            <div class="ms-body">
+              <div class="ms-label" data-en="SMART ALERTS" data-es="ALERTAS INTELIGENTES">SMART ALERTS</div>
+              <div class="alert-item">
+                <div class="alert-title">⚠️ <span data-en="Grocery budget at 94%" data-es="Presupuesto supermercado al 94%">Grocery budget at 94%</span></div>
+                <div class="alert-body" data-en="You have $6K left for groceries this month. Consider cooking at home the next 5 days." data-es="Te quedan $6K para supermercado este mes. Considera cocinar en casa los próximos 5 días.">You have $6K left for groceries this month. Consider cooking at home the next 5 days.</div>
+                <div class="alert-time" data-en="Today · 9:14am" data-es="Hoy · 9:14am">Today · 9:14am</div>
+              </div>
+              <div class="alert-item" style="border-color:var(--green2);background:rgba(45,122,95,.05);">
+                <div class="alert-title">🎯 <span data-en="Savings goal on track!" data-es="¡Meta de ahorro en camino!">Savings goal on track!</span></div>
+                <div class="alert-body" data-en="Emergency Fund is 58% complete. At this pace, you'll hit your goal in 4 months." data-es="El Fondo de Emergencia está al 58%. A este ritmo, alcanzarás tu meta en 4 meses.">Emergency Fund is 58% complete. At this pace, you'll hit your goal in 4 months.</div>
+                <div class="alert-time" data-en="Yesterday · 8:00am" data-es="Ayer · 8:00am">Yesterday · 8:00am</div>
+              </div>
+              <div class="alert-item" style="border-color:#5B9BF5;background:rgba(26,115,232,.05);">
+                <div class="alert-title">📊 <span data-en="Weekly summary ready" data-es="Resumen semanal listo">Weekly summary ready</span></div>
+                <div class="alert-body" data-en="You spent 18% less than last week. Your biggest saving: transport (-$12K)." data-es="Gastaste un 18% menos que la semana pasada. Tu mayor ahorro: transporte (-$12K).">You spent 18% less than last week. Your biggest saving: transport (-$12K).</div>
+                <div class="alert-time" data-en="Mon 4 Nov · 8:00am" data-es="Lun 4 Nov · 8:00am">Mon 4 Nov · 8:00am</div>
+              </div>
+              <div class="alert-item" style="border-color:var(--muted);background:rgba(136,146,164,.05);">
+                <div class="alert-title">💡 <span data-en="Financial tip" data-es="Consejo financiero">Financial tip</span></div>
+                <div class="alert-body" data-en="Automating a small savings transfer on payday makes saving effortless — even CLP 5,000 per week adds up." data-es="Automatizar una pequeña transferencia de ahorro en día de pago hace el ahorro sin esfuerzo — incluso CLP 5.000 por semana se acumula.">Automating a small savings transfer on payday makes saving effortless — even CLP 5,000 per week adds up.</div>
+                <div class="alert-time" data-en="Sun 3 Nov · 10:00am" data-es="Dom 3 Nov · 10:00am">Sun 3 Nov · 10:00am</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mockup-caption" data-en="Smart Alerts" data-es="Alertas Inteligentes">Smart Alerts</div>
+      </div>
+
+      <!-- Screen 7: Bank Connect -->
+      <div class="mockup-phone">
+        <div class="mockup-phone-shell">
+          <div class="mockup-screen" style="background:linear-gradient(160deg,#0a1828,#0f1520);">
+            <div class="ms-notch"><div class="ms-notch-bar"></div></div>
+            <div class="ms-body">
+              <div class="ms-label" data-en="CONNECT YOUR BANK" data-es="CONECTA TU BANCO">CONNECT YOUR BANK</div>
+              <div class="bank-connect">
+                <div class="bank-connect-icon">🏦</div>
+                <div class="bank-connect-title" data-en="Sync automatically" data-es="Sincronizar automáticamente">Sync automatically</div>
+                <div class="bank-connect-sub" data-en="Connect your bank to import transactions automatically. Optional — Monevol works great without it." data-es="Conecta tu banco para importar transacciones automáticamente. Opcional — Monevol funciona perfectamente sin él.">Connect your bank to import transactions automatically. Optional — Monevol works great without it.</div>
+              </div>
+              <div class="bank-list">
+                <div class="bank-item">
+                  <div class="bank-logo" style="background:#E31837;">S</div>
+                  <div class="bank-name">Banco Santander</div>
+                  <div class="bank-status" data-en="Connect →" data-es="Conectar →">Connect →</div>
+                </div>
+                <div class="bank-item">
+                  <div class="bank-logo" style="background:#009CDE;">B</div>
+                  <div class="bank-name">BancoEstado</div>
+                  <div class="bank-status" data-en="Connect →" data-es="Conectar →">Connect →</div>
+                </div>
+                <div class="bank-item">
+                  <div class="bank-logo" style="background:#004A97;">I</div>
+                  <div class="bank-name">Itaú</div>
+                  <div class="bank-status" data-en="Connect →" data-es="Conectar →">Connect →</div>
+                </div>
+                <div class="bank-item" style="opacity:.5;">
+                  <div class="bank-logo" style="background:#444;">+</div>
+                  <div class="bank-name" data-en="More banks coming" data-es="Más bancos próximamente">More banks coming</div>
+                </div>
+              </div>
+              <div style="margin-top:8px;font-size:7px;color:var(--muted);text-align:center;font-family:var(--mono);" data-en="256-bit encrypted · Read-only access · No card details stored" data-es="Cifrado 256-bit · Solo lectura · Sin datos de tarjeta almacenados">256-bit encrypted · Read-only access · No card details stored</div>
+            </div>
+          </div>
+        </div>
+        <div class="mockup-caption" data-en="Bank Connection" data-es="Conexión Bancaria">Bank Connection</div>
+      </div>
+
+    </div>
+    <div style="margin-top:20px;font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:.06em;" data-en="← Scroll to see all screens" data-es="← Deslizar para ver todas las pantallas">← Scroll to see all screens</div>
+  </div>
+</section>
+
+<!-- ════════════════════ SUCCESS METRICS ════════════════════ -->
+<section class="section">
+  <div class="section-inner">
+    <span class="section-tag" data-en="Success Metrics · Proposed KPIs" data-es="Métricas de Éxito · KPIs Propuestos">Success Metrics · Proposed KPIs</span>
+    <h2 class="section-h2" data-en="What success <em>looks like.</em>" data-es="Cómo se ve <em>el éxito.</em>">What success <em>looks like.</em></h2>
+    <div class="section-body">
+      <p data-en="The following KPIs are proposed targets based on comparable consumer fintech products at similar stages. They are not current performance data — Monevol 360 is a product concept. These are the metrics I would set as PM for V1 launch." data-es="Los siguientes KPIs son objetivos propuestos basados en productos fintech consumer comparables en etapas similares. No son datos de rendimiento actuales — Monevol 360 es un concepto de producto. Estas son las métricas que establecería como PM para el lanzamiento de V1.">The following KPIs are proposed targets based on comparable consumer fintech products at similar stages. They are not current performance data — Monevol 360 is a product concept. These are the metrics I would set as PM for V1 launch.</p>
+    </div>
+    <div class="kpi-grid reveal">
+      <div class="kpi-card">
+        <div class="kpi-name" data-en="30-Day Retention" data-es="Retención a 30 días">30-Day Retention</div>
+        <div class="kpi-value">≥45%</div>
+        <div class="kpi-desc" data-en="Target for D30 retention. Consumer fintech benchmark is 35–40%. Monevol's daily-use design should outperform." data-es="Objetivo para retención D30. El benchmark de fintech consumer es 35–40%. El diseño de uso diario de Monevol debería superar esto.">Target for D30 retention. Consumer fintech benchmark is 35–40%. Monevol's daily-use design should outperform.</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-name" data-en="WAU / MAU Ratio" data-es="Ratio WAU / MAU">WAU / MAU Ratio</div>
+        <div class="kpi-value">≥60%</div>
+        <div class="kpi-desc" data-en="Weekly active users as a share of monthly actives. Indicates genuine daily financial habit, not occasional check-in." data-es="Usuarios activos semanales como porcentaje de los activos mensuales. Indica hábito financiero diario genuino, no visita ocasional.">Weekly active users as a share of monthly actives. Indicates genuine daily financial habit, not occasional check-in.</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-name" data-en="Budget Adherence Rate" data-es="Tasa de Adherencia al Presupuesto">Budget Adherence Rate</div>
+        <div class="kpi-value">≥55%</div>
+        <div class="kpi-desc" data-en="Share of active users ending the month within their budget in ≥3 categories. Core outcome metric — actual behaviour change." data-es="Porcentaje de usuarios activos que terminan el mes dentro de su presupuesto en ≥3 categorías. Métrica de resultado central — cambio real de comportamiento.">Share of active users ending the month within their budget in ≥3 categories. Core outcome metric — actual behaviour change.</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-name" data-en="Savings Goal Completion" data-es="Completación de Meta de Ahorro">Savings Goal Completion</div>
+        <div class="kpi-value">≥25%</div>
+        <div class="kpi-desc" data-en="Share of users completing at least one savings goal within 90 days. Strongest predictor of long-term retention and NPS." data-es="Porcentaje de usuarios que completan al menos una meta de ahorro en 90 días. El predictor más fuerte de retención a largo plazo y NPS.">Share of users completing at least one savings goal within 90 days. Strongest predictor of long-term retention and NPS.</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-name" data-en="Bank Connection Rate (V2)" data-es="Tasa de Conexión Bancaria (V2)">Bank Connection Rate (V2)</div>
+        <div class="kpi-value">≥40%</div>
+        <div class="kpi-desc" data-en="Target adoption of optional bank sync after 30 days of manual use. Lower friction when trust is established first." data-es="Adopción objetivo de sincronización bancaria opcional después de 30 días de uso manual. Menor fricción cuando la confianza se establece primero.">Target adoption of optional bank sync after 30 days of manual use. Lower friction when trust is established first.</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-name" data-en="Education Engagement" data-es="Engagement con Educación">Education Engagement</div>
+        <div class="kpi-value">≥3 tips/wk</div>
+        <div class="kpi-desc" data-en="Average contextual tip interactions per active user per week. Signals financial literacy progression and platform trust." data-es="Promedio de interacciones con consejos contextuales por usuario activo por semana. Señala progresión de alfabetización financiera y confianza en la plataforma.">Average contextual tip interactions per active user per week. Signals financial literacy progression and platform trust.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ GROWTH + MONETISATION ════════════════════ -->
+<section class="section" style="background:var(--navy2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+  <div class="section-inner">
+    <span class="section-tag" data-en="Growth Loops & Monetisation" data-es="Bucles de Crecimiento y Monetización">Growth Loops & Monetisation</span>
+    <h2 class="section-h2" data-en="How Monevol <em>grows.</em><br>How Monevol <em>earns.</em>" data-es="Cómo <em>crece</em> Monevol.<br>Cómo <em>genera</em> Monevol.">How Monevol <em>grows.</em><br>How Monevol <em>earns.</em></h2>
+    <div class="growth-grid">
+      <div class="growth-card">
+        <div class="growth-title" data-en="Growth mechanisms" data-es="Mecanismos de crecimiento">Growth mechanisms</div>
+        <div class="growth-body" data-en="Designed for organic growth within social and economic networks — not paid acquisition." data-es="Diseñado para crecimiento orgánico dentro de redes sociales y económicas — no adquisición pagada.">Designed for organic growth within social and economic networks — not paid acquisition.</div>
+        <div class="growth-items">
+          <div class="growth-item" data-en="<strong>Goal sharing:</strong> Users celebrate milestone achievements — natural referral trigger within trusted networks" data-es="<strong>Compartir metas:</strong> Los usuarios celebran hitos — disparador natural de referidos dentro de redes de confianza"><strong>Goal sharing:</strong> Users celebrate milestone achievements — natural referral trigger within trusted networks</div>
+          <div class="growth-item" data-en="<strong>Streaks & habits:</strong> Daily check-in streaks create return behaviour and app identity" data-es="<strong>Rachas y hábitos:</strong> Las rachas de check-in diario crean comportamiento de retorno e identidad de la app"><strong>Streaks & habits:</strong> Daily check-in streaks create return behaviour and app identity</div>
+          <div class="growth-item" data-en="<strong>Weekly insights:</strong> Automatically generated spending summaries users want to share" data-es="<strong>Insights semanales:</strong> Resúmenes de gastos generados automáticamente que los usuarios quieren compartir"><strong>Weekly insights:</strong> Automatically generated spending summaries users want to share</div>
+          <div class="growth-item" data-en="<strong>Community loops:</strong> Shared savings challenges between friends and family groups" data-es="<strong>Bucles comunitarios:</strong> Desafíos de ahorro compartidos entre grupos de amigos y familia"><strong>Community loops:</strong> Shared savings challenges between friends and family groups</div>
+        </div>
+      </div>
+      <div class="growth-card">
+        <div class="growth-title" data-en="Monetisation pathways" data-es="Vías de monetización">Monetisation pathways</div>
+        <div class="growth-body" data-en="Freemium model with trust-based upgrades. Monetisation follows adoption — never blocks it." data-es="Modelo freemium con actualizaciones basadas en confianza. La monetización sigue a la adopción — nunca la bloquea.">Freemium model with trust-based upgrades. Monetisation follows adoption — never blocks it.</div>
+        <div class="growth-items">
+          <div class="growth-item" data-en="<strong>Freemium core:</strong> Free forever for basic budgeting, transactions, and 2 savings goals" data-es="<strong>Core freemium:</strong> Gratuito para presupuesto básico, transacciones y 2 metas de ahorro"><strong>Freemium core:</strong> Free forever for basic budgeting, transactions, and 2 savings goals</div>
+          <div class="growth-item" data-en="<strong>Premium subscription:</strong> Unlimited goals, advanced analytics, personalised financial coaching (~$4–6/mo)" data-es="<strong>Suscripción premium:</strong> Metas ilimitadas, analítica avanzada, coaching financiero personalizado (~$4–6/mes)"><strong>Premium subscription:</strong> Unlimited goals, advanced analytics, personalised financial coaching (~$4–6/mo)</div>
+          <div class="growth-item" data-en="<strong>Financial marketplace:</strong> Contextual referrals to insurance, microloans, and savings products (affiliate revenue)" data-es="<strong>Marketplace financiero:</strong> Referidos contextuales a seguros, microcréditos y productos de ahorro (ingresos de afiliados)"><strong>Financial marketplace:</strong> Contextual referrals to insurance, microloans, and savings products (affiliate revenue)</div>
+          <div class="growth-item" data-en="<strong>Data insights (B2B):</strong> Aggregated, anonymised spending trend reports for financial institutions" data-es="<strong>Insights de datos (B2B):</strong> Informes de tendencias de gasto agregados y anonimizados para instituciones financieras"><strong>Data insights (B2B):</strong> Aggregated, anonymised spending trend reports for financial institutions</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ ROADMAP ════════════════════ -->
+<section class="section">
+  <div class="section-inner">
+    <span class="section-tag" data-en="Product Roadmap · Phased Evolution" data-es="Roadmap de Producto · Evolución por Fases">Product Roadmap · Phased Evolution</span>
+    <h2 class="section-h2" data-en="From behaviour change<br><em>to financial platform.</em>" data-es="Del cambio de comportamiento<br><em>a plataforma financiera.</em>">From behaviour change<br><em>to financial platform.</em></h2>
+    <div class="roadmap-wrap reveal">
+      <div class="roadmap-phases">
+        <div class="phase-card">
+          <div class="phase-label" data-en="Phase 1 · Launch" data-es="Fase 1 · Lanzamiento">Phase 1 · Launch</div>
+          <div class="phase-title" data-en="Build the <em>habit.</em>" data-es="Construir el <em>hábito.</em>">Build the <em>habit.</em></div>
+          <div class="phase-items">
+            <div class="phase-item" data-en="Dashboard & expense visibility" data-es="Dashboard y visibilidad de gastos">Dashboard & expense visibility</div>
+            <div class="phase-item" data-en="Manual transaction entry" data-es="Ingreso manual de transacciones">Manual transaction entry</div>
+            <div class="phase-item" data-en="Category budget tracker" data-es="Rastreador de presupuesto por categoría">Category budget tracker</div>
+            <div class="phase-item" data-en="Savings goals (up to 2)" data-es="Metas de ahorro (hasta 2)">Savings goals (up to 2)</div>
+            <div class="phase-item" data-en="Smart alerts & nudges" data-es="Alertas inteligentes y nudges">Smart alerts & nudges</div>
+            <div class="phase-item" data-en="Contextual financial tips" data-es="Consejos financieros contextuales">Contextual financial tips</div>
+            <div class="phase-item" data-en="Weekly spending summary" data-es="Resumen semanal de gastos">Weekly spending summary</div>
+          </div>
+          <div class="phase-horizon" data-en="Months 0–4" data-es="Meses 0–4">Months 0–4</div>
+        </div>
+        <div class="phase-card" style="background:rgba(180,150,90,.04);">
+          <div class="phase-label" data-en="Phase 2 · Scale" data-es="Fase 2 · Escalar">Phase 2 · Scale</div>
+          <div class="phase-title" data-en="Deepen the <em>connection.</em>" data-es="Profundizar la <em>conexión.</em>">Deepen the <em>connection.</em></div>
+          <div class="phase-items">
+            <div class="phase-item" data-en="Bank account sync (optional)" data-es="Sincronización bancaria (opcional)">Bank account sync (optional)</div>
+            <div class="phase-item" data-en="Income volatility modelling" data-es="Modelado de volatilidad de ingresos">Income volatility modelling</div>
+            <div class="phase-item" data-en="Referral & social sharing" data-es="Referidos y compartir social">Referral & social sharing</div>
+            <div class="phase-item" data-en="Advanced spending analytics" data-es="Analítica avanzada de gastos">Advanced spending analytics</div>
+            <div class="phase-item" data-en="AI spending pattern coach" data-es="Coach IA de patrones de gasto">AI spending pattern coach</div>
+            <div class="phase-item" data-en="Premium subscription tier" data-es="Nivel de suscripción premium">Premium subscription tier</div>
+            <div class="phase-item" data-en="Family budget mode" data-es="Modo presupuesto familiar">Family budget mode</div>
+          </div>
+          <div class="phase-horizon" data-en="Months 5–10" data-es="Meses 5–10">Months 5–10</div>
+        </div>
+        <div class="phase-card">
+          <div class="phase-label" data-en="Phase 3 · Platform" data-es="Fase 3 · Plataforma">Phase 3 · Platform</div>
+          <div class="phase-title" data-en="Become the <em>platform.</em>" data-es="Convertirse en la <em>plataforma.</em>">Become the <em>platform.</em></div>
+          <div class="phase-items">
+            <div class="phase-item" data-en="Credit score builder" data-es="Constructor de score crediticio">Credit score builder</div>
+            <div class="phase-item" data-en="Lending readiness assessment" data-es="Evaluación de preparación para crédito">Lending readiness assessment</div>
+            <div class="phase-item" data-en="Embedded microloan referrals" data-es="Referidos de microcréditos integrados">Embedded microloan referrals</div>
+            <div class="phase-item" data-en="Investment micro-products" data-es="Micro-productos de inversión">Investment micro-products</div>
+            <div class="phase-item" data-en="Insurance contextual offers" data-es="Ofertas contextuales de seguros">Insurance contextual offers</div>
+            <div class="phase-item" data-en="B2B data insights layer" data-es="Capa de insights de datos B2B">B2B data insights layer</div>
+            <div class="phase-item" data-en="Open banking integrations" data-es="Integraciones de open banking">Open banking integrations</div>
+          </div>
+          <div class="phase-horizon" data-en="Months 11–18" data-es="Meses 11–18">Months 11–18</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ LEARNINGS ════════════════════ -->
+<section class="section" style="background:var(--navy2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+  <div class="section-inner">
+    <span class="section-tag" data-en="Product Learnings" data-es="Aprendizajes de Producto">Product Learnings</span>
+    <h2 class="section-h2" data-en="What this project <em>taught me.</em>" data-es="Lo que este proyecto <em>me enseñó.</em>">What this project <em>taught me.</em></h2>
+    <div class="learn-grid">
+      <div class="learn-card reveal">
+        <div class="learn-h3" data-en="Complexity is a product decision, not a feature list" data-es="La complejidad es una decisión de producto, no una lista de funciones">Complexity is a product decision, not a feature list</div>
+        <div class="learn-body" data-en="Every feature we didn't include in V1 was a deliberate choice. The most valuable prioritisation exercise was identifying what to defer — not what to build. Building less, but building it well, is the correct strategy for a behaviour-change product targeting low financial literacy users." data-es="Cada función que no incluimos en V1 fue una decisión deliberada. El ejercicio de priorización más valioso fue identificar qué diferir — no qué construir. Construir menos, pero construirlo bien, es la estrategia correcta para un producto de cambio conductual dirigido a usuarios con baja alfabetización financiera.">Every feature we didn't include in V1 was a deliberate choice. The most valuable prioritisation exercise was identifying what to defer — not what to build. Building less, but building it well, is the correct strategy for a behaviour-change product targeting low financial literacy users.</div>
+      </div>
+      <div class="learn-card reveal">
+        <div class="learn-h3" data-en="Research doesn't just validate — it reframes the problem" data-es="La investigación no solo valida — reencuadra el problema">Research doesn't just validate — it reframes the problem</div>
+        <div class="learn-body" data-en="We entered research thinking the core problem was 'users don't save'. We left knowing the core problem was 'users don't see where their money goes'. That reframing changed every product decision — from IA structure to the home screen hierarchy to which feature came first." data-es="Entramos a la investigación pensando que el problema central era 'los usuarios no ahorran'. Salimos sabiendo que el problema central era 'los usuarios no ven a dónde va su dinero'. Ese reencuadre cambió cada decisión de producto — desde la estructura IA hasta la jerarquía de la pantalla de inicio y qué función iba primero.">We entered research thinking the core problem was 'users don't save'. We left knowing the core problem was 'users don't see where their money goes'. That reframing changed every product decision — from IA structure to the home screen hierarchy to which feature came first.</div>
+      </div>
+      <div class="learn-card reveal">
+        <div class="learn-h3" data-en="Trust is a product feature in financial services" data-es="La confianza es una función del producto en servicios financieros">Trust is a product feature in financial services</div>
+        <div class="learn-body" data-en="Users in the target segment had high financial anxiety and low institutional trust. Every design decision — from optional bank connection to transparent data language — had to be evaluated for its trust impact before its functional impact. In fintech for underserved users, trust architecture matters more than feature architecture." data-es="Los usuarios del segmento objetivo tenían alta ansiedad financiera y baja confianza institucional. Cada decisión de diseño — desde la conexión bancaria opcional hasta el lenguaje transparente de datos — debía evaluarse por su impacto en la confianza antes que por su impacto funcional. En fintech para usuarios desatendidos, la arquitectura de confianza importa más que la arquitectura de funciones.">Users in the target segment had high financial anxiety and low institutional trust. Every design decision — from optional bank connection to transparent data language — had to be evaluated for its trust impact before its functional impact. In fintech for underserved users, trust architecture matters more than feature architecture.</div>
+      </div>
+      <div class="learn-card reveal">
+        <div class="learn-h3" data-en="98% task success doesn't mean the product is done" data-es="El 98% de éxito en tareas no significa que el producto esté listo">98% task success doesn't mean the product is done</div>
+        <div class="learn-body" data-en="Usability testing results were strong — 98% task completion across the prototype. But the deeper finding was that users succeeded at the tasks while still expressing uncertainty about how the product would fit into their daily life. Usability is a baseline, not a differentiator. Habit integration is the real test." data-es="Los resultados de las pruebas de usabilidad fueron sólidos — 98% de completación de tareas en el prototipo. Pero el hallazgo más profundo fue que los usuarios tuvieron éxito en las tareas mientras seguían expresando incertidumbre sobre cómo el producto encajaría en su vida diaria. La usabilidad es una línea base, no un diferenciador. La integración del hábito es la prueba real.">Usability testing results were strong — 98% task completion across the prototype. But the deeper finding was that users succeeded at the tasks while still expressing uncertainty about how the product would fit into their daily life. Usability is a baseline, not a differentiator. Habit integration is the real test.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ WHY THIS MATTERS ════════════════════ -->
+<div class="relevance-band">
+  <div style="max-width:1100px;margin:0 auto;padding:88px 48px;">
+    <span class="section-tag" data-en="Recruiter Relevance" data-es="Relevancia para Reclutadores">Recruiter Relevance</span>
+    <h2 class="section-h2" style="margin-bottom:8px;" data-en="Why Monevol 360 matters<br><em>for your team.</em>" data-es="Por qué Monevol 360 importa<br><em>para tu equipo.</em>">Why Monevol 360 matters<br><em>for your team.</em></h2>
+    <p style="font-size:15px;color:var(--muted);max-width:600px;margin-bottom:0;" data-en="The skills demonstrated in this project are directly transferable to fintech, digital banking, and consumer product roles in Europe." data-es="Las habilidades demostradas en este proyecto son directamente transferibles a roles de fintech, banca digital y producto consumer en Europa.">The skills demonstrated in this project are directly transferable to fintech, digital banking, and consumer product roles in Europe.</p>
+    <div class="rel-grid">
+      <div class="rel-item reveal">
+        <div class="rel-icon">🏦</div>
+        <div class="rel-title" data-en="Payments & collections fintech" data-es="Fintech de pagos y cobranza">Payments & collections fintech</div>
+        <div class="rel-body" data-en="Direct debit, recurring collections, and SEPA-equivalent systems all serve the same problem: making complex payment infrastructure simple for end users. Monevol's user research methodology — interviewing across economic segments, identifying behavioural blockers — is the same discipline." data-es="El débito directo, las cobranzas recurrentes y los sistemas equivalentes a SEPA sirven el mismo problema: hacer que la infraestructura de pago compleja sea simple para los usuarios finales. La metodología de investigación de usuario de Monevol — entrevistando en segmentos económicos, identificando bloqueadores conductuales — es la misma disciplina.">Direct debit, recurring collections, and SEPA-equivalent systems all serve the same problem: making complex payment infrastructure simple for end users. Monevol's user research methodology — interviewing across economic segments, identifying behavioural blockers — is the same discipline.</div>
+      </div>
+      <div class="rel-item reveal">
+        <div class="rel-icon">📱</div>
+        <div class="rel-title" data-en="Consumer & digital banking products" data-es="Productos de banca digital y consumer">Consumer & digital banking products</div>
+        <div class="rel-body" data-en="Building for underserved users requires the same PM skills as building for any user — discovery, prioritisation, metric definition, and ruthless scope management. The constraint of zero tolerance for complexity produces better product instincts than building for sophisticated users." data-es="Construir para usuarios desatendidos requiere las mismas habilidades de PM que construir para cualquier usuario — discovery, priorización, definición de métricas y gestión implacable del alcance. La restricción de cero tolerancia a la complejidad produce mejores instintos de producto que construir para usuarios sofisticados.">Building for underserved users requires the same PM skills as building for any user — discovery, prioritisation, metric definition, and ruthless scope management. The constraint of zero tolerance for complexity produces better product instincts than building for sophisticated users.</div>
+      </div>
+      <div class="rel-item reveal">
+        <div class="rel-icon">🔄</div>
+        <div class="rel-title" data-en="Engagement & retention products" data-es="Productos de engagement y retención">Engagement & retention products</div>
+        <div class="rel-body" data-en="Growth loops, habit formation, contextual nudges, and behavioural engagement design are increasingly central to fintech retention strategy. Monevol was designed around these principles from the first interview — not retrofitted after MVP." data-es="Los bucles de crecimiento, la formación de hábitos, los nudges contextuales y el diseño de engagement conductual son cada vez más centrales en la estrategia de retención fintech. Monevol fue diseñado alrededor de estos principios desde la primera entrevista — no retrofiteado después del MVP.">Growth loops, habit formation, contextual nudges, and behavioural engagement design are increasingly central to fintech retention strategy. Monevol was designed around these principles from the first interview — not retrofitted after MVP.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════ CTA ════════════════════ -->
+<div style="border-top:1px solid var(--border);">
+  <div class="cta-section">
+    <div>
+      <h2 class="cta-h2" data-en="Want to see the full<br><em>Figma prototype?</em>" data-es="¿Quieres ver el prototipo<br><em>completo en Figma?</em>">Want to see the full<br><em>Figma prototype?</em></h2>
+      <p class="cta-sub" data-en="The interactive prototype includes all 60 frames across 7 user journeys — onboarding, budgeting, savings, education, alerts, bank connection, and settings. Also available: the full research synthesis and information architecture documentation." data-es="El prototipo interactivo incluye los 60 frames en 7 journeys de usuario — onboarding, presupuesto, ahorro, educación, alertas, conexión bancaria y configuración. También disponible: la síntesis completa de investigación y documentación de arquitectura de información.">The interactive prototype includes all 60 frames across 7 user journeys — onboarding, budgeting, savings, education, alerts, bank connection, and settings. Also available: the full research synthesis and information architecture documentation.</p>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:12px;align-items:flex-start;">
+      <a href="https://www.figma.com/deck/jMe63yGWCRjxQNrUg5GfXD" class="cta-btn" target="_blank" data-en="Open Figma prototype →" data-es="Abrir prototipo Figma →">Open Figma prototype →</a>
+      <a href="mailto:pc.montenegro@gmail.com" class="cta-btn" style="border-color:var(--border);color:var(--muted);" data-en="Request full case PDF →" data-es="Solicitar PDF completo →">Request full case PDF →</a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div style="display:flex;align-items:center;gap:10px;">
+    <span class="foot-note">Pablo Montenegro · pablomontenegro.ie</span>
+  </div>
+  <span class="foot-note" data-en="Consumer Fintech · Product Design · 2024" data-es="Fintech Consumer · Diseño de Producto · 2024">Consumer Fintech · Product Design · 2024</span>
+</footer>
+
+<!-- ════════════════════ JS ════════════════════ -->
+<script>
+// ── LANGUAGE ──────────────────────────────────────────────────
+var LANG = localStorage.getItem('pm_lang') || 'en';
+
+function setLang(lang) {
+  LANG = lang;
+  localStorage.setItem('pm_lang', lang);
+  document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+  document.getElementById('btn-es').classList.toggle('active', lang === 'es');
+  document.querySelectorAll('[data-en]').forEach(function(el) {
+    var txt = lang === 'es' ? el.getAttribute('data-es') : el.getAttribute('data-en');
+    if (txt) el.innerHTML = txt;
+  });
+  document.documentElement.lang = lang;
+}
+
+// ── SCROLL REVEAL ─────────────────────────────────────────────
+var obs = new IntersectionObserver(function(entries) {
+  entries.forEach(function(e) {
+    if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+  });
+}, { threshold: 0.07 });
+document.querySelectorAll('.reveal').forEach(function(el) { obs.observe(el); });
+
+// ── INIT ──────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', function() { setLang(LANG); });
+</script>
+</body>
+</html>
