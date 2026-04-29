@@ -13,10 +13,10 @@
 /* ── TOKENS ─────────────────────────────────────────────────── */
 :root {
   --navy:   #0A1226; --navy2:  #111D35; --navy3:  #1A2A44;
-  --gold:   #B4965A; --gold2:  #D4B47A; --gold3:  #F0DFB8;
+  --gold:   #C4A05A; --gold2:  #DDB870; --gold3:  #F0DFB8;
   --cream:  #FAF7F2; --cream2: #F0EBE1;
-  --white:  #FFFFFF; --muted:  #8892A4; --muted2: #6B7585;
-  --border: rgba(180,150,90,.15); --border2: rgba(255,255,255,.07);
+  --white:  #FFFFFF; --muted:  #7A8599;--muted2: #5A6478; --muted2: #6B7585;
+  --border: rgba(196,160,90,.14); --border2: rgba(255,255,255,.06);
   --green:  #2D7A5F; --green2: #3DAA85;
   --serif:  'Cormorant Garamond', Georgia, serif;
   --sans:   'DM Sans', sans-serif;
@@ -70,7 +70,7 @@ nav {
 
 /* ── HERO ──────────────────────────────────────────────────── */
 .hero {
-  min-height:92vh; padding:80px 48px 60px;
+  min-height:92vh; padding:64px 48px 60px;
   display:flex; flex-direction:column; justify-content:center;
   position:relative; overflow:hidden;
 }
@@ -181,7 +181,7 @@ nav {
 .budget-title { font-size:9px; font-family:var(--mono); color:var(--muted); letter-spacing:.06em; text-transform:uppercase; margin-bottom:8px; }
 .budget-item { margin-bottom:6px; }
 .budget-row { display:flex; justify-content:space-between; font-size:9px; margin-bottom:3px; }
-.budget-cat { color:rgba(250,247,242,.7); }
+.budget-cat { color:rgba(250,247,242,.76); }
 .budget-pct { font-family:var(--mono); }
 .budget-bar { height:3px; background:rgba(255,255,255,.08); border-radius:2px; overflow:hidden; }
 .budget-fill { height:100%; border-radius:2px; }
@@ -214,7 +214,7 @@ nav {
 .metric-label { font-family:var(--mono); font-size:10px; letter-spacing:.08em; color:var(--muted); text-transform:uppercase; }
 
 /* ── SECTIONS ──────────────────────────────────────────────── */
-.section { padding:88px 48px; }
+.section { padding:72px 48px; }
 .section-inner { max-width:1100px; margin:0 auto; }
 .section-tag {
   font-family:var(--mono); font-size:10px; letter-spacing:.14em;
@@ -226,8 +226,8 @@ nav {
 }
 .section-h2 em { font-style:italic; color:var(--gold2); }
 .section-body {
-  font-size:16px; color:rgba(250,247,242,.72);
-  line-height:1.85; max-width:680px;
+  font-size:16px; color:rgba(250,247,242,.78);
+  line-height:1.85; max-width:700px;
 }
 .section-body p+p { margin-top:18px; }
 .section-body strong { color:var(--cream); font-weight:500; }
@@ -447,7 +447,7 @@ nav {
 
 /* ── CTA SECTION ───────────────────────────────────────────── */
 .cta-section {
-  padding:88px 48px;
+  padding:72px 48px;
   display:grid; grid-template-columns:1fr auto; gap:48px; align-items:center;
   max-width:1100px; margin:0 auto;
 }
@@ -1334,7 +1334,7 @@ footer { border-top:1px solid var(--border); padding:24px 48px; display:flex; ju
 
 <!-- ════════════════════ WHY THIS MATTERS ════════════════════ -->
 <div class="relevance-band">
-  <div style="max-width:1100px;margin:0 auto;padding:88px 48px;">
+  <div style="max-width:1100px;margin:0 auto;padding:72px 48px;">
     <span class="section-tag" data-en="Recruiter Relevance" data-es="Relevancia para Reclutadores">Recruiter Relevance</span>
     <h2 class="section-h2" style="margin-bottom:8px;" data-en="Why Monevol 360 matters<br><em>for your team.</em>" data-es="Por qué Monevol 360 importa<br><em>para tu equipo.</em>">Why Monevol 360 matters<br><em>for your team.</em></h2>
     <p style="font-size:15px;color:var(--muted);max-width:600px;margin-bottom:0;" data-en="The skills demonstrated in this project are directly transferable to fintech, digital banking, and consumer product roles in Europe." data-es="Las habilidades demostradas en este proyecto son directamente transferibles a roles de fintech, banca digital y producto consumer en Europa.">The skills demonstrated in this project are directly transferable to fintech, digital banking, and consumer product roles in Europe.</p>
