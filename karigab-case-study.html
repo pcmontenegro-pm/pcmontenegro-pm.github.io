@@ -10,14 +10,14 @@
   --navy:    #0A1226;
   --navy2:   #111D35;
   --navy3:   #1A2A44;
-  --gold:    #B4965A;
-  --gold2:   #D4B47A;
+  --gold:    #C4A05A;
+  --gold2:   #DDB870;
   --gold3:   #F0DFB8;
   --cream:   #FAF7F2;
   --cream2:  #F0EBE1;
   --white:   #FFFFFF;
-  --muted:   #8892A4;
-  --border:  rgba(180,150,90,.18);
+  --muted:   #7A8599;
+  --border:  rgba(196,160,90,.15);
   --border2: rgba(255,255,255,.08);
 
   --serif: 'Cormorant Garamond', Georgia, serif;
@@ -221,7 +221,7 @@ nav {
 
 .section-body {
   font-size: 16px;
-  color: rgba(250,247,242,.72);
+  color: rgba(250,247,242,.78);
   line-height: 1.85;
   max-width: 680px;
 }
@@ -279,7 +279,7 @@ nav {
   align-items: flex-start;
   gap: 12px;
   font-size: 14px;
-  color: rgba(250,247,242,.7);
+  color: rgba(250,247,242,.76);
   line-height: 1.6;
 }
 
@@ -698,8 +698,14 @@ footer {
 
 <!-- NAV -->
 <nav>
-  <a href="#" class="nav-brand">Pablo Montenegro</a>
-  <a href="#" class="nav-back">← Back to work</a>
+  <a href="https://pablomontenegro.ie" class="nav-brand">Pablo Montenegro</a>
+  <div style="display:flex;align-items:center;gap:14px;">
+    <div style="display:flex;gap:0;border:1px solid rgba(180,150,90,.18);border-radius:2px;overflow:hidden;">
+      <button onclick="setLang('en')" id="btn-en" style="padding:4px 10px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.08em;background:var(--gold);color:var(--navy);border:none;cursor:pointer;">EN</button>
+      <button onclick="setLang('es')" id="btn-es" style="padding:4px 10px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.08em;background:transparent;color:var(--muted);border:none;cursor:pointer;">ES</button>
+    </div>
+    <a href="https://pablomontenegro.ie/#work" class="nav-back" id="nav-back" data-en="← Back to work" data-es="← Volver al trabajo">← Back to work</a>
+  </div>
 </nav>
 
 
@@ -709,35 +715,34 @@ footer {
 <section>
   <div class="hero">
     <div class="hero-meta fade-up">
-      <div class="hero-tag">Payment Operations · Product Consulting · 2025</div>
+      <div class="hero-tag" data-en="Payment Operations · Product Consulting · 2025" data-es="Operaciones de Pago · Consultoría · 2025">Payment Operations · Product Consulting · 2025</div>
       <h1 class="hero-title">
-        Designing a payment<br>
-        operations system for<br>
-        <em>social-first retail.</em>
+        <span data-en="Designing a payment operations system for" data-es="Diseñando un sistema de operaciones de pago para">Designing a payment operations system for</span><br>
+        <em data-en="social-first retail." data-es="retail social-first.">social-first retail.</em>
       </h1>
       <p class="hero-sub">
-        How a Bolivian fashion retailer scaling through TikTok Live got a complete payment collection and inventory management system — operational in 7 days, at zero tooling cost.
+        <span data-en="How a Bolivian fashion retailer scaling through TikTok Live got a complete payment collection and inventory management system — operational in 7 days, at zero tooling cost." data-es="Cómo una tienda de moda boliviana que escala por TikTok Live obtuvo un sistema completo de cobro e inventario — operativo en 7 días, a costo cero.">How a Bolivian fashion retailer scaling through TikTok Live got a complete payment collection and inventory management system — operational in 7 days, at zero tooling cost.</span>
       </p>
       <div class="hero-badges">
-        <span class="badge">Payment Operations</span>
-        <span class="badge">Retail · Bolivia</span>
-        <span class="badge">WhatsApp Commerce</span>
-        <span class="badge">Inventory Systems</span>
+        <span class="badge" data-en="Payment Operations" data-es="Operaciones de Pago">Payment Operations</span>
+        <span class="badge" data-en="Retail · Bolivia" data-es="Retail · Bolivia">Retail · Bolivia</span>
+        <span class="badge" data-en="WhatsApp Commerce" data-es="Comercio WhatsApp">WhatsApp Commerce</span>
+        <span class="badge" data-en="Inventory Systems" data-es="Sistemas de Inventario">Inventory Systems</span>
       </div>
     </div>
 
     <div class="hero-stats fade-up">
       <div class="stat">
         <span class="stat-num">−85%</span>
-        <span class="stat-label">Operational workload</span>
+        <span class="stat-label" data-en="Operational workload" data-es="Carga operativa">Operational workload</span>
       </div>
       <div class="stat">
         <span class="stat-num">Bs.0</span>
-        <span class="stat-label">Tooling cost</span>
+        <span class="stat-label" data-en="Tooling cost" data-es="Costo herramientas">Tooling cost</span>
       </div>
       <div class="stat">
         <span class="stat-num">7</span>
-        <span class="stat-label">Days to ship</span>
+        <span class="stat-label" data-en="Days to ship" data-es="Días para entregar">Days to ship</span>
       </div>
     </div>
   </div>
@@ -753,11 +758,11 @@ footer {
   <div class="context-inner">
 
     <div>
-      <div class="section-label">Context</div>
+      <div class="section-label" data-en="Context" data-es="Contexto">Context</div>
       <h2 class="section-title" style="margin-bottom:20px;">A physical store<br><em>going digital.</em></h2>
       <div class="section-body">
-        <p>Karigab is a fashion retailer based in Bolivia with an established physical store. Recognising the reach of TikTok Live, the team began hosting daily live shows where a host presents garments directly to thousands of viewers — a format that turned followers into buyers overnight.</p>
-        <p>The channel worked. Orders came in. But the operational backbone hadn't caught up. Every sale was managed manually across WhatsApp, mental notes, and spreadsheets that didn't talk to each other.</p>
+        <p><span data-en="Karigab is a fashion retailer based in Bolivia with an established physical store. Recognising the reach of TikTok Live, the team began hosting daily live shows where a host presents garments directly to thousands of viewers — a format that turned followers into buyers overnight." data-es="Karigab es una tienda de moda en Bolivia con local físico establecido. Reconociendo el alcance de TikTok Live, el equipo comenzó a hacer shows en vivo diarios donde una hostess presenta prendas a miles de espectadores — un formato que convirtió seguidores en compradores.">Karigab is a fashion retailer based in Bolivia with an established physical store. Recognising the reach of TikTok Live, the team began hosting daily live shows where a host presents garments directly to thousands of viewers — a format that turned followers into buyers overnight.</span></p>
+        <p><span data-en="The channel worked. Orders came in. But the operational backbone hadn't caught up. Every sale was managed manually across WhatsApp, mental notes, and spreadsheets that didn't talk to each other." data-es="El canal funcionó. Los pedidos llegaron. Pero la base operacional no había evolucionado. Cada venta se gestionaba manualmente entre WhatsApp, notas mentales y planillas que no se comunicaban entre sí.">The channel worked. Orders came in. But the operational backbone hadn't caught up. Every sale was managed manually across WhatsApp, mental notes, and spreadsheets that didn't talk to each other.</span></p>
       </div>
     </div>
 
@@ -765,12 +770,12 @@ footer {
       <div class="challenge-block">
         <div class="challenge-title">The challenges</div>
         <ul class="challenge-list">
-          <li>Duplicate orders — two customers claiming the same item with no stock lock</li>
-          <li>No unified inventory — physical store and TikTok channel operating in silos</li>
-          <li>Payment validation done by memory — no systematic check against bank movements</li>
-          <li>30+ WhatsApp messages per live session, each answered manually from scratch</li>
-          <li>No operational visibility — the owner had no daily view of revenue, pending orders or stock risk</li>
-          <li>Non-technical team — any solution had to work with WhatsApp and Google Sheets only</li>
+          <li data-en="Duplicate orders — two customers claiming the same item with no stock lock" data-es="Pedidos duplicados — dos clientes reclamando el mismo ítem sin bloqueo de stock">Duplicate orders — two customers claiming the same item with no stock lock</li>
+          <li data-en="No unified inventory — physical store and TikTok channel operating in silos" data-es="Sin inventario unificado — tienda física y canal TikTok operando en silos">No unified inventory — physical store and TikTok channel operating in silos</li>
+          <li data-en="Payment validation done by memory — no systematic check against bank movements" data-es="Validación de pagos de memoria — sin verificación sistemática contra movimientos bancarios">Payment validation done by memory — no systematic check against bank movements</li>
+          <li data-en="30+ WhatsApp messages per live session, each answered manually from scratch" data-es="30+ mensajes de WhatsApp por live, cada uno respondido manualmente desde cero">30+ WhatsApp messages per live session, each answered manually from scratch</li>
+          <li data-en="No operational visibility — the owner had no daily view of revenue, pending orders or stock risk" data-es="Sin visibilidad operativa — la dueña no tenía vista diaria de ingresos, pedidos pendientes ni stock en riesgo">No operational visibility — the owner had no daily view of revenue, pending orders or stock risk</li>
+          <li data-en="Non-technical team — any solution had to work with WhatsApp and Google Sheets only" data-es="Equipo no técnico — cualquier solución tenía que funcionar solo con WhatsApp y Google Sheets">Non-technical team — any solution had to work with WhatsApp and Google Sheets only</li>
         </ul>
       </div>
     </div>
@@ -783,54 +788,54 @@ footer {
      APPROACH
 ══════════════════════════════════════ -->
 <section class="section">
-  <div class="section-label">Approach</div>
+  <div class="section-label" data-en="Approach" data-es="Enfoque">Approach</div>
   <h2 class="section-title">Systems thinking over<br><em>tool recommendations.</em></h2>
   <div class="section-body">
-    <p>The instinct in these projects is to reach for a SaaS tool. I didn't. The constraint — a non-technical team, zero budget, live operations that couldn't stop — meant the solution had to be built around what already existed: WhatsApp, Google Sheets, and a functioning physical store.</p>
-    <p>The work started with the operational flow, not the technology. Understanding exactly where time was lost, where errors were introduced, and where the two channels (physical and digital) diverged.</p>
+    <p><span data-en="The instinct in these projects is to reach for a SaaS tool. I didn't. The constraint — a non-technical team, zero budget, live operations that couldn't stop — meant the solution had to be built around what already existed: WhatsApp, Google Sheets, and a functioning physical store." data-es="El instinto en estos proyectos es buscar una herramienta SaaS. No lo hice. La restricción — un equipo no técnico, presupuesto cero, operaciones que no podían detenerse — significaba que la solución debía construirse alrededor de lo que ya existía: WhatsApp, Google Sheets y la tienda física.">The instinct in these projects is to reach for a SaaS tool. I didn't. The constraint — a non-technical team, zero budget, live operations that couldn't stop — meant the solution had to be built around what already existed: WhatsApp, Google Sheets, and a functioning physical store.</span></p>
+    <p><span data-en="The work started with the operational flow, not the technology. Understanding exactly where time was lost, where errors were introduced, and where the two channels (physical and digital) diverged." data-es="El trabajo comenzó con el flujo operativo, no la tecnología. Entendiendo exactamente dónde se perdía tiempo, dónde se introducían errores y dónde los dos canales (físico y digital) divergían.">The work started with the operational flow, not the technology. Understanding exactly where time was lost, where errors were introduced, and where the two channels (physical and digital) diverged.</span></p>
   </div>
 
   <div class="pull-quote">
-    <div class="pull-quote-text">"The real problem wasn't the tools. It was the absence of a system. The tools were already there."</div>
-    <div class="pull-quote-attr">Observation from discovery — Week 1</div>
+    <div class="pull-quote-text" data-en="'The real problem wasn't the tools. It was the absence of a system. The tools were already there.'" data-es="'El problema real no eran las herramientas. Era la ausencia de un sistema. Las herramientas ya estaban ahí.'">"The real problem wasn't the tools. It was the absence of a system. The tools were already there."</div>
+    <div class="pull-quote-attr" data-en="Observation from discovery — Week 1" data-es="Observación del discovery — Semana 1">Observation from discovery — Week 1</div>
   </div>
 
   <div class="solution-grid">
     <div class="sol-item">
       <span class="sol-num">01</span>
-      <div class="sol-title">SKU system & physical labelling</div>
-      <div class="sol-body">Designed a four-part garment code (Category · Colour · Size · Number) printable on standard A4. Every item gets a unique identifier before it enters inventory. The code travels from the physical tag to the WhatsApp conversation to the spreadsheet row.</div>
-      <span class="sol-tag">Inventory · Operations</span>
+      <div class="sol-title" data-en="SKU system & physical labelling" data-es="Sistema SKU y etiquetado físico">SKU system & physical labelling</div>
+      <div class="sol-body"><span data-en="Designed a four-part garment code (Category · Colour · Size · Number) printable on standard A4. Every item gets a unique identifier before it enters inventory. The code travels from the physical tag to the WhatsApp conversation to the spreadsheet row." data-es="Diseño de un código de cuatro partes por prenda (Categoría · Color · Talla · Número) imprimible en A4 estándar. Cada ítem obtiene un identificador único antes de entrar al inventario. El código viaja de la etiqueta física a la conversación de WhatsApp a la fila de la planilla.">Designed a four-part garment code (Category · Colour · Size · Number) printable on standard A4. Every item gets a unique identifier before it enters inventory. The code travels from the physical tag to the WhatsApp conversation to the spreadsheet row.</span></div>
+      <span class="sol-tag" data-en="Inventory · Operations" data-es="Inventario · Operaciones">Inventory · Operations</span>
     </div>
     <div class="sol-item">
       <span class="sol-num">02</span>
-      <div class="sol-title">WhatsApp-native checkout flow</div>
-      <div class="sol-body">Redesigned the full customer journey within WhatsApp Business — six response templates replacing all manual writing, a pre-assigned order number used as payment reference, and a structured conversation protocol the team could follow without training.</div>
-      <span class="sol-tag">UX · Payment Flow</span>
+      <div class="sol-title" data-en="WhatsApp-native checkout flow" data-es="Flujo de checkout nativo en WhatsApp">WhatsApp-native checkout flow</div>
+      <div class="sol-body"><span data-en="Redesigned the full customer journey within WhatsApp Business — six response templates replacing all manual writing, a pre-assigned order number used as payment reference, and a structured conversation protocol the team could follow without training." data-es="Rediseño completo del journey del cliente en WhatsApp Business — seis plantillas de respuesta que reemplazan toda escritura manual, un número de pedido pre-asignado usado como referencia de pago y un protocolo de conversación estructurado que el equipo puede seguir sin entrenamiento.">Redesigned the full customer journey within WhatsApp Business — six response templates replacing all manual writing, a pre-assigned order number used as payment reference, and a structured conversation protocol the team could follow without training.</span></div>
+      <span class="sol-tag" data-en="UX · Payment Flow" data-es="UX · Flujo de pago">UX · Payment Flow</span>
     </div>
     <div class="sol-item">
       <span class="sol-num">03</span>
-      <div class="sol-title">Unified inventory — one source of truth</div>
-      <div class="sol-body">Built a Google Sheets architecture with two linked tabs: Orders and Stock. Columns for WA Sales and Physical Store Sales feed a single Available figure. The physical team syncs once at close of day — enough to keep the live channel accurate.</div>
-      <span class="sol-tag">Data · Inventory</span>
+      <div class="sol-title" data-en="Unified inventory — one source of truth" data-es="Inventario unificado — una sola fuente de verdad">Unified inventory — one source of truth</div>
+      <div class="sol-body"><span data-en="Built a Google Sheets architecture with two linked tabs: Orders and Stock. Columns for WA Sales and Physical Store Sales feed a single Available figure. The physical team syncs once at close of day — enough to keep the live channel accurate." data-es="Arquitectura de Google Sheets con dos pestañas vinculadas: Pedidos y Stock. Columnas para Ventas WA y Ventas Tienda Física alimentan una sola cifra Disponible. El equipo físico sincroniza una vez al cierre del día — suficiente para mantener el canal live preciso.">Built a Google Sheets architecture with two linked tabs: Orders and Stock. Columns for WA Sales and Physical Store Sales feed a single Available figure. The physical team syncs once at close of day — enough to keep the live channel accurate.</span></div>
+      <span class="sol-tag" data-en="Data · Inventory" data-es="Datos · Inventario">Data · Inventory</span>
     </div>
     <div class="sol-item">
       <span class="sol-num">04</span>
-      <div class="sol-title">Bank reconciliation by batch</div>
-      <div class="sol-body">Designed a semi-automated match process: the operator enters the bank-received amount in a single column — the MATCH formula compares it against the order total and returns MATCH ✅, REVIEW ⚠️, or PENDING. Two 15-minute rounds per day replace 30+ individual checks.</div>
-      <span class="sol-tag">Payment Validation · Reconciliation</span>
+      <div class="sol-title" data-en="Bank reconciliation by batch" data-es="Conciliación bancaria por lotes">Bank reconciliation by batch</div>
+      <div class="sol-body"><span data-en="Designed a semi-automated match process: the operator enters the bank-received amount in a single column — the MATCH formula compares it against the order total and returns MATCH ✅, REVIEW ⚠️, or PENDING. Two 15-minute rounds per day replace 30+ individual checks." data-es="Proceso de match semi-automatizado: la operadora ingresa el monto recibido en el banco en una sola columna — la fórmula MATCH lo compara contra el total del pedido y devuelve MATCH ✅, REVISAR ⚠️ o PENDIENTE. Dos rondas de 15 minutos por día reemplazan 30+ verificaciones individuales.">Designed a semi-automated match process: the operator enters the bank-received amount in a single column — the MATCH formula compares it against the order total and returns MATCH ✅, REVIEW ⚠️, or PENDING. Two 15-minute rounds per day replace 30+ individual checks.</span></div>
+      <span class="sol-tag" data-en="Payment Validation · Reconciliation" data-es="Validación de pagos · Conciliación">Payment Validation · Reconciliation</span>
     </div>
     <div class="sol-item">
       <span class="sol-num">05</span>
-      <div class="sol-title">Operations dashboard</div>
-      <div class="sol-body">A Summary tab showing the owner — in under 2 minutes each morning — today's revenue, unconfirmed orders, match exceptions, and critical stock alerts. Pending items disappear automatically when resolved. No manual curation needed.</div>
-      <span class="sol-tag">Visibility · Reporting</span>
+      <div class="sol-title" data-en="Operations dashboard" data-es="Dashboard operativo">Operations dashboard</div>
+      <div class="sol-body"><span data-en="A Summary tab showing the owner — in under 2 minutes each morning — today's revenue, unconfirmed orders, match exceptions, and critical stock alerts. Pending items disappear automatically when resolved. No manual curation needed." data-es="Una pestaña de Resumen que muestra a la dueña — en menos de 2 minutos cada mañana — los ingresos del día, pedidos sin confirmar, excepciones de match y alertas de stock crítico. Los pendientes desaparecen automáticamente al resolverse. Sin curación manual.">A Summary tab showing the owner — in under 2 minutes each morning — today's revenue, unconfirmed orders, match exceptions, and critical stock alerts. Pending items disappear automatically when resolved. No manual curation needed.</span></div>
+      <span class="sol-tag" data-en="Visibility · Reporting" data-es="Visibilidad · Reportes">Visibility · Reporting</span>
     </div>
     <div class="sol-item">
       <span class="sol-num">06</span>
-      <div class="sol-title">Role protocols & team playbook</div>
-      <div class="sol-body">Defined three operational roles — owner, TikTok host, and WhatsApp operator — each with a daily checklist, clear scope, and permissions in the shared spreadsheet. The system works because ownership is explicit, not assumed.</div>
-      <span class="sol-tag">Operations · Team Design</span>
+      <div class="sol-title" data-en="Role protocols & team playbook" data-es="Protocolos de roles y manual del equipo">Role protocols & team playbook</div>
+      <div class="sol-body"><span data-en="Defined three operational roles — owner, TikTok host, and WhatsApp operator — each with a daily checklist, clear scope, and permissions in the shared spreadsheet. The system works because ownership is explicit, not assumed." data-es="Definición de tres roles operativos — dueña, hostess de TikTok y operadora de WhatsApp — cada uno con una checklist diaria, alcance claro y permisos en la planilla compartida. El sistema funciona porque la responsabilidad es explícita, no asumida.">Defined three operational roles — owner, TikTok host, and WhatsApp operator — each with a daily checklist, clear scope, and permissions in the shared spreadsheet. The system works because ownership is explicit, not assumed.</span></div>
+      <span class="sol-tag" data-en="Operations · Team Design" data-es="Operaciones · Diseño de equipo">Operations · Team Design</span>
     </div>
   </div>
 </section>
@@ -842,10 +847,10 @@ footer {
 <div class="divider"></div>
 
 <section class="section">
-  <div class="section-label">How it was built</div>
+  <div class="section-label" data-en="How it was built" data-es="Cómo se construyó">How it was built</div>
   <h2 class="section-title">Seven days.<br><em>Zero downtime.</em></h2>
   <div class="section-body">
-    <p>The store couldn't pause operations. The system was designed and handed over in parallel with daily live sessions — each piece validated in real conditions before the next was built.</p>
+    <p><span data-en="The store couldn't pause operations. The system was designed and handed over in parallel with daily live sessions — each piece validated in real conditions before the next was built." data-es="La tienda no podía pausar operaciones. El sistema fue diseñado y entregado en paralelo con los lives diarios — cada pieza validada en condiciones reales antes de construir la siguiente.">The store couldn't pause operations. The system was designed and handed over in parallel with daily live sessions — each piece validated in real conditions before the next was built.</span></p>
   </div>
 
   <div class="process-timeline">
@@ -853,32 +858,32 @@ footer {
     <div class="process-step">
       <div class="step-phase">Discovery<br>Day 1–2</div>
       <div>
-        <div class="step-title">Mapping the real operational flow</div>
-        <div class="step-body">Documented the complete as-is process: TikTok live → WhatsApp → payment → dispatch. Timed each step. Identified where orders were lost, where duplicates happened, and where the physical and digital channels diverged. The primary finding: <strong>stock verification and payment matching were consuming over 60% of daily operational time.</strong></div>
+        <div class="step-title" data-en="Mapping the real operational flow" data-es="Mapeo del flujo operativo real">Mapping the real operational flow</div>
+        <div class="step-body"><span data-en="Documented the complete as-is process: TikTok live → WhatsApp → payment → dispatch. Timed each step. Identified where orders were lost, where duplicates happened, and where the physical and digital channels diverged. The primary finding: <strong data-en="stock verification and payment matching were consuming over 60% of daily operational time." data-es="la verificación de stock y el matching de pagos consumían más del 60% del tiempo operativo diario.">stock verification and payment matching were consuming over 60% of daily operational time.</strong>" data-es="Documentación del proceso as-is completo: TikTok live → WhatsApp → pago → despacho. Cronometrado de cada paso. Identificación de dónde se perdían pedidos, dónde ocurrían duplicados y dónde los canales físico y digital divergían. El hallazgo principal: <strong>la verificación de stock y el matching de pagos consumían más del 60% del tiempo operativo diario.</strong>">Documented the complete as-is process: TikTok live → WhatsApp → payment → dispatch. Timed each step. Identified where orders were lost, where duplicates happened, and where the physical and digital channels diverged. The primary finding: <strong data-en="stock verification and payment matching were consuming over 60% of daily operational time." data-es="la verificación de stock y el matching de pagos consumían más del 60% del tiempo operativo diario.">stock verification and payment matching were consuming over 60% of daily operational time.</strong></span></div>
       </div>
     </div>
 
     <div class="process-step">
       <div class="step-phase">Design<br>Day 3–4</div>
       <div>
-        <div class="step-title">System architecture & flow redesign</div>
-        <div class="step-body">Designed the SKU structure, the Google Sheets schema (Orders + Stock + Summary tabs), the WhatsApp conversation protocol, and the bank reconciliation logic. Every decision was tested against one constraint: <strong>can a non-technical operator run this alone?</strong></div>
+        <div class="step-title" data-en="System architecture & flow redesign" data-es="Arquitectura del sistema y rediseño del flujo">System architecture & flow redesign</div>
+        <div class="step-body"><span data-en="Designed the SKU structure, the Google Sheets schema (Orders + Stock + Summary tabs), the WhatsApp conversation protocol, and the bank reconciliation logic. Every decision was tested against one constraint: <strong data-en="can a non-technical operator run this alone?" data-es="¿puede una operadora no técnica ejecutar esto sola?">can a non-technical operator run this alone?</strong>" data-es="Diseño de la estructura SKU, el esquema de Google Sheets (pestañas Pedidos + Stock + Resumen), el protocolo de conversación de WhatsApp y la lógica de reconciliación bancaria. Cada decisión se evaluó contra una restricción: <strong>¿puede una operadora no técnica ejecutar esto sola?</strong>">Designed the SKU structure, the Google Sheets schema (Orders + Stock + Summary tabs), the WhatsApp conversation protocol, and the bank reconciliation logic. Every decision was tested against one constraint: <strong data-en="can a non-technical operator run this alone?" data-es="¿puede una operadora no técnica ejecutar esto sola?">can a non-technical operator run this alone?</strong></span></div>
       </div>
     </div>
 
     <div class="process-step">
       <div class="step-phase">Build<br>Day 5–6</div>
       <div>
-        <div class="step-title">Spreadsheet build & template setup</div>
-        <div class="step-body">Built the Google Sheets system with formulas, conditional formatting, data validation, and the MATCH reconciliation logic. Configured WhatsApp Business with six response templates. Labelled the first batch of 30 garments for the next live session.</div>
+        <div class="step-title" data-en="Spreadsheet build & template setup" data-es="Construcción de la planilla y configuración de plantillas">Spreadsheet build & template setup</div>
+        <div class="step-body"><span data-en="Built the Google Sheets system with formulas, conditional formatting, data validation, and the MATCH reconciliation logic. Configured WhatsApp Business with six response templates. Labelled the first batch of 30 garments for the next live session." data-es="Construcción del sistema Google Sheets con fórmulas, formato condicional, validación de datos y la lógica de reconciliación MATCH. Configuración de WhatsApp Business con seis plantillas de respuesta. Etiquetado del primer lote de 30 prendas para el siguiente live.">Built the Google Sheets system with formulas, conditional formatting, data validation, and the MATCH reconciliation logic. Configured WhatsApp Business with six response templates. Labelled the first batch of 30 garments for the next live session.</span></div>
       </div>
     </div>
 
     <div class="process-step">
       <div class="step-phase">Launch<br>Day 7</div>
       <div>
-        <div class="step-title">First live with the system running</div>
-        <div class="step-body">The team ran their first TikTok Live with the new system. The host presented garment codes on camera. The WhatsApp operator handled messages using templates. Orders flowed into the spreadsheet in real time. <strong>The post-live workload — previously 6+ hours — was completed in under 2.5 hours including bank reconciliation.</strong></div>
+        <div class="step-title" data-en="First live with the system running" data-es="Primer live con el sistema funcionando">First live with the system running</div>
+        <div class="step-body"><span data-en="The team ran their first TikTok Live with the new system. The host presented garment codes on camera. The WhatsApp operator handled messages using templates. Orders flowed into the spreadsheet in real time. <strong data-en="The post-live workload — previously 6+ hours — was completed in under 2.5 hours including bank reconciliation." data-es="La carga post-live — anteriormente 6+ horas — se completó en menos de 2.5 horas incluyendo reconciliación bancaria.">The post-live workload — previously 6+ hours — was completed in under 2.5 hours including bank reconciliation.</strong>" data-es="El equipo realizó su primer TikTok Live con el nuevo sistema. La hostess presentó códigos de prendas en cámara. La operadora de WhatsApp gestionó mensajes con plantillas. Los pedidos fluyeron a la planilla en tiempo real. <strong>La carga post-live — anteriormente 6+ horas — se completó en menos de 2.5 horas incluyendo reconciliación bancaria.</strong>">The team ran their first TikTok Live with the new system. The host presented garment codes on camera. The WhatsApp operator handled messages using templates. Orders flowed into the spreadsheet in real time. <strong data-en="The post-live workload — previously 6+ hours — was completed in under 2.5 hours including bank reconciliation." data-es="La carga post-live — anteriormente 6+ horas — se completó en menos de 2.5 horas incluyendo reconciliación bancaria.">The post-live workload — previously 6+ hours — was completed in under 2.5 hours including bank reconciliation.</strong></span></div>
       </div>
     </div>
 
@@ -892,50 +897,50 @@ footer {
 <div class="divider"></div>
 
 <section class="section">
-  <div class="section-label">Outcomes</div>
+  <div class="section-label" data-en="Outcomes" data-es="Resultados">Outcomes</div>
   <h2 class="section-title">Measurable results<br><em>from day one.</em></h2>
 
   <div class="outcomes-row">
     <div class="outcome-item">
       <span class="outcome-num">−85%</span>
       <div class="outcome-label">
-        <strong>Daily operational workload</strong>
-        Post-live processing dropped from 6+ hours to under 2.5 hours including bank reconciliation
+        <strong data-en="Daily operational workload" data-es="Carga operativa diaria">Daily operational workload</strong>
+        <span data-en="Post-live processing dropped from 6+ hours to under 2.5 hours including bank reconciliation" data-es="El procesamiento post-live bajó de 6+ horas a menos de 2.5 horas incluyendo reconciliación bancaria">Post-live processing dropped from 6+ hours to under 2.5 hours including bank reconciliation</span>
       </div>
     </div>
     <div class="outcome-item">
       <span class="outcome-num">0</span>
       <div class="outcome-label">
-        <strong>Duplicate orders</strong>
-        The RESERVED status protocol eliminated inventory conflicts across both channels
+        <strong data-en="Duplicate orders" data-es="Pedidos duplicados">Duplicate orders</strong>
+        <span data-en="The RESERVED status protocol eliminated inventory conflicts across both channels" data-es="El protocolo de estado RESERVADO eliminó los conflictos de inventario en ambos canales">The RESERVED status protocol eliminated inventory conflicts across both channels</span>
       </div>
     </div>
     <div class="outcome-item">
       <span class="outcome-num">30 min</span>
       <div class="outcome-label">
-        <strong>To reconcile 30+ payments</strong>
-        Two batch rounds per day replaced individual per-payment bank checks
+        <strong data-en="To reconcile 30+ payments" data-es="Para conciliar 30+ pagos">To reconcile 30+ payments</strong>
+        <span data-en="Two batch rounds per day replaced individual per-payment bank checks" data-es="Dos rondas por lotes por día reemplazaron las verificaciones bancarias individuales">Two batch rounds per day replaced individual per-payment bank checks</span>
       </div>
     </div>
     <div class="outcome-item">
       <span class="outcome-num">Bs.0</span>
       <div class="outcome-label">
-        <strong>Monthly tooling cost</strong>
-        Built entirely on WhatsApp Business, Google Sheets, and standard bank apps
+        <strong data-en="Monthly tooling cost" data-es="Costo mensual de herramientas">Monthly tooling cost</strong>
+        <span data-en="Built entirely on WhatsApp Business, Google Sheets, and standard bank apps" data-es="Construido íntegramente en WhatsApp Business, Google Sheets y apps bancarias estándar">Built entirely on WhatsApp Business, Google Sheets, and standard bank apps</span>
       </div>
     </div>
     <div class="outcome-item">
       <span class="outcome-num">7 days</span>
       <div class="outcome-label">
-        <strong>From discovery to live</strong>
+        <strong data-en="From discovery to live" data-es="Desde el discovery hasta el live">From discovery to live</strong>
         Designed, built, and deployed without pausing daily operations
       </div>
     </div>
     <div class="outcome-item">
       <span class="outcome-num">1</span>
       <div class="outcome-label">
-        <strong>Inventory for both channels</strong>
-        Physical store and TikTok sales now deduct from a single source of truth
+        <strong data-en="Inventory for both channels" data-es="Inventario para ambos canales">Inventory for both channels</strong>
+        <span data-en="Physical store and TikTok sales now deduct from a single source of truth" data-es="Las ventas de tienda física y TikTok ahora descuentan de una sola fuente de verdad">Physical store and TikTok sales now deduct from a single source of truth</span>
       </div>
     </div>
   </div>
@@ -947,25 +952,25 @@ footer {
 ══════════════════════════════════════ -->
 <div class="relevance-band">
   <div class="relevance-inner">
-    <div class="section-label">Why this matters</div>
+    <div class="section-label" data-en="Why this matters" data-es="Por qué importa">Why this matters</div>
     <h2 class="section-title" style="margin-bottom:8px;">The broader <em>relevance.</em></h2>
-    <p style="font-size:15px;color:var(--muted);margin-bottom:0;max-width:580px;">This project sits at the intersection of three dynamics shaping payments globally.</p>
+    <p style="font-size:15px;color:var(--muted);margin-bottom:0;max-width:580px;"><span data-en="This project sits at the intersection of three dynamics shaping payments globally." data-es="Este proyecto está en la intersección de tres dinámicas que moldean los pagos globalmente.">This project sits at the intersection of three dynamics shaping payments globally.</span></p>
 
     <div class="relevance-grid">
       <div class="relevance-item">
         <div class="relevance-icon">📱</div>
-        <div class="relevance-title">Social commerce is the new checkout</div>
-        <div class="relevance-body">TikTok Live, Instagram Shops, and WhatsApp Commerce are where a growing share of transactions in emerging markets begin — and often complete. Building payment rails for this channel is the next frontier for fintechs expanding beyond traditional e-commerce.</div>
+        <div class="relevance-title" data-en="Social commerce is the new checkout" data-es="El social commerce es el nuevo checkout">Social commerce is the new checkout</div>
+        <div class="relevance-body" data-en="TikTok Live, Instagram Shops, and WhatsApp Commerce are where a growing share of transactions in emerging markets begin — and often complete. Building payment rails for this channel is the next frontier for fintechs expanding beyond traditional e-commerce." data-es="TikTok Live, Instagram Shops y WhatsApp Commerce son donde una parte creciente de las transacciones en mercados emergentes comienzan — y a menudo se completan. Construir rieles de pago para este canal es la próxima frontera para las fintechs que expanden más allá del e-commerce tradicional.">TikTok Live, Instagram Shops, and WhatsApp Commerce are where a growing share of transactions in emerging markets begin — and often complete. Building payment rails for this channel is the next frontier for fintechs expanding beyond traditional e-commerce.</div>
       </div>
       <div class="relevance-item">
         <div class="relevance-icon">🏦</div>
-        <div class="relevance-title">Bank reconciliation without APIs</div>
-        <div class="relevance-body">In markets where banks don't offer open APIs, merchants still need a way to verify that money arrived. This project demonstrates a structured, scalable reconciliation approach that works today — and points to where automation can be layered in as infrastructure matures.</div>
+        <div class="relevance-title" data-en="Bank reconciliation without APIs" data-es="Conciliación bancaria sin APIs">Bank reconciliation without APIs</div>
+        <div class="relevance-body" data-en="In markets where banks don't offer open APIs, merchants still need a way to verify that money arrived. This project demonstrates a structured, scalable reconciliation approach that works today — and points to where automation can be layered in as infrastructure matures." data-es="En mercados donde los bancos no ofrecen APIs abiertas, los comerciantes igual necesitan verificar que el dinero llegó. Este proyecto demuestra un enfoque de reconciliación estructurado y escalable que funciona hoy — y señala dónde la automatización puede añadirse a medida que la infraestructura madura.">In markets where banks don't offer open APIs, merchants still need a way to verify that money arrived. This project demonstrates a structured, scalable reconciliation approach that works today — and points to where automation can be layered in as infrastructure matures.</div>
       </div>
       <div class="relevance-item">
         <div class="relevance-icon">🔄</div>
-        <div class="relevance-title">Omnichannel for businesses without platforms</div>
-        <div class="relevance-body">The unified inventory problem — one source of truth for physical and digital sales — isn't unique to Karigab. It's the same challenge facing thousands of growing retailers across Latin America, Africa, and Southeast Asia who operate outside formal e-commerce platforms.</div>
+        <div class="relevance-title" data-en="Omnichannel for businesses without platforms" data-es="Omnicanal para negocios sin plataformas">Omnichannel for businesses without platforms</div>
+        <div class="relevance-body" data-en="The unified inventory problem — one source of truth for physical and digital sales — isn't unique to Karigab. It's the same challenge facing thousands of growing retailers across Latin America, Africa, and Southeast Asia who operate outside formal e-commerce platforms." data-es="El problema del inventario unificado — una sola fuente de verdad para ventas físicas y digitales — no es único de Karigab. Es el mismo desafío que enfrentan miles de retailers en crecimiento en América Latina, África y el Sudeste Asiático.">The unified inventory problem — one source of truth for physical and digital sales — isn't unique to Karigab. It's the same challenge facing thousands of growing retailers across Latin America, Africa, and Southeast Asia who operate outside formal e-commerce platforms.</div>
       </div>
     </div>
   </div>
@@ -976,25 +981,25 @@ footer {
      LEARNINGS
 ══════════════════════════════════════ -->
 <section class="section">
-  <div class="section-label">Product learnings</div>
+  <div class="section-label" data-en="Product learnings" data-es="Aprendizajes">Product learnings</div>
   <h2 class="section-title">What this project<br><em>reinforced.</em></h2>
 
   <div class="learnings-grid">
     <div class="learning-card">
-      <div class="learning-title">Constraints produce better design</div>
-      <div class="learning-body">No budget, no technical team, no downtime allowed. Each constraint eliminated an option and forced a simpler, more resilient solution. The result is a system anyone on the team can operate and maintain independently.</div>
+      <div class="learning-title" data-en="Constraints produce better design" data-es="Las restricciones producen mejor diseño">Constraints produce better design</div>
+      <div class="learning-body" data-en="No budget, no technical team, no downtime allowed. Each constraint eliminated an option and forced a simpler, more resilient solution. The result is a system anyone on the team can operate and maintain independently." data-es="Sin presupuesto, sin equipo técnico, sin tiempo de inactividad permitido. Cada restricción eliminó una opción y forzó una solución más simple y resiliente. El resultado es un sistema que cualquier miembro del equipo puede operar y mantener de forma independiente.">No budget, no technical team, no downtime allowed. Each constraint eliminated an option and forced a simpler, more resilient solution. The result is a system anyone on the team can operate and maintain independently.</div>
     </div>
     <div class="learning-card">
-      <div class="learning-title">The reference field is the whole trick</div>
-      <div class="learning-body">Asking customers to include the order number (KAR-047) in their bank transfer reference reduced payment matching time from 5 minutes per transaction to under 20 seconds. One field. Massive operational leverage.</div>
+      <div class="learning-title" data-en="The reference field is the whole trick" data-es="El campo de referencia es el truco completo">The reference field is the whole trick</div>
+      <div class="learning-body" data-en="Asking customers to include the order number (KAR-047) in their bank transfer reference reduced payment matching time from 5 minutes per transaction to under 20 seconds. One field. Massive operational leverage." data-es="Pedirle a los clientes que incluyan el número de pedido (KAR-047) en la referencia de la transferencia bancaria redujo el tiempo de matching de pagos de 5 minutos por transacción a menos de 20 segundos. Un campo. Apalancamiento operativo masivo.">Asking customers to include the order number (KAR-047) in their bank transfer reference reduced payment matching time from 5 minutes per transaction to under 20 seconds. One field. Massive operational leverage.</div>
     </div>
     <div class="learning-card">
-      <div class="learning-title">Batch beats real-time at low volume</div>
-      <div class="learning-body">With 30+ daily payments across multiple banks, real-time validation per transaction was operationally impossible. Two 15-minute batch rounds proved more reliable and less error-prone than reactive individual checks.</div>
+      <div class="learning-title" data-en="Batch beats real-time at low volume" data-es="El procesamiento por lotes supera al tiempo real en bajo volumen">Batch beats real-time at low volume</div>
+      <div class="learning-body" data-en="With 30+ daily payments across multiple banks, real-time validation per transaction was operationally impossible. Two 15-minute batch rounds proved more reliable and less error-prone than reactive individual checks." data-es="Con 30+ pagos diarios en múltiples bancos, la validación en tiempo real por transacción era operativamente imposible. Dos rondas de 15 minutos por lotes resultaron más confiables y menos propensas a errores que las verificaciones individuales reactivas.">With 30+ daily payments across multiple banks, real-time validation per transaction was operationally impossible. Two 15-minute batch rounds proved more reliable and less error-prone than reactive individual checks.</div>
     </div>
     <div class="learning-card">
-      <div class="learning-title">Roles before tools</div>
-      <div class="learning-body">The system only works because ownership is explicit. Defining who does what — host, operator, owner — before assigning any tool access meant the spreadsheet permissions and protocols matched actual workflow. No gaps, no overlaps.</div>
+      <div class="learning-title" data-en="Roles before tools" data-es="Roles antes que herramientas">Roles before tools</div>
+      <div class="learning-body" data-en="The system only works because ownership is explicit. Defining who does what — host, operator, owner — before assigning any tool access meant the spreadsheet permissions and protocols matched actual workflow. No gaps, no overlaps." data-es="El sistema solo funciona porque la responsabilidad es explícita. Definir quién hace qué — hostess, operadora, dueña — antes de asignar acceso a herramientas significó que los permisos y protocolos de la planilla coincidían con el flujo real de trabajo. Sin brechas, sin superposiciones.">The system only works because ownership is explicit. Defining who does what — host, operator, owner — before assigning any tool access meant the spreadsheet permissions and protocols matched actual workflow. No gaps, no overlaps.</div>
     </div>
   </div>
 </section>
@@ -1006,39 +1011,39 @@ footer {
 <div class="divider"></div>
 
 <section class="section">
-  <div class="section-label">Deliverables</div>
+  <div class="section-label" data-en="Deliverables" data-es="Entregables">Deliverables</div>
   <h2 class="section-title">What was<br><em>handed over.</em></h2>
 
   <div class="deliverables-list">
     <div class="del-item">
       <div class="del-icon">🗺️</div>
-      <div class="del-name">End-to-end operational flow — 7 phases, role assignments, time estimates</div>
-      <span class="del-tag">Interactive HTML</span>
+      <div class="del-name" data-en="End-to-end operational flow — 7 phases, role assignments, time estimates" data-es="Flujo operativo end-to-end — 7 fases, asignación de roles, estimaciones de tiempo">End-to-end operational flow — 7 phases, role assignments, time estimates</div>
+      <span class="del-tag" data-en="Interactive HTML" data-es="HTML Interactivo">Interactive HTML</span>
     </div>
     <div class="del-item">
       <div class="del-icon">📊</div>
-      <div class="del-name">Google Sheets system — Orders, Stock, Summary with reconciliation logic</div>
-      <span class="del-tag">XLSX · Ready to use</span>
+      <div class="del-name" data-en="Google Sheets system — Orders, Stock, Summary with reconciliation logic" data-es="Sistema Google Sheets — Pedidos, Stock, Resumen con lógica de reconciliación">Google Sheets system — Orders, Stock, Summary with reconciliation logic</div>
+      <span class="del-tag" data-en="XLSX · Ready to use" data-es="XLSX · Listo para usar">XLSX · Ready to use</span>
     </div>
     <div class="del-item">
       <div class="del-icon">🏷️</div>
       <div class="del-name">SKU system & printable label templates — A4, 6 per sheet</div>
-      <span class="del-tag">Interactive HTML</span>
+      <span class="del-tag" data-en="Interactive HTML" data-es="HTML Interactivo">Interactive HTML</span>
     </div>
     <div class="del-item">
       <div class="del-icon">💬</div>
-      <div class="del-name">6 WhatsApp message templates — confirmation, payment, reminder, error handling</div>
-      <span class="del-tag">Copy · Ready to paste</span>
+      <div class="del-name" data-en="6 WhatsApp message templates — confirmation, payment, reminder, error handling" data-es="6 plantillas de mensajes WhatsApp — confirmación, pago, recordatorio, manejo de errores">6 WhatsApp message templates — confirmation, payment, reminder, error handling</div>
+      <span class="del-tag" data-en="Copy · Ready to paste" data-es="Texto · Listo para pegar">Copy · Ready to paste</span>
     </div>
     <div class="del-item">
       <div class="del-icon">📋</div>
-      <div class="del-name">Team playbook — daily checklists and protocols for 3 roles</div>
-      <span class="del-tag">Documentation</span>
+      <div class="del-name" data-en="Team playbook — daily checklists and protocols for 3 roles" data-es="Manual del equipo — checklists diarias y protocolos para 3 roles">Team playbook — daily checklists and protocols for 3 roles</div>
+      <span class="del-tag" data-en="Documentation" data-es="Documentación">Documentation</span>
     </div>
     <div class="del-item">
       <div class="del-icon">🎬</div>
-      <div class="del-name">Interactive system demo — storyboard walkthrough of a complete sale</div>
-      <span class="del-tag">Interactive HTML</span>
+      <div class="del-name" data-en="Interactive system demo — storyboard walkthrough of a complete sale" data-es="Demo interactiva del sistema — storyboard de una venta completa">Interactive system demo — storyboard walkthrough of a complete sale</div>
+      <span class="del-tag" data-en="Interactive HTML" data-es="HTML Interactivo">Interactive HTML</span>
     </div>
   </div>
 </section>
@@ -1052,17 +1057,47 @@ footer {
 <section>
   <div class="cta-section">
     <div>
-      <h2 class="cta-title">Working on a similar<br><em>operations challenge?</em></h2>
-      <p class="cta-sub">I work with product teams and growing businesses on payment flows, operational design, and collections systems. If you're building in this space, I'd be glad to talk.</p>
+      <h2 class="cta-title" data-en="Working on a similar<br><em>operations challenge?</em>" data-es="¿Trabajando en un<br><em>desafío operativo similar?</em>">Working on a similar<br><em>operations challenge?</em></h2>
+      <p class="cta-sub" data-en="I work with product teams and growing businesses on payment flows, operational design, and collections systems. If you're building in this space, I'd be glad to talk." data-es="Trabajo con equipos de producto y empresas en crecimiento en flujos de pago, diseño operacional y sistemas de cobranza. Si estás construyendo en este espacio, me encantaría hablar.">I work with product teams and growing businesses on payment flows, operational design, and collections systems. If you're building in this space, I'd be glad to talk.</p>
     </div>
-    <a href="mailto:pablo@pablomontenegro.ie" class="cta-btn">Get in touch</a>
+    <a href="mailto:pablo@pablomontenegro.ie" class="cta-btn" data-en="Get in touch" data-es="Contactar">Get in touch</a>
   </div>
 </section>
 
 <footer>
   <span class="footer-note">Pablo Montenegro · pablomontenegro.ie</span>
-  <span class="footer-note">Payment Operations · Product Consulting · 2025</span>
+  <span class="footer-note" data-en="Payment Operations · Product Consulting · 2025" data-es="Operaciones de Pago · Consultoría · 2025">Payment Operations · Product Consulting · 2025</span>
 </footer>
+
+
+<script>
+// ── LANGUAGE SYSTEM ──────────────────────────────────────────
+var LANG = localStorage.getItem('pm_lang') || 'en';
+
+function setLang(lang) {
+  LANG = lang;
+  localStorage.setItem('pm_lang', lang);
+
+  // Toggle buttons
+  document.getElementById('btn-en').style.background = lang==='en' ? 'var(--gold)' : 'transparent';
+  document.getElementById('btn-en').style.color = lang==='en' ? 'var(--navy)' : 'var(--muted)';
+  document.getElementById('btn-es').style.background = lang==='es' ? 'var(--gold)' : 'transparent';
+  document.getElementById('btn-es').style.color = lang==='es' ? 'var(--navy)' : 'var(--muted)';
+
+  // Update all data-en / data-es elements
+  document.querySelectorAll('[data-en]').forEach(function(el) {
+    var txt = lang === 'es' ? el.getAttribute('data-es') : el.getAttribute('data-en');
+    if (txt) el.innerHTML = txt;
+  });
+
+  document.documentElement.lang = lang;
+}
+
+// Init on load
+document.addEventListener('DOMContentLoaded', function() {
+  setLang(LANG);
+});
+</script>
 
 </body>
 </html>
