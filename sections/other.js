@@ -39,12 +39,12 @@ function renderAbout(lang) {
       <div class="spec-strip reveal">${specs}</div>
       <div class="about-grid">
         <div class="about-body">
-          <p data-lang="en" ${lang==='es'?'style="display:none"':''}><strong>I build payment systems that work</strong> — and fix the ones that don't. 10+ years in banking and financial services, 7 of them at Itaú Chile owning the roadmap for payments and collections at the country's largest private bank.</p>
-          <p data-lang="en" ${lang==='es'?'style="display:none"':''}>I've shipped PAC 2.0, ePAC, QR Interoperability and a multi-bank payment layer from scratch. I know how SEPA equivalents behave, why direct debit fails, and how to build retry logic that doesn't annoy customers or frustrate operations. <strong>I understand the full stack</strong> — rails, failure modes, mandate lifecycle, notification infrastructure.</p>
-          <p data-lang="en" ${lang==='es'?'style="display:none"':''}>Now based in Dublin. Targeting Senior PM roles in payments, banking or collections — Ireland, Spain, or broader Europe. Available immediately. Critical Skills Permit eligible.</p>
-          <p data-lang="es" ${lang==='en'?'style="display:none"':''}><strong>Construyo sistemas de pago que funcionan</strong> — y arreglo los que no. 10+ años en banca y servicios financieros, 7 de ellos en Itaú Chile siendo responsable del roadmap de pagos y cobranza en el banco privado más grande del país.</p>
-          <p data-lang="es" ${lang==='en'?'style="display:none"':''}>Entregué PAC 2.0, ePAC, Interoperabilidad QR y una capa de pago multibanco desde cero. Sé cómo se comportan los equivalentes de SEPA, por qué falla el débito directo y cómo construir lógica de reintento que no frustre a clientes ni a operaciones. <strong>Entiendo el stack completo</strong> — rieles, modos de falla, ciclo de vida del mandato, infraestructura de notificaciones.</p>
-          <p data-lang="es" ${lang==='en'?'style="display:none"':''}>Basado en Dublín. Buscando roles Senior PM en pagos, banca o cobranza — Irlanda, España o Europa en general. Disponible de inmediato. Elegible para Critical Skills Permit.</p>
+          <p ${lang==='es'?'style="display:none"':''}><strong>I build payment systems that work</strong> — and fix the ones that don't. 10+ years in banking and financial services, 7 of them at Itaú Chile owning the roadmap for payments and collections at the country's largest private bank.</p>
+          <p ${lang==='es'?'style="display:none"':''}>Shipped PAC 2.0, ePAC, QR Interoperability and a multi-bank payment layer from scratch. I know how SEPA equivalents behave, why direct debit fails, and how to build retry logic that doesn't frustrate customers or operations. <strong>I understand the full stack</strong> — rails, failure modes, mandate lifecycle, notification infrastructure.</p>
+          <p ${lang==='es'?'style="display:none"':''}>Now based in Dublin. Targeting Senior PM roles in payments, banking or collections — Ireland, Spain, or broader Europe. Available immediately. Critical Skills Permit eligible.</p>
+          <p ${lang==='en'?'style="display:none"':''}><strong>Construyo sistemas de pago que funcionan</strong> — y arreglo los que no. 10+ años en banca y servicios financieros, 7 de ellos en Itaú Chile como responsable del roadmap de pagos y cobranza en el banco privado más grande del país.</p>
+          <p ${lang==='en'?'style="display:none"':''}>Entregué PAC 2.0, ePAC, Interoperabilidad QR y una capa de pago multibanco desde cero. Sé cómo se comportan los equivalentes de SEPA, por qué falla el débito directo y cómo construir lógica de reintento que no frustre a clientes ni a operaciones. <strong>Entiendo el stack completo</strong> — rieles, modos de falla, ciclo de vida del mandato, infraestructura de notificaciones.</p>
+          <p ${lang==='en'?'style="display:none"':''}>Basado en Dublín. Buscando roles Senior PM en pagos, banca o cobranza — Irlanda, España o Europa en general. Disponible de inmediato. Elegible para Critical Skills Permit.</p>
         </div>
         <div>
           <div class="recs-header">
@@ -149,7 +149,7 @@ function renderProducts(lang) {
       : `<a href="${p.url}" class="prod-cta" target="_blank" rel="noopener" data-en="Get it →" data-es="Obtener →">${lang==='es'?'Obtener →':'Get it →'}</a>`;
     return `
     <div class="prod-card reveal">
-      <div class="prod-icon-row">${PROD_ICONS[i]}</div>
+      <div class="prod-banner">${PROD_ICONS[i]}</div>
       <div class="prod-body">
         <span class="prod-type" data-en="${p.type_en}" data-es="${p.type_es}">${type}</span>
         <div class="prod-title" data-en="${p.title_en}" data-es="${p.title_es}">${title}</div>
