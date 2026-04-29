@@ -119,7 +119,7 @@ section{padding:80px 48px;}
 /* Hero right — photo + metrics */
 .hero-visual{display:flex;flex-direction:column;gap:16px;}
 .hero-photo-wrap{position:relative;width:fit-content;}
-.hero-photo{width:260px;height:300px;object-fit:cover;border-radius:2px;
+.hero-photo{width:260px;height:300px;object-fit:cover;object-position:center top;border-radius:2px;
   filter:grayscale(10%);border:1px solid var(--border);}
 .hero-seal{position:absolute;bottom:-16px;right:-16px;width:64px;height:64px;
   opacity:.5;animation:rotateSeal 22s linear infinite;}
@@ -147,17 +147,18 @@ section{padding:80px 48px;}
 #work{background:var(--navy);padding:72px 48px;}
 .work-header{display:flex;align-items:flex-end;justify-content:space-between;
   margin-bottom:28px;flex-wrap:wrap;gap:16px;}
-.work-tabs{display:flex;gap:1px;background:var(--border);
-  border:1px solid var(--border);border-radius:2px;overflow:hidden;margin-bottom:0;}
+.work-tabs{display:flex;gap:0;background:var(--border);
+  border:1px solid var(--border);overflow:hidden;margin-bottom:0;}
 .work-tab{flex:1;padding:14px 20px;background:var(--navy2);border:none;
   display:flex;align-items:center;gap:12px;transition:background .2s;text-align:left;}
-.work-tab.active{background:var(--navy3);border-bottom:2px solid var(--gold);}
+.work-tab.active{background:var(--navy);border-bottom:3px solid var(--gold);}
 .work-tab:hover:not(.active){background:var(--navy3);}
 .tab-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
 .consulting-dot{background:var(--gold);}
 .itau-dot{background:#3A82C4;}
 .tab-label{display:flex;flex-direction:column;gap:1px;}
 .tab-label strong{font-size:13px;font-weight:500;color:var(--white);}
+.work-tab.active .tab-label strong{color:var(--gold);}
 .tab-label small{font-size:10px;color:var(--muted);font-weight:400;}
 .tab-panel{display:none;}
 .tab-panel.active{display:block;}
@@ -169,7 +170,7 @@ section{padding:80px 48px;}
 .tab-intro-icon{font-size:18px;flex-shrink:0;}
 
 /* Cases grid */
-.cases-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+.cases-grid{display:grid;grid-template-columns:repeat(3,1fr);
   gap:1px;background:var(--border);border:1px solid var(--border);margin-top:0;}
 .cc{background:var(--navy);transition:background .18s;}
 .cc:hover{background:var(--navy2);}
@@ -183,7 +184,7 @@ section{padding:80px 48px;}
 .cc-title{font-family:var(--serif);font-size:20px;font-weight:400;
   color:var(--white);line-height:1.25;margin-bottom:8px;}
 .cc-title em{font-style:italic;color:var(--gold2);}
-.cc-desc{font-size:12.5px;color:var(--muted);line-height:1.65;margin-bottom:8px;}
+.cc-desc{font-size:12.5px;color:var(--muted);line-height:1.55;margin-bottom:8px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;}
 .eu-note{display:block;font-family:var(--mono);font-size:8.5px;
   color:var(--muted2);margin-bottom:12px;}
 .cc-metrics{display:flex;gap:16px;margin-bottom:14px;
@@ -278,11 +279,11 @@ section{padding:80px 48px;}
 
 /* ══ PRODUCTS ══════════════════════════════════════ */
 #products{background:var(--navy2);border-top:1px solid var(--border);}
-.prods-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+.prods-grid{display:grid;grid-template-columns:repeat(4,1fr);
   gap:1px;background:var(--border);border:1px solid var(--border);}
 .prod-card{background:var(--navy);display:flex;flex-direction:column;transition:background .2s;}
 .prod-card:hover{background:var(--navy2);}
-.prod-icon-row{padding:20px 20px 0;font-size:28px;}
+.prod-banner{height:80px;display:flex;align-items:center;justify-content:center;font-size:32px;border-bottom:1px solid var(--border);background:rgba(196,160,90,.04);}
 .prod-body{padding:12px 20px 20px;flex:1;display:flex;flex-direction:column;}
 .prod-type{font-family:var(--mono);font-size:8.5px;letter-spacing:.1em;color:var(--gold);
   text-transform:uppercase;margin-bottom:6px;}
@@ -360,6 +361,8 @@ section{padding:80px 48px;}
 
 /* ══ RESPONSIVE ════════════════════════════════════ */
 @media(max-width:960px){
+  .cases-grid{grid-template-columns:repeat(2,1fr);}
+  .prods-grid{grid-template-columns:repeat(2,1fr);}
   section{padding:56px 24px;}
   #work{padding:56px 24px;}
   .site-nav{padding:0 20px;}
