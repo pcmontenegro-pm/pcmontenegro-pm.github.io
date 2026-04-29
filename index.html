@@ -1,263 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Pablo Montenegro — Senior PM, Payments & Collections. Dublin. Available now.">
+<meta property="og:title" content="Pablo Montenegro — Senior PM · Payments · Collections · Fintech">
+<meta property="og:description" content="10+ years building payment infrastructure at Itaú Chile and independently across Europe and LatAm.">
+<meta property="og:url" content="https://pablomontenegro.ie">
+<title>Pablo Montenegro — Senior PM · Payments & Collections | Dublin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ══ TOKENS ═══════════════════════════════════════ */
+:root {
+  --navy:   #0A1226; --navy2: #0F1B33; --navy3: #162240;
+  --gold:   #C4A05A; --gold2: #DDB870; --gold3: #F0DFB8;
+  --cream:  #FAF7F2; --white: #FFF;
+  --muted:  #7A8599; --muted2: #5A6478;
+  --green:  #2A7A5A; --green2: #35A070; --red: #C04040;
+  --border: rgba(196,160,90,.14); --border2: rgba(255,255,255,.06);
+  --serif: 'Cormorant Garamond',Georgia,serif;
+  --sans:  'DM Sans',sans-serif;
+  --mono:  'DM Mono',monospace;
+  --max-w: 1160px;
+}
+
+/* ══ RESET ════════════════════════════════════════ */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;font-size:17px;}
+body{background:var(--navy);color:var(--cream);font-family:var(--sans);
+  line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+img{display:block;max-width:100%;}
+a{color:inherit;text-decoration:none;}
+button{cursor:pointer;font-family:var(--sans);}
+strong{font-weight:500;}
+
+/* Grain */
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  opacity:.018;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:180px;}
+body>*{position:relative;z-index:1;}
+
+/* ══ NAV ══════════════════════════════════════════ */
+.site-nav{
+  position:sticky;top:0;z-index:200;
+  padding:0 48px;height:56px;
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(10,18,38,.96);backdrop-filter:blur(24px);
+  border-bottom:1px solid var(--border2);
+}
+.nav-brand{display:flex;align-items:center;gap:8px;transition:opacity .2s;}
+.nav-brand:hover{opacity:.75;}
+.nav-brand img{width:22px;height:22px;border-radius:50%;object-fit:cover;}
+.nav-brand-name{font-family:var(--mono);font-size:12px;letter-spacing:.04em;color:var(--gold);}
+.nav-links{display:flex;align-items:center;gap:24px;}
+.nav-link{font-family:var(--mono);font-size:11.5px;letter-spacing:.05em;color:var(--muted);transition:color .2s;}
+.nav-link:hover{color:var(--gold);}
+.nav-right{display:flex;align-items:center;gap:10px;}
+.nav-lang{display:flex;border:1px solid var(--border);border-radius:2px;overflow:hidden;}
+.lang-btn{padding:3px 9px;font-family:var(--mono);font-size:10px;letter-spacing:.08em;
+  background:transparent;border:none;color:var(--muted);cursor:pointer;transition:all .15s;}
+.lang-btn.active{background:var(--gold);color:var(--navy);font-weight:500;}
+.nav-cv{font-family:var(--mono);font-size:10px;letter-spacing:.06em;
+  padding:4px 12px;border:1px solid var(--border);color:var(--gold3);border-radius:2px;transition:all .2s;}
+.nav-cv:hover{background:var(--gold);color:var(--navy);border-color:var(--gold);}
+.nav-cta{font-size:11.5px;padding:5px 14px;background:var(--gold);color:var(--navy);
+  border-radius:2px;font-weight:500;transition:all .2s;}
+.nav-cta:hover{background:var(--gold2);}
+
+/* ══ SHARED ═══════════════════════════════════════ */
+section{padding:80px 48px;}
+.si{max-width:var(--max-w);margin:0 auto;}
+.sec-tag{font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;color:var(--gold);
+  text-transform:uppercase;display:block;margin-bottom:8px;}
+.sec-h2{font-family:var(--serif);font-size:clamp(28px,3.5vw,44px);
+  font-weight:300;color:var(--white);line-height:1.12;margin-bottom:24px;}
+.sec-h2 em{font-style:italic;color:var(--gold2);}
+.sec-sub{font-size:15px;color:var(--muted);line-height:1.7;max-width:560px;}
+.btn-gold{display:inline-block;padding:11px 26px;background:var(--gold);color:var(--navy);
+  font-size:14px;font-weight:500;border-radius:2px;transition:all .2s;}
+.btn-gold:hover{background:var(--gold2);transform:translateY(-1px);}
+.btn-outline{display:inline-block;padding:10px 22px;border:1px solid var(--border);color:var(--cream);
+  font-size:14px;border-radius:2px;transition:all .2s;}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold);}
+
+/* ══ HERO ══════════════════════════════════════════ */
+.hero-section{
+  padding:72px 48px 0;min-height:calc(100vh - 56px);
+  display:flex;flex-direction:column;border-bottom:1px solid var(--border2);
+}
+.hero-bg{position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse at 72% 28%,rgba(196,160,90,.07) 0%,transparent 50%),
+    radial-gradient(ellipse at 10% 80%,rgba(42,122,90,.06) 0%,transparent 45%);}
+.hero-inner{max-width:var(--max-w);margin:0 auto;width:100%;
+  display:grid;grid-template-columns:1fr 340px;gap:56px;align-items:center;
+  flex:1;padding-bottom:56px;position:relative;z-index:1;}
+
+/* Hero left */
+.hero-kicker{display:flex;align-items:center;gap:10px;margin-bottom:18px;}
+.hero-kicker-dot{width:6px;height:6px;border-radius:50%;background:var(--green2);}
+.hero-kicker-text{font-family:var(--mono);font-size:10px;letter-spacing:.12em;
+  color:var(--green2);text-transform:uppercase;}
+.hero-h1{font-family:var(--serif);font-size:clamp(36px,5vw,64px);
+  font-weight:300;line-height:1.08;color:var(--white);margin-bottom:6px;}
+.hero-h1-sub{font-family:var(--serif);font-size:clamp(22px,3vw,36px);
+  font-weight:300;font-style:italic;color:var(--gold2);margin-bottom:20px;line-height:1.2;}
+.hero-summary{font-size:16px;color:var(--muted);line-height:1.75;
+  max-width:480px;margin-bottom:28px;}
+.hero-ctas{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px;}
+.hero-avail{display:flex;align-items:center;gap:6px;
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;color:var(--muted2);}
+.hero-avail-dot{width:5px;height:5px;border-radius:50%;background:var(--green2);animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.4;}}
+
+/* Hero right — photo + metrics */
+.hero-visual{display:flex;flex-direction:column;gap:16px;}
+.hero-photo-wrap{position:relative;width:fit-content;}
+.hero-photo{width:260px;height:300px;object-fit:cover;object-position:center top;border-radius:2px;
+  filter:grayscale(10%);border:1px solid var(--border);}
+.hero-seal{position:absolute;bottom:-16px;right:-16px;width:64px;height:64px;
+  opacity:.5;animation:rotateSeal 22s linear infinite;}
+@keyframes rotateSeal{to{transform:rotate(360deg);}}
+.hero-metrics{display:grid;grid-template-columns:1fr 1fr;gap:1px;
+  background:var(--border);border:1px solid var(--border);}
+.metric{background:var(--navy);padding:14px 16px;}
+.metric-num{font-family:var(--serif);font-size:26px;font-weight:300;
+  color:var(--gold);line-height:1;display:block;margin-bottom:3px;}
+.metric-label{font-size:11.5px;color:var(--muted);line-height:1.35;}
+
+/* Hero companies bar */
+.hero-bar{max-width:var(--max-w);margin:0 auto;width:100%;
+  padding:18px 0;border-top:1px solid var(--border2);
+  display:flex;align-items:center;gap:20px;flex-wrap:wrap;position:relative;z-index:1;}
+.bar-label{font-family:var(--mono);font-size:8.5px;letter-spacing:.1em;
+  color:var(--muted2);text-transform:uppercase;flex-shrink:0;}
+.bar-items{display:flex;gap:8px;flex-wrap:wrap;}
+.bar-pill{display:flex;align-items:center;gap:6px;
+  font-size:11px;color:var(--muted);padding:3px 10px;
+  border:1px solid var(--border);border-radius:20px;}
+.bar-pill-icon{font-size:11px;}
+
+/* ══ WORK ══════════════════════════════════════════ */
+#work{background:var(--navy);padding:72px 48px;}
+.work-header{display:flex;align-items:flex-end;justify-content:space-between;
+  margin-bottom:28px;flex-wrap:wrap;gap:16px;}
+.work-tabs{display:flex;gap:0;background:var(--border);
+  border:1px solid var(--border);overflow:hidden;margin-bottom:0;}
+.work-tab{flex:1;padding:14px 20px;background:var(--navy2);border:none;
+  display:flex;align-items:center;gap:12px;transition:background .2s;text-align:left;}
+.work-tab.active{background:var(--navy);border-bottom:3px solid var(--gold);}
+.work-tab:hover:not(.active){background:var(--navy3);}
+.tab-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.consulting-dot{background:var(--gold);}
+.itau-dot{background:#3A82C4;}
+.tab-label{display:flex;flex-direction:column;gap:1px;}
+.tab-label strong{font-size:13px;font-weight:500;color:var(--white);}
+.work-tab.active .tab-label strong{color:var(--gold);}
+.tab-label small{font-size:10px;color:var(--muted);font-weight:400;}
+.tab-panel{display:none;}
+.tab-panel.active{display:block;}
+.tab-panel.hidden{display:none;}
+.tab-intro{display:flex;align-items:center;gap:14px;
+  padding:16px 20px;background:rgba(196,160,90,.04);
+  border:1px solid var(--border);border-bottom:none;
+  font-size:14.5px;color:var(--muted);}
+.tab-intro-icon{font-size:18px;flex-shrink:0;}
+
+/* Cases grid */
+.cases-grid{display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1px;background:var(--border);border:1px solid var(--border);margin-top:0;}
+.cc{background:var(--navy);transition:background .18s;}
+.cc:hover{background:var(--navy2);}
+.case-vis-bg{width:100%;aspect-ratio:16/9;display:flex;align-items:center;
+  justify-content:center;position:relative;overflow:hidden;}
+.case-num{position:absolute;top:10px;right:14px;font-family:var(--serif);
+  font-size:2.4rem;font-weight:300;color:rgba(255,255,255,.05);line-height:1;pointer-events:none;}
+.cc-body{padding:18px 20px;}
+.cc-tag{font-family:var(--mono);font-size:8.5px;letter-spacing:.1em;color:var(--gold);
+  text-transform:uppercase;display:block;margin-bottom:8px;}
+.cc-title{font-family:var(--serif);font-size:20px;font-weight:400;
+  color:var(--white);line-height:1.25;margin-bottom:8px;}
+.cc-title em{font-style:italic;color:var(--gold2);}
+.cc-desc{font-size:13.5px;color:var(--muted);line-height:1.6;margin-bottom:8px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;}
+.eu-note{display:block;font-family:var(--mono);font-size:8.5px;
+  color:var(--muted2);margin-bottom:12px;}
+.cc-metrics{display:flex;gap:16px;margin-bottom:14px;
+  padding-top:12px;border-top:1px solid var(--border2);}
+.oc{display:flex;flex-direction:column;gap:2px;}
+.oc-n{font-family:var(--serif);font-size:20px;font-weight:300;color:var(--gold);line-height:1;}
+.oc-l{font-size:9.5px;color:var(--muted);}
+.case-cta{display:inline-flex;align-items:center;gap:4px;
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.06em;
+  color:var(--gold);border:1px solid var(--border);padding:4px 12px;border-radius:2px;transition:all .2s;}
+.case-cta:hover{background:var(--gold);color:var(--navy);border-color:var(--gold);}
+
+/* ══ ABOUT ══════════════════════════════════════════ */
+#about{background:var(--navy2);border-top:1px solid var(--border);}
+
+/* Spec strips — scannable facts */
+.spec-strip{display:grid;grid-template-columns:repeat(4,1fr);
+  gap:1px;background:var(--border);border:1px solid var(--border);margin-bottom:48px;}
+.spec-item{background:var(--navy);padding:18px 20px;display:flex;gap:14px;align-items:flex-start;}
+.spec-icon{font-size:20px;flex-shrink:0;margin-top:2px;}
+.spec-label{font-family:var(--mono);font-size:8.5px;letter-spacing:.1em;
+  color:var(--gold);text-transform:uppercase;margin-bottom:4px;}
+.spec-val{font-size:14px;color:var(--cream);line-height:1.4;}
+.spec-sub{font-size:11px;color:var(--muted);margin-top:2px;}
+
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start;}
+.about-body{font-size:15.5px;color:rgba(250,247,242,.78);line-height:1.82;}
+.about-body p+p{margin-top:16px;}
+.about-body strong{color:var(--cream);}
+
+/* Recs */
+.recs-header{margin-bottom:20px;}
+.recs-h3{font-family:var(--serif);font-size:clamp(20px,2.5vw,28px);font-weight:300;
+  color:var(--white);line-height:1.2;margin-bottom:4px;}
+.recs-h3 em{font-style:italic;color:var(--gold2);}
+.recs-sub{font-size:12px;color:var(--muted);}
+.recs-grid{display:flex;flex-direction:column;gap:10px;}
+.rec-card{background:var(--navy);border:1px solid var(--border);
+  padding:16px 18px;border-radius:2px;transition:border-color .2s;}
+.rec-card:hover{border-color:rgba(196,160,90,.3);}
+.rec-quote{font-family:var(--serif);font-size:16.5px;font-style:italic;
+  color:var(--cream);line-height:1.5;margin-bottom:8px;}
+.rec-meta{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:4px;}
+.rec-name{font-size:12px;font-weight:500;color:var(--cream);}
+.rec-role{font-size:11px;color:var(--muted);}
+.rec-link{font-family:var(--mono);font-size:9px;color:var(--gold);
+  opacity:.7;transition:opacity .2s;}
+.rec-link:hover{opacity:1;}
+
+/* ══ BACKGROUND (EXP + SKILLS) ══════════════════════ */
+#background{background:var(--navy);border-top:1px solid var(--border);}
+.bg-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start;}
+
+/* Exp timeline */
+.exp-list{display:flex;flex-direction:column;gap:0;}
+.exp-item{padding:20px 0;border-bottom:1px solid var(--border2);
+  display:grid;grid-template-columns:120px 1fr;gap:20px;}
+.exp-item:last-child{border-bottom:none;}
+.exp-meta{display:flex;flex-direction:column;gap:3px;}
+.exp-years{font-family:var(--mono);font-size:9.5px;letter-spacing:.06em;color:var(--gold);}
+.exp-company{font-size:12.5px;font-weight:500;color:var(--cream);}
+.exp-loc{font-size:10.5px;color:var(--muted);}
+.exp-role{font-size:14px;color:var(--white);margin-bottom:8px;font-weight:400;}
+.exp-bullets{list-style:none;display:flex;flex-direction:column;gap:5px;}
+.exp-bullets li{font-size:13.5px;color:var(--muted);line-height:1.65;
+  padding-left:12px;position:relative;}
+.exp-bullets li::before{content:'–';position:absolute;left:0;color:var(--gold);}
+.exp-bullets li strong{color:var(--cream);}
+
+/* Skills chips */
+.skills-cols{display:flex;flex-direction:column;gap:18px;margin-bottom:36px;}
+.skill-group{}
+.skill-cat{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
+.skill-cat-icon{font-size:13px;}
+.skill-cat-label{font-family:var(--mono);font-size:8.5px;letter-spacing:.12em;
+  color:var(--gold);text-transform:uppercase;}
+.skill-chips{display:flex;flex-wrap:wrap;gap:5px;}
+.skill-chip{font-size:13px;color:var(--cream);
+  padding:3px 10px;border:1px solid var(--border);border-radius:20px;
+  transition:border-color .2s;}
+.skill-chip:hover{border-color:rgba(196,160,90,.4);}
+
+/* Education compact */
+.edu-list{display:flex;flex-direction:column;gap:0;}
+.edu-item{display:flex;gap:14px;padding:10px 0;
+  border-bottom:1px solid var(--border2);}
+.edu-item:last-child{border-bottom:none;}
+.edu-year{font-family:var(--mono);font-size:10px;color:var(--gold);
+  flex-shrink:0;min-width:36px;padding-top:1px;}
+.edu-degree{font-size:14px;font-weight:500;color:var(--cream);margin-bottom:1px;}
+.edu-school{font-size:12.5px;color:var(--muted);}
+
+/* ══ PRODUCTS ══════════════════════════════════════ */
+#products{background:var(--navy2);border-top:1px solid var(--border);}
+.prods-grid{display:grid;grid-template-columns:repeat(4,1fr);
+  gap:1px;background:var(--border);border:1px solid var(--border);}
+.prod-card{background:var(--navy);display:flex;flex-direction:column;transition:background .2s;}
+.prod-card:hover{background:var(--navy2);}
+.prod-banner{height:80px;display:flex;align-items:center;justify-content:center;font-size:32px;border-bottom:1px solid var(--border);background:rgba(196,160,90,.04);}
+.prod-body{padding:12px 20px 20px;flex:1;display:flex;flex-direction:column;}
+.prod-type{font-family:var(--mono);font-size:8.5px;letter-spacing:.1em;color:var(--gold);
+  text-transform:uppercase;margin-bottom:6px;}
+.prod-title{font-size:15.5px;font-weight:500;color:var(--white);margin-bottom:6px;line-height:1.3;}
+.prod-desc{font-size:13.5px;color:var(--muted);line-height:1.65;flex:1;margin-bottom:14px;}
+.prod-foot{display:flex;justify-content:space-between;align-items:center;margin-top:auto;}
+.prod-price{font-family:var(--serif);font-size:20px;color:var(--gold);font-weight:300;}
+.prod-price small{font-size:10px;color:var(--muted);font-family:var(--sans);font-weight:400;}
+.prod-cta{font-family:var(--mono);font-size:9px;letter-spacing:.06em;
+  color:var(--gold);border:1px solid var(--border);padding:4px 10px;border-radius:2px;transition:all .2s;}
+.prod-cta:hover{background:var(--gold);color:var(--navy);border-color:var(--gold);}
+.prod-soon{font-family:var(--mono);font-size:9px;color:var(--muted);
+  border:1px dashed var(--border);padding:4px 10px;border-radius:2px;}
+
+/* ══ WRITING ═══════════════════════════════════════ */
+#writing{background:var(--navy);border-top:1px solid var(--border);}
+.writing-grid{display:grid;grid-template-columns:1fr 1fr;
+  gap:1px;background:var(--border);border:1px solid var(--border);}
+.writing-card{background:var(--navy);padding:24px 26px;
+  display:flex;flex-direction:column;gap:8px;transition:background .2s;}
+.writing-card:hover{background:var(--navy2);}
+.writing-icon{font-size:22px;}
+.writing-meta{display:flex;justify-content:space-between;align-items:center;}
+.writing-type{font-family:var(--mono);font-size:8.5px;letter-spacing:.1em;
+  color:var(--gold);text-transform:uppercase;}
+.writing-year{font-family:var(--mono);font-size:10px;color:var(--muted);}
+.writing-title{font-size:17px;font-weight:500;color:var(--white);line-height:1.35;}
+.writing-desc{font-size:14px;color:var(--muted);line-height:1.65;flex:1;}
+.writing-cta{font-family:var(--mono);font-size:9px;color:var(--gold);
+  margin-top:auto;display:flex;align-items:center;gap:4px;}
+
+/* ══ CONTACT ═══════════════════════════════════════ */
+#contact{background:var(--navy2);border-top:1px solid var(--border);}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start;}
+.contact-sig{width:160px;opacity:.75;margin-bottom:20px;}
+.contact-h2{font-family:var(--serif);font-size:clamp(24px,3vw,36px);
+  font-weight:300;color:var(--white);line-height:1.2;margin-bottom:10px;}
+.contact-h2 em{font-style:italic;color:var(--gold2);}
+.contact-sub{font-size:15.5px;color:var(--muted);max-width:440px;line-height:1.75;margin-bottom:8px;}
+.contact-detail{font-size:14px;color:var(--muted2);max-width:440px;
+  line-height:1.65;margin-bottom:28px;}
+.contact-detail strong{color:var(--cream);}
+.contact-links{display:flex;flex-direction:column;gap:10px;}
+.contact-link-btn{display:flex;align-items:center;gap:14px;
+  padding:12px 16px;border:1px solid var(--border);border-radius:2px;transition:all .2s;}
+.contact-link-btn:hover{border-color:rgba(196,160,90,.35);background:rgba(196,160,90,.03);}
+.clb-icon{font-size:18px;width:26px;text-align:center;flex-shrink:0;}
+.clb-label{font-size:13px;color:var(--cream);}
+.clb-type{font-family:var(--mono);font-size:8.5px;color:var(--muted);
+  letter-spacing:.06em;display:block;text-transform:uppercase;}
+.clb-val{font-size:13.5px;color:var(--cream);}
+
+/* Interests — compact */
+.interests-h3{font-size:18px;font-weight:500;color:var(--white);margin-bottom:16px;}
+.interests-list{display:flex;flex-direction:column;gap:14px;}
+.interest-item{display:flex;gap:12px;align-items:flex-start;}
+.interest-icon{font-size:18px;flex-shrink:0;margin-top:1px;}
+.interest-body{}
+.interest-title{font-size:14.5px;font-weight:500;color:var(--cream);margin-bottom:3px;}
+.interest-desc{font-size:13.5px;color:var(--muted);line-height:1.6;}
+
+/* ══ FOOTER ════════════════════════════════════════ */
+.site-footer{padding:20px 48px;border-top:1px solid var(--border2);
+  display:flex;justify-content:space-between;align-items:center;}
+.footer-brand{display:flex;align-items:center;gap:8px;}
+.footer-brand img{width:18px;height:18px;border-radius:50%;object-fit:cover;}
+.footer-brand span{font-family:var(--mono);font-size:11px;letter-spacing:.04em;color:var(--muted);}
+.footer-right{font-family:var(--mono);font-size:11px;color:var(--muted2);}
+/* ── VISIT COUNTER ─────────────────────── */
+.footer-counter{
+  display:flex;align-items:center;gap:10px;
+  font-family:var(--mono);font-size:11px;color:var(--muted2);
+}
+.counter-dot{
+  width:6px;height:6px;border-radius:50%;
+  background:var(--green2);animation:pulse 2.5s infinite;flex-shrink:0;
+}
+.counter-num{
+  font-size:13px;font-weight:500;color:var(--cream);
+  font-family:var(--mono);letter-spacing:.04em;
+}
+
+/* ══ ANIMATIONS ════════════════════════════════════ */
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+.reveal-up{animation:fadeUp .5s ease both;}
+.reveal{opacity:0;transform:translateY(14px);transition:opacity .5s ease,transform .5s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+
+/* ══ RESPONSIVE ════════════════════════════════════ */
+@media(max-width:960px){
+  .cases-grid{grid-template-columns:repeat(2,1fr);}
+  .prods-grid{grid-template-columns:repeat(2,1fr);}
+  section{padding:56px 24px;}
+  #work{padding:56px 24px;}
+  .site-nav{padding:0 20px;}
+  .nav-links{display:none;}
+  .hero-section{padding:56px 24px 0;}
+  .hero-inner{grid-template-columns:1fr;}
+  .hero-visual{display:none;}
+  .spec-strip{grid-template-columns:1fr 1fr;}
+  .about-grid,.contact-grid,.bg-grid{grid-template-columns:1fr;gap:40px;}
+  .cases-grid{grid-template-columns:1fr;}
+  .writing-grid{grid-template-columns:1fr;}
+  .prods-grid{grid-template-columns:1fr 1fr;}
+  .exp-item{grid-template-columns:1fr;gap:6px;}
+  .site-footer{flex-direction:column;gap:6px;text-align:center;padding:16px 24px;}
+  .work-tabs{flex-direction:column;}
+}
+@media(max-width:480px){
+  .spec-strip{grid-template-columns:1fr;}
+  .prods-grid{grid-template-columns:1fr;}
+  .hero-ctas{flex-direction:column;gap:8px;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="site-nav" id="nav">
+  <a href="#" class="nav-brand">
+    <img id="nav-logo" src="/assets/logo.webp" alt="">
+    <span class="nav-brand-name">Pablo Montenegro</span>
+  </a>
+  <div class="nav-links">
+    <a href="#work"       class="nav-link" data-en="Work"       data-es="Trabajo">Work</a>
+    <a href="#about"      class="nav-link" data-en="About"      data-es="Sobre mí">About</a>
+    <a href="#background" class="nav-link" data-en="Experience" data-es="Experiencia">Experience</a>
+    <a href="#products"   class="nav-link" data-en="Resources"  data-es="Recursos">Resources</a>
+    <a href="#contact"    class="nav-link" data-en="Contact"    data-es="Contacto">Contact</a>
+  </div>
+  <div class="nav-right">
+    <div class="nav-lang">
+      <button class="lang-btn active" onclick="setLang('en',this)" id="btn-en">EN</button>
+      <button class="lang-btn" onclick="setLang('es',this)" id="btn-es">ES</button>
+    </div>
+    <a href="/assets/CV_Pablo_Montenegro.pdf" class="nav-cv" target="_blank">↓ CV</a>
+    <a href="mailto:pc.montenegro@gmail.com" class="nav-cta"
+       data-en="Hire me" data-es="Contrátame">Hire me</a>
+  </div>
+</nav>
+
+<main id="main"></main>
+
+<footer class="site-footer">
+  <div class="footer-brand">
+    <img src="/assets/logo.webp" alt="">
+    <span>Pablo Montenegro · Senior PM · Payments &amp; Collections · Dublin</span>
+  </div>
+  <div style="display:flex;align-items:center;gap:24px;">
+    <div class="footer-counter">
+      <span class="counter-dot"></span>
+      <span id="visit-label" style="font-size:11px;color:var(--muted2);">Visits</span>
+      <span class="counter-num" id="visit-count">—</span>
+    </div>
+    <div class="footer-right">© 2026</div>
+  </div>
+</footer>
+
+<script src="data.js"></script>
+<script src="sections/hero.js"></script>
+<script src="sections/work.js"></script>
+<script src="sections/other.js"></script>
+
+<script>
+let LANG = localStorage.getItem('pm_lang') || 'en';
+
+function setLang(lang, btn) {
+  LANG = lang;
+  localStorage.setItem('pm_lang', lang);
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  buildSite(lang);
+  document.documentElement.lang = lang;
+}
+
+function buildSite(lang) {
+  const S = window.SECTIONS;
+  document.getElementById('main').innerHTML =
+    S.hero(lang) + S.work(lang) + S.about(lang) +
+    S.background(lang) + S.products(lang) + S.writing(lang) + S.contact(lang);
+  initReveal();
+}
+
+function switchTab(id, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => {
+    p.classList.remove('active'); p.classList.add('hidden');
+  });
+  const panel = document.getElementById('tab-' + id);
+  if (panel) { panel.classList.remove('hidden'); panel.classList.add('active'); }
+  document.querySelectorAll('.work-tab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+function initReveal() {
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+    });
+  }, { threshold: 0.07 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('btn-' + LANG).classList.add('active');
+  document.getElementById('btn-' + (LANG==='en'?'es':'en')).classList.remove('active');
+  document.documentElement.lang = LANG;
+  buildSite(LANG);
+});
+
+// ─── VISIT COUNTER ─────────────────────────────────
 (function() {
+  // Usar countapi.xyz para contar visitas reales
+  const KEY = 'pablomontenegro-portfolio-visits';
+  const el = document.getElementById('visit-count');
+  const lbl = document.getElementById('visit-label');
+  if (!el) return;
 
-// ── ABOUT ──────────────────────────────────────────────
-function renderAbout(lang) {
-  const d = window.SITE;
+  // Primero mostrar el count guardado localmente mientras carga
+  const local = localStorage.getItem(KEY);
+  if (local) el.textContent = parseInt(local).toLocaleString();
 
-  const specs = [
-    { icon:'📍', label_en:'Location', label_es:'Ubicación', val:'Dublin, Ireland', sub_en:'Open to relocation', sub_es:'Abierto a reubicación' },
-    { icon:'🎯', label_en:'Open to', label_es:'Abierto a', val:'Ireland · Spain · Europe', sub_en:'Remote LatAm welcome', sub_es:'Remoto LatAm bienvenido' },
-    { icon:'⏱️', label_en:'Availability', label_es:'Disponibilidad', val_en:'Immediately', val_es:'Inmediata', sub_en:'Critical Skills Permit eligible', sub_es:'Elegible Critical Skills Permit' },
-    { icon:'🗣️', label_en:'Languages', label_es:'Idiomas', val:'Spanish · English C1', sub_en:'Native · CEFR Advanced', sub_es:'Nativo · MCER Avanzado' },
-  ].map(s=>`
-    <div class="spec-item">
-      <span class="spec-icon">${s.icon}</span>
-      <div>
-        <div class="spec-label" data-en="${s.label_en}" data-es="${s.label_es}">${lang==='es'?s.label_es:s.label_en}</div>
-        <div class="spec-val">${s.val||(lang==='es'?s.val_es:s.val_en)}</div>
-        <div class="spec-sub" data-en="${s.sub_en}" data-es="${s.sub_es}">${lang==='es'?s.sub_es:s.sub_en}</div>
-      </div>
-    </div>`).join('');
-
-  const recs = d.recommendations.map((r,i)=>`
-    <div class="rec-card reveal" style="transition-delay:${i*0.06}s">
-      <div class="rec-quote" data-en="&ldquo;${r.quote_en}&rdquo;" data-es="&ldquo;${r.quote_es}&rdquo;">&ldquo;${lang==='es'?r.quote_es:r.quote_en}&rdquo;</div>
-      <div class="rec-meta">
-        <div>
-          <span class="rec-name">${r.name}</span>
-          <span class="rec-role" data-en=" · ${r.role_en}" data-es=" · ${r.role_es}"> · ${lang==='es'?r.role_es:r.role_en}</span>
-        </div>
-        <a href="${r.url}" class="rec-link" target="_blank" rel="noopener" data-en="LinkedIn →" data-es="LinkedIn →">LinkedIn →</a>
-      </div>
-    </div>`).join('');
-
-  return `
-  <section id="about">
-    <div class="si">
-      <span class="sec-tag" data-en="About" data-es="Sobre mí">${lang==='es'?'Sobre mí':'About'}</span>
-      <h2 class="sec-h2" data-en="Payments. Collections. <em>10 years.</em>" data-es="Pagos. Cobranza. <em>10 años.</em>">${lang==='es'?'Pagos. Cobranza. <em>10 años.</em>':'Payments. Collections. <em>10 years.</em>'}</h2>
-      <div class="spec-strip reveal">${specs}</div>
-      <div class="about-grid">
-        <div class="about-body">
-          <p ${lang==='es'?'style="display:none"':''}><strong>I build payment systems that work</strong> — and fix the ones that don't. 10+ years in banking and financial services, 7 of them at Itaú Chile owning the roadmap for payments and collections at the country's largest private bank.</p>
-          <p ${lang==='es'?'style="display:none"':''}>Shipped PAC 2.0, ePAC, QR Interoperability and a multi-bank payment layer from scratch. I know how SEPA equivalents behave, why direct debit fails, and how to build retry logic that doesn't frustrate customers or operations. <strong>I understand the full stack</strong> — rails, failure modes, mandate lifecycle, notification infrastructure.</p>
-          <p ${lang==='es'?'style="display:none"':''}>Now based in Dublin. Targeting Senior PM roles in payments, banking or collections — Ireland, Spain, or broader Europe. Available immediately. Critical Skills Permit eligible.</p>
-          <p ${lang==='en'?'style="display:none"':''}><strong>Construyo sistemas de pago que funcionan</strong> — y arreglo los que no. 10+ años en banca y servicios financieros, 7 de ellos en Itaú Chile como responsable del roadmap de pagos y cobranza en el banco privado más grande del país.</p>
-          <p ${lang==='en'?'style="display:none"':''}>Entregué PAC 2.0, ePAC, Interoperabilidad QR y una capa de pago multibanco desde cero. Sé cómo se comportan los equivalentes de SEPA, por qué falla el débito directo y cómo construir lógica de reintento que no frustre a clientes ni a operaciones. <strong>Entiendo el stack completo</strong> — rieles, modos de falla, ciclo de vida del mandato, infraestructura de notificaciones.</p>
-          <p ${lang==='en'?'style="display:none"':''}>Basado en Dublín. Buscando roles Senior PM en pagos, banca o cobranza — Irlanda, España o Europa en general. Disponible de inmediato. Elegible para Critical Skills Permit.</p>
-        </div>
-        <div>
-          <div class="recs-header">
-            <h3 class="recs-h3" data-en="What colleagues <em>say.</em>" data-es="Lo que dicen <em>los colegas.</em>">${lang==='es'?'Lo que dicen <em>los colegas.</em>':'What colleagues <em>say.</em>'}</h3>
-            <p class="recs-sub" data-en="4 LinkedIn recommendations from direct managers and partners" data-es="4 recomendaciones de LinkedIn de managers directos y partners">${lang==='es'?'4 recomendaciones de LinkedIn de managers directos y partners':'4 LinkedIn recommendations from direct managers and partners'}</p>
-          </div>
-          <div class="recs-grid">${recs}</div>
-        </div>
-      </div>
-    </div>
-  </section>`;
-}
-
-// ── BACKGROUND ─────────────────────────────────────────
-function renderBackground(lang) {
-  const d = window.SITE;
-
-  const skillIcons = {
-    'Payments & Banking':'💳', 'Payment Management':'💳',
-    'Product Management':'🗂️', 'Technical':'⚙️',
-    'Research & Design':'🔍', 'Delivery':'🚀', 'Tools':'🛠️',
-  };
-
-  const exp = d.experience.map(e=>{
-    const role = lang==='es' ? e.role_es : e.role_en;
-    const bullets = lang==='es' ? e.bullets_es : e.bullets_en;
-    return `
-    <div class="exp-item reveal">
-      <div class="exp-meta">
-        <span class="exp-years">${e.years}</span>
-        <span class="exp-company">${e.company}</span>
-        <span class="exp-loc">${e.location}</span>
-      </div>
-      <div>
-        <div class="exp-role" data-en="${e.role_en}" data-es="${e.role_es}">${role}</div>
-        <ul class="exp-bullets">
-          ${bullets.map(b=>`<li>${b}</li>`).join('')}
-        </ul>
-      </div>
-    </div>`;
-  }).join('');
-
-  const skills = d.skills.map(s=>{
-    const cat = lang==='es' ? s.cat_es : s.cat_en;
-    const icon = skillIcons[s.cat_en] || '◆';
-    return `
-    <div class="skill-group">
-      <div class="skill-cat">
-        <span class="skill-cat-icon">${icon}</span>
-        <span class="skill-cat-label" data-en="${s.cat_en}" data-es="${s.cat_es}">${cat}</span>
-      </div>
-      <div class="skill-chips">
-        ${s.items.map(i=>`<span class="skill-chip">${i}</span>`).join('')}
-      </div>
-    </div>`;
-  }).join('');
-
-  const edu = d.education.map(e=>{
-    const deg = lang==='es' ? e.degree_es : e.degree_en;
-    return `
-    <div class="edu-item">
-      <span class="edu-year">${e.year}</span>
-      <div>
-        <div class="edu-degree" data-en="${e.degree_en}" data-es="${e.degree_es}">${deg}</div>
-        <div class="edu-school">${e.school}</div>
-      </div>
-    </div>`;
-  }).join('');
-
-  return `
-  <section id="background">
-    <div class="si">
-      <div class="bg-grid">
-        <div>
-          <span class="sec-tag" data-en="Experience" data-es="Experiencia">${lang==='es'?'Experiencia':'Experience'}</span>
-          <h2 class="sec-h2" data-en="Where the work <em>happened.</em>" data-es="Donde ocurrió <em>el trabajo.</em>">${lang==='es'?'Donde ocurrió <em>el trabajo.</em>':'Where the work <em>happened.</em>'}</h2>
-          <div class="exp-list">${exp}</div>
-        </div>
-        <div>
-          <span class="sec-tag" data-en="Skills" data-es="Habilidades">${lang==='es'?'Habilidades':'Skills'}</span>
-          <h2 class="sec-h2" data-en="What I <em>bring.</em>" data-es="Lo que <em>aporto.</em>">${lang==='es'?'Lo que <em>aporto.</em>':'What I <em>bring.</em>'}</h2>
-          <div class="skills-cols">${skills}</div>
-          <span class="sec-tag" data-en="Education" data-es="Educación">${lang==='es'?'Educación':'Education'}</span>
-          <div class="edu-list">${edu}</div>
-        </div>
-      </div>
-    </div>
-  </section>`;
-}
-
-// ── PRODUCTS ────────────────────────────────────────────
-function renderProducts(lang) {
-  const d = window.SITE;
-  const PROD_ICONS = ['📋','📘','⚖️','💰'];
-
-  const cards = d.products.map((p,i)=>{
-    const type  = lang==='es' ? p.type_es  : p.type_en;
-    const title = lang==='es' ? p.title_es : p.title_en;
-    const desc  = lang==='es' ? p.desc_es  : p.desc_en;
-    const foot  = p.coming_soon
-      ? `<span class="prod-soon" data-en="Coming soon" data-es="Próximamente">${lang==='es'?'Próximamente':'Coming soon'}</span>`
-      : `<a href="${p.url}" class="prod-cta" target="_blank" rel="noopener" data-en="Get it →" data-es="Obtener →">${lang==='es'?'Obtener →':'Get it →'}</a>`;
-    return `
-    <div class="prod-card reveal">
-      <div class="prod-banner">${PROD_ICONS[i]}</div>
-      <div class="prod-body">
-        <span class="prod-type" data-en="${p.type_en}" data-es="${p.type_es}">${type}</span>
-        <div class="prod-title" data-en="${p.title_en}" data-es="${p.title_es}">${title}</div>
-        <p class="prod-desc" data-en="${p.desc_en}" data-es="${p.desc_es}">${desc}</p>
-        <div class="prod-foot">
-          <span class="prod-price">${p.price} <small data-en="one-time" data-es="pago único">${lang==='es'?'pago único':'one-time'}</small></span>
-          ${foot}
-        </div>
-      </div>
-    </div>`;
-  }).join('');
-
-  return `
-  <section id="products">
-    <div class="si">
-      <span class="sec-tag" data-en="Resources" data-es="Recursos">${lang==='es'?'Recursos':'Resources'}</span>
-      <h2 class="sec-h2" data-en="Tools built from <em>real PM work.</em>" data-es="Herramientas de <em>trabajo PM real.</em>">${lang==='es'?'Herramientas de <em>trabajo PM real.</em>':'Tools built from <em>real PM work.</em>'}</h2>
-      <p class="sec-sub reveal" data-en="Guides, templates and models for fintech product teams — written from 10 years of hands-on delivery." data-es="Guías, plantillas y modelos para equipos de producto fintech — escritos desde 10 años de entrega real.">${lang==='es'?'Guías, plantillas y modelos para equipos de producto fintech — escritos desde 10 años de entrega real.':'Guides, templates and models for fintech product teams — written from 10 years of hands-on delivery.'}</p>
-      <div class="prods-grid" style="margin-top:32px;">${cards}</div>
-    </div>
-  </section>`;
-}
-
-// ── WRITING ─────────────────────────────────────────────
-function renderWriting(lang) {
-  const d = window.SITE;
-  const cards = d.writing.map(w=>{
-    const type  = lang==='es' ? w.type_es  : w.type_en;
-    const title = lang==='es' ? w.title_es : w.title_en;
-    const desc  = lang==='es' ? w.desc_es  : w.desc_en;
-    return `
-    <a href="${w.url}" class="writing-card reveal" target="_blank" rel="noopener">
-      <div class="writing-icon">📝</div>
-      <div class="writing-meta">
-        <span class="writing-type" data-en="${w.type_en}" data-es="${w.type_es}">${type}</span>
-        <span class="writing-year">${w.year}</span>
-      </div>
-      <div class="writing-title" data-en="${w.title_en}" data-es="${w.title_es}">${title}</div>
-      <p class="writing-desc" data-en="${w.desc_en}" data-es="${w.desc_es}">${desc}</p>
-      <span class="writing-cta" data-en="Read on LinkedIn →" data-es="Leer en LinkedIn →">${lang==='es'?'Leer en LinkedIn →':'Read on LinkedIn →'}</span>
-    </a>`;
-  }).join('');
-
-  return `
-  <section id="writing">
-    <div class="si">
-      <span class="sec-tag" data-en="Writing" data-es="Publicaciones">${lang==='es'?'Publicaciones':'Writing'}</span>
-      <h2 class="sec-h2" data-en="Payment industry <em>perspectives.</em>" data-es="Perspectivas de la <em>industria de pagos.</em>">${lang==='es'?'Perspectivas de la <em>industria de pagos.</em>':'Payment industry <em>perspectives.</em>'}</h2>
-      <div class="writing-grid" style="margin-top:32px;">${cards}</div>
-    </div>
-  </section>`;
-}
-
-// ── CONTACT ─────────────────────────────────────────────
-function renderContact(lang) {
-  const d = window.SITE;
-
-  const interests = d.interests.map(it=>`
-    <div class="interest-item">
-      <span class="interest-icon">${it.title_en==='Films'?'🎬':it.title_en==='Cycling'?'🚲':'📚'}</span>
-      <div class="interest-body">
-        <div class="interest-title" data-en="${it.title_en}" data-es="${it.title_es}">${lang==='es'?it.title_es:it.title_en}</div>
-        <div class="interest-desc" data-en="${it.desc_en}" data-es="${it.desc_es}">${lang==='es'?it.desc_es:it.desc_en}</div>
-      </div>
-    </div>`).join('');
-
-  return `
-  <section id="contact">
-    <div class="si contact-grid">
-      <div>
-        <img src="${d.sig}" alt="" class="contact-sig reveal" aria-hidden="true">
-        <h2 class="contact-h2 reveal" data-en="Open to the right <em>opportunity.</em>" data-es="Abierto a la <em>oportunidad correcta.</em>">${lang==='es'?'Abierto a la <em>oportunidad correcta.</em>':'Open to the right <em>opportunity.</em>'}</h2>
-        <p class="contact-sub reveal"
-           data-en="Senior PM roles in payments, collections or digital banking. Ireland and Spain preferred. Remote LatAm welcome."
-           data-es="Roles Senior PM en pagos, cobranza o banca digital. Irlanda y España preferidos. Remoto LatAm bienvenido."
-        >${lang==='es'?'Roles Senior PM en pagos, cobranza o banca digital. Irlanda y España preferidos. Remoto LatAm bienvenido.':'Senior PM roles in payments, collections or digital banking. Ireland and Spain preferred. Remote LatAm welcome.'}</p>
-        <p class="contact-detail reveal"
-           data-en="Based in <strong>Dublin</strong> · Critical Skills Permit eligible · Alumni Universidad de Cantabria · Available immediately."
-           data-es="Basado en <strong>Dublín</strong> · Elegible Critical Skills Permit · Alumni Universidad de Cantabria · Disponible de inmediato."
-        >${lang==='es'?'Basado en <strong>Dublín</strong> · Elegible Critical Skills Permit · Alumni Universidad de Cantabria · Disponible de inmediato.':'Based in <strong>Dublin</strong> · Critical Skills Permit eligible · Alumni Universidad de Cantabria · Available immediately.'}</p>
-        <div class="contact-links reveal">
-          <a href="${d.cv_url}" class="contact-link-btn" target="_blank">
-            <span class="clb-icon">📄</span>
-            <div><span class="clb-type" data-en="Download" data-es="Descargar">${lang==='es'?'Descargar':'Download'}</span>
-            <span class="clb-label" data-en="CV (PDF)" data-es="CV (PDF)">CV (PDF)</span></div>
-          </a>
-          <a href="mailto:${d.email}" class="contact-link-btn">
-            <span class="clb-icon">✉️</span>
-            <div><span class="clb-type">Email</span><span class="clb-val">${d.email}</span></div>
-          </a>
-          <a href="${d.linkedin}" class="contact-link-btn" target="_blank" rel="noopener">
-            <span class="clb-icon">💼</span>
-            <div><span class="clb-type">LinkedIn</span><span class="clb-val">montenegrofp</span></div>
-          </a>
-        </div>
-      </div>
-      <div>
-        <h3 class="interests-h3" data-en="Beyond work" data-es="Más allá del trabajo">${lang==='es'?'Más allá del trabajo':'Beyond work'}</h3>
-        <div class="interests-list">${interests}</div>
-      </div>
-    </div>
-  </section>`;
-}
-
-window.SECTIONS = window.SECTIONS || {};
-window.SECTIONS.about      = renderAbout;
-window.SECTIONS.background = renderBackground;
-window.SECTIONS.products   = renderProducts;
-window.SECTIONS.writing    = renderWriting;
-window.SECTIONS.contact    = renderContact;
+  // Llamar a countapi para incrementar y obtener el count real
+  fetch('https://api.countapi.xyz/hit/pablomontenegro.ie/visits')
+    .then(r => r.json())
+    .then(data => {
+      if (data && data.value) {
+        const count = data.value;
+        el.textContent = count.toLocaleString();
+        localStorage.setItem(KEY, count);
+        if (lbl) lbl.textContent = count === 1 ? 'Visit' : 'Visits';
+      }
+    })
+    .catch(() => {
+      // Fallback: count local solo (no depende de API externa)
+      let count = parseInt(localStorage.getItem(KEY + '-local') || '0') + 1;
+      localStorage.setItem(KEY + '-local', count);
+      el.textContent = count.toLocaleString();
+    });
 })();
+</script>
+</body>
+</html>
