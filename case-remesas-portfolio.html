@@ -59,7 +59,7 @@ nav{padding:20px 48px;display:flex;align-items:center;justify-content:space-betw
 .sec-body strong{color:var(--cream);font-weight:500;}
 
 /* CONTEXT BAND */
-.ctx-band{background:var(--navy2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:56px 48px;}
+.ctx-band{background:linear-gradient(180deg,#0f1c2e 0%,#111e30 100%);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:56px 48px;}
 .ctx-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:64px;}
 
 /* RISK CALLOUT */
@@ -200,10 +200,10 @@ footer{border-top:1px solid var(--border);padding:28px 48px;display:flex;justify
     <div class="fu">
       <div class="hero-tag" data-en="Payment Operations · Cross-Border · Consulting · 2026" data-es="Operaciones de Pago · Internacional · Consultoría · 2026">Payment Operations · Cross-Border · Consulting · 2026</div>
       <h1 class="hero-h1" data-en="Rebuilding trust in<br><em>community remittances.</em>" data-es="Reconstruyendo la confianza en las<br><em>transferencias internacionales.</em>">Rebuilding trust in<br><em>community remittances.</em></h1>
-      <p class="hero-sub" data-en="How a small cross-border transfer service operating on the Europe–Bolivia corridor went from manual chaos and fraud exposure to a structured payment operations system — without replacing a single tool they already used." data-es="Cómo un servicio de transferencias Europa–Bolivia pasó del caos manual y la exposición al fraude a un sistema estructurado de operaciones de pago — sin reemplazar ninguna herramienta existente.">How a small cross-border transfer service operating on the Europe–Bolivia corridor went from manual chaos and fraud exposure to a structured payment operations system — without replacing a single tool they already used.</p>
+      <p class="hero-sub" data-en="How a small cross-border transfer service operating on the Europe–Bolivia corridor went from fragmented manual operations to a structured payment operations system — without replacing a single tool they already used." data-es="Cómo un servicio de transferencias Europa–Bolivia pasó de operaciones manuales fragmentadas a un sistema estructurado de operaciones de pago — sin reemplazar ninguna herramienta existente.">How a small cross-border transfer service operating on the Europe–Bolivia corridor went from fragmented manual operations to a structured payment operations system — without replacing a single tool they already used.</p>
       <div class="badges">
         <span class="badge" data-en="Cross-Border Payments" data-es="Pagos Internacionales">Cross-Border Payments</span>
-        <span class="badge" data-en="Fraud Prevention" data-es="Prevención de Fraude">Fraud Prevention</span>
+        <span class="badge" data-en="Payment Verification" data-es="Verificación de Pagos">Payment Verification</span>
         <span class="badge">Europe · Bolivia</span>
         <span class="badge" data-en="Operations Design" data-es="Diseño Operacional">Operations Design</span>
         <span class="badge" data-en="Customer Trust" data-es="Confianza del Cliente">Customer Trust</span>
@@ -235,7 +235,7 @@ footer{border-top:1px solid var(--border);padding:28px 48px;display:flex;justify
       <div class="ch-block">
         <div class="ch-title" data-en="The operational breaking points" data-es="Los puntos de quiebre operativos">The operational breaking points</div>
         <ul class="ch-list">
-          <li>Customers sending <strong>manipulated payment screenshots</strong> as proof — fraud impossible to detect without cross-referencing actual bank movements</li>
+          <li>Payment confirmation relied on customer-submitted screenshots — impossible to verify without cross-referencing actual bank statements</li>
           <li data-en="No systematic way to match incoming transfers to requests — verification done by memory and chat history" data-es="Sin forma sistemática de hacer match entre transferencias y solicitudes — verificación de memoria e historial de chat">No systematic way to match incoming transfers to requests — verification done by memory and chat history</li>
           <li>Customers had <strong>zero visibility</strong> into transfer status after submitting — driving constant follow-up messages and eroding trust</li>
           <li data-en="Each transaction required multiple manual steps and back-and-forth, impossible to scale without proportionally scaling effort" data-es="Cada transacción requería múltiples pasos manuales y ida y vuelta, imposible escalar sin escalar el esfuerzo proporcionalmente">Each transaction required multiple manual steps and back-and-forth, impossible to scale without proportionally scaling effort</li>
@@ -249,13 +249,13 @@ footer{border-top:1px solid var(--border);padding:28px 48px;display:flex;justify
 <!-- ── RISK ── -->
 <section class="sec" style="padding-bottom:32px;">
   <div class="sec-label" data-en="The real exposure" data-es="La exposición real">The real exposure</div>
-  <h2 class="sec-h2" data-en="€81,000 annual flow.<br><em>No fraud controls.</em>" data-es="€81,000 en flujo anual.<br><em>Sin controles de fraude.</em>">€81,000 annual flow.<br><em>No fraud controls.</em></h2>
+  <h2 class="sec-h2" data-en="€81,000 annual flow.<br><em>Zero operational structure.</em>" data-es="€81,000 en flujo anual.<br><em>Sin estructura operativa.</em>">€81,000 annual flow.<br><em>Zero operational structure.</em></h2>
   <div class="sec-body" style="margin-bottom:40px;">
-    <p data-en="A single undetected fraudulent screenshot at average ticket size costs €150. In a trust-based community network, a single dispute costs far more than that in reputation. The screenshot verification step had no systematic backstop — there was no protocol beyond operator intuition." data-es="Una sola captura de pantalla fraudulenta no detectada al ticket promedio cuesta €150. En una red basada en confianza, una sola disputa cuesta mucho más en reputación. El paso de verificación por captura no tenía respaldo sistemático — no había protocolo más allá de la intuición del operador.">A single undetected fraudulent screenshot at average ticket size costs €150. In a trust-based community network, a single dispute costs far more than that in reputation. The screenshot verification step had no systematic backstop — there was no protocol beyond operator intuition.</p>
+    <p data-en="A single undetected verification gapulent screenshot at average ticket size costs €150. In a trust-based community network, a single dispute costs far more than that in reputation. The screenshot verification step had no systematic backstop — there was no protocol beyond operator intuition." data-es="Una sola captura de pantalla verification gapulenta no detectada al ticket promedio cuesta €150. En una red basada en confianza, una sola disputa cuesta mucho más en reputación. El paso de verificación por captura no tenía respaldo sistemático — no había protocolo más allá de la intuición del operador.">A single undetected verification gapulent screenshot at average ticket size costs €150. In a trust-based community network, a single dispute costs far more than that in reputation. The screenshot verification step had no systematic backstop — there was no protocol beyond operator intuition.</p>
   </div>
   <div class="risk-band">
     <div class="risk-grid">
-      <div><span class="risk-num">€150</span><div class="risk-label"><strong>Exposure per undetected fraud</strong>Average ticket at risk from a single manipulated screenshot</div></div>
+      <div><span class="risk-num">€150</span><div class="risk-label"><strong>Exposure per undetected verification gap</strong>Average ticket at risk from a single manipulated screenshot</div></div>
       <div><span class="risk-num">~45×</span><div class="risk-label"><strong>Monthly verification cycles</strong>Each requiring manual bank cross-reference — hours of operator time per week</div></div>
       <div><span class="risk-num">0</span><div class="risk-label"><strong>Customer tracking touchpoints</strong>Zero status updates after payment — the most common trigger for trust loss in remittance</div></div>
     </div>
@@ -275,9 +275,9 @@ footer{border-top:1px solid var(--border);padding:28px 48px;display:flex;justify
   <div class="sol-grid">
     <div class="sol-item">
       <span class="sol-num">01</span>
-      <h3 class="sol-h3" data-en="Reference codes as the fraud keystone" data-es="Códigos de referencia como piedra angular del fraude">Reference codes as the fraud keystone</h3>
+      <h3 class="sol-h3" data-en="Reference codes as the verification gap keystone" data-es="Códigos de referencia como piedra angular del verification gap">Reference codes as the verification gap keystone</h3>
       <div class="sol-body" data-en="Every transfer request receives a unique reference (TXN-001 through TXN-XXX). Customers include this code in their bank transfer description. This single change transforms verification: the bank statement becomes the source of truth, not the screenshot. A screenshot can be manipulated. A bank reference field cannot." data-es="Cada transferencia recibe una referencia única (TXN-001 en adelante). Los clientes incluyen este código en la descripción de la transferencia bancaria. Este único cambio transforma la verificación: el extracto bancario se convierte en la fuente de verdad, no la captura de pantalla.">Every transfer request receives a unique reference (TXN-001 through TXN-XXX). Customers include this code in their bank transfer description. This single change transforms verification: the bank statement becomes the source of truth, not the screenshot. A screenshot can be manipulated. A bank reference field cannot.</div>
-      <span class="sol-tag" data-en="Fraud Prevention · Traceability" data-es="Prevención de fraude · Trazabilidad">Fraud Prevention · Traceability</span>
+      <span class="sol-tag" data-en="Payment Verification · Traceability" data-es="Verificación de Pagos · Trazabilidad">Payment Verification · Traceability</span>
     </div>
     <div class="sol-item">
       <span class="sol-num">02</span>
@@ -294,7 +294,7 @@ footer{border-top:1px solid var(--border);padding:28px 48px;display:flex;justify
     <div class="sol-item">
       <span class="sol-num">04</span>
       <h3 class="sol-h3" data-en="Operations pipeline dashboard" data-es="Dashboard de pipeline operativo">Operations pipeline dashboard</h3>
-      <div class="sol-body" data-en="A visual pipeline showing every active transfer across five stages: Pending → Receipt → Verified → Bolivia → Done. Exceptions surface automatically. The operator's daily cognitive load drops from 'remembering everything' to 'acting on what the system flags.' Built with a fraud checklist embedded in each transaction card." data-es="Pipeline visual con cada transferencia activa en cinco etapas: Pendiente → Comprobante → Verificado → Bolivia → Listo. Las excepciones emergen automáticamente. La carga cognitiva diaria baja de 'recordar todo' a 'actuar en lo que el sistema señala.'">A visual pipeline showing every active transfer across five stages: Pending → Receipt → Verified → Bolivia → Done. Exceptions surface automatically. The operator's daily cognitive load drops from "remembering everything" to "acting on what the system flags." Built with a fraud checklist embedded in each transaction card.</div>
+      <div class="sol-body" data-en="A visual pipeline showing every active transfer across five stages: Pending → Receipt → Verified → Bolivia → Done. Exceptions surface automatically. The operator's daily cognitive load drops from 'remembering everything' to 'acting on what the system flags.' Built with a verification gap checklist embedded in each transaction card." data-es="Pipeline visual con cada transferencia activa en cinco etapas: Pendiente → Comprobante → Verificado → Bolivia → Listo. Las excepciones emergen automáticamente. La carga cognitiva diaria baja de 'recordar todo' a 'actuar en lo que el sistema señala.'">A visual pipeline showing every active transfer across five stages: Pending → Receipt → Verified → Bolivia → Done. Exceptions surface automatically. The operator's daily cognitive load drops from "remembering everything" to "acting on what the system flags." Built with a verification gap checklist embedded in each transaction card.</div>
       <span class="sol-tag" data-en="Visibility · Operator UX" data-es="Visibilidad · UX del operador">Visibility · Operator UX</span>
     </div>
   </div>
@@ -312,13 +312,13 @@ footer{border-top:1px solid var(--border);padding:28px 48px;display:flex;justify
   <div class="sec-label" data-en="See it in action" data-es="Vélo en acción">See it in action</div>
   <h2 class="sec-h2">The complete flow,<br><em>interactive.</em></h2>
   <div class="sec-body" style="margin-bottom:0;">
-    <p data-en="Two interactive prototypes built as part of this engagement — the customer journey from a sender's perspective, and the operator's full pipeline including fraud verification and WhatsApp templates." data-es="Dos prototipos interactivos construidos como parte de este proyecto — el journey del cliente desde la perspectiva del remitente, y el pipeline completo del operador incluyendo verificación de fraude y plantillas de WhatsApp.">Two interactive prototypes built as part of this engagement — the customer journey from a sender's perspective, and the operator's full pipeline including fraud verification and WhatsApp templates.</p>
+    <p data-en="Two interactive prototypes built as part of this engagement — the customer journey from a sender's perspective, and the operator's full pipeline including verification gap verification and WhatsApp templates." data-es="Dos prototipos interactivos construidos como parte de este proyecto — el journey del cliente desde la perspectiva del remitente, y el pipeline completo del operador incluyendo verificación de verification gap y plantillas de WhatsApp.">Two interactive prototypes built as part of this engagement — the customer journey from a sender's perspective, and the operator's full pipeline including verification gap verification and WhatsApp templates.</p>
   </div>
 
   <div class="iframe-wrap" style="margin-top:32px;">
     <div class="tabs-wrap">
-      <button class="tab-btn on" onclick="switchTab('demo',this)">🎬 Customer journey demo</button>
-      <button class="tab-btn" onclick="switchTab('portal',this)">⚙️ Operator system — live prototype</button>
+      <button class="tab-btn on" onclick="switchTab('demo',this)">▶ Customer journey demo</button>
+      <button class="tab-btn" onclick="switchTab('portal',this)">⊙ Operator system — live prototype</button>
     </div>
     <div id="tab-demo" class="tab-pane on">
       <div class="iframe-label" id="iframe-label-demo">
@@ -326,7 +326,7 @@ footer{border-top:1px solid var(--border);padding:28px 48px;display:flex;justify
         <span class="iframe-label-desc" data-en="María sends €250 from Madrid to her mother in Santa Cruz" data-es="María envía €250 desde Madrid a su madre en Santa Cruz">María sends €250 from Madrid to her mother in Santa Cruz</span>
       </div>
       <div id="demo-lang-note" style="display:flex;align-items:center;gap:8px;padding:8px 24px;background:rgba(180,150,90,.06);border-bottom:1px solid var(--border);">
-        <span style="font-size:13px;">🇪🇸</span>
+        <span style="font-family:var(--mono);font-size:11px;color:var(--muted);">ES</span>
         <span id="demo-note-text" data-en="This demo is in Spanish — the product serves Spanish-speaking customers in Bolivia and Europe." data-es="" style="font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:.04em;">This demo is in Spanish — the product serves Spanish-speaking customers in Bolivia and Europe.</span>
       </div>
       <iframe id="frame-demo" class="iframe-frame" style="height:680px;"
@@ -870,8 +870,8 @@ body { font-family:'DM Sans',sans-serif; background:var(--navy); color:white; mi
 .mmg-label { font-size:0.55rem; color:var(--muted); text-transform:uppercase; margin-bottom:2px; }
 .mmg-val { font-size:0.75rem; color:var(--bright); }
 .mmg-val.gold { color:var(--gold); font-family:'DM Mono',monospace; }
-.fraud-mini { background:var(--dark); border:1px solid var(--dark3); border-radius:8px; padding:8px; margin-bottom:10px; }
-.fraud-mini-title { font-size:0.62rem; color:var(--bright); font-weight:500; margin-bottom:6px; }
+.verification gap-mini { background:var(--dark); border:1px solid var(--dark3); border-radius:8px; padding:8px; margin-bottom:10px; }
+.verification gap-mini-title { font-size:0.62rem; color:var(--bright); font-weight:500; margin-bottom:6px; }
 .fitem { display:flex; align-items:center; gap:6px; padding:3px 0; font-size:0.65rem; border-bottom:1px solid var(--dark3); }
 .fitem:last-child { border-bottom:none; }
 .fdot { width:6px; height:6px; border-radius:50%; flex-shrink:0; }
@@ -1039,8 +1039,8 @@ const STEPS = [
   {
     who: 'op', whoLabel: 'Operador', whoClass: 'who-op',
     title: 'Revisa el comprobante y verifica con Revolut',
-    desc: 'El operador abre la tarjeta de María. Ve todos sus datos, el comprobante subido, y un checklist automático de fraude. Abre Revolut Business en paralelo y confirma que la transferencia coincide. Un clic avanza el estado.',
-    highlight: '<strong>Checklist de fraude incluido:</strong> comprobante presente, monto coincide, cliente con historial, imagen no duplicada.',
+    desc: 'El operador abre la tarjeta de María. Ve todos sus datos, el comprobante subido, y un checklist automático de verification gap. Abre Revolut Business en paralelo y confirma que la transferencia coincide. Un clic avanza el estado.',
+    highlight: '<strong>Checklist de verification gap incluido:</strong> comprobante presente, monto coincide, cliente con historial, imagen no duplicada.',
     mockup: 'dash-modal',
   },
   {
@@ -1344,8 +1344,8 @@ function getMockup(type) {
             <div class=&quot;mmg-field&quot;><div class=&quot;mmg-label&quot;>Banco Bolivia</div><div class=&quot;mmg-val&quot;>BNB</div></div>
             <div class=&quot;mmg-field&quot; style=&quot;grid-column:span 2;&quot;><div class=&quot;mmg-label&quot;>Cuenta</div><div class=&quot;mmg-val&quot; style=&quot;font-family:'DM Mono',monospace;font-size:0.7rem;&quot;>1234567890</div></div>
           </div>
-          <div class=&quot;fraud-mini&quot;>
-            <div class=&quot;fraud-mini-title&quot;>Checklist verificación</div>
+          <div class=&quot;verification gap-mini&quot;>
+            <div class=&quot;verification gap-mini-title&quot;>Checklist verificación</div>
             <div class=&quot;fitem&quot;><div class=&quot;fdot ok&quot;></div><span class=&quot;flabel&quot;>Comprobante subido</span><span class=&quot;fresult ok&quot;>Sí</span></div>
             <div class=&quot;fitem&quot;><div class=&quot;fdot ok&quot;></div><span class=&quot;flabel&quot;>Monto coincide (€250)</span><span class=&quot;fresult ok&quot;>OK</span></div>
             <div class=&quot;fitem&quot;><div class=&quot;fdot warn&quot;></div><span class=&quot;flabel&quot;>Historial del cliente</span><span class=&quot;fresult warn&quot;>1ª vez</span></div>
@@ -1488,7 +1488,7 @@ document.addEventListener('DOMContentLoaded', function() {
         <span class="iframe-label-desc" data-en="Use the tabs inside to switch between sender view and operator pipeline" data-es="Usá los tabs internos para cambiar entre vista cliente y operador">Use the tabs inside to switch between sender view and operator pipeline</span>
       </div>
       <div id="portal-lang-note" style="display:flex;align-items:center;gap:8px;padding:8px 24px;background:rgba(180,150,90,.06);border-bottom:1px solid var(--border);">
-        <span style="font-size:13px;">🇪🇸</span>
+        <span style="font-family:var(--mono);font-size:11px;color:var(--muted);">ES</span>
         <span id="portal-note-text" data-en="This prototype is in Spanish — the product serves Spanish-speaking customers in Bolivia and Europe." data-es="" style="font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:.04em;">This prototype is in Spanish — the product serves Spanish-speaking customers in Bolivia and Europe.</span>
       </div>
       <iframe id="frame-portal" class="iframe-frame" style="height:760px;"
@@ -2217,16 +2217,16 @@ document.addEventListener('DOMContentLoaded', function() {
   .receipt-meta { font-size: 0.72rem; color: #7d8590; }
   .receipt-actions { display: flex; gap: 8px; }
 
-  /* Fraud flags */
-  .fraud-check {
+  /* Verification flags */
+  .verification gap-check {
     background: #0d1117;
     border: 1px solid #21262d;
     border-radius: 10px;
     padding: 1rem;
     margin-bottom: 1rem;
   }
-  .fraud-check-title { font-size: 0.78rem; font-weight: 500; color: #e6edf3; margin-bottom: 0.75rem; }
-  .fraud-item {
+  .verification gap-check-title { font-size: 0.78rem; font-weight: 500; color: #e6edf3; margin-bottom: 0.75rem; }
+  .verification gap-item {
     display: flex;
     align-items: center;
     gap: 8px;
@@ -2234,18 +2234,18 @@ document.addEventListener('DOMContentLoaded', function() {
     border-bottom: 1px solid #21262d;
     font-size: 0.82rem;
   }
-  .fraud-item:last-child { border-bottom: none; }
-  .fraud-dot {
+  .verification gap-item:last-child { border-bottom: none; }
+  .verification gap-dot {
     width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
   }
-  .fraud-dot.ok { background: #56d364; }
-  .fraud-dot.warn { background: #d29922; }
-  .fraud-dot.fail { background: #f85149; }
-  .fraud-label { color: #7d8590; flex: 1; }
-  .fraud-result { font-size: 0.75rem; }
-  .fraud-result.ok { color: #56d364; }
-  .fraud-result.warn { color: #d29922; }
-  .fraud-result.fail { color: #f85149; }
+  .verification gap-dot.ok { background: #56d364; }
+  .verification gap-dot.warn { background: #d29922; }
+  .verification gap-dot.fail { background: #f85149; }
+  .verification gap-label { color: #7d8590; flex: 1; }
+  .verification gap-result { font-size: 0.75rem; }
+  .verification gap-result.ok { color: #56d364; }
+  .verification gap-result.warn { color: #d29922; }
+  .verification gap-result.fail { color: #f85149; }
 
   /* Action buttons */
   .modal-actions { display: flex; flex-direction: column; gap: 8px; margin-top: 1rem; }
@@ -2862,9 +2862,9 @@ document.addEventListener('DOMContentLoaded', function() {
         </div>
       </div>
 
-      <!-- Fraud checks -->
-      <div class=&quot;modal-section-title&quot;>Verificación de fraude</div>
-      <div class=&quot;fraud-check&quot; id=&quot;fraud-checks&quot;></div>
+      <!-- Verification checks -->
+      <div class=&quot;modal-section-title&quot;>Verificación de verification gap</div>
+      <div class=&quot;verification gap-check&quot; id=&quot;verification gap-checks&quot;></div>
 
       <!-- Actions -->
       <div class=&quot;modal-section-title&quot;>Acciones</div>
@@ -3179,20 +3179,20 @@ function openModal(id) {
   document.getElementById('m-receipt-name').textContent = tx.receiptName || 'Sin comprobante';
   document.getElementById('m-receipt-meta').textContent = tx.receipt ? `Recibido · ${tx.date}` : 'No se ha subido comprobante';
 
-  // Fraud checks
+  // Verification checks
   const checks = [
     { label:'Comprobante subido', ok: tx.receipt, result: tx.receipt ? 'Sí' : 'Faltante', type: tx.receipt ? 'ok' : 'fail' },
     { label:'Monto coincide con transfer esperada', ok: !tx.flagged, result: tx.flagged ? 'Revisar' : 'OK', type: tx.flagged ? 'warn' : 'ok' },
     { label:'Cliente tiene historial previo', ok: transfers.filter(t=>t.name===tx.name).length > 1, result: transfers.filter(t=>t.name===tx.name).length > 1 ? 'Sí' : 'Primera vez', type: transfers.filter(t=>t.name===tx.name).length > 1 ? 'ok' : 'warn' },
     { label:'Imagen no duplicada', ok: !tx.flagged, result: tx.flagged ? 'Posible duplicado' : 'Única', type: tx.flagged ? 'fail' : 'ok' },
   ];
-  document.getElementById('fraud-checks').innerHTML = `
-    <div class=&quot;fraud-check-title&quot;>Checklist de verificación</div>
+  document.getElementById('verification gap-checks').innerHTML = `
+    <div class=&quot;verification gap-check-title&quot;>Checklist de verificación</div>
     ${checks.map(c => `
-      <div class=&quot;fraud-item&quot;>
-        <div class=&quot;fraud-dot ${c.type}&quot;></div>
-        <span class=&quot;fraud-label&quot;>${c.label}</span>
-        <span class=&quot;fraud-result ${c.type}&quot;>${c.result}</span>
+      <div class=&quot;verification gap-item&quot;>
+        <div class=&quot;verification gap-dot ${c.type}&quot;></div>
+        <span class=&quot;verification gap-label&quot;>${c.label}</span>
+        <span class=&quot;verification gap-result ${c.type}&quot;>${c.result}</span>
       </div>
     `).join('')}
   `;
@@ -3454,15 +3454,15 @@ document.addEventListener('DOMContentLoaded', function() {
     <div class="proc-step">
       <div class="proc-phase">Discovery</div>
       <div>
-        <h3 class="proc-h3" data-en="Mapping the fraud and friction points" data-es="Mapeo de puntos de fraude y fricción">Mapping the fraud and friction points</h3>
-        <div class="proc-body" data-en="Audited a sample of recent transactions to understand where time was lost and where fraud risk was highest. Key finding: <strong data-en="the screenshot verification step had no systematic backstop" data-es="el paso de verificación por captura de pantalla no tenía respaldo sistemático">the screenshot verification step had no systematic backstop</strong> — no protocol for handling suspected fraud beyond operator intuition. A second finding: most customer follow-up messages came from the same moment — the silence between payment submission and operator confirmation." data-es="Auditoría de transacciones recientes para entender dónde se perdía tiempo y dónde era mayor el riesgo de fraude. Hallazgo clave: <strong>el paso de verificación por captura de pantalla no tenía respaldo sistemático</strong> — ningún protocolo para manejar fraude sospechoso más allá de la intuición del operador.">Audited a sample of recent transactions to understand where time was lost and where fraud risk was highest. Key finding: <strong data-en="the screenshot verification step had no systematic backstop" data-es="el paso de verificación por captura de pantalla no tenía respaldo sistemático">the screenshot verification step had no systematic backstop</strong> — no protocol for handling suspected fraud beyond operator intuition. A second finding: most customer follow-up messages came from the same moment — the silence between payment submission and operator confirmation.</div>
+        <h3 class="proc-h3" data-en="Mapping the verification gap and friction points" data-es="Mapeo de puntos de verification gap y fricción">Mapping the verification gap and friction points</h3>
+        <div class="proc-body" data-en="Audited a sample of recent transactions to understand where time was lost and where verification gap risk was highest. Key finding: <strong data-en="the payment verification step had no systematic process" data-es="el paso de verificación de pago no tenía proceso sistemático">the payment verification step had no systematic process</strong> — no protocol for handling suspected verification gap beyond operator intuition. A second finding: most customer follow-up messages came from the same moment — the silence between payment submission and operator confirmation." data-es="Auditoría de transacciones recientes para entender dónde se perdía tiempo y dónde era mayor el riesgo de verification gap. Hallazgo clave: <strong>el paso de verificación de pago no tenía proceso sistemático</strong> — ningún protocolo para manejar verification gap sospechoso más allá de la intuición del operador.">Audited a sample of recent transactions to understand where time was lost and where verification gap risk was highest. Key finding: <strong data-en="the payment verification step had no systematic process" data-es="el paso de verificación de pago no tenía proceso sistemático">the payment verification step had no systematic process</strong> — no protocol for handling suspected verification gap beyond operator intuition. A second finding: most customer follow-up messages came from the same moment — the silence between payment submission and operator confirmation.</div>
       </div>
     </div>
     <div class="proc-step">
       <div class="proc-phase">Design</div>
       <div>
         <h3 class="proc-h3" data-en="The reference code as the keystone" data-es="El código de referencia como piedra angular">The reference code as the keystone</h3>
-        <div class="proc-body" data-en="The decision to use a unique reference code in the bank transfer description was the most important design choice. It moved verification from the screenshot — manipulable — to the bank record — authoritative. <strong data-en="One field change eliminated the primary fraud vector." data-es="Un cambio de campo eliminó el vector principal de fraude.">One field change eliminated the primary fraud vector.</strong> Everything else: batch reconciliation, matching formula, fraud checklist, is built on that foundation." data-es="La decisión de usar un código de referencia único en la descripción de la transferencia fue la más importante. Movió la verificación de la captura de pantalla — manipulable — al registro bancario — autoritativo. <strong>Un cambio de campo eliminó el vector principal de fraude.</strong>">The decision to use a unique reference code in the bank transfer description was the most important design choice. It moved verification from the screenshot — manipulable — to the bank record — authoritative. <strong data-en="One field change eliminated the primary fraud vector." data-es="Un cambio de campo eliminó el vector principal de fraude.">One field change eliminated the primary fraud vector.</strong> Everything else: batch reconciliation, matching formula, fraud checklist, is built on that foundation.</div>
+        <div class="proc-body" data-en="The decision to use a unique reference code in the bank transfer description was the most important design choice. It moved verification from the screenshot — manipulable — to the bank record — authoritative. <strong data-en="One structural change eliminated the primary verification risk." data-es="Un cambio estructural eliminó el principal riesgo de verificación.">One structural change eliminated the primary verification risk.</strong> Everything else: batch reconciliation, matching formula, verification gap checklist, is built on that foundation." data-es="La decisión de usar un código de referencia único en la descripción de la transferencia fue la más importante. Movió la verificación de la captura de pantalla — manipulable — al registro bancario — autoritativo. <strong>Un cambio estructural eliminó el principal riesgo de verificación.</strong>">The decision to use a unique reference code in the bank transfer description was the most important design choice. It moved verification from the screenshot — manipulable — to the bank record — authoritative. <strong data-en="One structural change eliminated the primary verification risk." data-es="Un cambio estructural eliminó el principal riesgo de verificación.">One structural change eliminated the primary verification risk.</strong> Everything else: batch reconciliation, matching formula, verification gap checklist, is built on that foundation.</div>
       </div>
     </div>
     <div class="proc-step">
@@ -3491,7 +3491,7 @@ document.addEventListener('DOMContentLoaded', function() {
   <div class="out-row">
     <div class="out-item"><span class="out-num">−70%</span><div class="out-label"><strong data-en="Verification time per day" data-es="Tiempo de verificación diario">Verification time per day</strong>Batch reconciliation replaced per-transaction manual bank searching</div></div>
     <div class="out-item"><span class="out-num">100%</span><div class="out-label"><strong data-en="Transactions now traceable" data-es="Transferencias trazables">Transactions now traceable</strong>Every request tied to a bank reference — not a screenshot</div></div>
-    <div class="out-item"><span class="out-num">0</span><div class="out-label"><strong data-en="Undetected fraud post-launch" data-es="Fraude no detectado post-lanzamiento">Undetected fraud post-launch</strong>First reconciliation round surfaced a discrepancy that would previously have passed unnoticed</div></div>
+    <div class="out-item"><span class="out-num">0</span><div class="out-label"><strong data-en="Undetected verification gap post-launch" data-es="Riesgo de verificación no detectado post-lanzamiento">Undetected verification gap post-launch</strong>First reconciliation round surfaced a discrepancy that would previously have passed unnoticed</div></div>
     <div class="out-item"><span class="out-num">5</span><div class="out-label"><strong data-en="Status touchpoints per transfer" data-es="Puntos de contacto por transferencia">Status touchpoints per transfer</strong>Up from zero — eliminating reactive follow-up messages</div></div>
     <div class="out-item"><span class="out-num">30 min</span><div class="out-label"><strong data-en="Daily full reconciliation" data-es="Reconciliación diaria completa">Daily full reconciliation</strong>Two 15-min batch rounds cover the complete monthly volume</div></div>
     <div class="out-item"><span class="out-num">€0</span><div class="out-label"><strong data-en="Additional tooling cost" data-es="Costo adicional de herramientas">Additional tooling cost</strong>Designed entirely within WhatsApp and Google Sheets</div></div>
@@ -3506,14 +3506,20 @@ document.addEventListener('DOMContentLoaded', function() {
     <p style="font-size:15px;color:var(--muted);max-width:580px;" data-en="Community remittance operators aren't an edge case. They're the financial infrastructure for millions of cross-border transfers in corridors where banks and fintechs haven't fully arrived." data-es="Los operadores de transferencias internacionales no son un caso marginal. Son la infraestructura financiera para millones de transferencias en corredores donde los bancos y las fintechs no han llegado completamente.">Community remittance operators aren't an edge case. They're the financial infrastructure for millions of cross-border transfers in corridors where banks and fintechs haven't fully arrived.</p>
     <div class="rel-grid">
       <div class="rel-item">
-        <div class="rel-icon">🌍</div>
+        <div class="rel-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="10" cy="10" r="8" stroke="rgba(196,160,90,.65)" stroke-width="1.2"/>
+      <path d="M2 10h16M10 2c-2 4-2 12 0 16M10 2c2 4 2 12 0 16" stroke="rgba(196,160,90,.4)" stroke-width="1"/>
+    </svg></div>
         <h3 class="rel-h3" data-en="Underserved payment corridors" data-es="Corredores de pago desatendidos">Underserved payment corridors</h3>
-        <div class="rel-body" data-en="Many cross-border corridors are served by small independent operators who predate fintech — and in some cases outperform it on trust. Building structured payment operations for this segment is how the industry raises the floor on traceability, fraud prevention and customer experience across corridors that large platforms haven't fully reached." data-es="Muchos corredores internacionales son atendidos por operadores independientes pequeños que preceden al fintech — y en algunos casos lo superan en confianza. Construir operaciones de pago estructuradas para este segmento es cómo la industria eleva el nivel de trazabilidad, prevención de fraude y experiencia del cliente.">Many cross-border corridors are served by small independent operators who predate fintech — and in some cases outperform it on trust. Building structured payment operations for this segment is how the industry raises the floor on traceability, fraud prevention and customer experience across corridors that large platforms haven't fully reached.</div>
+        <div class="rel-body" data-en="Many cross-border corridors are served by small independent operators who predate fintech — and in some cases outperform it on trust. Building structured payment operations for this segment is how the industry raises the floor on traceability, verification gap prevention and customer experience across corridors that large platforms haven't fully reached." data-es="Muchos corredores internacionales son atendidos por operadores independientes pequeños que preceden al fintech — y en algunos casos lo superan en confianza. Construir operaciones de pago estructuradas para este segmento es cómo la industria eleva el nivel de trazabilidad, prevención de verification gap y experiencia del cliente.">Many cross-border corridors are served by small independent operators who predate fintech — and in some cases outperform it on trust. Building structured payment operations for this segment is how the industry raises the floor on traceability, verification gap prevention and customer experience across corridors that large platforms haven't fully reached.</div>
       </div>
       <div class="rel-item">
-        <div class="rel-icon">🔍</div>
-        <h3 class="rel-h3" data-en="Fraud without APIs" data-es="Fraude sin APIs">Fraud without APIs</h3>
-        <div class="rel-body" data-en="In markets without open banking, the screenshot is the de facto payment proof — and it's fundamentally insecure. The reference-code approach closes the fraud loop without any API access, ML model, or third-party tool. A pattern applicable far beyond this corridor." data-es="En mercados sin open banking, la captura de pantalla es la prueba de pago de facto — y es fundamentalmente insegura. El enfoque de código de referencia cierra el loop del fraude sin acceso a APIs, modelos de ML ni herramientas de terceros.">In markets without open banking, the screenshot is the de facto payment proof — and it's fundamentally insecure. The reference-code approach closes the fraud loop without any API access, ML model, or third-party tool. A pattern applicable far beyond this corridor.</div>
+        <div class="rel-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="8.5" cy="8.5" r="5.5" stroke="rgba(196,160,90,.7)" stroke-width="1.2"/>
+      <line x1="13" y1="13" x2="18" y2="18" stroke="rgba(196,160,90,.7)" stroke-width="1.5" stroke-linecap="round"/>
+    </svg></div>
+        <h3 class="rel-h3" data-en="Verification without APIs" data-es="Verificación sin APIs">Verification without APIs</h3>
+        <div class="rel-body" data-en="In markets without open banking, the screenshot is the de facto payment proof — and it's fundamentally insecure. The reference-code approach closes the verification gap loop without any API access, ML model, or third-party tool. A pattern applicable far beyond this corridor." data-es="En mercados sin open banking, la captura de pantalla es la prueba de pago de facto — y es fundamentalmente insegura. El enfoque de código de referencia cierra el loop del verification gap sin acceso a APIs, modelos de ML ni herramientas de terceros.">In markets without open banking, the screenshot is the de facto payment proof — and it's fundamentally insecure. The reference-code approach closes the verification gap loop without any API access, ML model, or third-party tool. A pattern applicable far beyond this corridor.</div>
       </div>
       <div class="rel-item">
         <div class="rel-icon">💬</div>
@@ -3557,10 +3563,22 @@ document.addEventListener('DOMContentLoaded', function() {
   <div class="del-list">
     <div class="del-item"><div class="del-icon">🎬</div><div class="del-name" data-en="Interactive customer journey demo — 7 screens, step-by-step from sender to confirmation" data-es="Demo interactiva del journey del cliente — 7 pantallas, paso a paso desde el remitente hasta la confirmación">Interactive customer journey demo — 7 screens, step-by-step from sender to confirmation</div><span class="del-tag" data-en="HTML · Interactive" data-es="HTML · Interactivo">HTML · Interactive</span></div>
     <div class="del-item"><div class="del-icon">⚙️</div><div class="del-name" data-en="Full system prototype — client portal with rate calculator, form, tracking + operator pipeline dashboard" data-es="Prototipo del sistema completo — portal cliente con calculadora de tasa, formulario, seguimiento + dashboard de pipeline del operador">Full system prototype — client portal with rate calculator, form, tracking + operator pipeline dashboard</div><span class="del-tag" data-en="HTML · Live prototype" data-es="HTML · Prototipo funcional">HTML · Live prototype</span></div>
-    <div class="del-item"><div class="del-icon">📊</div><div class="del-name" data-en="Google Sheets tracking system — Requests, Reconciliation, Summary with MATCH formula logic" data-es="Sistema de seguimiento Google Sheets — Solicitudes, Reconciliación, Resumen con lógica de fórmula MATCH">Google Sheets tracking system — Requests, Reconciliation, Summary with MATCH formula logic</div><span class="del-tag" data-en="XLSX · Ready to use" data-es="XLSX · Listo para usar">XLSX · Ready to use</span></div>
+    <div class="del-item"><div class="del-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <polyline points="2,15 7,9 11,12 16,5" stroke="rgba(196,160,90,.75)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="7" cy="9" r="1.5" fill="rgba(196,160,90,.6)"/>
+      <circle cx="11" cy="12" r="1.5" fill="rgba(196,160,90,.6)"/>
+      <circle cx="16" cy="5" r="1.5" fill="rgba(90,180,130,.7)"/>
+      <line x1="2" y1="17" x2="18" y2="17" stroke="rgba(196,160,90,.3)" stroke-width="1"/>
+    </svg></div><div class="del-name" data-en="Google Sheets tracking system — Requests, Reconciliation, Summary with MATCH formula logic" data-es="Sistema de seguimiento Google Sheets — Solicitudes, Reconciliación, Resumen con lógica de fórmula MATCH">Google Sheets tracking system — Requests, Reconciliation, Summary with MATCH formula logic</div><span class="del-tag" data-en="XLSX · Ready to use" data-es="XLSX · Listo para usar">XLSX · Ready to use</span></div>
     <div class="del-item"><div class="del-icon">💬</div><div class="del-name" data-en="5 WhatsApp message templates — intake, each status stage, exception handling" data-es="5 plantillas de mensajes WhatsApp — recepción, cada etapa de estado, manejo de excepciones">5 WhatsApp message templates — intake, each status stage, exception handling</div><span class="del-tag" data-en="Copy · Ready to paste" data-es="Texto · Listo para pegar">Copy · Ready to paste</span></div>
-    <div class="del-item"><div class="del-icon">📋</div><div class="del-name" data-en="Operational protocol — reconciliation rounds, fraud response, exception playbook" data-es="Protocolo operativo — rondas de reconciliación, respuesta al fraude, manual de excepciones">Operational protocol — reconciliation rounds, fraud response, exception playbook</div><span class="del-tag" data-en="Documentation" data-es="Documentación">Documentation</span></div>
-    <div class="del-item"><div class="del-icon">🔖</div><div class="del-name" data-en="Reference code system — naming convention, assignment protocol, customer instructions" data-es="Sistema de códigos de referencia — convención de nombres, protocolo de asignación, instrucciones al cliente">Reference code system — naming convention, assignment protocol, customer instructions</div><span class="del-tag" data-en="System Design" data-es="Diseño de sistema">System Design</span></div>
+    <div class="del-item"><div class="del-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="3" y="2" width="12" height="14" rx="1.5" stroke="rgba(196,160,90,.65)" stroke-width="1" fill="rgba(196,160,90,.04)"/>
+      <path d="M6 6h6M6 9h6M6 12h4" stroke="rgba(196,160,90,.5)" stroke-width="1" stroke-linecap="round"/>
+    </svg></div><div class="del-name" data-en="Operational protocol — reconciliation rounds, verification gap response, exception playbook" data-es="Protocolo operativo — rondas de reconciliación, respuesta al verification gap, manual de excepciones">Operational protocol — reconciliation rounds, verification gap response, exception playbook</div><span class="del-tag" data-en="Documentation" data-es="Documentación">Documentation</span></div>
+    <div class="del-item"><div class="del-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M2 2h7l7 7-7 7-7-7V2z" stroke="rgba(196,160,90,.65)" stroke-width="1" fill="rgba(196,160,90,.05)" stroke-linejoin="round"/>
+      <circle cx="6" cy="6" r="1.2" fill="rgba(196,160,90,.6)"/>
+    </svg></div><div class="del-name" data-en="Reference code system — naming convention, assignment protocol, customer instructions" data-es="Sistema de códigos de referencia — convención de nombres, protocolo de asignación, instrucciones al cliente">Reference code system — naming convention, assignment protocol, customer instructions</div><span class="del-tag" data-en="System Design" data-es="Diseño de sistema">System Design</span></div>
   </div>
 </section>
 
@@ -3570,7 +3588,7 @@ document.addEventListener('DOMContentLoaded', function() {
   <div class="cta-sec">
     <div>
       <h2 class="cta-h2">Working on a cross-border<br><em>payments challenge?</em></h2>
-      <p class="cta-sub" data-en="I work with payment operators, fintechs, and product teams on reconciliation design, fraud prevention, and cross-border operations. If you're building in this space, I'd like to talk." data-es="Trabajo con operadores de pago, fintechs y equipos de producto en diseño de reconciliación, prevención de fraude y operaciones internacionales. Si estás construyendo en este espacio, me gustaría hablar.">I work with payment operators, fintechs, and product teams on reconciliation design, fraud prevention, and cross-border operations. If you're building in this space, I'd like to talk.</p>
+      <p class="cta-sub" data-en="I work with payment operators, fintechs, and product teams on reconciliation design, verification gap prevention, and cross-border operations. If you're building in this space, I'd like to talk." data-es="Trabajo con operadores de pago, fintechs y equipos de producto en diseño de reconciliación, prevención de verification gap y operaciones internacionales. Si estás construyendo en este espacio, me gustaría hablar.">I work with payment operators, fintechs, and product teams on reconciliation design, verification gap prevention, and cross-border operations. If you're building in this space, I'd like to talk.</p>
     </div>
     <a href="mailto:pablo@pablomontenegro.ie" class="cta-btn" data-en="Get in touch" data-es="Contactar">Get in touch</a>
   </div>
