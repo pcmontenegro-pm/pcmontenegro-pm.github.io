@@ -110,7 +110,7 @@ nav{
 .oc-label{font-size:13px;color:var(--muted);line-height:1.5;}
 .oc-label strong{color:var(--cream);display:block;font-weight:500;margin-bottom:3px;}
 
-.rel-band{background:var(--navy2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+.rel-band{background:linear-gradient(180deg,#0f1c2e 0%,#111e30 100%);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
 .rel-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border);margin-top:36px;}
 .rel-item{background:var(--navy);padding:24px;}
 .rel-icon{font-size:20px;margin-bottom:10px;}
@@ -171,11 +171,15 @@ footer{border-top:1px solid var(--border);padding:22px 48px;display:flex;justify
     <span class="sep"></span>
     <span data-en="Enterprise Infrastructure" data-es="Infraestructura Empresarial">Enterprise Infrastructure</span>
   </div>
-  <div class="confidential">🔒 <span data-en="Metrics are directional. Sensitive commercial detail omitted." data-es="Las métricas son direccionales. Detalle comercial sensible omitido.">Metrics are directional. Sensitive commercial detail omitted.</span></div>
+  <div class="confidential"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="2" y="6" width="10" height="7" rx="1.5" stroke="rgba(196,160,90,.6)" stroke-width="1"/>
+      <path d="M4.5 6V4.5a2.5 2.5 0 015 0V6" stroke="rgba(196,160,90,.6)" stroke-width="1"/>
+      <circle cx="7" cy="9.5" r="1" fill="rgba(196,160,90,.6)"/>
+    </svg> <span data-en="Metrics are directional. Sensitive commercial detail omitted." data-es="Las métricas son direccionales. Detalle comercial sensible omitido.">Metrics are directional. Sensitive commercial detail omitted.</span></div>
 </div>
 
 <!-- EXEC SUMMARY -->
-<section class="section" style="background:var(--navy2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+<section class="section" style="background:linear-gradient(180deg,#0f1c2e 0%,#111e30 100%);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
   <div class="section-inner two-col">
     <div>
       <span class="sec-tag" data-en="Executive Summary" data-es="Resumen Ejecutivo">Executive Summary</span>
@@ -235,7 +239,9 @@ footer{border-top:1px solid var(--border);padding:22px 48px;display:flex;justify
         </div>
       </div>
       <div class="flow-center">
-        <div class="flow-center-icon">⚡</div>
+        <div class="flow-center-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="11,2 4,11 10,11 9,18 16,9 10,9" stroke="rgba(196,160,90,.75)" stroke-width="1.2" fill="rgba(196,160,90,.1)" stroke-linejoin="round"/>
+    </svg></div>
         <div class="flow-center-label" data-en="Multi-Bank Integration Layer" data-es="Capa de Integración Multibanco">Multi-Bank Integration Layer</div>
         <div class="flow-center-badge" data-en="One model" data-es="Un modelo">One model</div>
       </div>
@@ -254,7 +260,7 @@ footer{border-top:1px solid var(--border);padding:22px 48px;display:flex;justify
 </section>
 
 <!-- PROBLEM + CHALLENGE -->
-<section class="section" style="background:var(--navy2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+<section class="section" style="background:linear-gradient(180deg,#0f1c2e 0%,#111e30 100%);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
   <div class="section-inner two-col">
     <div>
       <span class="sec-tag" data-en="The Problem" data-es="El Problema">The Problem</span>
@@ -326,7 +332,7 @@ footer{border-top:1px solid var(--border);padding:22px 48px;display:flex;justify
 </section>
 
 <!-- DUAL ACCESS MODEL -->
-<section class="section" style="background:var(--navy2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+<section class="section" style="background:linear-gradient(180deg,#0f1c2e 0%,#111e30 100%);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
   <div class="section-inner">
     <span class="sec-tag" data-en="Product Design · Dual Access Model" data-es="Diseño de Producto · Modelo de Acceso Dual">Product Design · Dual Access Model</span>
     <h2 class="sec-h2" data-en="One product.<br><em>Two ways to access it.</em>" data-es="Un producto.<br><em>Dos formas de acceder.</em>">One product.<br><em>Two ways to access it.</em></h2>
@@ -335,14 +341,25 @@ footer{border-top:1px solid var(--border);padding:22px 48px;display:flex;justify
     </div>
     <div class="access-grid">
       <div class="access-card">
-        <div class="access-icon">⚙️</div>
+        <div class="access-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="2" y="4" width="16" height="12" rx="2" stroke="rgba(196,160,90,.65)" stroke-width="1.2" fill="rgba(196,160,90,.04)"/>
+      <path d="M7 9l-2 2 2 2M13 9l2 2-2 2" stroke="rgba(196,160,90,.7)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+      <line x1="10" y1="7" x2="10" y2="13" stroke="rgba(196,160,90,.4)" stroke-width="1" stroke-linecap="round"/>
+    </svg></div>
         <div class="access-sub" data-en="Access model 1" data-es="Modelo de acceso 1">Access model 1</div>
         <div class="access-title" data-en="API Integration" data-es="Integración API">API Integration</div>
         <div class="access-body" data-en="For corporate clients with IT capability and existing payment infrastructure. Direct system-to-system integration with Itaú's multi-bank API. Enables automated payment initiation, real-time status retrieval and programmatic reconciliation." data-es="Para clientes corporativos con capacidad de TI e infraestructura de pagos existente. Integración directa sistema-a-sistema con la API multibanco de Itaú. Habilita iniciación de pagos automática, recuperación de estado en tiempo real y reconciliación programática.">For corporate clients with IT capability and existing payment infrastructure. Direct system-to-system integration with Itaú's multi-bank API. Enables automated payment initiation, real-time status retrieval and programmatic reconciliation.</div>
         <div class="access-for" data-en="For: Technology-led corporate clients" data-es="Para: Clientes corporativos liderados por tecnología">For: Technology-led corporate clients</div>
       </div>
       <div class="access-card" style="background:rgba(180,150,90,.04);border-color:rgba(180,150,90,.2);">
-        <div class="access-icon">🖥️</div>
+        <div class="access-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="2" y="3" width="16" height="14" rx="2" stroke="rgba(196,160,90,.65)" stroke-width="1.2" fill="rgba(196,160,90,.04)"/>
+      <line x1="2" y1="7" x2="18" y2="7" stroke="rgba(196,160,90,.4)" stroke-width="1"/>
+      <circle cx="4.5" cy="5" r=".8" fill="rgba(196,160,90,.5)"/>
+      <circle cx="7" cy="5" r=".8" fill="rgba(196,160,90,.35)"/>
+      <rect x="5" y="10" width="10" height="1.5" rx=".5" fill="rgba(196,160,90,.25)"/>
+      <rect x="5" y="13" width="7" height="1.5" rx=".5" fill="rgba(196,160,90,.18)"/>
+    </svg></div>
         <div class="access-sub" data-en="Access model 2" data-es="Modelo de acceso 2">Access model 2</div>
         <div class="access-title" data-en="Web Portal" data-es="Portal Web">Web Portal</div>
         <div class="access-body" data-en="For corporate clients whose finance or operations teams manage payments directly. A web-based interface for payment initiation, status monitoring and basic reconciliation — no IT integration required. Enables faster commercial onboarding." data-es="Para clientes corporativos cuyos equipos de finanzas u operaciones gestionan pagos directamente. Una interfaz web para iniciación de pagos, monitoreo de estado y reconciliación básica — sin integración de TI requerida. Permite un onboarding comercial más rápido.">For corporate clients whose finance or operations teams manage payments directly. A web-based interface for payment initiation, status monitoring and basic reconciliation — no IT integration required. Enables faster commercial onboarding.</div>
@@ -384,17 +401,33 @@ footer{border-top:1px solid var(--border);padding:22px 48px;display:flex;justify
     <h2 class="sec-h2" data-en="Why this translates to <em>European roles.</em>" data-es="Por qué esto se traduce a <em>roles europeos.</em>">Why this translates to <em>European roles.</em></h2>
     <div class="rel-grid">
       <div class="rel-item">
-        <div class="rel-icon">🏦</div>
+        <div class="rel-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M2 17h16M3 17v-6M7 17v-6M13 17v-6M17 17v-6" stroke="rgba(196,160,90,.65)" stroke-width="1.2" stroke-linecap="round"/>
+      <rect x="2" y="11" width="16" height="0" fill="none" stroke="rgba(196,160,90,.3)" stroke-width="1"/>
+      <polygon points="10,3 2,11 18,11" stroke="rgba(196,160,90,.7)" stroke-width="1.2" stroke-linejoin="round" fill="rgba(196,160,90,.07)"/>
+    </svg></div>
         <div class="rel-title" data-en="Open Banking & PSD2 payment initiation" data-es="Open Banking e iniciación de pagos PSD2">Open Banking & PSD2 payment initiation</div>
         <div class="rel-body" data-en="The Multi-Bank Payment Button is structurally equivalent to PSD2 payment initiation — a single integration layer enabling payment from multiple bank accounts. The product challenges are the same: multi-bank normalisation, dual access models and enterprise onboarding." data-es="El Botón de Pago Multibanco es estructuralmente equivalente a la iniciación de pagos PSD2 — una única capa de integración que habilita pagos desde múltiples cuentas bancarias. Los desafíos del producto son los mismos: normalización multibanco, modelos de acceso dual y onboarding empresarial.">The Multi-Bank Payment Button is structurally equivalent to PSD2 payment initiation — a single integration layer enabling payment from multiple bank accounts. The product challenges are the same: multi-bank normalisation, dual access models and enterprise onboarding.</div>
       </div>
       <div class="rel-item">
-        <div class="rel-icon">🔗</div>
+        <div class="rel-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M8 12l-1.5 1.5a3.5 3.5 0 01-4.95-4.95l3-3a3.5 3.5 0 014.95 0" stroke="rgba(196,160,90,.75)" stroke-width="1.2" stroke-linecap="round"/>
+      <path d="M12 8l1.5-1.5a3.5 3.5 0 014.95 4.95l-3 3a3.5 3.5 0 01-4.95 0" stroke="rgba(196,160,90,.75)" stroke-width="1.2" stroke-linecap="round"/>
+      <line x1="8" y1="12" x2="12" y2="8" stroke="rgba(196,160,90,.5)" stroke-width="1" stroke-linecap="round"/>
+    </svg></div>
         <div class="rel-title" data-en="B2B payment orchestration" data-es="Orquestación de pagos B2B">B2B payment orchestration</div>
         <div class="rel-body" data-en="GoCardless, Modulr, Volt, and similar players in Europe are solving the same problem — abstracting bank complexity behind a single API for corporate clients. Building this product in a regulated banking context demonstrates the PM depth that these roles require." data-es="GoCardless, Modulr, Volt y actores similares en Europa están resolviendo el mismo problema — abstraer la complejidad bancaria detrás de una única API para clientes corporativos. Construir este producto en un contexto bancario regulado demuestra la profundidad de PM que estos roles requieren.">GoCardless, Modulr, Volt, and similar players in Europe are solving the same problem — abstracting bank complexity behind a single API for corporate clients. Building this product in a regulated banking context demonstrates the PM depth that these roles require.</div>
       </div>
       <div class="rel-item">
-        <div class="rel-icon">🏢</div>
+        <div class="rel-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="3" y="4" width="9" height="13" stroke="rgba(196,160,90,.65)" stroke-width="1.2" fill="rgba(196,160,90,.05)"/>
+      <path d="M12 8h5v9H12" stroke="rgba(196,160,90,.5)" stroke-width="1.2"/>
+      <rect x="5" y="6" width="2" height="2" fill="rgba(196,160,90,.4)"/>
+      <rect x="9" y="6" width="2" height="2" fill="rgba(196,160,90,.4)"/>
+      <rect x="5" y="10" width="2" height="2" fill="rgba(196,160,90,.4)"/>
+      <rect x="9" y="10" width="2" height="2" fill="rgba(196,160,90,.4)"/>
+      <rect x="7" y="14" width="4" height="3" fill="rgba(196,160,90,.2)"/>
+    </svg></div>
         <div class="rel-title" data-en="Enterprise product management" data-es="Gestión de producto empresarial">Enterprise product management</div>
         <div class="rel-body" data-en="Managing a product pilot with corporate clients — who have their own IT, finance and procurement processes — requires different PM skills than consumer products. Defining onboarding journeys, API documentation requirements and pilot selection criteria for enterprise buyers is a specific capability." data-es="Gestionar un piloto de producto con clientes corporativos — que tienen sus propios procesos de TI, finanzas y aprovisionamiento — requiere habilidades de PM diferentes a las de productos consumer. Definir journeys de onboarding, requisitos de documentación de API y criterios de selección de piloto para compradores empresariales es una capacidad específica.">Managing a product pilot with corporate clients — who have their own IT, finance and procurement processes — requires different PM skills than consumer products. Defining onboarding journeys, API documentation requirements and pilot selection criteria for enterprise buyers is a specific capability.</div>
       </div>
