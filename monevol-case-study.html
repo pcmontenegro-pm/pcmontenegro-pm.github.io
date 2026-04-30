@@ -280,13 +280,20 @@ nav {
 
 /* ── FEATURE CARDS ─────────────────────────────────────────── */
 .feature-grid {
-  display:grid; grid-template-columns:repeat(3,1fr);
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
   gap:1px; background:var(--border); border:1px solid var(--border); margin-top:48px;
 }
 .feature-card{display:flex;flex-direction:column;}
-/* 7 items: last card alone spans all */
-.feature-grid .feature-card:last-child:nth-child(3n+1) {
-  grid-column: 1 / span 3; 
+/* 7th card: spans all 3 columns */
+.feature-grid .feature-card:nth-child(7) {
+  grid-column: 1 / span 3;
+  display:grid;
+  grid-template-columns:1fr 2fr;
+  gap:0;
+}
+.feature-grid .feature-card:nth-child(7) .fc-body {
+  border-left:1px solid var(--border);
 }
 .feature-card { background:var(--navy); padding:30px; transition:background .2s; }
 .feature-card:hover { background:var(--navy2); }
@@ -305,6 +312,8 @@ nav {
 .matrix-cell { background:var(--navy); padding:24px 28px; }
 .matrix-cell.highlight { background:rgba(180,150,90,.06); }
 .matrix-quadrant { font-family:var(--mono); font-size:9px; letter-spacing:.1em; color:var(--gold); text-transform:uppercase; margin-bottom:10px; }
+.matrix-cell.highlight .matrix-quadrant { color:var(--gold2); }
+.matrix-cell:not(.highlight) .matrix-quadrant { color:rgba(196,160,90,.6); }
 .matrix-items { display:flex; flex-direction:column; gap:6px; }
 .matrix-item { display:flex; align-items:center; gap:8px; font-size:13px; color:var(--cream); }
 .matrix-dot { width:6px; height:6px; border-radius:50%; flex-shrink:0; }
@@ -702,37 +711,53 @@ footer { border-top:1px solid var(--border); padding:24px 48px; display:flex; ju
     </div>
     <div class="insight-grid">
       <div class="insight-card reveal">
-        <div class="insight-icon">📉</div>
+        <div class="insight-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <polyline points="2,15 7,9 11,12 16,5" stroke="rgba(196,160,90,.75)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="7" cy="9" r="1.5" fill="rgba(196,160,90,.6)"/>
+      <circle cx="11" cy="12" r="1.5" fill="rgba(196,160,90,.6)"/>
+      <circle cx="16" cy="5" r="1.5" fill="rgba(90,180,130,.7)"/>
+      <line x1="2" y1="17" x2="18" y2="17" stroke="rgba(196,160,90,.3)" stroke-width="1"/>
+    </svg></div>
         <div class="insight-title" data-en="Invisible spending patterns" data-es="Patrones de gasto invisibles">Invisible spending patterns</div>
         <div class="insight-body" data-en="Users couldn't explain where their money went. Not because of recklessness — but because no tool showed them. Expense visibility was the single most-requested capability." data-es="Los usuarios no podían explicar a dónde fue su dinero. No por descuido — sino porque ninguna herramienta se los mostraba. La visibilidad de gastos fue la capacidad más solicitada.">Users couldn't explain where their money went. Not because of recklessness — but because no tool showed them. Expense visibility was the single most-requested capability.</div>
         <div class="insight-quote" data-en="&quot;I know I spend a lot but I couldn\"t tell you on what. It just disappears."' data-es="&quot;Sé que gasto mucho pero no te podría decir en qué. Simplemente desaparece.&quot;">"I know I spend a lot but I couldn't tell you on what. It just disappears."</div>
       </div>
       <div class="insight-card reveal">
-        <div class="insight-icon">🔄</div>
+        <div class="insight-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M4 10a6 6 0 016-6 6 6 0 014.2 1.7L16 8" stroke="rgba(196,160,90,.75)" stroke-width="1.2" stroke-linecap="round"/>
+      <path d="M16 10a6 6 0 01-6 6 6 6 0 01-4.2-1.7L4 12" stroke="rgba(196,160,90,.55)" stroke-width="1.2" stroke-linecap="round"/>
+      <polyline points="14,6 16,8 18,6" stroke="rgba(196,160,90,.75)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+      <polyline points="6,14 4,12 2,14" stroke="rgba(196,160,90,.55)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg></div>
         <div class="insight-title" data-en="Unstable, irregular income" data-es="Ingresos inestables e irregulares">Unstable, irregular income</div>
         <div class="insight-body" data-en="Many participants combined part-time work, freelance income, and informal gigs. Monthly budgeting tools built for fixed salaries didn't fit. The product needed to handle income volatility natively." data-es="Muchos participantes combinaban trabajo a tiempo parcial, ingresos freelance y trabajos informales. Las herramientas de presupuesto mensual diseñadas para salarios fijos no encajaban. El producto necesitaba manejar la volatilidad de ingresos nativamente.">Many participants combined part-time work, freelance income, and informal gigs. Monthly budgeting tools built for fixed salaries didn't fit. The product needed to handle income volatility natively.</div>
         <div class="insight-quote" data-en="&quot;I make different money each month. Apps for saving assume I know what I\"ll earn."' data-es="&quot;Gano diferente cada mes. Las apps de ahorro asumen que sé cuánto voy a ganar.&quot;">"I make different money each month. Apps for saving assume I know what I'll earn."</div>
       </div>
       <div class="insight-card reveal">
-        <div class="insight-icon">🎯</div>
+        <div class="insight-icon"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="9" stroke="rgba(196,160,90,.5)" stroke-width="1"/><circle cx="11" cy="11" r="5" stroke="rgba(196,160,90,.65)" stroke-width="1"/><circle cx="11" cy="11" r="2" fill="rgba(196,160,90,.85)"/></svg></div>
         <div class="insight-title" data-en="No savings discipline or system" data-es="Sin disciplina ni sistema de ahorro">No savings discipline or system</div>
         <div class="insight-body" data-en="Saving was viewed as what's left over — not a planned behaviour. Without a dedicated system, savings were the first casualty of unexpected expenses. Goal-based framing was the key motivational trigger." data-es="El ahorro era visto como lo que sobra — no como un comportamiento planificado. Sin un sistema dedicado, los ahorros eran la primera víctima de los gastos inesperados. El encuadre basado en metas fue el disparador motivacional clave.">Saving was viewed as what's left over — not a planned behaviour. Without a dedicated system, savings were the first casualty of unexpected expenses. Goal-based framing was the key motivational trigger.</div>
         <div class="insight-quote" data-en="&quot;I always say I\"ll save. Then something comes up and it\'s gone."' data-es="&quot;Siempre digo que voy a ahorrar. Luego surge algo y se va.&quot;">"I always say I'll save. Then something comes up and it's gone."</div>
       </div>
       <div class="insight-card reveal">
-        <div class="insight-icon">📚</div>
+        <div class="insight-icon"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M4 4h7v14H4z" stroke="rgba(196,160,90,.65)" stroke-width="1.1" fill="rgba(196,160,90,.06)"/><path d="M11 4s2-1.5 6 0v14c-4-1.5-6 0-6 0V4z" stroke="rgba(196,160,90,.5)" stroke-width="1.1" fill="rgba(196,160,90,.04)"/></svg></div>
         <div class="insight-title" data-en="Low financial literacy, high desire to learn" data-es="Baja alfabetización financiera, alto deseo de aprender">Low financial literacy, high desire to learn</div>
         <div class="insight-body" data-en="Users expressed strong interest in financial education — but existing content was either too complex or too generic. Contextual, bite-sized tips triggered by their own financial behaviour were highly valued." data-es="Los usuarios expresaron un fuerte interés en la educación financiera — pero el contenido existente era demasiado complejo o genérico. Los consejos breves y contextuales activados por su propio comportamiento financiero eran muy valorados.">Users expressed strong interest in financial education — but existing content was either too complex or too generic. Contextual, bite-sized tips triggered by their own financial behaviour were highly valued.</div>
         <div class="insight-quote" data-en="&quot;I want to understand money better. But finance apps talk like bankers.&quot;" data-es="&quot;Quiero entender mejor el dinero. Pero las apps de finanzas hablan como banqueros.&quot;">"I want to understand money better. But finance apps talk like bankers."</div>
       </div>
       <div class="insight-card reveal">
-        <div class="insight-icon">⚡</div>
+        <div class="insight-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="11,2 4,11 10,11 9,18 16,9 10,9" stroke="rgba(196,160,90,.75)" stroke-width="1.2" fill="rgba(196,160,90,.1)" stroke-linejoin="round"/>
+    </svg></div>
         <div class="insight-title" data-en="Reactive not proactive financial decisions" data-es="Decisiones financieras reactivas, no proactivas">Reactive not proactive financial decisions</div>
         <div class="insight-body" data-en="Without alerts or early warnings, users only noticed budget problems after they happened. A proactive alert system — one that surfaces risk before the crisis — was consistently rated as the most useful potential feature." data-es="Sin alertas o advertencias tempranas, los usuarios solo notaban los problemas de presupuesto después de que ocurrían. Un sistema de alertas proactivo — que muestre el riesgo antes de la crisis — fue consistentemente calificado como la característica potencial más útil.">Without alerts or early warnings, users only noticed budget problems after they happened. A proactive alert system — one that surfaces risk before the crisis — was consistently rated as the most useful potential feature.</div>
         <div class="insight-quote" data-en="&quot;By the time I realise I\"ve overspent, it\'s already too late to fix it."' data-es="&quot;Para cuando me doy cuenta de que gasté de más, ya es demasiado tarde para arreglarlo.&quot;">"By the time I realise I've overspent, it's already too late to fix it."</div>
       </div>
       <div class="insight-card reveal" style="background:rgba(180,150,90,.04);">
-        <div class="insight-icon">🔍</div>
+        <div class="insight-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="8.5" cy="8.5" r="5.5" stroke="rgba(196,160,90,.7)" stroke-width="1.2"/>
+      <line x1="13" y1="13" x2="18" y2="18" stroke="rgba(196,160,90,.7)" stroke-width="1.5" stroke-linecap="round"/>
+    </svg></div>
         <div class="insight-title" data-en="Research methodology" data-es="Metodología de investigación">Research methodology</div>
         <div class="insight-body">
           <div style="display:flex;flex-direction:column;gap:10px;">
@@ -822,7 +847,7 @@ footer { border-top:1px solid var(--border); padding:24px 48px; display:flex; ju
         <div style="display:flex;flex-direction:column;justify-content:space-around;font-family:var(--mono);font-size:9px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;padding-right:12px;writing-mode:vertical-lr;transform:rotate(180deg);text-align:center;" data-en="Higher impact → Lower impact →" data-es="Mayor impacto → Menor impacto →">Higher impact → Lower impact →</div>
         <div class="matrix-grid">
           <div class="matrix-cell highlight">
-            <div class="matrix-quadrant" data-en="🚀 V1 — Build first" data-es="🚀 V1 — Construir primero">🚀 V1 — Build first</div>
+            <div class="matrix-quadrant" data-en="V1 — Build first" data-es="V1 — Construir primero">V1 — Build first</div>
             <div class="matrix-items">
               <div class="matrix-item"><div class="matrix-dot dot-gold"></div><span data-en="Expense dashboard & visibility" data-es="Dashboard de gastos y visibilidad">Expense dashboard & visibility</span></div>
               <div class="matrix-item"><div class="matrix-dot dot-gold"></div><span data-en="Monthly budget tracker" data-es="Rastreador de presupuesto mensual">Monthly budget tracker</span></div>
@@ -831,7 +856,7 @@ footer { border-top:1px solid var(--border); padding:24px 48px; display:flex; ju
             </div>
           </div>
           <div class="matrix-cell">
-            <div class="matrix-quadrant" data-en="📅 V2 — Plan carefully" data-es="📅 V2 — Planificar con cuidado">📅 V2 — Plan carefully</div>
+            <div class="matrix-quadrant" data-en="V2 — Plan carefully" data-es="V2 — Planificar con cuidado">V2 — Plan carefully</div>
             <div class="matrix-items">
               <div class="matrix-item"><div class="matrix-dot dot-green"></div><span data-en="Bank account connection" data-es="Conexión de cuenta bancaria">Bank account connection</span></div>
               <div class="matrix-item"><div class="matrix-dot dot-green"></div><span data-en="Income volatility modelling" data-es="Modelado de volatilidad de ingresos">Income volatility modelling</span></div>
@@ -839,7 +864,7 @@ footer { border-top:1px solid var(--border); padding:24px 48px; display:flex; ju
             </div>
           </div>
           <div class="matrix-cell">
-            <div class="matrix-quadrant" data-en="✅ V1 — Quick wins" data-es="✅ V1 — Victorias rápidas">✅ V1 — Quick wins</div>
+            <div class="matrix-quadrant" data-en="V1 — Quick wins" data-es="V1 — Victorias rápidas">V1 — Quick wins</div>
             <div class="matrix-items">
               <div class="matrix-item"><div class="matrix-dot dot-gold"></div><span data-en="Financial education tips" data-es="Consejos de educación financiera">Financial education tips</span></div>
               <div class="matrix-item"><div class="matrix-dot dot-gold"></div><span data-en="Expense categorisation" data-es="Categorización de gastos">Expense categorisation</span></div>
@@ -847,7 +872,7 @@ footer { border-top:1px solid var(--border); padding:24px 48px; display:flex; ju
             </div>
           </div>
           <div class="matrix-cell">
-            <div class="matrix-quadrant" data-en="🔮 V3 — Future state" data-es="🔮 V3 — Estado futuro">🔮 V3 — Future state</div>
+            <div class="matrix-quadrant" data-en="V3 — Future state" data-es="V3 — Estado futuro">V3 — Future state</div>
             <div class="matrix-items">
               <div class="matrix-item"><div class="matrix-dot dot-muted"></div><span data-en="AI spending coach" data-es="Coach de gastos IA">AI spending coach</span></div>
               <div class="matrix-item"><div class="matrix-dot dot-muted"></div><span data-en="Credit score builder" data-es="Constructor de score crediticio">Credit score builder</span></div>
@@ -1345,17 +1370,33 @@ footer { border-top:1px solid var(--border); padding:24px 48px; display:flex; ju
     <p style="font-size:15px;color:var(--muted);max-width:600px;margin-bottom:0;" data-en="The skills demonstrated in this project are directly transferable to fintech, digital banking, and consumer product roles in Europe." data-es="Las habilidades demostradas en este proyecto son directamente transferibles a roles de fintech, banca digital y producto consumer en Europa.">The skills demonstrated in this project are directly transferable to fintech, digital banking, and consumer product roles in Europe.</p>
     <div class="rel-grid">
       <div class="rel-item reveal">
-        <div class="rel-icon">🏦</div>
+        <div class="rel-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M2 17h16M3 17v-6M7 17v-6M13 17v-6M17 17v-6" stroke="rgba(196,160,90,.65)" stroke-width="1.2" stroke-linecap="round"/>
+      <rect x="2" y="11" width="16" height="0" fill="none" stroke="rgba(196,160,90,.3)" stroke-width="1"/>
+      <polygon points="10,3 2,11 18,11" stroke="rgba(196,160,90,.7)" stroke-width="1.2" stroke-linejoin="round" fill="rgba(196,160,90,.07)"/>
+    </svg></div>
         <div class="rel-title" data-en="Payments & collections fintech" data-es="Fintech de pagos y cobranza">Payments & collections fintech</div>
         <div class="rel-body" data-en="Direct debit, recurring collections, and SEPA-equivalent systems all serve the same problem: making complex payment infrastructure simple for end users. Monevol's user research methodology — interviewing across economic segments, identifying behavioural blockers — is the same discipline." data-es="El débito directo, las cobranzas recurrentes y los sistemas equivalentes a SEPA sirven el mismo problema: hacer que la infraestructura de pago compleja sea simple para los usuarios finales. La metodología de investigación de usuario de Monevol — entrevistando en segmentos económicos, identificando bloqueadores conductuales — es la misma disciplina.">Direct debit, recurring collections, and SEPA-equivalent systems all serve the same problem: making complex payment infrastructure simple for end users. Monevol's user research methodology — interviewing across economic segments, identifying behavioural blockers — is the same discipline.</div>
       </div>
       <div class="rel-item reveal">
-        <div class="rel-icon">📱</div>
+        <div class="rel-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="2" y="3" width="16" height="14" rx="2" stroke="rgba(196,160,90,.65)" stroke-width="1.2" fill="rgba(196,160,90,.04)"/>
+      <line x1="2" y1="7" x2="18" y2="7" stroke="rgba(196,160,90,.4)" stroke-width="1"/>
+      <circle cx="4.5" cy="5" r=".8" fill="rgba(196,160,90,.5)"/>
+      <circle cx="7" cy="5" r=".8" fill="rgba(196,160,90,.35)"/>
+      <rect x="5" y="10" width="10" height="1.5" rx=".5" fill="rgba(196,160,90,.25)"/>
+      <rect x="5" y="13" width="7" height="1.5" rx=".5" fill="rgba(196,160,90,.18)"/>
+    </svg></div>
         <div class="rel-title" data-en="Consumer & digital banking products" data-es="Productos de banca digital y consumer">Consumer & digital banking products</div>
         <div class="rel-body" data-en="Building for underserved users requires the same PM skills as building for any user — discovery, prioritisation, metric definition, and ruthless scope management. The constraint of zero tolerance for complexity produces better product instincts than building for sophisticated users." data-es="Construir para usuarios desatendidos requiere las mismas habilidades de PM que construir para cualquier usuario — discovery, priorización, definición de métricas y gestión implacable del alcance. La restricción de cero tolerancia a la complejidad produce mejores instintos de producto que construir para usuarios sofisticados.">Building for underserved users requires the same PM skills as building for any user — discovery, prioritisation, metric definition, and ruthless scope management. The constraint of zero tolerance for complexity produces better product instincts than building for sophisticated users.</div>
       </div>
       <div class="rel-item reveal">
-        <div class="rel-icon">🔄</div>
+        <div class="rel-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M4 10a6 6 0 016-6 6 6 0 014.2 1.7L16 8" stroke="rgba(196,160,90,.75)" stroke-width="1.2" stroke-linecap="round"/>
+      <path d="M16 10a6 6 0 01-6 6 6 6 0 01-4.2-1.7L4 12" stroke="rgba(196,160,90,.55)" stroke-width="1.2" stroke-linecap="round"/>
+      <polyline points="14,6 16,8 18,6" stroke="rgba(196,160,90,.75)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+      <polyline points="6,14 4,12 2,14" stroke="rgba(196,160,90,.55)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg></div>
         <div class="rel-title" data-en="Engagement & retention products" data-es="Productos de engagement y retención">Engagement & retention products</div>
         <div class="rel-body" data-en="Growth loops, habit formation, contextual nudges, and behavioural engagement design are increasingly central to fintech retention strategy. Monevol was designed around these principles from the first interview — not retrofitted after MVP." data-es="Los bucles de crecimiento, la formación de hábitos, los nudges contextuales y el diseño de engagement conductual son cada vez más centrales en la estrategia de retención fintech. Monevol fue diseñado alrededor de estos principios desde la primera entrevista — no retrofiteado después del MVP.">Growth loops, habit formation, contextual nudges, and behavioural engagement design are increasingly central to fintech retention strategy. Monevol was designed around these principles from the first interview — not retrofitted after MVP.</div>
       </div>
