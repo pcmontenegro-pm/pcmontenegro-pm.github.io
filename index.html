@@ -328,8 +328,8 @@ section{padding:80px 48px;}
 
 /* ══ CONTACT ═══════════════════════════════════════ */
 #contact{background:linear-gradient(180deg,#0f1c2e 0%,#121820 100%);border-top:1px solid rgba(196,160,90,.14);}
-.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start;}
-.contact-sig{width:100%;max-width:300px;opacity:.88;margin-bottom:28px;filter:brightness(1.1);}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;}
+/* contact-sig handled by sig-wrap */
 .contact-h2{font-family:var(--serif);font-size:clamp(24px,3vw,36px);
   font-weight:300;color:var(--white);line-height:1.2;margin-bottom:10px;}
 .contact-h2 em{font-style:italic;color:var(--gold2);}
@@ -364,6 +364,21 @@ section{padding:80px 48px;}
 .footer-brand span{font-family:var(--mono);font-size:11px;letter-spacing:.04em;color:var(--muted);}
 .footer-right{font-family:var(--mono);font-size:11px;color:var(--muted2);}
 
+
+/* ── FIRMA INTEGRADA ────────────────────── */
+.sig-wrap{
+  margin-bottom:28px;
+  /* Sin border, sin background — se integra con la página */
+}
+.contact-sig{
+  width:100%;
+  max-width:100%;
+  opacity:.92;
+  mix-blend-mode:screen;
+  /* mix-blend-mode:screen hace que el negro del PNG desaparezca
+     y solo quede la firma blanca/gold flotando sobre el fondo */
+  display:block;
+}
 /* ── SVG CUSTOM ICONS ──────────────────── */
 .ico{display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;}
 .ico svg{display:block;}
