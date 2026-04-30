@@ -365,7 +365,9 @@ function renderContact(lang) {
   <section id="contact">
     <div class="si contact-grid">
       <div>
-        <img src="${d.sig}" alt="Pablo Montenegro signature" class="contact-sig reveal" loading="lazy">
+        <div class="sig-wrap reveal">
+          <img src="${d.sig}" alt="" class="contact-sig" loading="lazy" aria-hidden="true">
+        </div>
         <h2 class="contact-h2 reveal" data-en="Open to the right <em>opportunity.</em>" data-es="Abierto a la <em>oportunidad correcta.</em>">${lang==='es'?'Abierto a la <em>oportunidad correcta.</em>':'Open to the right <em>opportunity.</em>'}</h2>
         <p class="contact-sub reveal"
            data-en="Senior PM roles in payments, collections or digital banking. Ireland and Spain preferred. Remote LatAm welcome."
