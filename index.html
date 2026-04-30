@@ -144,7 +144,7 @@ section{padding:80px 48px;}
 .bar-pill-icon{font-size:11px;}
 
 /* ══ WORK ══════════════════════════════════════════ */
-#work{background:var(--navy);padding:72px 48px;}
+#work{background:linear-gradient(180deg,#0A1226 0%,#0d1830 100%);padding:72px 48px;}
 .work-header{display:flex;align-items:flex-end;justify-content:space-between;
   margin-bottom:28px;flex-wrap:wrap;gap:16px;}
 .work-tabs{display:flex;gap:0;background:var(--border);
@@ -172,6 +172,16 @@ section{padding:80px 48px;}
 /* Cases grid */
 .cases-grid{display:grid;grid-template-columns:repeat(3,1fr);
   gap:1px;background:var(--border);border:1px solid var(--border);margin-top:0;}
+
+/* Last card alone fix */
+.cases-grid .cc:last-child:nth-child(3n+1) {
+  grid-column: 1 / span 3;
+  max-width: 380px;
+}
+.cases-grid .cc:last-child:nth-child(3n+2) {
+  grid-column: 2 / span 2;
+}
+
 .cc{background:var(--navy);transition:background .18s;display:flex;flex-direction:column;}
 .cc:hover{background:var(--navy2);}
 .case-vis-bg{width:100%;aspect-ratio:16/9;display:flex;align-items:center;
@@ -199,7 +209,7 @@ section{padding:80px 48px;}
 .case-cta:hover{background:var(--gold);color:var(--navy);border-color:var(--gold);}
 
 /* ══ ABOUT ══════════════════════════════════════════ */
-#about{background:var(--navy2);border-top:1px solid var(--border);}
+#about{background:linear-gradient(180deg,#0e1a2e 0%,#0f1c30 100%);border-top:1px solid var(--border);}
 
 /* Spec strips — scannable facts */
 .spec-strip{display:grid;grid-template-columns:repeat(4,1fr);
@@ -236,7 +246,7 @@ section{padding:80px 48px;}
 .rec-link:hover{opacity:1;}
 
 /* ══ BACKGROUND (EXP + SKILLS) ══════════════════════ */
-#background{background:var(--navy);border-top:1px solid var(--border);}
+#background{background:linear-gradient(180deg,#0A1226 0%,#0c1528 100%);border-top:1px solid var(--border);}
 .bg-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start;}
 
 /* Exp timeline */
@@ -279,7 +289,7 @@ section{padding:80px 48px;}
 .edu-school{font-size:12.5px;color:var(--muted);}
 
 /* ══ PRODUCTS ══════════════════════════════════════ */
-#products{background:var(--navy2);border-top:1px solid var(--border);}
+#products{background:linear-gradient(180deg,#10182a 0%,#131a26 100%);border-top:1px solid rgba(196,160,90,.12);}
 .prods-grid{display:grid;grid-template-columns:repeat(4,1fr);
   gap:1px;background:var(--border);border:1px solid var(--border);}
 .prod-card{background:var(--navy);display:flex;flex-direction:column;transition:background .2s;}
@@ -300,7 +310,7 @@ section{padding:80px 48px;}
   border:1px dashed var(--border);padding:4px 10px;border-radius:2px;}
 
 /* ══ WRITING ═══════════════════════════════════════ */
-#writing{background:var(--navy);border-top:1px solid var(--border);}
+#writing{background:linear-gradient(180deg,#0c1828 0%,#0a1520 100%);border-top:1px solid var(--border);}
 .writing-grid{display:grid;grid-template-columns:1fr 1fr;
   gap:1px;background:var(--border);border:1px solid var(--border);}
 .writing-card{background:var(--navy);padding:24px 26px;
@@ -317,9 +327,9 @@ section{padding:80px 48px;}
   margin-top:auto;display:flex;align-items:center;gap:4px;}
 
 /* ══ CONTACT ═══════════════════════════════════════ */
-#contact{background:var(--navy2);border-top:1px solid var(--border);}
-.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start;}
-.contact-sig{width:220px;opacity:.85;margin-bottom:24px;}
+#contact{background:linear-gradient(180deg,#0f1c2e 0%,#121820 100%);border-top:1px solid rgba(196,160,90,.14);}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start;}
+.contact-sig{width:100%;max-width:300px;opacity:.88;margin-bottom:28px;filter:brightness(1.1);}
 .contact-h2{font-family:var(--serif);font-size:clamp(24px,3vw,36px);
   font-weight:300;color:var(--white);line-height:1.2;margin-bottom:10px;}
 .contact-h2 em{font-style:italic;color:var(--gold2);}
@@ -353,6 +363,10 @@ section{padding:80px 48px;}
 .footer-brand img{width:18px;height:18px;border-radius:50%;object-fit:cover;}
 .footer-brand span{font-family:var(--mono);font-size:11px;letter-spacing:.04em;color:var(--muted);}
 .footer-right{font-family:var(--mono);font-size:11px;color:var(--muted2);}
+
+/* ── SVG CUSTOM ICONS ──────────────────── */
+.ico{display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;}
+.ico svg{display:block;}
 /* ── VISIT COUNTER ─────────────────────── */
 .footer-counter{
   display:flex;align-items:center;gap:10px;
