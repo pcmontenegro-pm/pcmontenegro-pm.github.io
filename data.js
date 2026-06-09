@@ -37,8 +37,8 @@ window.SITE = {
   consulting: {
     label_en: "Independent Consulting · 2024–Present",
     label_es: "Consultoría Independiente · 2024–Presente",
-    desc_en:  "Three engagements in payment operations, product design and cross-border workflows — scoped, delivered and measured independently.",
-    desc_es:  "Tres proyectos en operaciones de pago, diseño de producto y flujos internacionales — definidos, entregados y medidos de forma independiente.",
+    desc_en:  "Four engagements across payment operations, product design, cross-border workflows, and urban mobility — scoped, delivered and measured independently.",
+    desc_es:  "Cuatro proyectos en operaciones de pago, diseño de producto, flujos internacionales y movilidad urbana — definidos, entregados y medidos de forma independiente.",
     cases: [
       {
         id: "monevol", num: "01", year: "2024",
@@ -93,6 +93,24 @@ window.SITE = {
         ],
         cta_en: "Full case study →", cta_es: "Caso completo →",
         cta_url: "karigab-case-study.html", vis_type: "karigab",
+      },
+      {
+        id: "cyclesafe", num: "04", year: "2024–2025",
+        tag_en:   "Urban Mobility · Community Product · React Native",
+        tag_es:   "Movilidad Urbana · Producto Comunitario · React Native",
+        title_en: "<em>CycleSafe</em> — Community Safety Map",
+        title_es: "<em>CycleSafe</em> — Mapa Comunitario de Seguridad",
+        desc_en:  "Led product from discovery to pilot for a community-powered cycling safety platform in Buenos Aires. Cyclists share real-time route safety data — ciclovías, mixed streets, risk zones — filling the gap that Google Maps and Strava leave. 40 pilot users. Core hypothesis validated: safety is a primary routing criterion. Paused at scale due to relocation to Ireland.",
+        desc_es:  "Lideré el producto desde el discovery hasta el piloto para una plataforma de seguridad ciclista impulsada por la comunidad en Buenos Aires. Los ciclistas comparten datos de seguridad en tiempo real — ciclovías, calles mixtas, zonas de riesgo — cubriendo el vacío que dejan Google Maps y Strava. 40 usuarios piloto. Hipótesis central validada: la seguridad es un criterio primario de ruta. Pausado en fase de escala por traslado a Irlanda.",
+        sepa_en:  "≈ Community platforms · network effects · mobile product · 0-to-1",
+        sepa_es:  "≈ Plataformas comunitarias · efectos de red · producto móvil · 0 a 1",
+        metrics:  [
+          { num: "40",    label_en: "Pilot users · Buenos Aires", label_es: "Usuarios piloto · Buenos Aires" },
+          { num: "React", label_en: "Native · mobile-first stack", label_es: "Native · stack mobile-first" },
+          { num: "✓",     label_en: "Safety hypothesis validated", label_es: "Hipótesis de seguridad validada" },
+        ],
+        cta_en: "Full case study →", cta_es: "Caso completo →",
+        cta_url: "cyclesafe-case-study.html", vis_type: "cyclesafe",
       },
     ],
   },
