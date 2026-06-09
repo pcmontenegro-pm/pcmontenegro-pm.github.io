@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="CycleSafe — Urban Mobility Product · Pablo Montenegro · Senior PM Case Study">
+<title>CycleSafe — Urban Mobility Product · Pablo Montenegro</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+/* ── TOKENS ─────────────────────────────────────────────────── */
+:root {
+  --navy:   #0A1226; --navy2:  #111D35; --navy3:  #1A2A44;
+  --gold:   #C4A05A; --gold2:  #DDB870; --gold3:  #F0DFB8;
+  --cream:  #FAF7F2; --cream2: #F0EBE1;
+  --white:  #FFFFFF; --muted:  #7A8599; --muted2: #6B7585;
+  --border: rgba(196,160,90,.14); --border2: rgba(255,255,255,.06);
+  --green:  #2D7A5F; --green2: #3DAA85;
+  --red:    #C0392B; --red2:   #E05555;
+  --serif:  'Cormorant Garamond', Georgia, serif;
+  --sans:   'DM Sans', sans-serif;
+  --mono:   'DM Mono', monospace;
+}
+
+/* ── RESET ─────────────────────────────────────────────────── */
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; font-size:16px; }
+body {
+  background:var(--navy); color:var(--cream);
+  font-family:var(--sans); line-height:1.7;
+  -webkit-font-smoothing:antialiased; overflow-x:hidden;
+}
+img { display:block; max-width:100%; }
+a { color:inherit; text-decoration:none; }
+
+/* ── GRAIN ─────────────────────────────────────────────────── */
+body::before {
+  content:''; position:fixed; inset:0; z-index:0; pointer-events:none;
+  opacity:.022;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:220px;
+}
+body > * { position:relative; z-index:1; }
+
+/* ── NAV ───────────────────────────────────────────────────── */
+nav {
+  position:sticky; top:0; z-index:200;
+  padding:0 48px; height:60px;
+  display:flex; align-items:center; justify-content:space-between;
+  background:rgba(10,18,38,.94); backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border2);
+}
+.nav-brand { font-family:var(--serif); font-size:15px; font-style:italic; font-weight:300; color:var(--gold); }
+.nav-back {
+  font-family:var(--mono); font-size:11px; letter-spacing:.08em;
+  color:var(--muted); transition:color .2s;
+  display:flex; align-items:center; gap:6px;
+}
+.nav-back:hover { color:var(--gold); }
+.nav-lang {
+  display:flex; gap:0; border:1px solid var(--border); border-radius:2px; overflow:hidden;
+}
+.lang-btn {
+  padding:4px 10px; font-family:var(--mono); font-size:10px; letter-spacing:.08em;
+  background:transparent; border:none; color:var(--muted); cursor:pointer; transition:all .15s;
+}
+.lang-btn.active { background:var(--gold); color:var(--navy); font-weight:500; }
+.nav-right { display:flex; align-items:center; gap:14px; }
+
+/* ── HERO ──────────────────────────────────────────────────── */
+.hero {
+  min-height:92vh; padding:64px 48px 60px;
+  display:flex; flex-direction:column; justify-content:center;
+  position:relative; overflow:hidden;
+}
+.hero-bg {
+  position:absolute; inset:0; z-index:0;
+  background:
+    radial-gradient(ellipse at 75% 25%, rgba(192,57,43,.08) 0%, transparent 55%),
+    radial-gradient(ellipse at 15% 75%, rgba(45,122,95,.07) 0%, transparent 50%);
+}
+.hero-inner {
+  max-width:1100px; margin:0 auto; width:100%;
+  position:relative; z-index:1;
+  display:grid; grid-template-columns:1fr 420px; gap:64px; align-items:center;
+}
+.hero-tag {
+  font-family:var(--mono); font-size:11px; letter-spacing:.14em;
+  color:var(--gold); text-transform:uppercase; margin-bottom:20px; display:block;
+}
+.hero-h1 {
+  font-family:var(--serif); font-size:clamp(44px,5.5vw,76px);
+  font-weight:300; line-height:1.06; color:var(--white); margin-bottom:20px;
+}
+.hero-h1 em { font-style:italic; color:var(--gold2); }
+.hero-sub {
+  font-size:17px; color:var(--muted); max-width:520px;
+  line-height:1.8; font-weight:300; margin-bottom:32px;
+}
+.hero-badges { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:32px; }
+.badge {
+  font-family:var(--mono); font-size:10px; letter-spacing:.08em;
+  padding:5px 14px; border-radius:2px; border:1px solid var(--border);
+  color:var(--gold3); text-transform:uppercase;
+}
+.hero-ctas { display:flex; gap:12px; }
+.btn-gold {
+  padding:11px 28px; background:var(--gold); color:var(--navy);
+  font-size:13px; font-weight:500; border-radius:2px; transition:all .2s;
+  display:inline-block;
+}
+.btn-gold:hover { background:var(--gold2); transform:translateY(-1px); }
+.btn-ghost {
+  padding:10px 24px; border:1px solid var(--border); color:var(--cream);
+  font-size:13px; border-radius:2px; transition:all .2s; display:inline-block;
+}
+.btn-ghost:hover { border-color:var(--gold); color:var(--gold); }
+
+/* ── HERO MOCKUP — MAP SCREEN ──────────────────────────────── */
+.hero-visual {
+  display:flex; justify-content:center; align-items:center; position:relative;
+}
+.phone-hero {
+  width:220px; background:#0d1520;
+  border-radius:32px; padding:10px;
+  box-shadow:0 24px 80px rgba(0,0,0,.6), 0 0 0 1px rgba(255,255,255,.06);
+  position:relative; z-index:2;
+}
+.phone-screen {
+  border-radius:24px; overflow:hidden;
+  background:#0f1a28;
+  height:420px; display:flex; flex-direction:column;
+}
+.phone-notch {
+  height:32px; background:#0d1520;
+  display:flex; align-items:center; justify-content:center;
+}
+.phone-notch-bar { width:60px; height:5px; background:#1a2535; border-radius:10px; }
+.screen-content { flex:1; padding:0; overflow:hidden; position:relative; }
+
+/* Map background */
+.map-bg {
+  position:absolute; inset:0;
+  background:
+    linear-gradient(180deg, #1a2535 0%, #152030 100%);
+}
+.map-grid-lines {
+  position:absolute; inset:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+  background-size:18px 18px;
+}
+/* Streets */
+.map-street {
+  position:absolute; background:rgba(255,255,255,.08); border-radius:1px;
+}
+/* Cycle path = red accent */
+.map-cycle {
+  position:absolute; background:rgba(192,57,43,.55); border-radius:1px;
+  box-shadow: 0 0 6px rgba(192,57,43,.4);
+}
+.map-cycle-friendly {
+  position:absolute; background:rgba(45,170,133,.4); border-radius:1px;
+}
+/* Pin marker */
+.map-pin {
+  position:absolute; width:10px; height:10px; border-radius:50%;
+  background:var(--red2); border:2px solid #fff;
+  box-shadow:0 0 8px rgba(224,85,85,.6);
+}
+.map-overlay-card {
+  position:absolute; bottom:12px; left:10px; right:10px;
+  background:rgba(10,18,38,.92); backdrop-filter:blur(12px);
+  border:1px solid rgba(192,57,43,.25); border-radius:10px;
+  padding:10px 12px;
+}
+.map-route-label {
+  font-family:var(--mono); font-size:7.5px; letter-spacing:.1em; color:rgba(192,57,43,.9);
+  text-transform:uppercase; margin-bottom:4px;
+}
+.map-route-name { font-family:var(--serif); font-size:11px; color:var(--white); margin-bottom:6px; }
+.map-pills { display:flex; gap:4px; flex-wrap:wrap; }
+.map-pill {
+  font-family:var(--mono); font-size:7px; letter-spacing:.06em;
+  padding:2px 6px; border-radius:2px; text-transform:uppercase;
+}
+.pill-safe { background:rgba(45,170,133,.15); color:#3DAA85; border:1px solid rgba(45,170,133,.25); }
+.pill-mixed { background:rgba(196,160,90,.12); color:var(--gold); border:1px solid rgba(196,160,90,.2); }
+.pill-risk { background:rgba(192,57,43,.12); color:var(--red2); border:1px solid rgba(192,57,43,.2); }
+
+.screen-nav {
+  height:44px; background:#0d1520;
+  display:flex; align-items:center; justify-content:space-around; padding:0 12px;
+}
+.nav-icon { font-size:16px; opacity:.4; }
+.nav-icon.active { opacity:1; }
+
+/* ── METRICS BAND ──────────────────────────────────────────── */
+.metrics-band {
+  background:var(--navy2); border-top:1px solid var(--border); border-bottom:1px solid var(--border);
+}
+.metrics-inner {
+  max-width:1100px; margin:0 auto;
+  display:grid; grid-template-columns:repeat(4,1fr); gap:0;
+}
+.metric-item {
+  padding:28px 32px; border-right:1px solid var(--border); text-align:center;
+}
+.metric-item:last-child { border-right:none; }
+.metric-num {
+  font-family:var(--serif); font-size:40px; font-weight:300;
+  color:var(--gold); line-height:1; display:block; margin-bottom:6px;
+}
+.metric-label { font-family:var(--mono); font-size:10px; letter-spacing:.08em; color:var(--muted); text-transform:uppercase; }
+
+/* ── SECTIONS ──────────────────────────────────────────────── */
+.section { padding:72px 48px; }
+.section-inner { max-width:1100px; margin:0 auto; }
+.section-tag {
+  font-family:var(--mono); font-size:10px; letter-spacing:.14em;
+  color:var(--gold); text-transform:uppercase; margin-bottom:12px; display:block;
+}
+.section-h2 {
+  font-family:var(--serif); font-size:clamp(30px,4vw,50px);
+  font-weight:300; color:var(--white); line-height:1.15; margin-bottom:32px;
+}
+.section-h2 em { font-style:italic; color:var(--gold2); }
+.section-body {
+  font-size:16px; color:rgba(250,247,242,.78);
+  line-height:1.85; max-width:700px;
+}
+.section-body p+p { margin-top:18px; }
+.section-body strong { color:var(--cream); font-weight:500; }
+
+/* ── TWO-COL ───────────────────────────────────────────────── */
+.two-col { display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:start; }
+.divider { max-width:1100px; margin:0 auto; border-top:1px solid var(--border); }
+
+/* ── PULL QUOTE ────────────────────────────────────────────── */
+.pull-quote {
+  border-left:2px solid var(--gold); padding-left:24px; margin:0;
+}
+.pq-text {
+  font-family:var(--serif); font-size:19px; font-style:italic;
+  font-weight:300; color:var(--cream); line-height:1.55; margin-bottom:12px;
+}
+.pq-attr { font-family:var(--mono); font-size:10px; letter-spacing:.08em; color:var(--muted); text-transform:uppercase; }
+
+/* ── PROBLEM BAND ──────────────────────────────────────────── */
+.problem-band { background:linear-gradient(180deg,#0e1a2c,#0f1c2e); border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+.stat-grid {
+  display:grid; grid-template-columns:repeat(3,1fr);
+  gap:1px; background:var(--border);
+  border:1px solid var(--border); margin-top:48px;
+}
+.stat-card { background:var(--navy); padding:32px; }
+.stat-big {
+  font-family:var(--serif); font-size:44px; font-weight:300;
+  color:var(--gold); line-height:1; display:block; margin-bottom:8px;
+}
+.stat-desc { font-size:13px; color:var(--muted); line-height:1.6; }
+.stat-desc strong { color:var(--cream); font-weight:500; }
+
+/* ── INSIGHT CARDS ─────────────────────────────────────────── */
+.insight-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:48px; }
+.insight-card {
+  border:1px solid var(--border); padding:28px; position:relative; transition:border-color .2s;
+}
+.insight-card:hover { border-color:rgba(196,160,90,.35); }
+.insight-num {
+  font-family:var(--serif); font-size:13px; color:var(--gold);
+  margin-bottom:10px; display:block; font-style:italic;
+}
+.insight-h3 { font-family:var(--serif); font-size:17px; font-weight:400; color:var(--white); margin-bottom:8px; line-height:1.3; }
+.insight-body { font-size:13px; color:var(--muted); line-height:1.7; }
+
+/* ── FEATURE CARDS ─────────────────────────────────────────── */
+.feature-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--border); border:1px solid var(--border); margin-top:48px; }
+.feature-card { background:var(--navy); padding:32px; transition:background .2s; }
+.feature-card:hover { background:var(--navy2); }
+.fc-num { font-family:var(--mono); font-size:11px; color:var(--gold); opacity:.6; display:block; margin-bottom:12px; letter-spacing:.1em; }
+.fc-title { font-family:var(--serif); font-size:19px; font-weight:400; color:var(--white); margin-bottom:10px; line-height:1.25; }
+.fc-title em { font-style:italic; color:var(--gold2); }
+.fc-body { font-size:13px; color:var(--muted); line-height:1.7; margin-bottom:14px; }
+.fc-why { font-family:var(--mono); font-size:10px; color:rgba(196,160,90,.65); letter-spacing:.06em; border-top:1px solid var(--border); padding-top:12px; margin-top:auto; }
+
+/* ── PHASE TIMELINE ────────────────────────────────────────── */
+.roadmap-phases { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-top:48px; }
+.phase-card { border:1px solid var(--border); padding:28px; position:relative; }
+.phase-label { font-family:var(--mono); font-size:9px; letter-spacing:.12em; color:var(--gold); text-transform:uppercase; margin-bottom:8px; display:block; }
+.phase-title { font-family:var(--serif); font-size:18px; color:var(--white); margin-bottom:12px; line-height:1.3; }
+.phase-body { font-size:13px; color:var(--muted); line-height:1.7; }
+.phase-status {
+  display:inline-block; margin-top:14px;
+  font-family:var(--mono); font-size:9px; letter-spacing:.08em; text-transform:uppercase;
+  padding:3px 10px; border-radius:2px;
+}
+.status-done { background:rgba(45,170,133,.12); color:#3DAA85; border:1px solid rgba(45,170,133,.2); }
+.status-partial { background:rgba(196,160,90,.1); color:var(--gold); border:1px solid rgba(196,160,90,.2); }
+.status-paused { background:rgba(122,133,153,.1); color:var(--muted); border:1px solid rgba(122,133,153,.2); }
+
+/* ── RESULTS / KPI ─────────────────────────────────────────── */
+.kpi-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-top:48px; }
+.kpi-card { border:1px solid var(--border); padding:28px; text-align:center; }
+.kpi-num {
+  font-family:var(--serif); font-size:44px; font-weight:300;
+  color:var(--gold); display:block; line-height:1; margin-bottom:8px;
+}
+.kpi-label { font-family:var(--mono); font-size:10px; letter-spacing:.08em; color:var(--muted); text-transform:uppercase; margin-bottom:8px; display:block; }
+.kpi-note { font-size:12px; color:rgba(250,247,242,.5); line-height:1.5; }
+
+/* ── LEARNED / WHAT WORKED ─────────────────────────────────── */
+.growth-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:24px; margin-top:40px; }
+.growth-col-title {
+  font-family:var(--mono); font-size:9px; letter-spacing:.12em; text-transform:uppercase;
+  margin-bottom:16px; padding-bottom:10px; border-bottom:1px solid var(--border);
+}
+.growth-col-title.worked { color:var(--green2); }
+.growth-col-title.discovered { color:var(--gold); }
+.growth-col-title.unresolved { color:var(--muted); }
+.growth-item { font-size:13.5px; color:var(--muted); line-height:1.7; padding:12px 0; border-bottom:1px solid rgba(255,255,255,.04); }
+.growth-item:last-child { border-bottom:none; }
+.growth-item strong { color:var(--cream); font-weight:500; }
+
+/* ── RELEVANCE BAND ────────────────────────────────────────── */
+.relevance-band { background:linear-gradient(180deg,#0e1b2d,#0f1c2f); border-top:1px solid var(--border); }
+.rel-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:24px; margin-top:48px; }
+.rel-item { display:flex; flex-direction:column; gap:12px; }
+.rel-icon { font-size:24px; width:48px; height:48px; border:1px solid var(--border); display:flex; align-items:center; justify-content:center; border-radius:2px; flex-shrink:0; }
+.rel-title { font-family:var(--serif); font-size:17px; font-weight:400; color:var(--white); line-height:1.3; }
+.rel-body { font-size:13.5px; color:var(--muted); line-height:1.7; }
+
+/* ── LEARNINGS ─────────────────────────────────────────────── */
+.learn-grid { display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-top:48px; }
+.learn-card { border:1px solid var(--border); padding:28px; position:relative; transition:border-color .2s; }
+.learn-card:hover { border-color:rgba(180,150,90,.4); }
+.learn-card::before { content:''; position:absolute; top:0; left:0; width:3px; height:100%; background:var(--gold); opacity:0; transition:opacity .2s; }
+.learn-card:hover::before { opacity:1; }
+.learn-h3 { font-family:var(--serif); font-size:17px; font-weight:400; color:var(--white); margin-bottom:10px; line-height:1.35; }
+.learn-body { font-size:13.5px; color:var(--muted); line-height:1.7; }
+
+/* ── CTA SECTION ───────────────────────────────────────────── */
+.cta-section {
+  padding:72px 48px;
+  display:grid; grid-template-columns:1fr auto; gap:48px; align-items:center;
+  max-width:1100px; margin:0 auto;
+}
+.cta-h2 { font-family:var(--serif); font-size:clamp(24px,3vw,36px); font-weight:300; color:var(--white); line-height:1.25; margin-bottom:12px; }
+.cta-h2 em { font-style:italic; color:var(--gold2); }
+.cta-sub { font-size:14px; color:var(--muted); max-width:480px; }
+.cta-btn { display:inline-block; padding:14px 32px; border:1px solid var(--gold); color:var(--gold); font-family:var(--mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase; transition:all .2s; white-space:nowrap; }
+.cta-btn:hover { background:var(--gold); color:var(--navy); }
+
+/* ── FOOTER ────────────────────────────────────────────────── */
+footer { border-top:1px solid var(--border); padding:24px 48px; display:flex; justify-content:space-between; align-items:center; }
+.foot-note { font-family:var(--mono); font-size:10px; letter-spacing:.06em; color:var(--muted); }
+
+/* ── ANIMATIONS ────────────────────────────────────────────── */
+@keyframes fadeUp { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:translateY(0); } }
+.fade-up { animation:fadeUp .55s ease both; }
+.fade-up:nth-child(2) { animation-delay:.1s; }
+.fade-up:nth-child(3) { animation-delay:.2s; }
+.reveal { opacity:0; transform:translateY(16px); transition:opacity .5s ease, transform .5s ease; }
+.reveal.visible { opacity:1; transform:translateY(0); }
+
+[data-en] { transition:opacity .15s; }
+
+/* ── RESPONSIVE ────────────────────────────────────────────── */
+@media(max-width:960px) {
+  nav { padding:0 24px; }
+  .hero { padding:60px 24px 48px; min-height:auto; }
+  .hero-inner { grid-template-columns:1fr; gap:40px; }
+  .hero-visual { display:none; }
+  .section { padding:56px 24px; }
+  .two-col, .stat-grid, .insight-grid, .roadmap-phases, .rel-grid, .growth-grid { grid-template-columns:1fr; }
+  .metrics-inner { grid-template-columns:1fr 1fr; }
+  .feature-grid { grid-template-columns:1fr; }
+  .kpi-grid { grid-template-columns:1fr 1fr; }
+  .learn-grid { grid-template-columns:1fr; }
+  .cta-section { grid-template-columns:1fr; padding:56px 24px; }
+  footer { flex-direction:column; gap:8px; text-align:center; padding:20px; }
+}
+@media(max-width:480px) {
+  .metrics-inner { grid-template-columns:1fr 1fr; }
+  .kpi-grid { grid-template-columns:1fr; }
+  .hero-ctas { flex-direction:column; }
+  .hero-badges { gap:6px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="https://pablomontenegro.ie" class="nav-brand">Pablo Montenegro</a>
+  <div class="nav-right">
+    <div class="nav-lang">
+      <button onclick="setLang('en')" id="btn-en" class="lang-btn active">EN</button>
+      <button onclick="setLang('es')" id="btn-es" class="lang-btn">ES</button>
+    </div>
+    <a href="https://pablomontenegro.ie/#work" class="nav-back" data-en="← Back to work" data-es="← Volver al trabajo">← Back to work</a>
+  </div>
+</nav>
+
+<!-- ════════════════════ HERO ════════════════════ -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-inner">
+
+    <div class="fade-up">
+      <span class="hero-tag" data-en="Urban Mobility · Community Product · React Native · 2024–2025" data-es="Movilidad Urbana · Producto Comunitario · React Native · 2024–2025">Urban Mobility · Community Product · React Native · 2024–2025</span>
+      <h1 class="hero-h1" data-en="Building a community map for <em>safer cycling</em> in Buenos Aires." data-es="Construyendo un mapa comunitario para <em>ciclismo más seguro</em> en Buenos Aires.">Building a community map for <em>safer cycling</em> in Buenos Aires.</h1>
+      <p class="hero-sub" data-en="CycleSafe is a community-powered urban mobility platform designed to help cyclists navigate cities based on safety — not just efficiency. Built as a pilot in Argentina in 2024, combining collaborative mapping with real local knowledge." data-es="CycleSafe es una plataforma de movilidad urbana impulsada por la comunidad, diseñada para ayudar a ciclistas a navegar ciudades basándose en seguridad — no sólo en eficiencia. Construida como piloto en Argentina en 2024, combinando mapeo colaborativo con conocimiento local real.">CycleSafe is a community-powered urban mobility platform designed to help cyclists navigate cities based on safety — not just efficiency. Built as a pilot in Argentina in 2024, combining collaborative mapping with real local knowledge.</p>
+      <div class="hero-badges">
+        <span class="badge" data-en="Urban Mobility" data-es="Movilidad Urbana">Urban Mobility</span>
+        <span class="badge" data-en="Community Product" data-es="Producto Comunitario">Community Product</span>
+        <span class="badge" data-en="React Native" data-es="React Native">React Native</span>
+        <span class="badge" data-en="Collaborative Mapping" data-es="Mapeo Colaborativo">Collaborative Mapping</span>
+        <span class="badge" data-en="Safety-First Design" data-es="Diseño Safety-First">Safety-First Design</span>
+      </div>
+      <div class="hero-ctas">
+        <a href="mailto:pc.montenegro@gmail.com" class="btn-gold" data-en="Request case study PDF →" data-es="Solicitar PDF del caso →">Request case study PDF →</a>
+        <a href="mailto:pc.montenegro@gmail.com" class="btn-ghost" data-en="Get in touch" data-es="Contactar">Get in touch</a>
+      </div>
+    </div>
+
+    <!-- Phone mockup — map screen -->
+    <div class="hero-visual fade-up">
+      <div class="phone-hero">
+        <div class="phone-screen">
+          <div class="phone-notch"><div class="phone-notch-bar"></div></div>
+          <div class="screen-content">
+            <!-- Map base -->
+            <div class="map-bg"></div>
+            <div class="map-grid-lines"></div>
+
+            <!-- Streets -->
+            <div class="map-street" style="top:30%;left:0;right:0;height:5px;"></div>
+            <div class="map-street" style="top:55%;left:0;right:0;height:5px;"></div>
+            <div class="map-street" style="top:75%;left:0;right:0;height:3px;"></div>
+            <div class="map-street" style="top:0;bottom:0;left:30%;width:5px;"></div>
+            <div class="map-street" style="top:0;bottom:0;left:65%;width:4px;"></div>
+
+            <!-- Cycle paths (red) -->
+            <div class="map-cycle" style="top:30%;left:0;right:0;height:3px;margin-top:6px;"></div>
+            <div class="map-cycle" style="top:0;bottom:0;left:30%;width:3px;margin-left:6px;"></div>
+
+            <!-- Friendly streets (green) -->
+            <div class="map-cycle-friendly" style="top:55%;left:0;width:60%;height:3px;margin-top:6px;"></div>
+
+            <!-- Pins -->
+            <div class="map-pin" style="top:28%;left:28%;"></div>
+            <div class="map-pin" style="top:52%;left:62%; background:var(--green2); box-shadow:0 0 8px rgba(61,170,133,.5);"></div>
+            <div class="map-pin" style="top:72%;left:45%; background:var(--gold); box-shadow:0 0 8px rgba(196,160,90,.5);"></div>
+
+            <!-- Overlay card -->
+            <div class="map-overlay-card">
+              <div class="map-route-label" data-en="Active route · 2.3 km" data-es="Ruta activa · 2,3 km">Active route · 2.3 km</div>
+              <div class="map-route-name" data-en="Palermo → Microcentro" data-es="Palermo → Microcentro">Palermo → Microcentro</div>
+              <div class="map-pills">
+                <span class="map-pill pill-safe" data-en="Ciclovía" data-es="Ciclovía">Ciclovía</span>
+                <span class="map-pill pill-mixed" data-en="Mixed" data-es="Mixta">Mixed</span>
+                <span class="map-pill pill-risk" data-en="Alert zone" data-es="Zona alerta">Alert zone</span>
+              </div>
+            </div>
+          </div>
+          <div class="screen-nav">
+            <span class="nav-icon active">🗺️</span>
+            <span class="nav-icon">🚴</span>
+            <span class="nav-icon">⭐</span>
+            <span class="nav-icon">👥</span>
+            <span class="nav-icon">👤</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- METRICS BAND -->
+<div class="metrics-band">
+  <div class="metrics-inner">
+    <div class="metric-item reveal">
+      <span class="metric-num">40</span>
+      <span class="metric-label" data-en="Pilot users · Buenos Aires" data-es="Usuarios piloto · Buenos Aires">Pilot users · Buenos Aires</span>
+    </div>
+    <div class="metric-item reveal">
+      <span class="metric-num">React</span>
+      <span class="metric-label" data-en="Native · Mobile-first stack" data-es="Native · Stack mobile-first">Native · Mobile-first stack</span>
+    </div>
+    <div class="metric-item reveal">
+      <span class="metric-num">3</span>
+      <span class="metric-label" data-en="Route types mapped · Safety taxonomy" data-es="Tipos de ruta mapeados · Taxonomía de seguridad">Route types mapped · Safety taxonomy</span>
+    </div>
+    <div class="metric-item reveal">
+      <span class="metric-num">1</span>
+      <span class="metric-label" data-en="Core validated hypothesis · Safety over efficiency" data-es="Hipótesis central validada · Seguridad sobre eficiencia">Core validated hypothesis · Safety over efficiency</span>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════ EXEC SUMMARY ════════════════════ -->
+<section class="section">
+  <div class="section-inner two-col">
+    <div>
+      <span class="section-tag" data-en="Executive Summary" data-es="Resumen Ejecutivo">Executive Summary</span>
+      <h2 class="section-h2" data-en="What CycleSafe <em>is.</em>" data-es="Qué es <em>CycleSafe.</em>">What CycleSafe <em>is.</em></h2>
+      <div class="section-body">
+        <p data-en="CycleSafe is a community-powered mobile platform designed to help urban cyclists make safer route decisions. Conceived and built in Argentina in 2024, the product addressed a gap that established navigation tools like Google Maps and Strava were not solving: efficient routes are not the same as safe routes." data-es="CycleSafe es una plataforma móvil impulsada por la comunidad, diseñada para ayudar a ciclistas urbanos a tomar decisiones de ruta más seguras. Concebida y construida en Argentina en 2024, el producto abordó una brecha que herramientas de navegación establecidas como Google Maps y Strava no estaban resolviendo: las rutas eficientes no son las mismas que las rutas seguras.">CycleSafe is a community-powered mobile platform designed to help urban cyclists make safer route decisions. Conceived and built in Argentina in 2024, the product addressed a gap that established navigation tools like Google Maps and Strava were not solving: efficient routes are not the same as safe routes.</p>
+        <p data-en="I led the product as Product Lead — from initial discovery through pilot launch and validation. The project ran as a remote collaboration and reached a functioning pilot with 40 registered users before I relocated to Ireland in early 2025." data-es="Lideré el producto como Product Lead — desde el discovery inicial hasta el lanzamiento y validación del piloto. El proyecto se ejecutó como una colaboración remota y alcanzó un piloto funcional con 40 usuarios registrados antes de que me mudara a Irlanda a principios de 2025.">I led the product as Product Lead — from initial discovery through pilot launch and validation. The project ran as a remote collaboration and reached a functioning pilot with 40 registered users before I relocated to Ireland in early 2025.</p>
+      </div>
+    </div>
+    <div>
+      <div class="pull-quote" style="margin-top:60px;">
+        <div class="pq-text" data-en="&quot;Google Maps told me the fastest way. But it sent me through Av. Corrientes at rush hour on a bike. I need to know if a street is safe — not just short.&quot;" data-es="&quot;Google Maps me dijo la ruta más rápida. Pero me mandó por Av. Corrientes en hora punta en bici. Necesito saber si una calle es segura — no sólo corta.&quot;">"Google Maps told me the fastest way. But it sent me through Av. Corrientes at rush hour on a bike. I need to know if a street is safe — not just short."</div>
+        <div class="pq-attr" data-en="Discovery interview — Buenos Aires, Argentina" data-es="Entrevista de discovery — Buenos Aires, Argentina">Discovery interview — Buenos Aires, Argentina</div>
+      </div>
+      <div style="margin-top:24px;display:flex;flex-direction:column;gap:10px;">
+        <div style="display:flex;align-items:center;gap:12px;font-size:13px;">
+          <span style="color:var(--gold);font-family:var(--mono);font-size:11px;">◆</span>
+          <span style="color:var(--muted);" data-en="Discovery interviews → MVP definition → Pilot launch" data-es="Entrevistas de discovery → definición MVP → lanzamiento piloto">Discovery interviews → MVP definition → Pilot launch</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;font-size:13px;">
+          <span style="color:var(--gold);font-family:var(--mono);font-size:11px;">◆</span>
+          <span style="color:var(--muted);" data-en="React Native mobile app · Community mapping layer" data-es="App móvil React Native · Capa de mapeo comunitario">React Native mobile app · Community mapping layer</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;font-size:13px;">
+          <span style="color:var(--gold);font-family:var(--mono);font-size:11px;">◆</span>
+          <span style="color:var(--muted);" data-en="Branding: red identity inspired by Strava's energy" data-es="Branding: identidad roja inspirada en la energía de Strava">Branding: red identity inspired by Strava's energy</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;font-size:13px;">
+          <span style="color:var(--gold);font-family:var(--mono);font-size:11px;">◆</span>
+          <span style="color:var(--muted);" data-en="40 pilot users · qualitative feedback collected" data-es="40 usuarios piloto · feedback cualitativo recopilado">40 pilot users · qualitative feedback collected</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div style="border-top:1px solid var(--border);"><div class="divider"></div></div>
+
+<!-- ════════════════════ THE PROBLEM ════════════════════ -->
+<section class="section problem-band">
+  <div class="section-inner">
+    <span class="section-tag" data-en="The Problem · Market Gap" data-es="El Problema · Brecha de Mercado">The Problem · Market Gap</span>
+    <h2 class="section-h2" data-en="Navigation tools optimise for speed.<br><em>Cyclists ride for survival.</em>" data-es="Las herramientas de navegación optimizan por velocidad.<br><em>Los ciclistas pedalean para sobrevivir.</em>">Navigation tools optimise for speed.<br><em>Cyclists ride for survival.</em></h2>
+    <div class="section-body">
+      <p data-en="Cycling infrastructure in Argentine cities is uneven, rapidly changing, and highly local. A route that was safe six months ago may have a new construction site, removed cycle lane markings, or a newly dangerous intersection. No existing tool aggregated this knowledge at the street level — from the people who actually ride those streets every day." data-es="La infraestructura ciclista en las ciudades argentinas es desigual, cambia rápidamente y es muy local. Una ruta que era segura hace seis meses puede tener una nueva obra, señalizaciones de ciclovía eliminadas o una intersección recién peligrosa. Ninguna herramienta existente agregaba este conocimiento a nivel de calle — de las personas que realmente circulan por esas calles cada día.">Cycling infrastructure in Argentine cities is uneven, rapidly changing, and highly local. A route that was safe six months ago may have a new construction site, removed cycle lane markings, or a newly dangerous intersection. No existing tool aggregated this knowledge at the street level — from the people who actually ride those streets every day.</p>
+    </div>
+
+    <div class="stat-grid">
+      <div class="stat-card reveal">
+        <span class="stat-big">3x</span>
+        <div class="stat-desc"><strong data-en="More likely to be involved in an accident" data-es="Más probabilidad de accidente">More likely to be involved in an accident</strong> <span data-en="on routes recommended by standard navigation versus community-validated safe routes — a pattern identified across discovery interviews." data-es="en rutas recomendadas por navegación estándar versus rutas validadas por la comunidad — un patrón identificado en las entrevistas de discovery.">on routes recommended by standard navigation versus community-validated safe routes — a pattern identified across discovery interviews.</span></div>
+      </div>
+      <div class="stat-card reveal">
+        <span class="stat-big">0</span>
+        <div class="stat-desc"><strong data-en="Existing tools addressed safety perception" data-es="Herramientas existentes abordaban la percepción de seguridad">Existing tools addressed safety perception</strong> <span data-en="in the Argentine market. Google Maps, Strava, Komoot — all optimise for distance or performance. None surfaced community-reported hazards." data-es="en el mercado argentino. Google Maps, Strava, Komoot — todos optimizan por distancia o rendimiento. Ninguno mostraba peligros reportados por la comunidad.">in the Argentine market. Google Maps, Strava, Komoot — all optimise for distance or performance. None surfaced community-reported hazards.</span></div>
+      </div>
+      <div class="stat-card reveal">
+        <span class="stat-big">↑</span>
+        <div class="stat-desc"><strong data-en="Cycling adoption accelerated post-pandemic" data-es="La adopción del ciclismo se aceleró post-pandemia">Cycling adoption accelerated post-pandemic</strong> <span data-en="in Buenos Aires, creating a rapidly growing segment of new urban cyclists without local safety knowledge — exactly the users who need this most." data-es="en Buenos Aires, creando un segmento de rápido crecimiento de nuevos ciclistas urbanos sin conocimiento local de seguridad — exactamente los usuarios que más necesitan esto.">in Buenos Aires, creating a rapidly growing segment of new urban cyclists without local safety knowledge — exactly the users who need this most.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ DISCOVERY ════════════════════ -->
+<section class="section">
+  <div class="section-inner">
+    <span class="section-tag" data-en="Discovery · User Research" data-es="Discovery · Investigación de Usuario">Discovery · User Research</span>
+    <h2 class="section-h2" data-en="What we heard<br><em>in the interviews.</em>" data-es="Lo que escuchamos<br><em>en las entrevistas.</em>">What we heard<br><em>in the interviews.</em></h2>
+    <div class="section-body">
+      <p data-en="Discovery interviews focused on understanding how urban cyclists currently make route decisions — which tools they use, what information they trust, and where they feel the biggest gaps are. The central hypothesis: perceived safety is as important as time or distance when choosing a cycling route." data-es="Las entrevistas de discovery se centraron en entender cómo los ciclistas urbanos toman decisiones de ruta actualmente — qué herramientas usan, en qué información confían y dónde sienten las mayores brechas. La hipótesis central: la seguridad percibida es tan importante como el tiempo o la distancia al elegir una ruta ciclista.">Discovery interviews focused on understanding how urban cyclists currently make route decisions — which tools they use, what information they trust, and where they feel the biggest gaps are. The central hypothesis: perceived safety is as important as time or distance when choosing a cycling route.</p>
+    </div>
+
+    <div class="insight-grid">
+      <div class="insight-card reveal">
+        <span class="insight-num">Finding 01</span>
+        <div class="insight-h3" data-en="Trust lived over official" data-es="La experiencia vivida supera lo oficial">Trust lived over official</div>
+        <div class="insight-body" data-en="Cyclists consistently trusted advice from other riders over any app recommendation. A WhatsApp message from someone in their cycling group carried more weight than a Google Maps route — because local knowledge was current, specific, and came from someone with skin in the game." data-es="Los ciclistas confiaban consistentemente en el consejo de otros ciclistas por encima de cualquier recomendación de app. Un mensaje de WhatsApp de alguien en su grupo ciclista tenía más peso que una ruta de Google Maps — porque el conocimiento local era actual, específico y venía de alguien con experiencia real.">Cyclists consistently trusted advice from other riders over any app recommendation. A WhatsApp message from someone in their cycling group carried more weight than a Google Maps route — because local knowledge was current, specific, and came from someone with skin in the game.</div>
+      </div>
+      <div class="insight-card reveal">
+        <span class="insight-num">Finding 02</span>
+        <div class="insight-h3" data-en="Safety is local and time-sensitive" data-es="La seguridad es local y sensible al tiempo">Safety is local and time-sensitive</div>
+        <div class="insight-body" data-en="What makes a street safe at 7am is different from what makes it safe at 7pm. Infrastructure conditions, traffic patterns, lighting, and even weather affect perception. Static maps fail here — the information stales within days. Community-reported data stays current because it reflects real conditions in real time." data-es="Lo que hace segura una calle a las 7am es diferente de lo que la hace segura a las 7pm. Las condiciones de infraestructura, los patrones de tráfico, la iluminación e incluso el clima afectan la percepción. Los mapas estáticos fallan aquí — la información se vuelve obsoleta en días. Los datos reportados por la comunidad se mantienen actualizados porque reflejan condiciones reales en tiempo real.">What makes a street safe at 7am is different from what makes it safe at 7pm. Infrastructure conditions, traffic patterns, lighting, and even weather affect perception. Static maps fail here — the information stales within days. Community-reported data stays current because it reflects real conditions in real time.</div>
+      </div>
+      <div class="insight-card reveal">
+        <span class="insight-num">Finding 03</span>
+        <div class="insight-h3" data-en="Willingness to contribute was high — if easy" data-es="La disposición a contribuir era alta — si era fácil">Willingness to contribute was high — if easy</div>
+        <div class="insight-body" data-en="Cyclists expressed strong willingness to share safety information — but only if the contribution required minimal friction. A 10-tap rating process would fail. A one-swipe 'this street felt safe / unsafe' submission would work. Contribution design was as important as display design." data-es="Los ciclistas expresaron una fuerte disposición a compartir información de seguridad — pero sólo si la contribución requería mínima fricción. Un proceso de calificación de 10 toques fallaría. Un envío de 'esta calle se sintió segura / insegura' con un desliz funcionaría. El diseño de contribución era tan importante como el diseño de visualización.">Cyclists expressed strong willingness to share safety information — but only if the contribution required minimal friction. A 10-tap rating process would fail. A one-swipe 'this street felt safe / unsafe' submission would work. Contribution design was as important as display design.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div style="border-top:1px solid var(--border);"><div class="divider"></div></div>
+
+<!-- ════════════════════ THE SOLUTION ════════════════════ -->
+<section class="section" style="background:linear-gradient(180deg,#10192e,#111e2e);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+  <div class="section-inner">
+    <span class="section-tag" data-en="Core Features · Product Value" data-es="Funciones Principales · Valor del Producto">Core Features · Product Value</span>
+    <h2 class="section-h2" data-en="Community intelligence.<br><em>Layered on a map.</em>" data-es="Inteligencia comunitaria.<br><em>En capas sobre un mapa.</em>">Community intelligence.<br><em>Layered on a map.</em></h2>
+    <div class="feature-grid">
+      <div class="feature-card reveal">
+        <span class="fc-num">01</span>
+        <div class="fc-title" data-en="Safety <em>Route Map</em>" data-es="Mapa de <em>Rutas Seguras</em>">Safety <em>Route Map</em></div>
+        <div class="fc-body" data-en="The core interface displayed cycle paths, cyclist-friendly streets, and mixed-traffic zones with a colour-coded safety taxonomy — green for validated safe, amber for mixed, red for community-reported risk. Users could visualise their city's cycling reality at a glance." data-es="La interfaz central mostraba ciclovías, calles amigables para ciclistas y zonas de tráfico mixto con una taxonomía de seguridad codificada por colores — verde para validado seguro, ámbar para mixto, rojo para riesgo reportado por la comunidad. Los usuarios podían visualizar la realidad ciclista de su ciudad de un vistazo.">The core interface displayed cycle paths, cyclist-friendly streets, and mixed-traffic zones with a colour-coded safety taxonomy — green for validated safe, amber for mixed, red for community-reported risk. Users could visualise their city's cycling reality at a glance.</div>
+        <div class="fc-why" data-en="PM rationale: First-session value. No account required to view." data-es="Lógica de PM: Valor en primera sesión. Sin cuenta requerida para ver.">PM rationale: First-session value. No account required to view.</div>
+      </div>
+      <div class="feature-card reveal">
+        <span class="fc-num">02</span>
+        <div class="fc-title" data-en="Community <em>Reporting</em>" data-es="Reporte <em>Comunitario</em>">Community <em>Reporting</em></div>
+        <div class="fc-body" data-en="Riders could flag route segments after completing a journey — reporting hazards, praising safe infrastructure, or marking active risk zones. Contribution was designed for minimum friction: a single post-ride prompt with a swipe interface to classify the experience." data-es="Los ciclistas podían marcar segmentos de ruta después de completar un trayecto — reportando peligros, elogiando infraestructura segura o marcando zonas de riesgo activo. La contribución fue diseñada para mínima fricción: un único prompt post-viaje con una interfaz de deslizamiento para clasificar la experiencia.">Riders could flag route segments after completing a journey — reporting hazards, praising safe infrastructure, or marking active risk zones. Contribution was designed for minimum friction: a single post-ride prompt with a swipe interface to classify the experience.</div>
+        <div class="fc-why" data-en="PM rationale: Solves cold start — every ride generates data." data-es="Lógica de PM: Resuelve el cold start — cada viaje genera datos.">PM rationale: Solves cold start — every ride generates data.</div>
+      </div>
+      <div class="feature-card reveal">
+        <span class="fc-num">03</span>
+        <div class="fc-title" data-en="Saved <em>Routes</em>" data-es="<em>Rutas</em> Guardadas">Saved <em>Routes</em></div>
+        <div class="fc-body" data-en="Users could save frequently used routes and receive notifications when community members reported new safety conditions on those specific paths. This transformed passive map users into an engaged, returning audience with a direct personal stake in the data quality." data-es="Los usuarios podían guardar rutas de uso frecuente y recibir notificaciones cuando miembros de la comunidad reportaban nuevas condiciones de seguridad en esos caminos específicos. Esto transformó a los usuarios pasivos del mapa en una audiencia comprometida y recurrente con un interés personal directo en la calidad de los datos.">Users could save frequently used routes and receive notifications when community members reported new safety conditions on those specific paths. This transformed passive map users into an engaged, returning audience with a direct personal stake in the data quality.</div>
+        <div class="fc-why" data-en="PM rationale: Retention driver. Creates habit without pushing." data-es="Lógica de PM: Motor de retención. Crea hábito sin presionar.">PM rationale: Retention driver. Creates habit without pushing.</div>
+      </div>
+      <div class="feature-card reveal">
+        <span class="fc-num">04</span>
+        <div class="fc-title" data-en="Ride <em>Tracking</em>" data-es="<em>Seguimiento</em> de Viajes">Ride <em>Tracking</em></div>
+        <div class="fc-body" data-en="A basic ride recording feature allowed users to log journeys, visualise their own cycling history, and — crucially — generate data that fed back into the community map. Every tracked ride was an implicit safety report for the segments covered." data-es="Una función básica de registro de viajes permitía a los usuarios registrar trayectos, visualizar su historial ciclista y — crucialmente — generar datos que alimentaban de vuelta el mapa comunitario. Cada viaje registrado era un reporte implícito de seguridad para los segmentos recorridos.">A basic ride recording feature allowed users to log journeys, visualise their own cycling history, and — crucially — generate data that fed back into the community map. Every tracked ride was an implicit safety report for the segments covered.</div>
+        <div class="fc-why" data-en="PM rationale: Strava-familiar behaviour. No new habit required." data-es="Lógica de PM: Comportamiento familiar de Strava. No requiere nuevo hábito.">PM rationale: Strava-familiar behaviour. No new habit required.</div>
+      </div>
+      <div class="feature-card reveal">
+        <span class="fc-num">05</span>
+        <div class="fc-title" data-en="Community <em>Feed</em>" data-es="<em>Feed</em> Comunitario">Community <em>Feed</em></div>
+        <div class="fc-body" data-en="A lightweight activity stream showed recent reports from the community — new hazards flagged, routes validated, and updates from nearby riders. This created social proof and gave users a reason to open the app beyond active navigation." data-es="Un stream de actividad ligero mostraba reportes recientes de la comunidad — nuevos peligros marcados, rutas validadas y actualizaciones de ciclistas cercanos. Esto creaba prueba social y daba a los usuarios una razón para abrir la app más allá de la navegación activa.">A lightweight activity stream showed recent reports from the community — new hazards flagged, routes validated, and updates from nearby riders. This created social proof and gave users a reason to open the app beyond active navigation.</div>
+        <div class="fc-why" data-en="PM rationale: Drives organic return without notifications." data-es="Lógica de PM: Impulsa retorno orgánico sin notificaciones.">PM rationale: Drives organic return without notifications.</div>
+      </div>
+      <div class="feature-card reveal">
+        <span class="fc-num">06</span>
+        <div class="fc-title" data-en="Deferred: <em>Multi-city Expansion</em>" data-es="Diferido: <em>Expansión Multiciudad</em>">Deferred: <em>Multi-city Expansion</em></div>
+        <div class="fc-body" data-en="Scaling to multiple cities was explicitly deferred from V1. The priority was validating the core loop — user generates data, data improves map, map attracts users — in a single dense urban context before expanding. Buenos Aires provided the right density to test this." data-es="La expansión a múltiples ciudades fue explícitamente diferida de V1. La prioridad era validar el loop central — el usuario genera datos, los datos mejoran el mapa, el mapa atrae usuarios — en un único contexto urbano denso antes de expandir. Buenos Aires proporcionó la densidad correcta para probar esto.">Scaling to multiple cities was explicitly deferred from V1. The priority was validating the core loop — user generates data, data improves map, map attracts users — in a single dense urban context before expanding. Buenos Aires provided the right density to test this.</div>
+        <div class="fc-why" data-en="PM rationale: Network effects require density before geography." data-es="Lógica de PM: Los efectos de red requieren densidad antes que geografía.">PM rationale: Network effects require density before geography.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ ROADMAP / PHASES ════════════════════ -->
+<section class="section">
+  <div class="section-inner">
+    <span class="section-tag" data-en="Execution · Project Phases" data-es="Ejecución · Fases del Proyecto">Execution · Project Phases</span>
+    <h2 class="section-h2" data-en="Discovery to pilot<br><em>in three phases.</em>" data-es="De discovery a piloto<br><em>en tres fases.</em>">Discovery to pilot<br><em>in three phases.</em></h2>
+    <div class="roadmap-phases">
+      <div class="phase-card reveal">
+        <span class="phase-label" data-en="Phase 1 · Q2 2024" data-es="Fase 1 · Q2 2024">Phase 1 · Q2 2024</span>
+        <div class="phase-title" data-en="Discovery & problem validation" data-es="Discovery y validación del problema">Discovery & problem validation</div>
+        <div class="phase-body" data-en="Exploratory interviews with urban cyclists in Buenos Aires. Competitive analysis of Google Maps, Strava, Komoot, and local cycle apps. Hypothesis definition: safety perception as primary routing criterion. Vision and strategy alignment with co-founders." data-es="Entrevistas exploratorias con ciclistas urbanos en Buenos Aires. Análisis competitivo de Google Maps, Strava, Komoot y apps ciclistas locales. Definición de hipótesis: la percepción de seguridad como criterio primario de ruta. Alineación de visión y estrategia con co-fundadores.">Exploratory interviews with urban cyclists in Buenos Aires. Competitive analysis of Google Maps, Strava, Komoot, and local cycle apps. Hypothesis definition: safety perception as primary routing criterion. Vision and strategy alignment with co-founders.</div>
+        <span class="phase-status status-done" data-en="Completed" data-es="Completada">Completed</span>
+      </div>
+      <div class="phase-card reveal">
+        <span class="phase-label" data-en="Phase 2 · Q3–Q4 2024" data-es="Fase 2 · Q3–Q4 2024">Phase 2 · Q3–Q4 2024</span>
+        <div class="phase-title" data-en="MVP build & branding" data-es="Construcción de MVP y branding">MVP build & branding</div>
+        <div class="phase-body" data-en="MVP scoped and prioritised: community map, route reporting, ride tracking. React Native development. Safety taxonomy defined (ciclovía / mixed / risk). Visual identity built: red brand inspired by Strava's high-energy positioning. Internal testing and QA before pilot." data-es="MVP definido y priorizado: mapa comunitario, reporte de rutas, seguimiento de viajes. Desarrollo en React Native. Taxonomía de seguridad definida (ciclovía / mixta / riesgo). Identidad visual construida: marca roja inspirada en el posicionamiento de alta energía de Strava. Testing interno y QA antes del piloto.">MVP scoped and prioritised: community map, route reporting, ride tracking. React Native development. Safety taxonomy defined (ciclovía / mixed / risk). Visual identity built: red brand inspired by Strava's high-energy positioning. Internal testing and QA before pilot.</div>
+        <span class="phase-status status-done" data-en="Completed" data-es="Completada">Completed</span>
+      </div>
+      <div class="phase-card reveal">
+        <span class="phase-label" data-en="Phase 3 · Q4 2024–Q1 2025" data-es="Fase 3 · Q4 2024–Q1 2025">Phase 3 · Q4 2024–Q1 2025</span>
+        <div class="phase-title" data-en="Pilot launch & learning" data-es="Lanzamiento piloto y aprendizaje">Pilot launch & learning</div>
+        <div class="phase-body" data-en="Pilot launched with 40 registered users in Buenos Aires. Adoption metrics, contribution rates, and qualitative feedback collected. Key hypotheses validated: safety is a meaningful routing criterion and cyclists will contribute data. Project paused when I relocated to Ireland." data-es="Piloto lanzado con 40 usuarios registrados en Buenos Aires. Métricas de adopción, tasas de contribución y feedback cualitativo recopilados. Hipótesis clave validadas: la seguridad es un criterio de ruta significativo y los ciclistas contribuirán datos. Proyecto pausado cuando me mudé a Irlanda.">Pilot launched with 40 registered users in Buenos Aires. Adoption metrics, contribution rates, and qualitative feedback collected. Key hypotheses validated: safety is a meaningful routing criterion and cyclists will contribute data. Project paused when I relocated to Ireland.</div>
+        <span class="phase-status status-partial" data-en="Pilot completed · Scaling paused" data-es="Piloto completado · Escala pausada">Pilot completed · Scaling paused</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div style="border-top:1px solid var(--border);"><div class="divider"></div></div>
+
+<!-- ════════════════════ RESULTS ════════════════════ -->
+<section class="section">
+  <div class="section-inner">
+    <span class="section-tag" data-en="Pilot Results · What We Learned" data-es="Resultados del Piloto · Lo que Aprendimos">Pilot Results · What We Learned</span>
+    <h2 class="section-h2" data-en="40 users.<br><em>Enough to learn what matters.</em>" data-es="40 usuarios.<br><em>Suficiente para aprender lo que importa.</em>">40 users.<br><em>Enough to learn what matters.</em></h2>
+    <div class="section-body">
+      <p data-en="The pilot's objective was never scale — it was learning. 40 users in a dense urban context was enough to observe contribution behaviour, test the core loop, and identify where the network effect would need to be solved before any expansion." data-es="El objetivo del piloto nunca fue escalar — fue aprender. 40 usuarios en un contexto urbano denso fue suficiente para observar el comportamiento de contribución, probar el loop central e identificar dónde habría que resolver el efecto de red antes de cualquier expansión.">The pilot's objective was never scale — it was learning. 40 users in a dense urban context was enough to observe contribution behaviour, test the core loop, and identify where the network effect would need to be solved before any expansion.</p>
+    </div>
+
+    <div class="kpi-grid">
+      <div class="kpi-card reveal">
+        <span class="kpi-num">40</span>
+        <span class="kpi-label" data-en="Registered pilot users" data-es="Usuarios registrados en piloto">Registered pilot users</span>
+        <div class="kpi-note" data-en="Buenos Aires urban cyclists recruited via cycling community channels." data-es="Ciclistas urbanos de Buenos Aires reclutados a través de canales de la comunidad ciclista.">Buenos Aires urban cyclists recruited via cycling community channels.</div>
+      </div>
+      <div class="kpi-card reveal">
+        <span class="kpi-num">✓</span>
+        <span class="kpi-label" data-en="Core hypothesis validated" data-es="Hipótesis central validada">Core hypothesis validated</span>
+        <div class="kpi-note" data-en="Users understood the value proposition immediately. Safety-first routing resonated strongly across all interview segments." data-es="Los usuarios entendieron la propuesta de valor de inmediato. El enrutamiento safety-first resonó fuertemente en todos los segmentos de entrevista.">Users understood the value proposition immediately. Safety-first routing resonated strongly across all interview segments.</div>
+      </div>
+      <div class="kpi-card reveal">
+        <span class="kpi-num">↑</span>
+        <span class="kpi-label" data-en="Willingness to contribute data" data-es="Disposición a contribuir datos">Willingness to contribute data</span>
+        <div class="kpi-note" data-en="Active users contributed route reports without prompting — the community motivation was real, not induced by incentives." data-es="Los usuarios activos contribuyeron reportes de rutas sin necesidad de incentivos — la motivación comunitaria era real, no inducida por incentivos.">Active users contributed route reports without prompting — the community motivation was real, not induced by incentives.</div>
+      </div>
+    </div>
+
+    <div class="growth-grid" style="margin-top:48px;">
+      <div>
+        <div class="growth-col-title worked" data-en="What worked" data-es="Lo que funcionó">What worked</div>
+        <div class="growth-item" data-en="<strong>Safety framing resonated immediately.</strong> Users grasped the core value in seconds — 'this shows where it's safe to ride' needed no explanation." data-es="<strong>El enfoque de seguridad resonó de inmediato.</strong> Los usuarios captaron el valor central en segundos — 'esto muestra dónde es seguro pedalear' no necesitaba explicación."><strong>Safety framing resonated immediately.</strong> Users grasped the core value in seconds — 'this shows where it's safe to ride' needed no explanation.</div>
+        <div class="growth-item" data-en="<strong>Genuine willingness to contribute.</strong> Cyclists wanted to help other cyclists. Community motivation proved real without requiring gamification or rewards." data-es="<strong>Genuina disposición a contribuir.</strong> Los ciclistas querían ayudar a otros ciclistas. La motivación comunitaria resultó real sin requerir gamificación ni recompensas."><strong>Genuine willingness to contribute.</strong> Cyclists wanted to help other cyclists. Community motivation proved real without requiring gamification or rewards.</div>
+        <div class="growth-item" data-en="<strong>Familiar interaction model.</strong> Strava-like ride tracking reduced the learning curve. Users arrived with relevant mental models already formed." data-es="<strong>Modelo de interacción familiar.</strong> El seguimiento de viajes estilo Strava redujo la curva de aprendizaje. Los usuarios llegaban con modelos mentales relevantes ya formados."><strong>Familiar interaction model.</strong> Strava-like ride tracking reduced the learning curve. Users arrived with relevant mental models already formed.</div>
+      </div>
+      <div>
+        <div class="growth-col-title discovered" data-en="What we discovered" data-es="Lo que descubrimos">What we discovered</div>
+        <div class="growth-item" data-en="<strong>Content requires critical mass.</strong> A map with sparse data is less useful than a map with no data — it creates false confidence. Density of reports matters more than breadth." data-es="<strong>El contenido requiere masa crítica.</strong> Un mapa con datos escasos es menos útil que un mapa sin datos — crea una falsa confianza. La densidad de reportes importa más que la amplitud."><strong>Content requires critical mass.</strong> A map with sparse data is less useful than a map with no data — it creates false confidence. Density of reports matters more than breadth.</div>
+        <div class="growth-item" data-en="<strong>Data freshness is everything.</strong> Safety conditions change faster than expected. A month-old report about a construction zone can actively mislead a rider." data-es="<strong>La actualidad de los datos lo es todo.</strong> Las condiciones de seguridad cambian más rápido de lo esperado. Un reporte de hace un mes sobre una zona de obra puede desorientar activamente a un ciclista."><strong>Data freshness is everything.</strong> Safety conditions change faster than expected. A month-old report about a construction zone can actively mislead a rider.</div>
+        <div class="growth-item" data-en="<strong>Contribution friction has a ceiling.</strong> Users contributed enthusiastically in the first two weeks. Sustaining that behaviour required stronger hooks than the MVP contained." data-es="<strong>La fricción de contribución tiene un techo.</strong> Los usuarios contribuyeron con entusiasmo las primeras dos semanas. Sostener ese comportamiento requería ganchos más fuertes de los que contenía el MVP."><strong>Contribution friction has a ceiling.</strong> Users contributed enthusiastically in the first two weeks. Sustaining that behaviour required stronger hooks than the MVP contained.</div>
+      </div>
+      <div>
+        <div class="growth-col-title unresolved" data-en="What wasn't resolved" data-es="Lo que no se resolvió">What wasn't resolved</div>
+        <div class="growth-item" data-en="<strong>Network effect threshold.</strong> The minimum number of active contributors to make a zone's map genuinely useful was never reached. This is the core unsolved problem." data-es="<strong>Umbral del efecto de red.</strong> El número mínimo de contribuyentes activos para hacer genuinamente útil el mapa de una zona nunca se alcanzó. Este es el problema central sin resolver."><strong>Network effect threshold.</strong> The minimum number of active contributors to make a zone's map genuinely useful was never reached. This is the core unsolved problem.</div>
+        <div class="growth-item" data-en="<strong>Multi-city strategy.</strong> Expanding to Córdoba or Rosario would have diluted the already thin Buenos Aires data. The right sequencing for geographic expansion was undefined." data-es="<strong>Estrategia multiciudad.</strong> Expandirse a Córdoba o Rosario habría diluido los ya escasos datos de Buenos Aires. La secuenciación correcta para la expansión geográfica no estaba definida."><strong>Multi-city strategy.</strong> Expanding to Córdoba or Rosario would have diluted the already thin Buenos Aires data. The right sequencing for geographic expansion was undefined.</div>
+        <div class="growth-item" data-en="<strong>Sustainability of data quality.</strong> Community-generated data degrades without active curation. The moderation and verification model was designed but not tested at scale." data-es="<strong>Sostenibilidad de la calidad de datos.</strong> Los datos generados por la comunidad se degradan sin una curaduría activa. El modelo de moderación y verificación fue diseñado pero no probado a escala."><strong>Sustainability of data quality.</strong> Community-generated data degraded without active curation. The moderation and verification model was designed but not tested at scale.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ LEARNINGS ════════════════════ -->
+<section class="section" style="background:linear-gradient(180deg,#0e1826,#0f192a);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+  <div class="section-inner">
+    <span class="section-tag" data-en="PM Learnings · Transferable Principles" data-es="Aprendizajes de PM · Principios Transferibles">PM Learnings · Transferable Principles</span>
+    <h2 class="section-h2" data-en="Three lessons I carry<br><em>from CycleSafe.</em>" data-es="Tres lecciones que llevo<br><em>de CycleSafe.</em>">Three lessons I carry<br><em>from CycleSafe.</em></h2>
+    <div class="learn-grid">
+      <div class="learn-card reveal">
+        <div class="learn-h3" data-en="Validate the hypothesis before solving the chicken-and-egg" data-es="Valida la hipótesis antes de resolver el huevo y la gallina">Validate the hypothesis before solving the chicken-and-egg</div>
+        <div class="learn-body" data-en="Community platforms always face the cold-start problem. But the cold-start problem is only worth solving if the core value hypothesis holds. CycleSafe validated that cyclists want and will use safety-first routing — which made the network effect challenge worth attacking. Knowing what you're actually building for matters more than building it fast." data-es="Las plataformas comunitarias siempre enfrentan el problema del cold start. Pero el problema del cold start sólo vale la pena resolverlo si la hipótesis de valor central se sostiene. CycleSafe validó que los ciclistas quieren y usarán el enrutamiento safety-first — lo que hizo que el desafío del efecto de red valiera la pena atacar. Saber para qué estás construyendo realmente importa más que construirlo rápido.">Community platforms always face the cold-start problem. But the cold-start problem is only worth solving if the core value hypothesis holds. CycleSafe validated that cyclists want and will use safety-first routing — which made the network effect challenge worth attacking. Knowing what you're actually building for matters more than building it fast.</div>
+      </div>
+      <div class="learn-card reveal">
+        <div class="learn-h3" data-en="Network effects require density, not geography" data-es="Los efectos de red requieren densidad, no geografía">Network effects require density, not geography</div>
+        <div class="learn-body" data-en="The instinct is to expand coverage as fast as possible — more cities, more reach. The correct instinct is to go deep before going wide. A hyper-dense, highly accurate map of one neighbourhood is more valuable to its users than a thin map of an entire city. Geographic expansion is a reward for solving density, not a precondition for it." data-es="El instinto es expandir la cobertura lo más rápido posible — más ciudades, más alcance. El instinto correcto es ir profundo antes de ir amplio. Un mapa hiper-denso y altamente preciso de un barrio es más valioso para sus usuarios que un mapa superficial de toda una ciudad. La expansión geográfica es una recompensa por resolver la densidad, no una precondición para ella.">The instinct is to expand coverage as fast as possible — more cities, more reach. The correct instinct is to go deep before going wide. A hyper-dense, highly accurate map of one neighbourhood is more valuable to its users than a thin map of an entire city. Geographic expansion is a reward for solving density, not a precondition for it.</div>
+      </div>
+      <div class="learn-card reveal">
+        <div class="learn-h3" data-en="Real-time data products decay without curation infrastructure" data-es="Los productos de datos en tiempo real decaen sin infraestructura de curaduría">Real-time data products decay without curation infrastructure</div>
+        <div class="learn-body" data-en="A safety map is only as useful as its most recent accurate report. Unlike static products, the CycleSafe map could actively harm users if stale — an outdated 'safe' tag on a now-dangerous street is worse than no tag at all. Data freshness and verification needed to be designed as features, not assumed as outcomes of community contribution." data-es="Un mapa de seguridad es tan útil como su reporte preciso más reciente. A diferencia de los productos estáticos, el mapa de CycleSafe podía dañar activamente a los usuarios si estaba desactualizado — una etiqueta 'seguro' desactualizada en una calle ahora peligrosa es peor que no tener etiqueta. La actualidad y verificación de datos debían diseñarse como funciones, no asumirse como resultados de la contribución comunitaria.">A safety map is only as useful as its most recent accurate report. Unlike static products, the CycleSafe map could actively harm users if stale — an outdated 'safe' tag on a now-dangerous street is worse than no tag at all. Data freshness and verification needed to be designed as features, not assumed as outcomes of community contribution.</div>
+      </div>
+      <div class="learn-card reveal">
+        <div class="learn-h3" data-en="Contribution design is as important as consumption design" data-es="El diseño de contribución es tan importante como el diseño de consumo">Contribution design is as important as consumption design</div>
+        <div class="learn-body" data-en="Most product design effort goes into how users consume information — the map, the route, the feed. For community platforms, the design of how users contribute information is equally critical. Every tap added to the reporting flow had a measurable cost in contribution rate. The MVP taught me to design contribution flows with the same rigour as core user journeys." data-es="La mayoría del esfuerzo de diseño de producto va a cómo los usuarios consumen información — el mapa, la ruta, el feed. Para las plataformas comunitarias, el diseño de cómo los usuarios contribuyen información es igualmente crítico. Cada toque añadido al flujo de reporte tenía un costo medible en la tasa de contribución. El MVP me enseñó a diseñar flujos de contribución con el mismo rigor que los journeys de usuario principales.">Most product design effort goes into how users consume information — the map, the route, the feed. For community platforms, the design of how users contribute information is equally critical. Every tap added to the reporting flow had a measurable cost in contribution rate. The MVP taught me to design contribution flows with the same rigour as core user journeys.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ WHY THIS MATTERS ════════════════════ -->
+<div class="relevance-band">
+  <div style="max-width:1100px;margin:0 auto;padding:72px 48px;">
+    <span class="section-tag" data-en="Recruiter Relevance" data-es="Relevancia para Reclutadores">Recruiter Relevance</span>
+    <h2 class="section-h2" style="margin-bottom:8px;" data-en="Why CycleSafe matters<br><em>for your team.</em>" data-es="Por qué CycleSafe importa<br><em>para tu equipo.</em>">Why CycleSafe matters<br><em>for your team.</em></h2>
+    <p style="font-size:15px;color:var(--muted);max-width:600px;margin-bottom:0;" data-en="The product thinking demonstrated here — network effects, community mechanics, data quality at scale — is directly applicable to marketplace, platform, and data-driven product roles." data-es="El pensamiento de producto demostrado aquí — efectos de red, mecánicas comunitarias, calidad de datos a escala — es directamente aplicable a roles de marketplace, plataforma y productos basados en datos.">The product thinking demonstrated here — network effects, community mechanics, data quality at scale — is directly applicable to marketplace, platform, and data-driven product roles.</p>
+    <div class="rel-grid">
+      <div class="rel-item reveal">
+        <div class="rel-icon">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="10" cy="10" r="7" stroke="rgba(196,160,90,.65)" stroke-width="1.2" fill="rgba(196,160,90,.04)"/>
+            <circle cx="10" cy="10" r="3" stroke="rgba(196,160,90,.4)" stroke-width="1"/>
+            <circle cx="10" cy="3" r="1.2" fill="rgba(196,160,90,.5)"/>
+            <circle cx="17" cy="10" r="1.2" fill="rgba(196,160,90,.4)"/>
+            <circle cx="3" cy="10" r="1.2" fill="rgba(196,160,90,.4)"/>
+          </svg>
+        </div>
+        <div class="rel-title" data-en="Marketplace & platform products" data-es="Productos de marketplace y plataforma">Marketplace & platform products</div>
+        <div class="rel-body" data-en="Managing the supply-demand balance of a community map — contributors versus consumers — is the same discipline as managing marketplace liquidity. The cold-start problem, network effects, and contribution incentive design are first-principles marketplace PM skills." data-es="Gestionar el equilibrio oferta-demanda de un mapa comunitario — contribuyentes versus consumidores — es la misma disciplina que gestionar la liquidez de un marketplace. El problema del cold start, los efectos de red y el diseño de incentivos de contribución son habilidades de PM de marketplace de primeros principios.">Managing the supply-demand balance of a community map — contributors versus consumers — is the same discipline as managing marketplace liquidity. The cold-start problem, network effects, and contribution incentive design are first-principles marketplace PM skills.</div>
+      </div>
+      <div class="rel-item reveal">
+        <div class="rel-icon">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="2" y="2" width="7" height="7" rx="1" stroke="rgba(196,160,90,.65)" stroke-width="1.2" fill="rgba(196,160,90,.04)"/>
+            <rect x="11" y="2" width="7" height="7" rx="1" stroke="rgba(196,160,90,.45)" stroke-width="1.2" fill="rgba(196,160,90,.03)"/>
+            <rect x="2" y="11" width="7" height="7" rx="1" stroke="rgba(196,160,90,.45)" stroke-width="1.2" fill="rgba(196,160,90,.03)"/>
+            <rect x="11" y="11" width="7" height="7" rx="1" stroke="rgba(196,160,90,.3)" stroke-width="1.2" fill="rgba(196,160,90,.02)"/>
+          </svg>
+        </div>
+        <div class="rel-title" data-en="Data product management" data-es="Gestión de productos de datos">Data product management</div>
+        <div class="rel-body" data-en="CycleSafe's core challenge was data quality at scale — freshness, accuracy, and trust in community-generated information. These are the same questions that face any product where the data layer is the product: financial data aggregators, fraud detection systems, open banking platforms." data-es="El desafío central de CycleSafe era la calidad de datos a escala — actualidad, precisión y confianza en la información generada por la comunidad. Estas son las mismas preguntas que enfrentan cualquier producto donde la capa de datos es el producto: agregadores de datos financieros, sistemas de detección de fraude, plataformas de open banking.">CycleSafe's core challenge was data quality at scale — freshness, accuracy, and trust in community-generated information. These are the same questions that face any product where the data layer is the product: financial data aggregators, fraud detection systems, open banking platforms.</div>
+      </div>
+      <div class="rel-item reveal">
+        <div class="rel-icon">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 16 L10 4 L16 16" stroke="rgba(196,160,90,.65)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <line x1="6" y1="12" x2="14" y2="12" stroke="rgba(196,160,90,.4)" stroke-width="1" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="rel-title" data-en="0-to-1 product leadership" data-es="Liderazgo de producto 0 a 1">0-to-1 product leadership</div>
+        <div class="rel-body" data-en="CycleSafe went from hypothesis to functioning pilot without an established team, budget, or market validation. Navigating ambiguity, making irreversible decisions with incomplete data, and shipping a real product used by real people in a live market — this is the experience that matters in early-stage or greenfield product roles." data-es="CycleSafe pasó de hipótesis a piloto funcional sin equipo establecido, presupuesto ni validación de mercado. Navegar la ambigüedad, tomar decisiones irreversibles con datos incompletos y lanzar un producto real usado por personas reales en un mercado en vivo — esta es la experiencia que importa en roles de producto early-stage o greenfield.">CycleSafe went from hypothesis to functioning pilot without an established team, budget, or market validation. Navigating ambiguity, making irreversible decisions with incomplete data, and shipping a real product used by real people in a live market — this is the experience that matters in early-stage or greenfield product roles.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════ CTA ════════════════════ -->
+<div style="border-top:1px solid var(--border);">
+  <div class="cta-section">
+    <div>
+      <h2 class="cta-h2" data-en="Want to discuss<br><em>the product decisions?</em>" data-es="¿Quieres hablar sobre<br><em>las decisiones de producto?</em>">Want to discuss<br><em>the product decisions?</em></h2>
+      <p class="cta-sub" data-en="Happy to walk through the discovery process, the MVP prioritisation logic, and the network effect challenge in detail. This case study reflects a real pilot — the decisions, the trade-offs, and the honest results." data-es="Con gusto reviso el proceso de discovery, la lógica de priorización del MVP y el desafío del efecto de red en detalle. Este caso refleja un piloto real — las decisiones, los trade-offs y los resultados honestos.">Happy to walk through the discovery process, the MVP prioritisation logic, and the network effect challenge in detail. This case study reflects a real pilot — the decisions, the trade-offs, and the honest results.</p>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:12px;align-items:flex-start;">
+      <a href="mailto:pc.montenegro@gmail.com" class="cta-btn" data-en="Get in touch →" data-es="Contactar →">Get in touch →</a>
+      <a href="https://pablomontenegro.ie/#work" class="cta-btn" style="border-color:var(--border);color:var(--muted);" data-en="← Back to all work" data-es="← Volver a todo el trabajo">← Back to all work</a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div style="display:flex;align-items:center;gap:10px;">
+    <span class="foot-note">Pablo Montenegro · pablomontenegro.ie</span>
+  </div>
+  <span class="foot-note" data-en="Urban Mobility · Community Product · 2024–2025" data-es="Movilidad Urbana · Producto Comunitario · 2024–2025">Urban Mobility · Community Product · 2024–2025</span>
+</footer>
+
+<!-- ════════════════════ JS ════════════════════ -->
+<script>
+var LANG = localStorage.getItem('pm_lang') || 'en';
+
+function setLang(lang) {
+  LANG = lang;
+  localStorage.setItem('pm_lang', lang);
+  document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+  document.getElementById('btn-es').classList.toggle('active', lang === 'es');
+  document.querySelectorAll('[data-en]').forEach(function(el) {
+    var txt = lang === 'es' ? el.getAttribute('data-es') : el.getAttribute('data-en');
+    if (txt) el.innerHTML = txt;
+  });
+  document.documentElement.lang = lang;
+}
+
+var obs = new IntersectionObserver(function(entries) {
+  entries.forEach(function(e) {
+    if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+  });
+}, { threshold: 0.07 });
+document.querySelectorAll('.reveal').forEach(function(el) { obs.observe(el); });
+
+document.addEventListener('DOMContentLoaded', function() { setLang(LANG); });
+</script>
+</body>
+</html>
