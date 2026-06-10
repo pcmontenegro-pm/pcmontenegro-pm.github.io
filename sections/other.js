@@ -116,7 +116,7 @@ function renderAbout(lang) {
     { icon: ICO.location,  label_en:'Location',     label_es:'Ubicación',      val:'Dublin, Ireland',         sub_en:'Open to relocation',          sub_es:'Abierto a reubicación' },
     { icon: ICO.target,    label_en:'Open to',       label_es:'Abierto a',      val:'Ireland · Spain · Europe',sub_en:'Remote LatAm welcome',         sub_es:'Remoto LatAm bienvenido' },
     { icon: ICO.clock,     label_en:'Availability',  label_es:'Disponibilidad', val_en:'Immediately',          val_es:'Inmediata',                    sub_en:'Critical Skills Permit eligible', sub_es:'Elegible Critical Skills Permit' },
-    { icon: ICO.language,  label_en:'Languages',     label_es:'Idiomas',        val:'Spanish · English C1',    sub_en:'Native · CEFR Advanced',       sub_es:'Nativo · MCER Avanzado' },
+    { icon: ICO.language,  label_en:'Languages',     label_es:'Idiomas',        val:'Spanish · English',    sub_en:'Native · Business Proficient',       sub_es:'Nativo · Nivel Profesional' },
   ].map(s => `
     <div class="spec-item">
       <span class="spec-icon ico">${s.icon}</span>

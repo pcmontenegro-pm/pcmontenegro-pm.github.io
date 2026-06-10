@@ -11,10 +11,14 @@ function renderHero(lang) {
       <span class="metric-label" data-en="${m.label_en}" data-es="${m.label_es}">${lang==='es'?m.label_es:m.label_en}</span>
     </div>`).join('');
 
+  const ICO_BANK = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="22" x2="21" y2="22"/><line x1="6" y1="18" x2="6" y2="11"/><line x1="10" y1="18" x2="10" y2="11"/><line x1="14" y1="18" x2="14" y2="11"/><line x1="18" y1="18" x2="18" y2="11"/><polygon points="12 2 20 7 4 7"/></svg>`;
+  const ICO_BRIEF = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>`;
+  const ICO_GLOBE = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>`;
+
   const pills = [
-    {icon:'🏦', text: lang==='es'?'Itaú Bank Chile · 2017–2024':'Itaú Bank Chile · 2017–2024'},
-    {icon:'🌍', text: lang==='es'?'Consultor Independiente · 2024–Presente':'Independent Consultant · 2024–Present'},
-    {icon:'🏛️', text: lang==='es'?'Santander · SURA':'Santander · SURA'},
+    {icon: ICO_BANK,  text: lang==='es'?'Itaú Bank Chile · 2017–2024':'Itaú Bank Chile · 2017–2024'},
+    {icon: ICO_BRIEF, text: lang==='es'?'Consultor Independiente · 2024–Presente':'Independent Consultant · 2024–Present'},
+    {icon: ICO_GLOBE, text: lang==='es'?'Santander · SURA':'Santander · SURA'},
   ].map(p=>`<span class="bar-pill"><span class="bar-pill-icon">${p.icon}</span>${p.text}</span>`).join('');
 
   return `
