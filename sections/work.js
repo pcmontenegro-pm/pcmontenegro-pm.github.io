@@ -141,7 +141,7 @@ const VIS = {
       <circle cx="124" cy="106" r="2" fill="rgba(160,168,185,.25)"/>
       <!-- phone notch -->
       <rect x="88" y="6" width="24" height="4" rx="2" fill="rgba(10,10,16,1)"/>
-    </svg></div>`
+    </svg></div>`,
 
   pac: `<div class="case-vis-bg" style="background:linear-gradient(150deg,#0c1a2c 0%,#0e2018 100%)">
     <span class="case-num">04</span>
