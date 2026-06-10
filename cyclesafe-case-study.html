@@ -398,8 +398,8 @@ footer { border-top:1px solid var(--border); padding:24px 48px; display:flex; ju
   <a href="https://pablomontenegro.ie" class="nav-brand">Pablo Montenegro</a>
   <div class="nav-right">
     <div class="nav-lang">
-      <button onclick="setLang('es')" id="btn-en" class="lang-btn active">EN</button>
-      <button onclick="setLang('es')" id="btn-es" class="lang-btn">ES</button>
+      <button onclick="setLang('en')" id="btn-en" class="lang-btn">EN</button>
+      <button onclick="setLang('es')" id="btn-es" class="lang-btn active">ES</button>
     </div>
     <a href="https://pablomontenegro.ie/#work" class="nav-back" data-en="← Volver al trabajo" data-es="← Volver al trabajo">← Volver al trabajo</a>
   </div>
@@ -653,13 +653,13 @@ footer { border-top:1px solid var(--border); padding:24px 48px; display:flex; ju
     <h2 class="section-h2">Así se veía<br><em>el build del piloto.</em></h2>
     <p style="font-size:15px;color:var(--muted);max-width:600px;margin-bottom:48px;line-height:1.8;">Cuatro pantallas del build en React Native. Cada anotación refleja una decisión real de producto tomada durante el desarrollo o revisada tras el feedback del piloto.</p>
 
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px;max-width:1100px;margin:0 auto;align-items:start;" class="reveal">
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px;max-width:1100px;margin:0 auto;align-items:start;grid-auto-rows:1fr;" class="reveal">
 
       <!-- ── MOCKUP 1: Mapa ── -->
       <div style="display:flex;flex-direction:column;gap:12px;">
         <div style="background:#0d0d0d;border-radius:28px;padding:8px;box-shadow:0 0 0 1px rgba(255,255,255,.07),0 20px 60px rgba(0,0,0,.7);">
           <div style="width:56px;height:16px;background:#0d0d0d;border-radius:0 0 10px 10px;margin:0 auto 3px;display:flex;align-items:center;justify-content:center;"><div style="width:32px;height:3px;background:#1c1c1c;border-radius:10px;"></div></div>
-          <div style="border-radius:20px;overflow:hidden;background:#0a1220;display:flex;flex-direction:column;">
+          <div style="border-radius:20px;overflow:hidden;background:#0a1220;display:flex;flex-direction:column;height:540px;">
             <!-- STATUS -->
             <div style="height:22px;background:#0a1220;display:flex;align-items:center;justify-content:space-between;padding:0 12px;">
               <span style="font-family:var(--mono);font-size:9px;color:rgba(255,255,255,.7);">9:41</span>
@@ -754,7 +754,7 @@ footer { border-top:1px solid var(--border); padding:24px 48px; display:flex; ju
       <div style="display:flex;flex-direction:column;gap:12px;">
         <div style="background:#0d0d0d;border-radius:28px;padding:8px;box-shadow:0 0 0 1px rgba(255,255,255,.07),0 20px 60px rgba(0,0,0,.7);">
           <div style="width:56px;height:16px;background:#0d0d0d;border-radius:0 0 10px 10px;margin:0 auto 3px;display:flex;align-items:center;justify-content:center;"><div style="width:32px;height:3px;background:#1c1c1c;border-radius:10px;"></div></div>
-          <div style="border-radius:20px;overflow:hidden;background:#141414;display:flex;flex-direction:column;">
+          <div style="border-radius:20px;overflow:hidden;background:#141414;display:flex;flex-direction:column;height:540px;">
             <div style="height:22px;background:#141414;display:flex;align-items:center;justify-content:space-between;padding:0 12px;">
               <span style="font-family:var(--mono);font-size:9px;color:rgba(255,255,255,.7);">9:41</span>
               <div style="display:flex;gap:3px;"><div style="width:3px;height:3px;border-radius:50%;background:rgba(255,255,255,.5);"></div></div>
@@ -811,7 +811,7 @@ footer { border-top:1px solid var(--border); padding:24px 48px; display:flex; ju
       <div style="display:flex;flex-direction:column;gap:12px;">
         <div style="background:#0d0d0d;border-radius:28px;padding:8px;box-shadow:0 0 0 1px rgba(255,255,255,.07),0 20px 60px rgba(0,0,0,.7);">
           <div style="width:56px;height:16px;background:#0d0d0d;border-radius:0 0 10px 10px;margin:0 auto 3px;display:flex;align-items:center;justify-content:center;"><div style="width:32px;height:3px;background:#1c1c1c;border-radius:10px;"></div></div>
-          <div style="border-radius:20px;overflow:hidden;background:#141414;display:flex;flex-direction:column;">
+          <div style="border-radius:20px;overflow:hidden;background:#141414;display:flex;flex-direction:column;height:540px;">
             <div style="height:22px;background:#141414;display:flex;align-items:center;justify-content:space-between;padding:0 12px;">
               <span style="font-family:var(--mono);font-size:9px;color:rgba(255,255,255,.7);">9:41</span>
               <div style="display:flex;gap:3px;"><div style="width:3px;height:3px;border-radius:50%;background:rgba(255,255,255,.5);"></div></div>
@@ -873,7 +873,7 @@ footer { border-top:1px solid var(--border); padding:24px 48px; display:flex; ju
       <div style="display:flex;flex-direction:column;gap:12px;">
         <div style="background:#0d0d0d;border-radius:28px;padding:8px;box-shadow:0 0 0 1px rgba(255,255,255,.07),0 20px 60px rgba(0,0,0,.7);">
           <div style="width:56px;height:16px;background:#0d0d0d;border-radius:0 0 10px 10px;margin:0 auto 3px;display:flex;align-items:center;justify-content:center;"><div style="width:32px;height:3px;background:#1c1c1c;border-radius:10px;"></div></div>
-          <div style="border-radius:20px;overflow:hidden;background:#141414;display:flex;flex-direction:column;">
+          <div style="border-radius:20px;overflow:hidden;background:#141414;display:flex;flex-direction:column;height:540px;">
             <div style="height:22px;background:#141414;display:flex;align-items:center;justify-content:space-between;padding:0 12px;">
               <span style="font-family:var(--mono);font-size:9px;color:rgba(255,255,255,.7);">9:41</span>
               <div style="display:flex;gap:3px;"><div style="width:3px;height:3px;border-radius:50%;background:rgba(255,255,255,.5);"></div></div>
@@ -1792,7 +1792,7 @@ goScreen('onboard');
 
 <!-- ════════════════════ JS ════════════════════ -->
 <script>
-var LANG = localStorage.getItem('pm_lang') || 'en';
+var LANG = localStorage.getItem('pm_lang') || 'es';
 
 function setLang(lang) {
   LANG = lang;
