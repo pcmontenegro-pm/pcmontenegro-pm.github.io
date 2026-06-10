@@ -83,36 +83,86 @@ const VIS = {
       <text x="100" y="106" font-family="DM Mono,monospace" font-size="5" fill="rgba(240,223,184,.28)" text-anchor="middle">Physical + Digital inventory · WhatsApp native</text>
     </svg></div>`,
 
-  cyclesafe: `<div class="case-vis-bg" style="background:linear-gradient(150deg,#1a0c0c 0%,#2a1010 100%)">
+  cyclesafe: `<div class="case-vis-bg" style="background:linear-gradient(150deg,#100808 0%,#1a0e0e 50%,#0d1520 100%);justify-content:center;gap:32px;">
     <span class="case-num">04</span>
-    <svg viewBox="0 0 200 120" style="width:100%;max-width:190px">
-      <text x="100" y="12" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(192,80,80,.65)" text-anchor="middle" letter-spacing="2">SAFETY MAP · BUENOS AIRES</text>
-      <rect x="10" y="18" width="180" height="78" rx="4" fill="rgba(10,16,28,.8)" stroke="rgba(192,80,80,.2)" stroke-width=".5"/>
-      <line x1="10" y1="36" x2="190" y2="36" stroke="rgba(255,255,255,.04)" stroke-width=".5"/>
-      <line x1="10" y1="54" x2="190" y2="54" stroke="rgba(255,255,255,.04)" stroke-width=".5"/>
-      <line x1="10" y1="72" x2="190" y2="72" stroke="rgba(255,255,255,.04)" stroke-width=".5"/>
-      <line x1="52" y1="18" x2="52" y2="96" stroke="rgba(255,255,255,.04)" stroke-width=".5"/>
-      <line x1="100" y1="18" x2="100" y2="96" stroke="rgba(255,255,255,.04)" stroke-width=".5"/>
-      <line x1="148" y1="18" x2="148" y2="96" stroke="rgba(255,255,255,.04)" stroke-width=".5"/>
-      <line x1="10" y1="54" x2="190" y2="54" stroke="rgba(255,255,255,.09)" stroke-width="3"/>
-      <line x1="100" y1="18" x2="100" y2="96" stroke="rgba(255,255,255,.09)" stroke-width="3"/>
-      <line x1="10" y1="54" x2="190" y2="54" stroke="rgba(192,80,80,.7)" stroke-width="2"/>
-      <line x1="52" y1="18" x2="52" y2="96" stroke="rgba(90,180,130,.5)" stroke-width="2"/>
-      <line x1="10" y1="36" x2="190" y2="36" stroke="rgba(196,160,90,.4)" stroke-width="1.5" stroke-dasharray="5,3"/>
-      <circle cx="100" cy="54" r="5" fill="rgba(192,80,80,.25)" stroke="rgba(192,80,80,.8)" stroke-width="1"/>
-      <circle cx="100" cy="54" r="2" fill="rgba(192,80,80,.9)"/>
-      <circle cx="52" cy="36" r="4" fill="rgba(90,180,130,.2)" stroke="rgba(90,180,130,.8)" stroke-width="1"/>
-      <circle cx="52" cy="36" r="1.5" fill="rgba(90,180,130,.9)"/>
-      <circle cx="148" cy="72" r="4" fill="rgba(196,160,90,.15)" stroke="rgba(196,160,90,.7)" stroke-width="1"/>
-      <circle cx="148" cy="72" r="1.5" fill="rgba(196,160,90,.8)"/>
-      <rect x="14" y="99" width="5" height="5" rx="1" fill="rgba(192,80,80,.7)"/>
-      <text x="22" y="105" font-family="DM Mono,monospace" font-size="5" fill="rgba(240,223,184,.4)">Ciclovía</text>
-      <rect x="64" y="99" width="5" height="5" rx="1" fill="rgba(90,180,130,.7)"/>
-      <text x="72" y="105" font-family="DM Mono,monospace" font-size="5" fill="rgba(240,223,184,.4)">Safe</text>
-      <rect x="102" y="99" width="5" height="5" rx="1" fill="rgba(196,160,90,.6)"/>
-      <text x="110" y="105" font-family="DM Mono,monospace" font-size="5" fill="rgba(240,223,184,.4)">Mixed</text>
-      <text x="152" y="105" font-family="DM Mono,monospace" font-size="5" fill="rgba(240,223,184,.25)">40 users</text>
-    </svg></div>`,
+    <svg viewBox="0 0 340 130" style="width:100%;max-width:560px">
+      <!-- ── MAP PANEL (left) ── -->
+      <rect x="8" y="8" width="160" height="114" rx="6" fill="rgba(8,14,24,.95)" stroke="rgba(192,57,43,.18)" stroke-width=".8"/>
+      <!-- grid streets -->
+      <line x1="8" y1="50" x2="168" y2="50" stroke="rgba(255,255,255,.05)" stroke-width=".5"/>
+      <line x1="8" y1="80" x2="168" y2="80" stroke="rgba(255,255,255,.05)" stroke-width=".5"/>
+      <line x1="55" y1="8" x2="55" y2="122" stroke="rgba(255,255,255,.05)" stroke-width=".5"/>
+      <line x1="112" y1="8" x2="112" y2="122" stroke="rgba(255,255,255,.05)" stroke-width=".5"/>
+      <!-- ciclovía — horizontal bold red -->
+      <line x1="8" y1="50" x2="168" y2="50" stroke="rgba(192,57,43,.75)" stroke-width="2.5"/>
+      <!-- safe street — vertical green -->
+      <line x1="55" y1="8" x2="55" y2="122" stroke="rgba(39,174,96,.6)" stroke-width="2"/>
+      <!-- mixed — dashed amber -->
+      <line x1="8" y1="80" x2="168" y2="80" stroke="rgba(211,84,0,.55)" stroke-width="1.5" stroke-dasharray="6,4"/>
+      <!-- block fills -->
+      <rect x="9" y="9" width="45" height="40" rx="2" fill="rgba(255,255,255,.018)"/>
+      <rect x="57" y="9" width="54" height="40" rx="2" fill="rgba(255,255,255,.018)"/>
+      <rect x="114" y="9" width="53" height="40" rx="2" fill="rgba(255,255,255,.018)"/>
+      <rect x="9" y="51" width="45" height="28" rx="2" fill="rgba(255,255,255,.018)"/>
+      <rect x="57" y="51" width="54" height="28" rx="2" fill="rgba(255,255,255,.018)"/>
+      <rect x="114" y="51" width="53" height="28" rx="2" fill="rgba(255,255,255,.018)"/>
+      <!-- pins -->
+      <circle cx="55" cy="50" r="6" fill="rgba(192,57,43,.15)"/>
+      <circle cx="55" cy="50" r="3.5" fill="rgba(192,57,43,.35)" stroke="rgba(192,57,43,.9)" stroke-width="1"/>
+      <circle cx="55" cy="50" r="1.5" fill="#fff"/>
+      <circle cx="112" cy="80" r="5" fill="rgba(211,84,0,.15)"/>
+      <circle cx="112" cy="80" r="3" fill="rgba(211,84,0,.3)" stroke="rgba(211,84,0,.8)" stroke-width="1"/>
+      <circle cx="112" cy="80" r="1.2" fill="#E67E22"/>
+      <circle cx="30" cy="50" r="4" fill="rgba(39,174,96,.15)"/>
+      <circle cx="30" cy="50" r="2.5" fill="rgba(39,174,96,.3)" stroke="rgba(39,174,96,.8)" stroke-width="1"/>
+      <circle cx="30" cy="50" r="1.2" fill="#2ECC71"/>
+      <!-- route card overlay -->
+      <rect x="14" y="88" width="148" height="28" rx="4" fill="rgba(12,12,18,.95)" stroke="rgba(192,57,43,.25)" stroke-width=".6"/>
+      <text x="20" y="98" font-family="DM Mono,monospace" font-size="5" fill="rgba(192,57,43,.8)" letter-spacing=".08em">PALERMO → MICROCENTRO</text>
+      <rect x="20" y="102" width="22" height="7" rx="1.5" fill="rgba(192,57,43,.15)" stroke="rgba(192,57,43,.4)" stroke-width=".5"/>
+      <text x="31" y="108" font-family="DM Mono,monospace" font-size="4.5" fill="rgba(192,57,43,.9)" text-anchor="middle">Ciclovía</text>
+      <rect x="46" y="102" width="16" height="7" rx="1.5" fill="rgba(39,174,96,.12)" stroke="rgba(39,174,96,.35)" stroke-width=".5"/>
+      <text x="54" y="108" font-family="DM Mono,monospace" font-size="4.5" fill="rgba(39,174,96,.9)" text-anchor="middle">Safe</text>
+      <text x="130" y="108" font-family="DM Mono,monospace" font-size="6" fill="rgba(255,255,255,.8)" text-anchor="middle">74%</text>
+      <text x="148" y="108" font-family="DM Mono,monospace" font-size="4.5" fill="rgba(255,255,255,.3)">safe</text>
+      <!-- map label -->
+      <text x="88" y="18" font-family="DM Mono,monospace" font-size="4.5" fill="rgba(255,255,255,.18)" text-anchor="middle" letter-spacing=".12em">BUENOS AIRES</text>
+
+      <!-- ── PHONE FRAME (right) ── -->
+      <rect x="220" y="6" width="62" height="118" rx="8" fill="rgba(10,10,16,1)" stroke="rgba(192,57,43,.3)" stroke-width="1"/>
+      <rect x="224" y="12" width="54" height="94" rx="5" fill="#0a1220"/>
+      <!-- phone status -->
+      <text x="251" y="19" font-family="DM Mono,monospace" font-size="4" fill="rgba(255,255,255,.5)" text-anchor="middle">9:41</text>
+      <!-- phone map mini -->
+      <rect x="224" y="22" width="54" height="50" fill="#0a1220"/>
+      <line x1="224" y1="43" x2="278" y2="43" stroke="rgba(192,57,43,.7)" stroke-width="1.8"/>
+      <line x1="247" y1="22" x2="247" y2="72" stroke="rgba(39,174,96,.55)" stroke-width="1.5"/>
+      <line x1="224" y1="58" x2="278" y2="58" stroke="rgba(211,84,0,.5)" stroke-width="1" stroke-dasharray="4,3"/>
+      <circle cx="247" cy="43" r="4" fill="rgba(192,57,43,.2)"/><circle cx="247" cy="43" r="2.2" fill="rgba(192,57,43,.5)" stroke="rgba(192,57,43,.9)" stroke-width=".8"/><circle cx="247" cy="43" r="1" fill="#fff"/>
+      <!-- route card mini -->
+      <rect x="227" y="67" width="48" height="18" rx="3" fill="rgba(14,14,22,.97)" stroke="rgba(192,57,43,.2)" stroke-width=".5"/>
+      <text x="232" y="74" font-family="DM Mono,monospace" font-size="3.5" fill="rgba(192,57,43,.7)">Palermo → Centro</text>
+      <text x="232" y="80" font-family="DM Mono,monospace" font-size="5" fill="rgba(255,255,255,.8)">74%</text>
+      <text x="248" y="80" font-family="DM Mono,monospace" font-size="3.5" fill="rgba(255,255,255,.35)">safe · 2.3km</text>
+      <!-- phone bottom nav -->
+      <rect x="224" y="98" width="54" height="8" fill="rgba(8,8,14,.97)"/>
+      <circle cx="234" cy="102" r="2.5" fill="rgba(192,57,43,.85)"/>
+      <circle cx="244" cy="102" r="2" fill="rgba(255,255,255,.15)"/>
+      <circle cx="254" cy="102" r="2" fill="rgba(255,255,255,.15)"/>
+      <circle cx="264" cy="102" r="2" fill="rgba(255,255,255,.15)"/>
+      <circle cx="274" cy="102" r="2" fill="rgba(255,255,255,.15)"/>
+      <!-- phone notch -->
+      <rect x="239" y="6" width="24" height="4" rx="2" fill="rgba(10,10,16,1)"/>
+
+      <!-- ── LEGEND (bottom center) ── -->
+      <rect x="175" y="95" width="40" height="5" rx="1" fill="rgba(192,57,43,.75)"/>
+      <text x="219" y="100" font-family="DM Mono,monospace" font-size="4.5" fill="rgba(240,223,184,.4)">Ciclovía</text>
+      <rect x="175" y="104" width="40" height="3" rx="1" fill="rgba(39,174,96,.6)"/>
+      <text x="219" y="108" font-family="DM Mono,monospace" font-size="4.5" fill="rgba(240,223,184,.4)">Safe</text>
+      <line x1="175" y1="115" x2="215" y2="115" stroke="rgba(211,84,0,.55)" stroke-width="2" stroke-dasharray="5,3"/>
+      <text x="219" y="117" font-family="DM Mono,monospace" font-size="4.5" fill="rgba(240,223,184,.4)">Mixed</text>
+    </svg>
+  </div>`,
 
   pac: `<div class="case-vis-bg" style="background:linear-gradient(150deg,#0c1a2c 0%,#0e2018 100%)">
     <span class="case-num">04</span>

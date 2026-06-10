@@ -646,6 +646,356 @@ footer { border-top:1px solid var(--border); padding:24px 48px; display:flex; ju
   </div>
 </section>
 
+<!-- ════════════════════ SCREEN MOCKUPS ════════════════════ -->
+<style>
+.mockups-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;max-width:1100px;margin:0 auto;}
+.mockup-card{display:flex;flex-direction:column;gap:12px;}
+.mockup-phone{background:#0d0d0d;border-radius:24px;padding:6px;box-shadow:0 0 0 1px rgba(255,255,255,.07),0 16px 48px rgba(0,0,0,.6);}
+.mockup-notch{width:48px;height:14px;background:#0d0d0d;border-radius:0 0 8px 8px;margin:0 auto 3px;display:flex;align-items:center;justify-content:center;}
+.mockup-notch-pill{width:30px;height:3px;background:#1a1a1a;border-radius:10px;}
+.mockup-screen{border-radius:18px;overflow:hidden;background:#141414;}
+.mockup-annotation{padding:12px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);border-radius:8px;}
+.mockup-ann-tag{font-family:var(--mono);font-size:8px;letter-spacing:.1em;color:rgba(217,48,37,.7);text-transform:uppercase;margin-bottom:4px;display:block;}
+.mockup-ann-title{font-size:12px;font-weight:600;color:#fff;margin-bottom:4px;}
+.mockup-ann-body{font-size:11px;color:var(--muted);line-height:1.5;}
+@media(max-width:900px){.mockups-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:520px){.mockups-grid{grid-template-columns:1fr;}}
+</style>
+
+<section class="section" style="background:linear-gradient(180deg,#080e1a,#0a1226);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+  <div class="section-inner">
+    <span class="section-tag" data-en="Screen Mockups · 4 Key Screens" data-es="Mockups · 4 Pantallas Clave">Screen Mockups · 4 Key Screens</span>
+    <h2 class="section-h2" data-en="What the pilot<br><em>actually looked like.</em>" data-es="Cómo se veía<br><em>el piloto realmente.</em>">What the pilot<br><em>actually looked like.</em></h2>
+    <p style="font-size:15px;color:var(--muted);max-width:600px;margin-bottom:48px;line-height:1.8;" data-en="Four screens from the React Native pilot build. Each annotation reflects a real product decision — made during development or revised after pilot feedback." data-es="Cuatro pantallas del build piloto en React Native. Cada anotación refleja una decisión real de producto tomada durante el desarrollo o revisada tras el feedback del piloto.">Four screens from the React Native pilot build. Each annotation reflects a real product decision — made during development or revised after pilot feedback.</p>
+
+    <div class="mockups-grid reveal">
+
+      <!-- MOCKUP 1: Map -->
+      <div class="mockup-card">
+        <div class="mockup-phone">
+          <div class="mockup-notch"><div class="mockup-notch-pill"></div></div>
+          <div class="mockup-screen">
+            <svg viewBox="0 0 160 280" style="width:100%;display:block;">
+              <rect width="160" height="280" fill="#0a1220"/>
+              <!-- status bar -->
+              <rect width="160" height="22" fill="#0a1220"/>
+              <text x="12" y="15" font-family="DM Mono,monospace" font-size="7" fill="rgba(255,255,255,.7)">9:41</text>
+              <circle cx="148" cy="11" r="2" fill="rgba(255,255,255,.5)"/>
+              <circle cx="141" cy="11" r="2" fill="rgba(255,255,255,.3)"/>
+              <!-- search bar -->
+              <rect x="8" y="26" width="144" height="22" rx="7" fill="rgba(255,255,255,.07)" stroke="rgba(255,255,255,.1)" stroke-width=".5"/>
+              <circle cx="22" cy="37" r="4" fill="none" stroke="rgba(122,133,153,.6)" stroke-width="1.2"/>
+              <line x1="25" y1="40" x2="28" y2="43" stroke="rgba(122,133,153,.6)" stroke-width="1.2" stroke-linecap="round"/>
+              <text x="35" y="41" font-family="DM Sans,sans-serif" font-size="7" fill="rgba(122,133,153,.7)">Buenos Aires routes…</text>
+              <!-- map area -->
+              <rect x="0" y="52" width="160" height="175" fill="#0a1220"/>
+              <!-- grid -->
+              <line x1="0" y1="100" x2="160" y2="100" stroke="rgba(255,255,255,.04)" stroke-width=".5"/>
+              <line x1="0" y1="140" x2="160" y2="140" stroke="rgba(255,255,255,.04)" stroke-width=".5"/>
+              <line x1="0" y1="180" x2="160" y2="180" stroke="rgba(255,255,255,.04)" stroke-width=".5"/>
+              <line x1="45" y1="52" x2="45" y2="227" stroke="rgba(255,255,255,.04)" stroke-width=".5"/>
+              <line x1="100" y1="52" x2="100" y2="227" stroke="rgba(255,255,255,.04)" stroke-width=".5"/>
+              <!-- ciclovía -->
+              <line x1="0" y1="140" x2="160" y2="140" stroke="rgba(192,57,43,.75)" stroke-width="3"/>
+              <!-- safe -->
+              <line x1="45" y1="52" x2="45" y2="227" stroke="rgba(39,174,96,.6)" stroke-width="2.5"/>
+              <!-- mixed -->
+              <line x1="0" y1="100" x2="160" y2="100" stroke="rgba(211,84,0,.5)" stroke-width="1.5" stroke-dasharray="8,5"/>
+              <!-- blocks -->
+              <rect x="1" y="53" width="43" height="46" rx="2" fill="rgba(255,255,255,.015)"/>
+              <rect x="47" y="53" width="52" height="46" rx="2" fill="rgba(255,255,255,.015)"/>
+              <rect x="101" y="53" width="58" height="46" rx="2" fill="rgba(255,255,255,.015)"/>
+              <rect x="1" y="101" width="43" height="38" rx="2" fill="rgba(255,255,255,.015)"/>
+              <rect x="47" y="101" width="52" height="38" rx="2" fill="rgba(255,255,255,.015)"/>
+              <rect x="101" y="101" width="58" height="38" rx="2" fill="rgba(255,255,255,.015)"/>
+              <!-- user pin -->
+              <circle cx="45" cy="140" r="9" fill="rgba(192,57,43,.15)"/>
+              <circle cx="45" cy="140" r="6" fill="rgba(192,57,43,.3)" stroke="rgba(192,57,43,.9)" stroke-width="1.2"/>
+              <circle cx="45" cy="140" r="2.5" fill="white"/>
+              <!-- report pin -->
+              <circle cx="100" cy="100" r="7" fill="rgba(211,84,0,.2)"/>
+              <circle cx="100" cy="100" r="4.5" fill="rgba(211,84,0,.3)" stroke="rgba(211,84,0,.85)" stroke-width="1"/>
+              <circle cx="100" cy="100" r="2" fill="#E67E22"/>
+              <!-- legend -->
+              <rect x="115" y="58" width="38" height="46" rx="4" fill="rgba(10,10,18,.9)" stroke="rgba(255,255,255,.06)" stroke-width=".5"/>
+              <rect x="120" y="65" width="8" height="3" rx="1" fill="rgba(192,57,43,.8)"/>
+              <text x="131" y="68" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(240,223,184,.5)">Ciclovía</text>
+              <rect x="120" y="76" width="8" height="3" rx="1" fill="rgba(39,174,96,.7)"/>
+              <text x="131" y="79" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(240,223,184,.5)">Safe</text>
+              <line x1="120" y1="90" x2="128" y2="90" stroke="rgba(211,84,0,.6)" stroke-width="2" stroke-dasharray="3,2"/>
+              <text x="131" y="92" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(240,223,184,.5)">Mixed</text>
+              <!-- route card -->
+              <rect x="8" y="196" width="144" height="28" rx="6" fill="rgba(12,12,20,.97)" stroke="rgba(192,57,43,.25)" stroke-width=".7"/>
+              <text x="14" y="206" font-family="DM Mono,monospace" font-size="5" fill="rgba(192,57,43,.8)" letter-spacing=".06em">ACTIVE · TAP FOR DETAIL</text>
+              <text x="14" y="215" font-family="DM Sans,sans-serif" font-size="8" font-weight="600" fill="#fff">Palermo → Microcentro</text>
+              <text x="120" y="215" font-family="DM Mono,monospace" font-size="8" fill="rgba(39,174,96,.9)" text-anchor="middle">74%</text>
+              <!-- bottom nav -->
+              <rect x="0" y="246" width="160" height="34" fill="rgba(8,8,14,.97)"/>
+              <line x1="0" y1="246" x2="160" y2="246" stroke="rgba(255,255,255,.05)" stroke-width=".5"/>
+              <!-- map icon active -->
+              <polygon points="16,256 13,268 20,264 27,268 30,256 23,259 19,253" fill="none" stroke="#D93025" stroke-width="1.3" stroke-linejoin="round"/>
+              <text x="21" y="276" font-family="DM Mono,monospace" font-size="5.5" fill="#D93025" text-anchor="middle">Map</text>
+              <!-- ride -->
+              <circle cx="53" cy="266" r="5" fill="none" stroke="rgba(160,168,185,.4)" stroke-width="1.2"/>
+              <circle cx="43" cy="266" r="5" fill="none" stroke="rgba(160,168,185,.4)" stroke-width="1.2"/>
+              <text x="48" y="276" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(160,168,185,.4)" text-anchor="middle">Ride</text>
+              <!-- report -->
+              <circle cx="80" cy="263" r="6" fill="none" stroke="rgba(160,168,185,.4)" stroke-width="1.2"/>
+              <line x1="80" y1="260" x2="80" y2="263" stroke="rgba(160,168,185,.4)" stroke-width="1.2"/>
+              <text x="80" y="276" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(160,168,185,.4)" text-anchor="middle">Report</text>
+              <!-- feed -->
+              <rect x="104" y="257" width="13" height="11" rx="2" fill="none" stroke="rgba(160,168,185,.4)" stroke-width="1.2"/>
+              <text x="111" y="276" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(160,168,185,.4)" text-anchor="middle">Feed</text>
+              <!-- profile -->
+              <circle cx="143" cy="260" r="4" fill="none" stroke="rgba(160,168,185,.4)" stroke-width="1.2"/>
+              <path d="M136 270 Q143 264 150 270" fill="none" stroke="rgba(160,168,185,.4)" stroke-width="1.2"/>
+              <text x="143" y="276" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(160,168,185,.4)" text-anchor="middle">Profile</text>
+            </svg>
+          </div>
+        </div>
+        <div class="mockup-annotation">
+          <span class="mockup-ann-tag">Navigation · Screen 02</span>
+          <div class="mockup-ann-title">Community safety map</div>
+          <div class="mockup-ann-body">Three-tier taxonomy overlaid on city streets. Route card shows 74% safe score — the most debated V1 decision.</div>
+        </div>
+      </div>
+
+      <!-- MOCKUP 2: Search -->
+      <div class="mockup-card">
+        <div class="mockup-phone">
+          <div class="mockup-notch"><div class="mockup-notch-pill"></div></div>
+          <div class="mockup-screen">
+            <svg viewBox="0 0 160 280" style="width:100%;display:block;">
+              <rect width="160" height="280" fill="#141414"/>
+              <rect width="160" height="22" fill="#141414"/>
+              <text x="12" y="15" font-family="DM Mono,monospace" font-size="7" fill="rgba(255,255,255,.7)">9:41</text>
+              <!-- header -->
+              <circle cx="20" cy="33" r="8" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.08)" stroke-width=".5"/>
+              <polyline points="23,30 17,33 23,36" fill="none" stroke="rgba(255,255,255,.6)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+              <text x="34" y="37" font-family="DM Sans,sans-serif" font-size="9" font-weight="700" fill="#fff">Search destination</text>
+              <!-- search input -->
+              <rect x="8" y="46" width="144" height="22" rx="7" fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.1)" stroke-width=".5"/>
+              <circle cx="20" cy="57" r="4" fill="none" stroke="rgba(122,133,153,.6)" stroke-width="1.2"/>
+              <line x1="23" y1="60" x2="26" y2="63" stroke="rgba(122,133,153,.6)" stroke-width="1.2" stroke-linecap="round"/>
+              <text x="32" y="61" font-family="DM Sans,sans-serif" font-size="8" fill="#fff">Microcentro</text>
+              <rect x="120" y="53" width="2" height="9" rx="1" fill="#D93025" opacity=".9"/>
+              <!-- label -->
+              <text x="8" y="82" font-family="DM Mono,monospace" font-size="6" fill="rgba(122,133,153,.7)" letter-spacing=".1em">SUGGESTED ROUTES</text>
+              <!-- result 1 -->
+              <rect x="0" y="88" width="160" height="40" fill="rgba(255,255,255,.0)"/>
+              <rect x="8" y="92" width="22" height="22" rx="6" fill="rgba(192,57,43,.12)" stroke="rgba(192,57,43,.2)" stroke-width=".5"/>
+              <text x="19" y="107" font-family="DM Sans,sans-serif" font-size="11" fill="rgba(192,57,43,.8)" text-anchor="middle">🗺</text>
+              <text x="36" y="100" font-family="DM Sans,sans-serif" font-size="8" font-weight="600" fill="#fff">Palermo → Microcentro</text>
+              <text x="36" y="111" font-family="DM Mono,monospace" font-size="6" fill="rgba(122,133,153,.7)">2.3 km · 12 min · via Callao</text>
+              <rect x="118" y="94" width="32" height="12" rx="3" fill="rgba(39,174,96,.12)" stroke="rgba(39,174,96,.25)" stroke-width=".5"/>
+              <text x="134" y="103" font-family="DM Mono,monospace" font-size="6" fill="rgba(39,174,96,.9)" text-anchor="middle">74% safe</text>
+              <line x1="0" y1="128" x2="160" y2="128" stroke="rgba(255,255,255,.04)" stroke-width=".5"/>
+              <!-- result 2 -->
+              <rect x="8" y="132" width="22" height="22" rx="6" fill="rgba(39,174,96,.1)" stroke="rgba(39,174,96,.2)" stroke-width=".5"/>
+              <text x="19" y="147" font-family="DM Sans,sans-serif" font-size="11" fill="rgba(39,174,96,.8)" text-anchor="middle">🗺</text>
+              <text x="36" y="140" font-family="DM Sans,sans-serif" font-size="8" font-weight="600" fill="#fff">Palermo → Microcentro (alt)</text>
+              <text x="36" y="151" font-family="DM Mono,monospace" font-size="6" fill="rgba(122,133,153,.7)">2.8 km · 15 min · via Thames</text>
+              <rect x="118" y="134" width="32" height="12" rx="3" fill="rgba(39,174,96,.12)" stroke="rgba(39,174,96,.25)" stroke-width=".5"/>
+              <text x="134" y="143" font-family="DM Mono,monospace" font-size="6" fill="rgba(39,174,96,.9)" text-anchor="middle">88% safe</text>
+              <line x1="0" y1="168" x2="160" y2="168" stroke="rgba(255,255,255,.04)" stroke-width=".5"/>
+              <!-- result 3 -->
+              <rect x="8" y="172" width="22" height="22" rx="6" fill="rgba(211,84,0,.1)" stroke="rgba(211,84,0,.2)" stroke-width=".5"/>
+              <text x="19" y="187" font-family="DM Sans,sans-serif" font-size="11" fill="rgba(211,84,0,.8)" text-anchor="middle">🗺</text>
+              <text x="36" y="180" font-family="DM Sans,sans-serif" font-size="8" font-weight="600" fill="#fff">Palermo → Microcentro (fast)</text>
+              <text x="36" y="191" font-family="DM Mono,monospace" font-size="6" fill="rgba(122,133,153,.7)">1.9 km · 9 min · via Santa Fe</text>
+              <rect x="118" y="174" width="32" height="12" rx="3" fill="rgba(211,84,0,.1)" stroke="rgba(211,84,0,.25)" stroke-width=".5"/>
+              <text x="134" y="183" font-family="DM Mono,monospace" font-size="6" fill="rgba(211,84,0,.9)" text-anchor="middle">52% safe</text>
+              <!-- bottom nav -->
+              <rect x="0" y="246" width="160" height="34" fill="rgba(8,8,14,.97)"/>
+              <line x1="0" y1="246" x2="160" y2="246" stroke="rgba(255,255,255,.05)" stroke-width=".5"/>
+              <polygon points="16,256 13,268 20,264 27,268 30,256 23,259 19,253" fill="none" stroke="#D93025" stroke-width="1.3" stroke-linejoin="round"/>
+              <text x="21" y="276" font-family="DM Mono,monospace" font-size="5.5" fill="#D93025" text-anchor="middle">Map</text>
+              <circle cx="53" cy="266" r="5" fill="none" stroke="rgba(160,168,185,.4)" stroke-width="1.2"/>
+              <circle cx="43" cy="266" r="5" fill="none" stroke="rgba(160,168,185,.4)" stroke-width="1.2"/>
+              <text x="48" y="276" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(160,168,185,.4)" text-anchor="middle">Ride</text>
+              <circle cx="80" cy="263" r="6" fill="none" stroke="rgba(160,168,185,.4)" stroke-width="1.2"/>
+              <line x1="80" y1="260" x2="80" y2="263" stroke="rgba(160,168,185,.4)" stroke-width="1.2"/>
+              <text x="80" y="276" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(160,168,185,.4)" text-anchor="middle">Report</text>
+              <rect x="104" y="257" width="13" height="11" rx="2" fill="none" stroke="rgba(160,168,185,.4)" stroke-width="1.2"/>
+              <text x="111" y="276" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(160,168,185,.4)" text-anchor="middle">Feed</text>
+              <circle cx="143" cy="260" r="4" fill="none" stroke="rgba(160,168,185,.4)" stroke-width="1.2"/>
+              <path d="M136 270 Q143 264 150 270" fill="none" stroke="rgba(160,168,185,.4)" stroke-width="1.2"/>
+              <text x="143" y="276" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(160,168,185,.4)" text-anchor="middle">Profile</text>
+            </svg>
+          </div>
+        </div>
+        <div class="mockup-annotation">
+          <span class="mockup-ann-tag">Navigation · Screen 03</span>
+          <div class="mockup-ann-title">Destination search</div>
+          <div class="mockup-ann-body">Sorted by safe score, not distance. 88% safe at +6 min consistently beat the 52% fast option in pilot.</div>
+        </div>
+      </div>
+
+      <!-- MOCKUP 3: Ride Active -->
+      <div class="mockup-card">
+        <div class="mockup-phone">
+          <div class="mockup-notch"><div class="mockup-notch-pill"></div></div>
+          <div class="mockup-screen">
+            <svg viewBox="0 0 160 280" style="width:100%;display:block;">
+              <rect width="160" height="280" fill="#141414"/>
+              <rect width="160" height="22" fill="#141414"/>
+              <text x="12" y="15" font-family="DM Mono,monospace" font-size="7" fill="rgba(255,255,255,.7)">9:41</text>
+              <!-- map area -->
+              <rect x="0" y="22" width="160" height="120" fill="#0a1220"/>
+              <line x1="0" y1="72" x2="160" y2="72" stroke="rgba(192,57,43,.7)" stroke-width="2.5"/>
+              <line x1="55" y1="22" x2="55" y2="142" stroke="rgba(39,174,96,.6)" stroke-width="2"/>
+              <path d="M15 55 L55 55 L55 74" fill="none" stroke="rgba(192,57,43,.85)" stroke-width="2" stroke-dasharray="7,4" stroke-linecap="round"/>
+              <circle cx="55" cy="73" r="8" fill="rgba(192,57,43,.15)"/>
+              <circle cx="55" cy="73" r="5" fill="rgba(192,57,43,.35)" stroke="rgba(192,57,43,.9)" stroke-width="1.2"/>
+              <circle cx="55" cy="73" r="2.2" fill="white"/>
+              <!-- RECORDING badge -->
+              <rect x="8" y="28" width="56" height="14" rx="4" fill="rgba(192,57,43,.9)"/>
+              <circle cx="15" cy="35" r="3" fill="rgba(255,120,120,.9)"/>
+              <text x="22" y="39" font-family="DM Mono,monospace" font-size="6" fill="#fff" letter-spacing=".06em">RECORDING</text>
+              <!-- end ride btn -->
+              <rect x="104" y="28" width="48" height="14" rx="4" fill="rgba(192,57,43,.12)" stroke="rgba(192,57,43,.3)" stroke-width=".7"/>
+              <text x="128" y="38" font-family="DM Mono,monospace" font-size="6" fill="#FF5247" text-anchor="middle">End ride</text>
+              <!-- stats -->
+              <rect x="0" y="142" width="160" height="42" fill="#141414"/>
+              <line x1="53" y1="142" x2="53" y2="184" stroke="rgba(255,255,255,.05)" stroke-width=".5"/>
+              <line x1="107" y1="142" x2="107" y2="184" stroke="rgba(255,255,255,.05)" stroke-width=".5"/>
+              <text x="26" y="159" font-family="DM Mono,monospace" font-size="14" font-weight="500" fill="#fff" text-anchor="middle">1.2</text>
+              <text x="26" y="170" font-family="DM Mono,monospace" font-size="6" fill="#D93025" text-anchor="middle">KM</text>
+              <text x="26" y="179" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(122,133,153,.6)" text-anchor="middle">Distance</text>
+              <text x="80" y="159" font-family="DM Mono,monospace" font-size="14" font-weight="500" fill="#fff" text-anchor="middle">08:24</text>
+              <text x="80" y="170" font-family="DM Mono,monospace" font-size="6" fill="rgba(122,133,153,.6)" text-anchor="middle">MIN</text>
+              <text x="80" y="179" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(122,133,153,.6)" text-anchor="middle">Time</text>
+              <text x="134" y="159" font-family="DM Mono,monospace" font-size="14" font-weight="500" fill="#fff" text-anchor="middle">14.2</text>
+              <text x="134" y="170" font-family="DM Mono,monospace" font-size="6" fill="rgba(122,133,153,.6)" text-anchor="middle">KM/H</text>
+              <text x="134" y="179" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(122,133,153,.6)" text-anchor="middle">Speed</text>
+              <!-- alert -->
+              <rect x="8" y="192" width="144" height="26" rx="7" fill="rgba(192,57,43,.1)" stroke="rgba(192,57,43,.3)" stroke-width=".7"/>
+              <circle cx="18" cy="205" r="3" fill="#D93025"/>
+              <text x="26" y="202" font-family="DM Sans,sans-serif" font-size="7.5" font-weight="600" fill="#fff">Alert zone ahead</text>
+              <text x="26" y="213" font-family="DM Sans,sans-serif" font-size="6.5" fill="rgba(255,82,71,.8)">Construction at Corrientes &amp; Callao</text>
+              <!-- instruction -->
+              <rect x="8" y="224" width="144" height="18" rx="7" fill="rgba(39,174,96,.08)" stroke="rgba(39,174,96,.2)" stroke-width=".7"/>
+              <polyline points="22,230 22,237 29,233" fill="none" stroke="#2ECC71" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <text x="36" y="236" font-family="DM Sans,sans-serif" font-size="7" fill="rgba(240,237,232,.8)">Continue on ciclovía · 0.8 km</text>
+              <!-- bottom nav -->
+              <rect x="0" y="246" width="160" height="34" fill="rgba(8,8,14,.97)"/>
+              <line x1="0" y1="246" x2="160" y2="246" stroke="rgba(255,255,255,.05)" stroke-width=".5"/>
+              <polygon points="16,256 13,268 20,264 27,268 30,256 23,259 19,253" fill="none" stroke="rgba(160,168,185,.4)" stroke-width="1.3" stroke-linejoin="round"/>
+              <text x="21" y="276" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(160,168,185,.4)" text-anchor="middle">Map</text>
+              <!-- ride active -->
+              <circle cx="53" cy="266" r="5" fill="none" stroke="#D93025" stroke-width="1.3"/>
+              <circle cx="43" cy="266" r="5" fill="none" stroke="#D93025" stroke-width="1.3"/>
+              <text x="48" y="276" font-family="DM Mono,monospace" font-size="5.5" fill="#D93025" text-anchor="middle">Ride</text>
+              <circle cx="80" cy="263" r="6" fill="none" stroke="rgba(160,168,185,.4)" stroke-width="1.2"/>
+              <line x1="80" y1="260" x2="80" y2="263" stroke="rgba(160,168,185,.4)" stroke-width="1.2"/>
+              <text x="80" y="276" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(160,168,185,.4)" text-anchor="middle">Report</text>
+              <rect x="104" y="257" width="13" height="11" rx="2" fill="none" stroke="rgba(160,168,185,.4)" stroke-width="1.2"/>
+              <text x="111" y="276" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(160,168,185,.4)" text-anchor="middle">Feed</text>
+              <circle cx="143" cy="260" r="4" fill="none" stroke="rgba(160,168,185,.4)" stroke-width="1.2"/>
+              <path d="M136 270 Q143 264 150 270" fill="none" stroke="rgba(160,168,185,.4)" stroke-width="1.2"/>
+              <text x="143" y="276" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(160,168,185,.4)" text-anchor="middle">Profile</text>
+            </svg>
+          </div>
+        </div>
+        <div class="mockup-annotation">
+          <span class="mockup-ann-tag">Navigation · Screen 05</span>
+          <div class="mockup-ann-title">Active ride tracking</div>
+          <div class="mockup-ann-body">Safety alert above instruction — not below. Priority order reflects real-world riding priorities, not UI convention.</div>
+        </div>
+      </div>
+
+      <!-- MOCKUP 4: Community Feed -->
+      <div class="mockup-card">
+        <div class="mockup-phone">
+          <div class="mockup-notch"><div class="mockup-notch-pill"></div></div>
+          <div class="mockup-screen">
+            <svg viewBox="0 0 160 280" style="width:100%;display:block;">
+              <rect width="160" height="280" fill="#141414"/>
+              <rect width="160" height="22" fill="#141414"/>
+              <text x="12" y="15" font-family="DM Mono,monospace" font-size="7" fill="rgba(255,255,255,.7)">9:41</text>
+              <!-- header -->
+              <text x="12" y="38" font-family="DM Sans,sans-serif" font-size="12" font-weight="700" fill="#fff">Community</text>
+              <text x="12" y="50" font-family="DM Mono,monospace" font-size="6" fill="rgba(122,133,153,.6)" letter-spacing=".06em">BUENOS AIRES · LIVE</text>
+              <rect x="136" y="28" width="16" height="16" rx="8" fill="#D93025"/>
+              <text x="144" y="39" font-family="DM Mono,monospace" font-size="7" fill="#fff" text-anchor="middle">3</text>
+              <!-- filters -->
+              <rect x="8" y="56" width="24" height="11" rx="5.5" fill="#D93025"/>
+              <text x="20" y="64" font-family="DM Mono,monospace" font-size="5.5" fill="#fff" text-anchor="middle">All</text>
+              <rect x="36" y="56" width="34" height="11" rx="5.5" fill="none" stroke="rgba(255,255,255,.1)" stroke-width=".7"/>
+              <text x="53" y="64" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(122,133,153,.7)" text-anchor="middle">Hazards</text>
+              <rect x="74" y="56" width="22" height="11" rx="5.5" fill="none" stroke="rgba(255,255,255,.1)" stroke-width=".7"/>
+              <text x="85" y="64" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(122,133,153,.7)" text-anchor="middle">Safe</text>
+              <rect x="100" y="56" width="30" height="11" rx="5.5" fill="none" stroke="rgba(255,255,255,.1)" stroke-width=".7"/>
+              <text x="115" y="64" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(122,133,153,.7)" text-anchor="middle">Near me</text>
+              <!-- card 1 -->
+              <rect x="8" y="74" width="144" height="50" rx="7" fill="rgba(255,255,255,.03)" stroke="rgba(255,255,255,.06)" stroke-width=".5"/>
+              <circle cx="22" cy="86" r="8" fill="rgba(192,57,43,.2)"/>
+              <text x="22" y="90" font-family="DM Mono,monospace" font-size="7" fill="#FF5247" text-anchor="middle">M</text>
+              <text x="36" y="84" font-family="DM Sans,sans-serif" font-size="7.5" font-weight="600" fill="#fff">Martín G.</text>
+              <text x="36" y="93" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(122,133,153,.6)">4 min ago</text>
+              <rect x="116" y="78" width="30" height="10" rx="2.5" fill="rgba(192,57,43,.15)"/>
+              <text x="131" y="86" font-family="DM Mono,monospace" font-size="5" fill="#FF5247" text-anchor="middle">HAZARD</text>
+              <text x="14" y="103" font-family="DM Sans,sans-serif" font-size="7" fill="rgba(200,200,200,.7)">Construction blocking <tspan font-weight="600" fill="rgba(240,237,232,.9)">Corrientes &amp; Callao</tspan></text>
+              <text x="14" y="117" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(122,133,153,.5)">Palermo</text>
+              <rect x="124" y="111" width="24" height="10" rx="3" fill="rgba(255,255,255,.05)" stroke="rgba(192,57,43,.25)" stroke-width=".5"/>
+              <text x="136" y="119" font-family="DM Mono,monospace" font-size="5.5" fill="#FF5247" text-anchor="middle">👍 12</text>
+              <!-- card 2 -->
+              <rect x="8" y="130" width="144" height="46" rx="7" fill="rgba(255,255,255,.03)" stroke="rgba(255,255,255,.06)" stroke-width=".5"/>
+              <circle cx="22" cy="142" r="8" fill="rgba(39,174,96,.2)"/>
+              <text x="22" y="146" font-family="DM Mono,monospace" font-size="7" fill="#2ECC71" text-anchor="middle">S</text>
+              <text x="36" y="140" font-family="DM Sans,sans-serif" font-size="7.5" font-weight="600" fill="#fff">Sofía R.</text>
+              <text x="36" y="149" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(122,133,153,.6)">18 min ago</text>
+              <rect x="116" y="134" width="28" height="10" rx="2.5" fill="rgba(39,174,96,.12)"/>
+              <text x="130" y="142" font-family="DM Mono,monospace" font-size="5" fill="#2ECC71" text-anchor="middle">SAFE</text>
+              <text x="14" y="159" font-family="DM Sans,sans-serif" font-size="7" fill="rgba(200,200,200,.7)"><tspan font-weight="600" fill="rgba(240,237,232,.9)">Thames St.</tspan> smooth — light traffic</text>
+              <text x="14" y="171" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(122,133,153,.5)">Palermo Soho</text>
+              <rect x="124" y="165" width="24" height="10" rx="3" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.08)" stroke-width=".5"/>
+              <text x="136" y="173" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(122,133,153,.6)" text-anchor="middle">👍 7</text>
+              <!-- card 3 -->
+              <rect x="8" y="182" width="144" height="46" rx="7" fill="rgba(255,255,255,.03)" stroke="rgba(255,255,255,.06)" stroke-width=".5"/>
+              <circle cx="22" cy="194" r="8" fill="rgba(211,84,0,.2)"/>
+              <text x="22" y="198" font-family="DM Mono,monospace" font-size="7" fill="#E67E22" text-anchor="middle">L</text>
+              <text x="36" y="192" font-family="DM Sans,sans-serif" font-size="7.5" font-weight="600" fill="#fff">Lucas P.</text>
+              <text x="36" y="201" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(122,133,153,.6)">35 min ago</text>
+              <rect x="110" y="186" width="36" height="10" rx="2.5" fill="rgba(211,84,0,.1)"/>
+              <text x="128" y="194" font-family="DM Mono,monospace" font-size="5" fill="#E67E22" text-anchor="middle">UPDATE</text>
+              <text x="14" y="211" font-family="DM Sans,sans-serif" font-size="7" fill="rgba(200,200,200,.7)">New ciclovía on <tspan font-weight="600" fill="rgba(240,237,232,.9)">Güemes St.</tspan></text>
+              <text x="14" y="223" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(122,133,153,.5)">Villa Crespo</text>
+              <rect x="120" y="217" width="28" height="10" rx="3" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.08)" stroke-width=".5"/>
+              <text x="134" y="225" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(122,133,153,.6)" text-anchor="middle">👍 23</text>
+              <!-- bottom nav -->
+              <rect x="0" y="246" width="160" height="34" fill="rgba(8,8,14,.97)"/>
+              <line x1="0" y1="246" x2="160" y2="246" stroke="rgba(255,255,255,.05)" stroke-width=".5"/>
+              <polygon points="16,256 13,268 20,264 27,268 30,256 23,259 19,253" fill="none" stroke="rgba(160,168,185,.4)" stroke-width="1.3" stroke-linejoin="round"/>
+              <text x="21" y="276" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(160,168,185,.4)" text-anchor="middle">Map</text>
+              <circle cx="53" cy="266" r="5" fill="none" stroke="rgba(160,168,185,.4)" stroke-width="1.2"/>
+              <circle cx="43" cy="266" r="5" fill="none" stroke="rgba(160,168,185,.4)" stroke-width="1.2"/>
+              <text x="48" y="276" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(160,168,185,.4)" text-anchor="middle">Ride</text>
+              <circle cx="80" cy="263" r="6" fill="none" stroke="rgba(160,168,185,.4)" stroke-width="1.2"/>
+              <line x1="80" y1="260" x2="80" y2="263" stroke="rgba(160,168,185,.4)" stroke-width="1.2"/>
+              <text x="80" y="276" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(160,168,185,.4)" text-anchor="middle">Report</text>
+              <!-- feed active -->
+              <rect x="101" y="257" width="18" height="11" rx="2" fill="none" stroke="#D93025" stroke-width="1.3"/>
+              <text x="110" y="276" font-family="DM Mono,monospace" font-size="5.5" fill="#D93025" text-anchor="middle">Feed</text>
+              <circle cx="143" cy="260" r="4" fill="none" stroke="rgba(160,168,185,.4)" stroke-width="1.2"/>
+              <path d="M136 270 Q143 264 150 270" fill="none" stroke="rgba(160,168,185,.4)" stroke-width="1.2"/>
+              <text x="143" y="276" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(160,168,185,.4)" text-anchor="middle">Profile</text>
+            </svg>
+          </div>
+        </div>
+        <div class="mockup-annotation">
+          <span class="mockup-ann-tag">Community · Screen 08</span>
+          <div class="mockup-ann-title">Community feed</div>
+          <div class="mockup-ann-body">Named contributors upvoted 3× more than anonymous. Identity signals accountability — cyclists trust people, not a data system.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div style="border-top:1px solid var(--border);"><div class="divider"></div></div>
+
 <!-- ════════════════════ INTERACTIVE PRODUCT DEMO ════════════════════ -->
 <style>
 .demo-wrap{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:300px 1fr;gap:0;background:#0a0e18;border:1px solid rgba(217,48,37,.2);border-radius:16px;overflow:hidden;box-shadow:0 40px 100px rgba(0,0,0,.6)}
@@ -663,12 +1013,10 @@ footer { border-top:1px solid var(--border); padding:24px 48px; display:flex; ju
 .dv-screen.active{display:flex;animation:dvFadeIn .2s ease}
 @keyframes dvFadeIn{from{opacity:0;transform:translateY(3px)}to{opacity:1;transform:translateY(0)}}
 .dv-bnav{height:46px;background:rgba(10,10,10,.97);border-top:1px solid rgba(255,255,255,.05);display:flex;align-items:center;justify-content:space-around;padding:0 4px;position:relative;z-index:5}
-.dv-ni{display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px 8px;border:none;background:none;cursor:pointer;opacity:.32;transition:opacity .15s}
-.dv-ni.active{opacity:1}
+.dv-ni{display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px 8px;border:none;background:none;cursor:pointer;transition:all .15s;color:rgba(160,168,185,.5)}
+.dv-ni.active{color:#D93025}
 .dv-ni svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-.dv-ni.active svg{stroke:#D93025}
-.dv-ni-lbl{font-size:7px;font-weight:500;color:#f0ede8;font-family:var(--sans);letter-spacing:.03em}
-.dv-ni.active .dv-ni-lbl{color:#D93025}
+.dv-ni-lbl{font-size:7px;font-weight:500;color:inherit;font-family:var(--sans);letter-spacing:.03em}
 .dv-map-body{position:relative;height:354px;background:#0a1220;overflow:hidden;flex-shrink:0}
 .dv-map-svg{position:absolute;inset:0;width:100%;height:100%}
 .dv-search-bar{position:absolute;top:8px;left:8px;right:8px;z-index:4;background:rgba(16,16,16,.95);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:7px 10px;display:flex;align-items:center;gap:7px}
