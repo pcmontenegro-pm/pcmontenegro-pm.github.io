@@ -646,37 +646,682 @@ footer { border-top:1px solid var(--border); padding:24px 48px; display:flex; ju
   </div>
 </section>
 
-<!-- ════════════════════ SCREEN MOCKUPS ════════════════════ -->
-<section class="section" style="background:linear-gradient(180deg,#080e1a,#0a1226);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
-  <div class="section-inner">
-    <span class="section-tag" data-en="Screen Mockups · 4 Core Screens" data-es="Mockups de Pantallas · 4 Pantallas Principales">Screen Mockups · 4 Core Screens</span>
-    <h2 class="section-h2" data-en="What the pilot<br><em>actually looked like.</em>" data-es="Cómo se veía<br><em>el piloto realmente.</em>">What the pilot<br><em>actually looked like.</em></h2>
-    <p style="font-size:15px;color:var(--muted);max-width:600px;margin-bottom:48px;" data-en="Four screens from the React Native build. Each annotation reflects a real product decision made during development or revised after pilot feedback." data-es="Cuatro pantallas del build en React Native. Cada anotación refleja una decisión real de producto tomada durante el desarrollo o revisada tras el feedback del piloto.">Four screens from the React Native build. Each annotation reflects a real product decision made during development or revised after pilot feedback.</p>
+<!-- ════════════════════ INTERACTIVE PRODUCT DEMO ════════════════════ -->
+<style>
+.demo-wrap{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:300px 1fr;gap:0;background:#0a0e18;border:1px solid rgba(217,48,37,.2);border-radius:16px;overflow:hidden;box-shadow:0 40px 100px rgba(0,0,0,.6)}
+.demo-phone-col{background:#0d0d0d;border-right:1px solid rgba(255,255,255,.06);display:flex;flex-direction:column;align-items:center;padding:20px 16px 16px}
+.demo-phone-label{font-family:var(--mono);font-size:9px;letter-spacing:.14em;color:rgba(217,48,37,.7);text-transform:uppercase;margin-bottom:14px}
+.demo-phone-frame{width:220px;background:#111;border-radius:36px;padding:8px;box-shadow:0 0 0 1px rgba(255,255,255,.07),0 20px 60px rgba(0,0,0,.8);flex-shrink:0}
+.demo-phone-notch{width:72px;height:20px;background:#111;border-radius:0 0 12px 12px;margin:0 auto 4px;display:flex;align-items:center;justify-content:center}
+.demo-notch-pill{width:44px;height:4px;background:#1c1c1c;border-radius:10px}
+.demo-screen-wrap{border-radius:28px;overflow:hidden;background:#141414;position:relative}
+.dv-sb{height:26px;padding:0 14px;display:flex;align-items:center;justify-content:space-between;background:inherit;position:relative;z-index:5}
+.dv-sb-time{font-family:var(--mono);font-size:9px;font-weight:500;color:#f0ede8}
+.dv-sb-icons{display:flex;gap:3px}
+.dv-sb-dot{width:3px;height:3px;border-radius:50%;background:#f0ede8;opacity:.7}
+.dv-screen{display:none;flex-direction:column;position:relative}
+.dv-screen.active{display:flex;animation:dvFadeIn .2s ease}
+@keyframes dvFadeIn{from{opacity:0;transform:translateY(3px)}to{opacity:1;transform:translateY(0)}}
+.dv-bnav{height:46px;background:rgba(10,10,10,.97);border-top:1px solid rgba(255,255,255,.05);display:flex;align-items:center;justify-content:space-around;padding:0 4px;position:relative;z-index:5}
+.dv-ni{display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px 8px;border:none;background:none;cursor:pointer;opacity:.32;transition:opacity .15s}
+.dv-ni.active{opacity:1}
+.dv-ni svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.dv-ni.active svg{stroke:#D93025}
+.dv-ni-lbl{font-size:7px;font-weight:500;color:#f0ede8;font-family:var(--sans);letter-spacing:.03em}
+.dv-ni.active .dv-ni-lbl{color:#D93025}
+.dv-map-body{position:relative;height:354px;background:#0a1220;overflow:hidden;flex-shrink:0}
+.dv-map-svg{position:absolute;inset:0;width:100%;height:100%}
+.dv-search-bar{position:absolute;top:8px;left:8px;right:8px;z-index:4;background:rgba(16,16,16,.95);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:7px 10px;display:flex;align-items:center;gap:7px}
+.dv-search-bar svg{width:11px;height:11px;stroke:var(--muted);fill:none;stroke-width:2;stroke-linecap:round;flex-shrink:0}
+.dv-search-text{font-size:10px;color:var(--muted)}
+.dv-legend{position:absolute;top:52px;right:8px;z-index:4;background:rgba(13,13,13,.92);border:1px solid rgba(255,255,255,.07);border-radius:8px;padding:6px 8px}
+.dv-leg-item{display:flex;align-items:center;gap:4px;margin-bottom:2px}
+.dv-leg-item:last-child{margin:0}
+.dv-leg-dot{width:6px;height:6px;border-radius:2px}
+.dv-leg-lbl{font-size:8px;color:var(--muted);font-family:var(--mono)}
+.dv-route-card{position:absolute;bottom:8px;left:8px;right:8px;z-index:4;background:rgba(14,14,14,.97);border:1px solid rgba(217,48,37,.25);border-radius:12px;padding:10px}
+.dv-rc-tag{font-family:var(--mono);font-size:7px;letter-spacing:.1em;color:#FF5247;text-transform:uppercase;margin-bottom:2px}
+.dv-rc-name{font-size:11px;font-weight:700;color:#fff;margin-bottom:6px}
+.dv-rc-pills{display:flex;gap:3px;flex-wrap:wrap;margin-bottom:8px}
+.dv-pill{font-size:7px;font-weight:600;padding:2px 5px;border-radius:3px;font-family:var(--mono)}
+.dv-pill-r{background:rgba(217,48,37,.15);color:#FF5247;border:1px solid rgba(217,48,37,.3)}
+.dv-pill-g{background:rgba(39,174,96,.12);color:#2ECC71;border:1px solid rgba(39,174,96,.25)}
+.dv-pill-a{background:rgba(230,126,34,.1);color:#E67E22;border:1px solid rgba(230,126,34,.2)}
+.dv-rc-stats{display:flex;border-top:1px solid rgba(255,255,255,.05);padding-top:7px}
+.dv-rcs{flex:1;text-align:center}
+.dv-rcs-n{font-family:var(--mono);font-size:13px;font-weight:500;color:#fff;display:block}
+.dv-rcs-l{font-size:7px;color:var(--muted);font-family:var(--mono)}
+.dv-rcs+.dv-rcs{border-left:1px solid rgba(255,255,255,.05)}
+.dv-padded{padding:12px;flex:1;overflow-y:auto}
+.dv-padded::-webkit-scrollbar{display:none}
+.dv-slbl{font-family:var(--mono);font-size:8px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase;font-weight:600;margin-bottom:6px;display:block}
+.dv-hbar{padding:10px 12px 6px;display:flex;align-items:center;justify-content:space-between}
+.dv-hbar-title{font-size:15px;font-weight:700;color:#fff}
+.dv-hbar-sub{font-size:8px;color:var(--muted);font-family:var(--mono);letter-spacing:.05em}
+.dv-notif{background:#D93025;color:#fff;font-size:8px;font-weight:700;width:15px;height:15px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.dv-ob-hero{height:140px;background:linear-gradient(180deg,rgba(217,48,37,.2) 0%,transparent 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px}
+.dv-ob-logo{width:44px;height:44px;border-radius:14px;background:#D93025;display:flex;align-items:center;justify-content:center}
+.dv-ob-logo svg{width:24px;height:24px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round}
+.dv-ob-brand{font-family:var(--mono);font-size:13px;font-weight:500;color:#fff;letter-spacing:.06em}
+.dv-ob-tagline{font-size:9px;color:var(--muted)}
+.dv-ob-taxonomy{padding:10px 12px;display:flex;flex-direction:column;gap:6px}
+.dv-tax-item{display:flex;align-items:center;gap:8px;padding:8px;border-radius:8px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.05)}
+.dv-tax-bar{width:4px;height:32px;border-radius:2px;flex-shrink:0}
+.dv-tax-title{font-size:10px;font-weight:600;color:#fff}
+.dv-tax-desc{font-size:8px;color:var(--muted);margin-top:1px;line-height:1.4}
+.dv-ob-btn{margin:8px 12px;background:#D93025;color:#fff;border:none;border-radius:10px;padding:10px;font-size:11px;font-weight:700;width:calc(100% - 24px);cursor:pointer;font-family:var(--sans)}
+.dv-search-header{padding:10px 12px 8px}
+.dv-search-input-wrap{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:8px 10px;display:flex;align-items:center;gap:6px;margin-bottom:10px}
+.dv-search-input-wrap svg{width:12px;height:12px;stroke:var(--muted);fill:none;stroke-width:2;stroke-linecap:round;flex-shrink:0}
+.dv-search-query{font-size:11px;color:#fff}
+.dv-search-cursor{display:inline-block;width:1px;height:11px;background:#D93025;margin-left:1px;animation:blink 1s step-end infinite;vertical-align:middle}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+.dv-recent-label{font-family:var(--mono);font-size:8px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase;margin-bottom:6px;padding:0 12px}
+.dv-search-result{padding:9px 12px;display:flex;align-items:center;gap:8px;border-bottom:1px solid rgba(255,255,255,.04);cursor:pointer}
+.dv-sr-icon{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.dv-sr-name{font-size:10px;font-weight:600;color:#fff}
+.dv-sr-meta{font-size:8px;color:var(--muted);font-family:var(--mono);margin-top:1px}
+.dv-sr-badge{font-size:7px;font-weight:600;padding:2px 5px;border-radius:3px;font-family:var(--mono);margin-left:auto;flex-shrink:0}
+.dv-ride-map{height:160px;background:#0a1220;position:relative;overflow:hidden}
+.dv-ride-stats{padding:10px 12px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:rgba(255,255,255,.05)}
+.dv-rs{background:#141414;padding:10px 8px;text-align:center}
+.dv-rs-n{font-family:var(--mono);font-size:18px;font-weight:500;color:#fff;display:block}
+.dv-rs-u{font-family:var(--mono);font-size:8px;color:#D93025}
+.dv-rs-l{font-size:8px;color:var(--muted);font-family:var(--mono);display:block;margin-top:1px}
+.dv-ride-alert{margin:10px 12px 0;background:rgba(217,48,37,.1);border:1px solid rgba(217,48,37,.3);border-radius:10px;padding:8px 10px;display:flex;align-items:flex-start;gap:7px}
+.dv-alert-dot{width:6px;height:6px;border-radius:50%;background:#D93025;flex-shrink:0;margin-top:3px}
+.dv-alert-text{font-size:9px;color:#FF5247;line-height:1.4}
+.dv-alert-text strong{color:#fff;font-weight:600}
+.dv-ride-instr{margin:8px 12px 0;background:rgba(39,174,96,.08);border:1px solid rgba(39,174,96,.2);border-radius:10px;padding:8px 10px;display:flex;align-items:center;gap:8px}
+.dv-instr-arrow{width:28px;height:28px;border-radius:8px;background:rgba(39,174,96,.15);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.dv-instr-arrow svg{width:14px;height:14px;stroke:#2ECC71;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.dv-instr-text{font-size:9px;color:#f0ede8;line-height:1.4}
+.dv-instr-text strong{color:#2ECC71;font-weight:600}
+.dv-summary-hero{background:linear-gradient(180deg,rgba(39,174,96,.15) 0%,transparent 100%);padding:14px 12px 10px;text-align:center}
+.dv-sum-check{width:40px;height:40px;border-radius:50%;background:rgba(39,174,96,.2);border:2px solid rgba(39,174,96,.6);display:flex;align-items:center;justify-content:center;margin:0 auto 8px}
+.dv-sum-check svg{width:20px;height:20px;stroke:#2ECC71;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.dv-sum-title{font-size:14px;font-weight:700;color:#fff;margin-bottom:2px}
+.dv-sum-sub{font-size:9px;color:var(--muted);font-family:var(--mono)}
+.dv-sum-stats{padding:8px 12px;display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.dv-ss{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:8px;padding:8px 4px;text-align:center}
+.dv-ss-n{font-family:var(--mono);font-size:14px;font-weight:500;color:#fff;display:block}
+.dv-ss-l{font-size:7px;color:var(--muted);font-family:var(--mono)}
+.dv-safe-score{margin:0 12px 8px;background:rgba(39,174,96,.08);border:1px solid rgba(39,174,96,.2);border-radius:10px;padding:10px 12px;display:flex;align-items:center;gap:10px}
+.dv-score-num{font-family:var(--mono);font-size:28px;font-weight:500;color:#2ECC71;flex-shrink:0}
+.dv-score-label{font-size:10px;font-weight:600;color:#fff}
+.dv-score-desc{font-size:8px;color:var(--muted);margin-top:1px;line-height:1.3}
+.dv-prompt-card{margin:0 12px 8px;background:rgba(217,48,37,.08);border:1px solid rgba(217,48,37,.2);border-radius:10px;padding:10px 12px}
+.dv-prompt-title{font-size:10px;font-weight:700;color:#fff;margin-bottom:4px}
+.dv-prompt-sub{font-size:9px;color:var(--muted);margin-bottom:8px;line-height:1.4}
+.dv-prompt-btn{background:#D93025;color:#fff;border:none;border-radius:8px;padding:8px;font-size:10px;font-weight:700;width:100%;cursor:pointer;font-family:var(--sans)}
+.dv-rep-hd{padding:10px 12px 6px;display:flex;align-items:center;gap:8px;border-bottom:1px solid rgba(255,255,255,.05)}
+.dv-back{width:24px;height:24px;border-radius:50%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0}
+.dv-back svg{width:10px;height:10px;stroke:#f0ede8;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.dv-rep-title{font-size:12px;font-weight:700;color:#fff}
+.dv-rep-sub{font-size:8px;color:var(--muted)}
+.dv-rep-body{padding:10px 12px;display:flex;flex-direction:column;gap:10px;overflow-y:auto}
+.dv-rep-body::-webkit-scrollbar{display:none}
+.dv-type-grid{display:grid;grid-template-columns:1fr 1fr;gap:5px}
+.dv-tc{background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.08);border-radius:8px;padding:8px 6px;text-align:center;cursor:pointer;transition:all .15s}
+.dv-tc.sel{border-color:#D93025;background:rgba(217,48,37,.1)}
+.dv-tc-icon{font-size:14px;margin-bottom:2px}
+.dv-tc-lbl{font-size:9px;font-weight:600;color:#f0ede8;display:block}
+.dv-tc-desc{font-size:7px;color:var(--muted);font-family:var(--mono)}
+.dv-safety-row{display:flex;gap:5px}
+.dv-sb2{flex:1;padding:7px 4px;border-radius:8px;border:1.5px solid rgba(255,255,255,.08);display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;transition:all .15s}
+.dv-sb2.sel-s{background:rgba(39,174,96,.12);border-color:#2ECC71}
+.dv-sb2.sel-m{background:rgba(230,126,34,.1);border-color:#E67E22}
+.dv-sb2.sel-r{background:rgba(217,48,37,.12);border-color:#D93025}
+.dv-sdot{width:7px;height:7px;border-radius:50%}
+.dv-slbl2{font-size:8px;color:var(--muted);font-family:var(--mono)}
+.dv-note{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:8px;font-size:9px;color:var(--muted);height:44px;display:flex;align-items:flex-start}
+.dv-submit{background:#D93025;color:#fff;border:none;border-radius:10px;padding:10px;font-size:11px;font-weight:700;width:100%;cursor:pointer;font-family:var(--sans)}
+.dv-feed-filters{padding:0 12px 8px;display:flex;gap:5px;overflow-x:auto}
+.dv-feed-filters::-webkit-scrollbar{display:none}
+.dv-ff{font-size:9px;font-weight:500;padding:3px 8px;border-radius:14px;border:1px solid rgba(255,255,255,.1);color:var(--muted);white-space:nowrap;background:none;cursor:pointer;font-family:var(--sans)}
+.dv-ff.active{background:#D93025;border-color:#D93025;color:#fff}
+.dv-feed-list{padding:0 12px 12px;display:flex;flex-direction:column;gap:7px;overflow-y:auto}
+.dv-feed-list::-webkit-scrollbar{display:none}
+.dv-fc{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:8px}
+.dv-fc-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:5px}
+.dv-fc-user{display:flex;align-items:center;gap:6px}
+.dv-fc-av{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;flex-shrink:0}
+.dv-fc-name{font-size:9px;font-weight:600;color:#fff}
+.dv-fc-time{font-size:7px;color:var(--muted);font-family:var(--mono)}
+.dv-fc-badge{font-size:7px;font-weight:600;padding:2px 5px;border-radius:3px;font-family:var(--mono)}
+.b-h{background:rgba(217,48,37,.15);color:#FF5247}
+.b-s{background:rgba(39,174,96,.12);color:#2ECC71}
+.b-u{background:rgba(230,126,34,.1);color:#E67E22}
+.dv-fc-text{font-size:9px;color:var(--muted);line-height:1.4;margin-bottom:5px}
+.dv-fc-text strong{color:#f0ede8}
+.dv-fc-foot{display:flex;align-items:center;justify-content:space-between}
+.dv-fc-loc{font-size:7px;color:rgba(122,133,153,.6);font-family:var(--mono)}
+.dv-fc-vote{font-size:8px;color:var(--muted);border:1px solid rgba(255,255,255,.08);border-radius:5px;padding:1px 6px;cursor:pointer;background:none;font-family:var(--sans)}
+.dv-fc-vote.voted{background:rgba(217,48,37,.1);border-color:#D93025;color:#FF5247}
+.dv-rd-map{height:120px;background:#0a1220;position:relative;overflow:hidden}
+.dv-rd-info{padding:10px 12px}
+.dv-rd-name{font-size:13px;font-weight:700;color:#fff;margin-bottom:2px}
+.dv-rd-meta{font-size:8px;color:var(--muted);font-family:var(--mono);margin-bottom:8px}
+.dv-rd-score-row{display:flex;gap:6px;margin-bottom:10px}
+.dv-rd-score{flex:1;background:rgba(39,174,96,.08);border:1px solid rgba(39,174,96,.2);border-radius:8px;padding:7px;text-align:center}
+.dv-rd-score-n{font-family:var(--mono);font-size:16px;font-weight:500;color:#2ECC71;display:block}
+.dv-rd-score-l{font-size:7px;color:var(--muted);font-family:var(--mono)}
+.dv-rd-reports-title{font-family:var(--mono);font-size:8px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase;margin-bottom:6px}
+.dv-rd-report-item{display:flex;align-items:flex-start;gap:6px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.04)}
+.dv-rri-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:3px}
+.dv-rri-text{font-size:9px;color:var(--muted);line-height:1.4}
+.dv-rri-time{font-size:7px;color:rgba(122,133,153,.5);font-family:var(--mono);display:block;margin-top:1px}
+.dv-prof-hero{background:linear-gradient(180deg,rgba(217,48,37,.15) 0%,transparent 100%);padding:14px 12px 10px;display:flex;flex-direction:column;align-items:center;gap:5px}
+.dv-prof-av{width:48px;height:48px;border-radius:50%;background:#D93025;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;color:#fff;box-shadow:0 0 0 3px rgba(217,48,37,.25)}
+.dv-prof-name{font-size:14px;font-weight:700;color:#fff}
+.dv-prof-meta{font-size:8px;color:var(--muted);font-family:var(--mono)}
+.dv-prof-stats{display:flex;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:10px;margin:0 12px 10px;overflow:hidden}
+.dv-ps{flex:1;padding:8px;text-align:center}
+.dv-ps+.dv-ps{border-left:1px solid rgba(255,255,255,.05)}
+.dv-ps-n{font-family:var(--mono);font-size:15px;font-weight:700;color:#fff;display:block}
+.dv-ps-l{font-size:7px;color:var(--muted);font-family:var(--mono)}
+.dv-ride-row{display:flex;align-items:center;gap:7px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.05);border-radius:8px;padding:7px 8px;margin-bottom:5px}
+.dv-ri-icon{width:26px;height:26px;border-radius:7px;background:rgba(217,48,37,.12);border:1px solid rgba(217,48,37,.2);display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0}
+.dv-ri-name{font-size:9px;font-weight:600;color:#fff}
+.dv-ri-meta{font-size:7px;color:var(--muted);font-family:var(--mono);margin-top:1px}
+.dv-ri-dist{font-size:10px;font-weight:700;color:#FF5247;font-family:var(--mono)}
+.demo-panel-col{display:flex;flex-direction:column;background:#0a0e18}
+.demo-panel-hd{padding:20px 24px 16px;border-bottom:1px solid rgba(255,255,255,.06);flex-shrink:0}
+.demo-panel-flow{font-family:var(--mono);font-size:9px;letter-spacing:.12em;color:rgba(217,48,37,.7);text-transform:uppercase;margin-bottom:6px}
+.demo-panel-title{font-size:18px;font-weight:700;color:#fff;margin-bottom:3px;line-height:1.2}
+.demo-panel-sub{font-size:12px;color:var(--muted);line-height:1.5}
+.demo-screen-nav{padding:12px 24px;border-bottom:1px solid rgba(255,255,255,.05);display:flex;gap:6px;flex-wrap:wrap;flex-shrink:0}
+.demo-sn-btn{font-family:var(--mono);font-size:9px;letter-spacing:.06em;padding:4px 10px;border-radius:4px;border:1px solid rgba(255,255,255,.1);background:none;color:var(--muted);cursor:pointer;transition:all .15s;white-space:nowrap}
+.demo-sn-btn.active{background:rgba(217,48,37,.15);border-color:rgba(217,48,37,.5);color:#FF5247}
+.demo-panel-body{flex:1;overflow-y:auto;padding:20px 24px;display:flex;flex-direction:column;gap:16px}
+.demo-panel-body::-webkit-scrollbar{width:3px}
+.demo-panel-body::-webkit-scrollbar-thumb{background:rgba(255,255,255,.08);border-radius:2px}
+.demo-ctx{display:none;flex-direction:column;gap:14px}
+.demo-ctx.active{display:flex;animation:dvFadeIn .2s ease}
+.demo-info-block{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:14px}
+.demo-ib-title{font-family:var(--mono);font-size:9px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase;margin-bottom:10px;font-weight:600}
+.demo-feature-list{display:flex;flex-direction:column;gap:8px}
+.demo-fi{display:flex;gap:8px;align-items:flex-start}
+.demo-fi-dot{width:6px;height:6px;border-radius:50%;background:#D93025;flex-shrink:0;margin-top:4px}
+.demo-fi-title{font-size:12px;font-weight:600;color:#fff;margin-bottom:1px}
+.demo-fi-body{font-size:11px;color:var(--muted);line-height:1.5}
+.demo-pm-note{background:linear-gradient(135deg,rgba(217,48,37,.07),rgba(217,48,37,.03));border:1px solid rgba(217,48,37,.18);border-radius:10px;padding:14px}
+.demo-pm-label{font-family:var(--mono);font-size:9px;color:#FF5247;letter-spacing:.1em;text-transform:uppercase;margin-bottom:5px}
+.demo-pm-body{font-size:11px;color:var(--muted);line-height:1.6}
+.demo-pm-body strong{color:#f0ede8}
+.demo-flow-tag{display:inline-block;font-family:var(--mono);font-size:9px;padding:3px 8px;border-radius:3px;text-transform:uppercase;letter-spacing:.06em}
+.flow-onboarding{background:rgba(196,160,90,.1);color:var(--gold);border:1px solid rgba(196,160,90,.2)}
+.flow-navigation{background:rgba(39,174,96,.1);color:#2ECC71;border:1px solid rgba(39,174,96,.2)}
+.flow-contribution{background:rgba(217,48,37,.1);color:#FF5247;border:1px solid rgba(217,48,37,.2)}
+.flow-community{background:rgba(100,100,200,.1);color:#8888ee;border:1px solid rgba(100,100,200,.2)}
+.flow-profile{background:rgba(150,150,150,.1);color:#aaa;border:1px solid rgba(150,150,150,.2)}
+.demo-toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(60px);background:#27AE60;color:#fff;padding:9px 18px;border-radius:20px;font-size:12px;font-weight:600;transition:transform .3s ease;z-index:9999;box-shadow:0 4px 20px rgba(39,174,96,.4);white-space:nowrap;font-family:var(--sans)}
+.demo-toast.show{transform:translateX(-50%) translateY(0)}
+@media(max-width:960px){.demo-wrap{grid-template-columns:1fr}.demo-phone-col{border-right:none;border-bottom:1px solid rgba(255,255,255,.06)}.demo-panel-col{min-height:400px}}
+</style>
 
-    <!-- Mockups iframe embed -->
-    <div class="reveal" style="border-radius:12px;overflow:hidden;border:1px solid var(--border);box-shadow:0 32px 80px rgba(0,0,0,.5);">
-      <iframe src="cyclesafe-mockups.html" style="width:100%;height:680px;border:none;background:#0a0a0a;" title="CycleSafe Screen Mockups" loading="lazy"></iframe>
+<section class="section" style="background:linear-gradient(180deg,#07111f,#0a1226);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding-bottom:72px;">
+  <div class="section-inner">
+    <span class="section-tag" data-en="Interactive Demo · 9 Screens · 3 Core Flows" data-es="Demo Interactiva · 9 Pantallas · 3 Flujos Principales">Interactive Demo · 9 Screens · 3 Core Flows</span>
+    <h2 class="section-h2" data-en="Navigate the full product.<br><em>Every screen. Every decision.</em>" data-es="Navega el producto completo.<br><em>Cada pantalla. Cada decisión.</em>">Navigate the full product.<br><em>Every screen. Every decision.</em></h2>
+    <p style="font-size:15px;color:var(--muted);max-width:620px;margin-bottom:40px;line-height:1.8;" data-en="A functional simulation of the CycleSafe pilot build across all 3 flows — onboarding, navigation, and contribution. The right panel shows the PM decision behind every screen." data-es="Simulación funcional del build piloto a través de los 3 flujos — onboarding, navegación y contribución. El panel derecho muestra la decisión de PM detrás de cada pantalla.">A functional simulation of the CycleSafe pilot build across all 3 flows — onboarding, navigation, and contribution. The right panel shows the PM decision behind every screen.</p>
+
+    <div class="demo-wrap reveal">
+      <div class="demo-phone-col">
+        <div class="demo-phone-label">CycleSafe · Pilot Build · 2024</div>
+        <div class="demo-phone-frame">
+          <div class="demo-phone-notch"><div class="demo-notch-pill"></div></div>
+          <div class="demo-screen-wrap">
+            <div class="dv-sb"><span class="dv-sb-time">9:41</span><div class="dv-sb-icons"><div class="dv-sb-dot"></div><div class="dv-sb-dot" style="opacity:.5"></div><div class="dv-sb-dot" style="opacity:.3"></div></div></div>
+
+            <!-- S1 ONBOARD -->
+            <div class="dv-screen active" id="s-onboard">
+              <div class="dv-ob-hero">
+                <div class="dv-ob-logo"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
+                <div class="dv-ob-brand">CYCLESAFE</div>
+                <div class="dv-ob-tagline">Ride safe. Share what you know.</div>
+              </div>
+              <div class="dv-ob-taxonomy">
+                <div class="dv-tax-item"><div class="dv-tax-bar" style="background:#D93025"></div><div><div class="dv-tax-title">Ciclovía — Dedicated lane</div><div class="dv-tax-desc">City-built infrastructure. Highest safety. Always prefer when available.</div></div></div>
+                <div class="dv-tax-item"><div class="dv-tax-bar" style="background:#2ECC71"></div><div><div class="dv-tax-title">Community-validated safe</div><div class="dv-tax-desc">No lane, but riders consistently report low risk on this segment.</div></div></div>
+                <div class="dv-tax-item"><div class="dv-tax-bar" style="background:#E67E22"></div><div><div class="dv-tax-title">Mixed traffic — Use caution</div><div class="dv-tax-desc">Shared with vehicles. Check recent reports before riding.</div></div></div>
+              </div>
+              <button class="dv-ob-btn" onclick="goScreen('map')">Get started — allow location →</button>
+            </div>
+
+            <!-- S2 MAP -->
+            <div class="dv-screen" id="s-map">
+              <div class="dv-map-body">
+                <svg class="dv-map-svg" viewBox="0 0 204 354" preserveAspectRatio="xMidYMid slice">
+                  <rect width="204" height="354" fill="#0a1220"/>
+                  <defs><pattern id="dg2" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0L0 0 0 20" fill="none" stroke="rgba(255,255,255,.025)" stroke-width=".4"/></pattern></defs>
+                  <rect width="204" height="354" fill="url(#dg2)"/>
+                  <rect x="8" y="38" width="44" height="30" rx="2" fill="rgba(39,174,96,.06)"/>
+                  <rect x="0" y="118" width="204" height="6" fill="rgba(255,255,255,.07)"/>
+                  <rect x="0" y="214" width="204" height="6" fill="rgba(255,255,255,.07)"/>
+                  <rect x="62" y="0" width="6" height="354" fill="rgba(255,255,255,.07)"/>
+                  <rect x="148" y="0" width="6" height="354" fill="rgba(255,255,255,.07)"/>
+                  <rect x="0" y="70" width="204" height="2" fill="rgba(255,255,255,.03)"/>
+                  <rect x="28" y="0" width="2" height="354" fill="rgba(255,255,255,.03)"/>
+                  <rect x="108" y="0" width="2" height="354" fill="rgba(255,255,255,.03)"/>
+                  <rect x="0" y="275" width="204" height="2" fill="rgba(255,255,255,.03)"/>
+                  <rect x="0" y="119" width="204" height="4" fill="rgba(217,48,37,.6)"/>
+                  <rect x="63" y="0" width="4" height="354" fill="rgba(217,48,37,.45)"/>
+                  <rect x="0" y="71" width="140" height="2" fill="rgba(39,174,96,.6)"/>
+                  <rect x="29" y="0" width="2" height="170" fill="rgba(39,174,96,.5)"/>
+                  <rect x="0" y="276" width="204" height="2" fill="rgba(230,126,34,.5)"/>
+                  <rect x="149" y="118" width="4" height="160" fill="rgba(230,126,34,.4)"/>
+                  <path d="M34 76 L66 76 L66 121" fill="none" stroke="rgba(217,48,37,.8)" stroke-width="2" stroke-dasharray="6,3" stroke-linecap="round"/>
+                  <rect x="8" y="76" width="18" height="40" rx="2" fill="rgba(255,255,255,.025)"/>
+                  <rect x="70" y="76" width="34" height="40" rx="2" fill="rgba(255,255,255,.025)"/>
+                  <rect x="108" y="76" width="36" height="40" rx="2" fill="rgba(255,255,255,.025)"/>
+                  <rect x="8" y="126" width="52" height="40" rx="2" fill="rgba(255,255,255,.025)"/>
+                  <rect x="70" y="126" width="76" height="40" rx="2" fill="rgba(255,255,255,.025)"/>
+                  <text x="102" y="115" font-family="DM Mono,monospace" font-size="5" fill="rgba(255,255,255,.3)" text-anchor="middle">AV. CORRIENTES</text>
+                  <text x="60" y="42" font-family="DM Mono,monospace" font-size="5" fill="rgba(255,255,255,.25)" text-anchor="middle" transform="rotate(-90,60,42)">CALLAO</text>
+                  <circle cx="65" cy="121" r="8" fill="rgba(217,48,37,.12)"/>
+                  <circle cx="65" cy="121" r="5" fill="rgba(217,48,37,.28)" stroke="#D93025" stroke-width="1.2"/>
+                  <circle cx="65" cy="121" r="2" fill="white"/>
+                  <circle cx="109" cy="121" r="7" fill="rgba(217,48,37,.2)"/>
+                  <circle cx="109" cy="121" r="4" fill="rgba(217,48,37,.3)" stroke="rgba(217,48,37,.8)" stroke-width="1"/>
+                  <circle cx="109" cy="121" r="1.5" fill="#D93025"/>
+                  <circle cx="30" cy="71" r="6" fill="rgba(39,174,96,.18)"/>
+                  <circle cx="30" cy="71" r="3.5" fill="rgba(39,174,96,.28)" stroke="rgba(39,174,96,.8)" stroke-width="1"/>
+                  <circle cx="30" cy="71" r="1.5" fill="#2ECC71"/>
+                </svg>
+                <div class="dv-search-bar"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg><span class="dv-search-text" onclick="goScreen('search')" style="cursor:pointer">Search Buenos Aires routes…</span></div>
+                <div class="dv-legend">
+                  <div class="dv-leg-item"><div class="dv-leg-dot" style="background:rgba(217,48,37,.85)"></div><span class="dv-leg-lbl">Ciclovía</span></div>
+                  <div class="dv-leg-item"><div class="dv-leg-dot" style="background:rgba(39,174,96,.8)"></div><span class="dv-leg-lbl">Safe</span></div>
+                  <div class="dv-leg-item"><div class="dv-leg-dot" style="background:rgba(230,126,34,.75)"></div><span class="dv-leg-lbl">Mixed</span></div>
+                </div>
+                <div class="dv-route-card" onclick="goScreen('route-detail')" style="cursor:pointer">
+                  <div class="dv-rc-tag">Active · 2.3 km — tap for detail</div>
+                  <div class="dv-rc-name">Palermo → Microcentro</div>
+                  <div class="dv-rc-pills"><span class="dv-pill dv-pill-r">Ciclovía</span><span class="dv-pill dv-pill-g">Safe</span><span class="dv-pill dv-pill-a">⚠ Alert</span></div>
+                  <div class="dv-rc-stats"><div class="dv-rcs"><span class="dv-rcs-n">2.3</span><span class="dv-rcs-l">KM</span></div><div class="dv-rcs"><span class="dv-rcs-n">12'</span><span class="dv-rcs-l">EST.</span></div><div class="dv-rcs"><span class="dv-rcs-n">74%</span><span class="dv-rcs-l">SAFE</span></div></div>
+                </div>
+              </div>
+              <div class="dv-bnav">
+                <button class="dv-ni active" onclick="goScreen('map')"><svg viewBox="0 0 24 24"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg><span class="dv-ni-lbl">Map</span></button>
+                <button class="dv-ni" onclick="goScreen('ride-active')"><svg viewBox="0 0 24 24"><circle cx="18.5" cy="17.5" r="3.5"/><circle cx="5.5" cy="17.5" r="3.5"/><circle cx="15" cy="5" r="1"/><path d="M12 17.5V14l-3-3 4-3 2 3h2"/></svg><span class="dv-ni-lbl">Ride</span></button>
+                <button class="dv-ni" onclick="goScreen('report')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span class="dv-ni-lbl">Report</span></button>
+                <button class="dv-ni" onclick="goScreen('feed')"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg><span class="dv-ni-lbl">Feed</span></button>
+                <button class="dv-ni" onclick="goScreen('profile')"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="dv-ni-lbl">Profile</span></button>
+              </div>
+            </div>
+
+            <!-- S3 SEARCH -->
+            <div class="dv-screen" id="s-search">
+              <div class="dv-search-header">
+                <div style="display:flex;align-items:center;gap:8px;padding:10px 0 8px;">
+                  <div class="dv-back" onclick="goScreen('map')"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></div>
+                  <span style="font-size:13px;font-weight:700;color:#fff;">Search destination</span>
+                </div>
+                <div class="dv-search-input-wrap"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg><span class="dv-search-query">Microcentro<span class="dv-search-cursor"></span></span></div>
+                <div class="dv-recent-label" style="padding:0;">Suggested routes</div>
+              </div>
+              <div>
+                <div class="dv-search-result" onclick="goScreen('map')"><div class="dv-sr-icon" style="background:rgba(217,48,37,.12);border:1px solid rgba(217,48,37,.2);">🗺️</div><div style="flex:1"><div class="dv-sr-name">Palermo → Microcentro</div><div class="dv-sr-meta">2.3 km · 12 min · via Callao ciclovía</div></div><span class="dv-sr-badge" style="background:rgba(39,174,96,.12);color:#2ECC71;border:1px solid rgba(39,174,96,.2);">74% safe</span></div>
+                <div class="dv-search-result" onclick="goScreen('map')"><div class="dv-sr-icon" style="background:rgba(39,174,96,.1);border:1px solid rgba(39,174,96,.2);">🗺️</div><div style="flex:1"><div class="dv-sr-name">Palermo → Microcentro (alt)</div><div class="dv-sr-meta">2.8 km · 15 min · via Thames</div></div><span class="dv-sr-badge" style="background:rgba(39,174,96,.12);color:#2ECC71;border:1px solid rgba(39,174,96,.2);">88% safe</span></div>
+                <div class="dv-search-result" onclick="goScreen('map')" style="border-bottom:none;"><div class="dv-sr-icon" style="background:rgba(230,126,34,.1);border:1px solid rgba(230,126,34,.2);">🗺️</div><div style="flex:1"><div class="dv-sr-name">Palermo → Microcentro (fast)</div><div class="dv-sr-meta">1.9 km · 9 min · via Santa Fe</div></div><span class="dv-sr-badge" style="background:rgba(230,126,34,.1);color:#E67E22;border:1px solid rgba(230,126,34,.2);">52% safe</span></div>
+                <div style="padding:10px 12px;border-top:1px solid rgba(255,255,255,.05);">
+                  <div class="dv-recent-label" style="padding:0;margin-bottom:8px;">Recent</div>
+                  <div class="dv-search-result" style="padding:6px 0;border-bottom:none;" onclick="goScreen('map')"><div class="dv-sr-icon" style="background:rgba(255,255,255,.04);">🕐</div><div><div class="dv-sr-name">Recoleta Loop</div><div class="dv-sr-meta">Yesterday</div></div></div>
+                </div>
+              </div>
+              <div class="dv-bnav">
+                <button class="dv-ni active" onclick="goScreen('map')"><svg viewBox="0 0 24 24"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg><span class="dv-ni-lbl">Map</span></button>
+                <button class="dv-ni" onclick="goScreen('ride-active')"><svg viewBox="0 0 24 24"><circle cx="18.5" cy="17.5" r="3.5"/><circle cx="5.5" cy="17.5" r="3.5"/><circle cx="15" cy="5" r="1"/><path d="M12 17.5V14l-3-3 4-3 2 3h2"/></svg><span class="dv-ni-lbl">Ride</span></button>
+                <button class="dv-ni" onclick="goScreen('report')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span class="dv-ni-lbl">Report</span></button>
+                <button class="dv-ni" onclick="goScreen('feed')"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg><span class="dv-ni-lbl">Feed</span></button>
+                <button class="dv-ni" onclick="goScreen('profile')"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="dv-ni-lbl">Profile</span></button>
+              </div>
+            </div>
+
+            <!-- S4 ROUTE DETAIL -->
+            <div class="dv-screen" id="s-route-detail">
+              <div style="padding:8px 10px 6px;display:flex;align-items:center;gap:7px;border-bottom:1px solid rgba(255,255,255,.05);">
+                <div class="dv-back" onclick="goScreen('map')"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></div>
+                <div><div style="font-size:12px;font-weight:700;color:#fff;">Route detail</div><div style="font-size:8px;color:var(--muted);font-family:var(--mono);">Palermo → Microcentro</div></div>
+              </div>
+              <div class="dv-rd-map">
+                <svg style="width:100%;height:100%;position:absolute;inset:0" viewBox="0 0 204 120" preserveAspectRatio="xMidYMid slice">
+                  <rect width="204" height="120" fill="#0a1220"/>
+                  <rect x="0" y="50" width="204" height="5" fill="rgba(255,255,255,.07)"/><rect x="62" y="0" width="5" height="120" fill="rgba(255,255,255,.07)"/>
+                  <rect x="0" y="51" width="204" height="3" fill="rgba(217,48,37,.6)"/><rect x="63" y="0" width="3" height="120" fill="rgba(217,48,37,.45)"/>
+                  <path d="M28 30 L65 30 L65 53" fill="none" stroke="rgba(217,48,37,.8)" stroke-width="2" stroke-dasharray="5,3" stroke-linecap="round"/>
+                  <circle cx="65" cy="53" r="6" fill="rgba(217,48,37,.2)" stroke="#D93025" stroke-width="1.2"/><circle cx="65" cy="53" r="2" fill="white"/>
+                  <circle cx="109" cy="53" r="5" fill="rgba(217,48,37,.25)" stroke="rgba(217,48,37,.8)" stroke-width="1"/><circle cx="109" cy="53" r="2" fill="#D93025"/>
+                  <text x="102" y="46" font-family="DM Mono,monospace" font-size="5" fill="rgba(255,255,255,.3)" text-anchor="middle">AV. CORRIENTES</text>
+                </svg>
+              </div>
+              <div class="dv-rd-info">
+                <div class="dv-rd-name">Av. Corrientes (Callao → Pueyrredón)</div>
+                <div class="dv-rd-meta">1.4 KM · CICLOVÍA · UPDATED 4 MIN AGO</div>
+                <div class="dv-rd-score-row">
+                  <div class="dv-rd-score"><span class="dv-rd-score-n">74%</span><span class="dv-rd-score-l">SAFE SCORE</span></div>
+                  <div class="dv-rd-score" style="background:rgba(217,48,37,.08);border-color:rgba(217,48,37,.2);"><span class="dv-rd-score-n" style="color:#FF5247;">1</span><span class="dv-rd-score-l" style="color:rgba(224,85,85,.7);">ALERT TODAY</span></div>
+                  <div class="dv-rd-score" style="background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.08);"><span class="dv-rd-score-n" style="color:#aaa;">28</span><span class="dv-rd-score-l">REPORTS</span></div>
+                </div>
+                <div class="dv-rd-reports-title">Community reports</div>
+                <div class="dv-rd-report-item"><div class="dv-rri-dot" style="background:#D93025;"></div><div><div class="dv-rri-text">Construction truck blocking right lane near Callao.</div><span class="dv-rri-time">34 min ago · Martín G.</span></div></div>
+                <div class="dv-rd-report-item"><div class="dv-rri-dot" style="background:#2ECC71;"></div><div><div class="dv-rri-text">Ciclovía clear all the way to Pueyrredón, smooth ride.</div><span class="dv-rri-time">2 hr ago · Sofía R.</span></div></div>
+                <div class="dv-rd-report-item" style="border:none;"><div class="dv-rri-dot" style="background:#2ECC71;"></div><div><div class="dv-rri-text">Good conditions, recommend this route.</div><span class="dv-rri-time">Yesterday · Lucas P.</span></div></div>
+              </div>
+              <div class="dv-bnav">
+                <button class="dv-ni active" onclick="goScreen('map')"><svg viewBox="0 0 24 24"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg><span class="dv-ni-lbl">Map</span></button>
+                <button class="dv-ni" onclick="goScreen('ride-active')"><svg viewBox="0 0 24 24"><circle cx="18.5" cy="17.5" r="3.5"/><circle cx="5.5" cy="17.5" r="3.5"/><circle cx="15" cy="5" r="1"/><path d="M12 17.5V14l-3-3 4-3 2 3h2"/></svg><span class="dv-ni-lbl">Ride</span></button>
+                <button class="dv-ni" onclick="goScreen('report')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span class="dv-ni-lbl">Report</span></button>
+                <button class="dv-ni" onclick="goScreen('feed')"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg><span class="dv-ni-lbl">Feed</span></button>
+                <button class="dv-ni" onclick="goScreen('profile')"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="dv-ni-lbl">Profile</span></button>
+              </div>
+            </div>
+
+            <!-- S5 RIDE ACTIVE -->
+            <div class="dv-screen" id="s-ride-active">
+              <div class="dv-ride-map">
+                <svg style="width:100%;height:100%;position:absolute;inset:0" viewBox="0 0 204 160" preserveAspectRatio="xMidYMid slice">
+                  <rect width="204" height="160" fill="#0a1220"/>
+                  <rect x="0" y="78" width="204" height="5" fill="rgba(255,255,255,.07)"/><rect x="62" y="0" width="5" height="160" fill="rgba(255,255,255,.07)"/>
+                  <rect x="0" y="79" width="204" height="3" fill="rgba(217,48,37,.7)"/><rect x="63" y="0" width="3" height="160" fill="rgba(217,48,37,.5)"/>
+                  <path d="M20 60 L65 60 L65 81" fill="none" stroke="rgba(217,48,37,.9)" stroke-width="2.5" stroke-dasharray="6,3" stroke-linecap="round"/>
+                  <circle cx="65" cy="81" r="8" fill="rgba(217,48,37,.15)"/><circle cx="65" cy="81" r="5" fill="rgba(217,48,37,.3)" stroke="#D93025" stroke-width="1.5"/><circle cx="65" cy="81" r="2" fill="white"/>
+                  <text x="102" y="74" font-family="DM Mono,monospace" font-size="5" fill="rgba(255,255,255,.3)" text-anchor="middle">AV. CORRIENTES</text>
+                </svg>
+                <div style="position:absolute;top:8px;left:8px;right:8px;display:flex;justify-content:space-between;align-items:center;z-index:4;">
+                  <div style="background:rgba(217,48,37,.9);color:#fff;font-family:var(--mono);font-size:8px;padding:3px 8px;border-radius:4px;letter-spacing:.08em;">● RECORDING</div>
+                  <button style="background:rgba(217,48,37,.12);border:1px solid rgba(217,48,37,.3);color:#FF5247;border-radius:6px;padding:4px 10px;font-size:9px;font-weight:700;cursor:pointer;font-family:var(--sans);" onclick="goScreen('ride-summary')">End ride</button>
+                </div>
+              </div>
+              <div class="dv-ride-stats">
+                <div class="dv-rs"><span class="dv-rs-n">1.2</span><span class="dv-rs-u">KM</span><span class="dv-rs-l">Distance</span></div>
+                <div class="dv-rs"><span class="dv-rs-n">08:24</span><span class="dv-rs-u" style="color:var(--muted);">MIN</span><span class="dv-rs-l">Time</span></div>
+                <div class="dv-rs"><span class="dv-rs-n">14.2</span><span class="dv-rs-u" style="color:var(--muted);">KM/H</span><span class="dv-rs-l">Speed</span></div>
+              </div>
+              <div style="padding:0 10px;margin-top:8px;display:flex;flex-direction:column;gap:6px;">
+                <div class="dv-ride-alert"><div class="dv-alert-dot"></div><div class="dv-alert-text"><strong>Alert zone ahead</strong> — construction at Corrientes &amp; Callao. Detour via Thames.</div></div>
+                <div class="dv-ride-instr"><div class="dv-instr-arrow"><svg viewBox="0 0 24 24"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg></div><div class="dv-instr-text">Continue on <strong>ciclovía</strong> for 0.8 km. Dedicated lane, clear conditions.</div></div>
+              </div>
+              <div class="dv-bnav">
+                <button class="dv-ni" onclick="goScreen('map')"><svg viewBox="0 0 24 24"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg><span class="dv-ni-lbl">Map</span></button>
+                <button class="dv-ni active"><svg viewBox="0 0 24 24"><circle cx="18.5" cy="17.5" r="3.5"/><circle cx="5.5" cy="17.5" r="3.5"/><circle cx="15" cy="5" r="1"/><path d="M12 17.5V14l-3-3 4-3 2 3h2"/></svg><span class="dv-ni-lbl">Ride</span></button>
+                <button class="dv-ni" onclick="goScreen('report')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span class="dv-ni-lbl">Report</span></button>
+                <button class="dv-ni" onclick="goScreen('feed')"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg><span class="dv-ni-lbl">Feed</span></button>
+                <button class="dv-ni" onclick="goScreen('profile')"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="dv-ni-lbl">Profile</span></button>
+              </div>
+            </div>
+
+            <!-- S6 RIDE SUMMARY -->
+            <div class="dv-screen" id="s-ride-summary">
+              <div class="dv-summary-hero">
+                <div class="dv-sum-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+                <div class="dv-sum-title">Ride complete</div>
+                <div class="dv-sum-sub">PALERMO → MICROCENTRO · TODAY 9:41AM</div>
+              </div>
+              <div class="dv-sum-stats">
+                <div class="dv-ss"><span class="dv-ss-n">2.3</span><span class="dv-ss-l">KM</span></div>
+                <div class="dv-ss"><span class="dv-ss-n">12'</span><span class="dv-ss-l">TIME</span></div>
+                <div class="dv-ss"><span class="dv-ss-n">11.5</span><span class="dv-ss-l">KM/H</span></div>
+              </div>
+              <div class="dv-safe-score">
+                <div class="dv-score-num">74%</div>
+                <div><div class="dv-score-label">Safe score</div><div class="dv-score-desc">74% ciclovía or validated safe. 1 alert zone crossed.</div></div>
+              </div>
+              <div class="dv-prompt-card">
+                <div class="dv-prompt-title">How was your ride?</div>
+                <div class="dv-prompt-sub">Your report helps 40 cyclists on this route tomorrow. Takes 20 seconds.</div>
+                <button class="dv-prompt-btn" onclick="goScreen('report')">Report route conditions →</button>
+              </div>
+              <div style="padding:0 12px 12px;"><button style="width:100%;background:none;border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:9px;color:var(--muted);font-size:10px;cursor:pointer;font-family:var(--sans);" onclick="goScreen('map')">Skip for now</button></div>
+              <div class="dv-bnav">
+                <button class="dv-ni" onclick="goScreen('map')"><svg viewBox="0 0 24 24"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg><span class="dv-ni-lbl">Map</span></button>
+                <button class="dv-ni active"><svg viewBox="0 0 24 24"><circle cx="18.5" cy="17.5" r="3.5"/><circle cx="5.5" cy="17.5" r="3.5"/><circle cx="15" cy="5" r="1"/><path d="M12 17.5V14l-3-3 4-3 2 3h2"/></svg><span class="dv-ni-lbl">Ride</span></button>
+                <button class="dv-ni" onclick="goScreen('report')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span class="dv-ni-lbl">Report</span></button>
+                <button class="dv-ni" onclick="goScreen('feed')"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg><span class="dv-ni-lbl">Feed</span></button>
+                <button class="dv-ni" onclick="goScreen('profile')"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="dv-ni-lbl">Profile</span></button>
+              </div>
+            </div>
+
+            <!-- S7 REPORT -->
+            <div class="dv-screen" id="s-report">
+              <div class="dv-rep-hd"><div class="dv-back" onclick="goScreen('map')"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></div><div><div class="dv-rep-title">Report a route</div><div class="dv-rep-sub">Keep the map accurate</div></div></div>
+              <div class="dv-rep-body">
+                <div><span class="dv-slbl">What did you encounter?</span>
+                  <div class="dv-type-grid">
+                    <div class="dv-tc sel" onclick="selectType(this)"><div class="dv-tc-icon">⚠️</div><span class="dv-tc-lbl">Hazard</span><div class="dv-tc-desc">Something dangerous</div></div>
+                    <div class="dv-tc" onclick="selectType(this)"><div class="dv-tc-icon">✅</div><span class="dv-tc-lbl">All clear</span><div class="dv-tc-desc">Route is safe</div></div>
+                    <div class="dv-tc" onclick="selectType(this)"><div class="dv-tc-icon">🚧</div><span class="dv-tc-lbl">Construction</span><div class="dv-tc-desc">Lane blocked</div></div>
+                    <div class="dv-tc" onclick="selectType(this)"><div class="dv-tc-icon">📍</div><span class="dv-tc-lbl">New ciclovía</span><div class="dv-tc-desc">Infrastructure</div></div>
+                  </div>
+                </div>
+                <div><span class="dv-slbl">Safety level</span>
+                  <div class="dv-safety-row">
+                    <div class="dv-sb2 sel-s" onclick="selectSafety(this,'s')"><div class="dv-sdot" style="background:#2ECC71;"></div><span class="dv-slbl2">Safe</span></div>
+                    <div class="dv-sb2" onclick="selectSafety(this,'m')"><div class="dv-sdot" style="background:#E67E22;"></div><span class="dv-slbl2">Mixed</span></div>
+                    <div class="dv-sb2" onclick="selectSafety(this,'r')"><div class="dv-sdot" style="background:#FF5247;"></div><span class="dv-slbl2">Risk</span></div>
+                  </div>
+                </div>
+                <div><span class="dv-slbl">Note (optional)</span><div class="dv-note">Ciclovía blocked by trucks near Callao…</div></div>
+                <button class="dv-submit" onclick="submitReport()">Submit report →</button>
+              </div>
+              <div class="dv-bnav">
+                <button class="dv-ni" onclick="goScreen('map')"><svg viewBox="0 0 24 24"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg><span class="dv-ni-lbl">Map</span></button>
+                <button class="dv-ni" onclick="goScreen('ride-active')"><svg viewBox="0 0 24 24"><circle cx="18.5" cy="17.5" r="3.5"/><circle cx="5.5" cy="17.5" r="3.5"/><circle cx="15" cy="5" r="1"/><path d="M12 17.5V14l-3-3 4-3 2 3h2"/></svg><span class="dv-ni-lbl">Ride</span></button>
+                <button class="dv-ni active"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span class="dv-ni-lbl">Report</span></button>
+                <button class="dv-ni" onclick="goScreen('feed')"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg><span class="dv-ni-lbl">Feed</span></button>
+                <button class="dv-ni" onclick="goScreen('profile')"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="dv-ni-lbl">Profile</span></button>
+              </div>
+            </div>
+
+            <!-- S8 FEED -->
+            <div class="dv-screen" id="s-feed">
+              <div class="dv-hbar"><div><div class="dv-hbar-title">Community</div><div class="dv-hbar-sub">BUENOS AIRES · LIVE</div></div><div class="dv-notif">3</div></div>
+              <div class="dv-feed-filters">
+                <button class="dv-ff active" onclick="filterFeed(this)">All</button>
+                <button class="dv-ff" onclick="filterFeed(this)">Hazards</button>
+                <button class="dv-ff" onclick="filterFeed(this)">Safe</button>
+                <button class="dv-ff" onclick="filterFeed(this)">Near me</button>
+              </div>
+              <div class="dv-feed-list">
+                <div class="dv-fc"><div class="dv-fc-top"><div class="dv-fc-user"><div class="dv-fc-av" style="background:rgba(217,48,37,.2);color:#FF5247;">M</div><div><div class="dv-fc-name">Martín G.</div><div class="dv-fc-time">4 min ago</div></div></div><span class="dv-fc-badge b-h">HAZARD</span></div><div class="dv-fc-text">Construction blocking <strong>Av. Corrientes &amp; Callao</strong> — ciclovía closed, use Thames detour.</div><div class="dv-fc-foot"><span class="dv-fc-loc">Palermo</span><button class="dv-fc-vote voted" onclick="this.classList.toggle('voted')">👍 12</button></div></div>
+                <div class="dv-fc"><div class="dv-fc-top"><div class="dv-fc-user"><div class="dv-fc-av" style="background:rgba(39,174,96,.2);color:#2ECC71;">S</div><div><div class="dv-fc-name">Sofía R.</div><div class="dv-fc-time">18 min ago</div></div></div><span class="dv-fc-badge b-s">SAFE</span></div><div class="dv-fc-text"><strong>Thames St.</strong> smooth this morning — light traffic, great visibility.</div><div class="dv-fc-foot"><span class="dv-fc-loc">Palermo Soho</span><button class="dv-fc-vote" onclick="this.classList.toggle('voted')">👍 7</button></div></div>
+                <div class="dv-fc"><div class="dv-fc-top"><div class="dv-fc-user"><div class="dv-fc-av" style="background:rgba(230,126,34,.2);color:#E67E22;">L</div><div><div class="dv-fc-name">Lucas P.</div><div class="dv-fc-time">35 min ago</div></div></div><span class="dv-fc-badge b-u">UPDATE</span></div><div class="dv-fc-text">New ciclovía markings on <strong>Güemes St.</strong> between Scalabrini and Medrano!</div><div class="dv-fc-foot"><span class="dv-fc-loc">Villa Crespo</span><button class="dv-fc-vote" onclick="this.classList.toggle('voted')">👍 23</button></div></div>
+                <div class="dv-fc"><div class="dv-fc-top"><div class="dv-fc-user"><div class="dv-fc-av" style="background:rgba(217,48,37,.2);color:#FF5247;">A</div><div><div class="dv-fc-name">Ana K.</div><div class="dv-fc-time">1 hr ago</div></div></div><span class="dv-fc-badge b-h">HAZARD</span></div><div class="dv-fc-text">Aggressive driver near <strong>Santa Fe &amp; Pueyrredón</strong>. Careful at peak hour.</div><div class="dv-fc-foot"><span class="dv-fc-loc">Recoleta</span><button class="dv-fc-vote" onclick="this.classList.toggle('voted')">👍 8</button></div></div>
+              </div>
+              <div class="dv-bnav">
+                <button class="dv-ni" onclick="goScreen('map')"><svg viewBox="0 0 24 24"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg><span class="dv-ni-lbl">Map</span></button>
+                <button class="dv-ni" onclick="goScreen('ride-active')"><svg viewBox="0 0 24 24"><circle cx="18.5" cy="17.5" r="3.5"/><circle cx="5.5" cy="17.5" r="3.5"/><circle cx="15" cy="5" r="1"/><path d="M12 17.5V14l-3-3 4-3 2 3h2"/></svg><span class="dv-ni-lbl">Ride</span></button>
+                <button class="dv-ni" onclick="goScreen('report')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span class="dv-ni-lbl">Report</span></button>
+                <button class="dv-ni active"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg><span class="dv-ni-lbl">Feed</span></button>
+                <button class="dv-ni" onclick="goScreen('profile')"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="dv-ni-lbl">Profile</span></button>
+              </div>
+            </div>
+
+            <!-- S9 PROFILE -->
+            <div class="dv-screen" id="s-profile">
+              <div class="dv-prof-hero"><div class="dv-prof-av">P</div><div class="dv-prof-name">Pablo M.</div><div class="dv-prof-meta">BUENOS AIRES · JAN 2025</div></div>
+              <div class="dv-prof-stats"><div class="dv-ps"><span class="dv-ps-n">47</span><span class="dv-ps-l">Rides</span></div><div class="dv-ps"><span class="dv-ps-n">23</span><span class="dv-ps-l">Reports</span></div><div class="dv-ps"><span class="dv-ps-n">284</span><span class="dv-ps-l">Upvotes</span></div></div>
+              <div style="padding:8px 12px 4px;"><div style="font-size:11px;font-weight:600;color:#fff;margin-bottom:6px;">Recent rides</div>
+                <div class="dv-ride-row"><div class="dv-ri-icon">🚴</div><div style="flex:1"><div class="dv-ri-name">Palermo → Microcentro</div><div class="dv-ri-meta">Today · 9:14am · 74% safe</div></div><div class="dv-ri-dist">2.3km</div></div>
+                <div class="dv-ride-row"><div class="dv-ri-icon">🚴</div><div style="flex:1"><div class="dv-ri-name">Recoleta Loop</div><div class="dv-ri-meta">Yesterday · 88% safe</div></div><div class="dv-ri-dist">4.1km</div></div>
+                <div class="dv-ride-row" style="margin:0;"><div class="dv-ri-icon">🚴</div><div style="flex:1"><div class="dv-ri-name">Villa Crespo → Palermo</div><div class="dv-ri-meta">Tue · 91% safe</div></div><div class="dv-ri-dist">1.8km</div></div>
+              </div>
+              <div class="dv-bnav">
+                <button class="dv-ni" onclick="goScreen('map')"><svg viewBox="0 0 24 24"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg><span class="dv-ni-lbl">Map</span></button>
+                <button class="dv-ni" onclick="goScreen('ride-active')"><svg viewBox="0 0 24 24"><circle cx="18.5" cy="17.5" r="3.5"/><circle cx="5.5" cy="17.5" r="3.5"/><circle cx="15" cy="5" r="1"/><path d="M12 17.5V14l-3-3 4-3 2 3h2"/></svg><span class="dv-ni-lbl">Ride</span></button>
+                <button class="dv-ni" onclick="goScreen('report')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span class="dv-ni-lbl">Report</span></button>
+                <button class="dv-ni" onclick="goScreen('feed')"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg><span class="dv-ni-lbl">Feed</span></button>
+                <button class="dv-ni active"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="dv-ni-lbl">Profile</span></button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- PANEL COLUMN -->
+      <div class="demo-panel-col">
+        <div class="demo-panel-hd">
+          <div class="demo-panel-flow" id="panel-flow">Onboarding Flow</div>
+          <div class="demo-panel-title" id="panel-title">Welcome &amp; taxonomy</div>
+          <div class="demo-panel-sub" id="panel-sub">The first thing a user sees. Three colour codes, one sentence each. The entire safety system explained before they touch the map.</div>
+        </div>
+        <div class="demo-screen-nav">
+          <button class="demo-sn-btn active" onclick="goScreen('onboard')" data-screen="onboard">01 Onboarding</button>
+          <button class="demo-sn-btn" onclick="goScreen('map')" data-screen="map">02 Map</button>
+          <button class="demo-sn-btn" onclick="goScreen('search')" data-screen="search">03 Search</button>
+          <button class="demo-sn-btn" onclick="goScreen('route-detail')" data-screen="route-detail">04 Route detail</button>
+          <button class="demo-sn-btn" onclick="goScreen('ride-active')" data-screen="ride-active">05 Ride active</button>
+          <button class="demo-sn-btn" onclick="goScreen('ride-summary')" data-screen="ride-summary">06 Ride summary</button>
+          <button class="demo-sn-btn" onclick="goScreen('report')" data-screen="report">07 Report</button>
+          <button class="demo-sn-btn" onclick="goScreen('feed')" data-screen="feed">08 Feed</button>
+          <button class="demo-sn-btn" onclick="goScreen('profile')" data-screen="profile">09 Profile</button>
+        </div>
+        <div class="demo-panel-body">
+
+          <div class="demo-ctx active" id="ctx-onboard">
+            <span class="demo-flow-tag flow-onboarding">Onboarding flow · Screen 1 of 9</span>
+            <div class="demo-info-block"><div class="demo-ib-title">Design decisions</div><div class="demo-feature-list">
+              <div class="demo-fi"><div class="demo-fi-dot"></div><div><div class="demo-fi-title">Taxonomy before map</div><div class="demo-fi-body">Users who see coloured lines without context misinterpret them. Teaching the three-tier system on entry eliminates confusion at first use — the biggest source of early drop-off in prototype testing.</div></div></div>
+              <div class="demo-fi"><div class="demo-fi-dot"></div><div><div class="demo-fi-title">One screen, not a carousel</div><div class="demo-fi-body">Multi-screen onboarding flows were consistently skipped. All three concepts on one page, scannable in under 10 seconds. Tested against a 3-screen carousel — single screen won on comprehension.</div></div></div>
+              <div class="demo-fi"><div class="demo-fi-dot"></div><div><div class="demo-fi-title">Location framed as benefit</div><div class="demo-fi-body">Allow location CTA positioned after taxonomy explanation — after the user understands why location matters. Permission conversion rate increased significantly when framed as product benefit, not system requirement.</div></div></div>
+            </div></div>
+            <div class="demo-pm-note"><div class="demo-pm-label">PM decision</div><div class="demo-pm-body">No account creation on first launch. <strong>View the map immediately, report after sign-up.</strong> Forcing registration before value delivery was the single biggest conversion killer in comparable community apps.</div></div>
+          </div>
+
+          <div class="demo-ctx" id="ctx-map">
+            <span class="demo-flow-tag flow-navigation">Navigation flow · Screen 2 of 9</span>
+            <div class="demo-info-block"><div class="demo-ib-title">What this screen solves</div><div class="demo-feature-list">
+              <div class="demo-fi"><div class="demo-fi-dot"></div><div><div class="demo-fi-title">Safety-first routing</div><div class="demo-fi-body">Google Maps routes by time. Strava by performance. CycleSafe by safety — the gap no existing tool filled for urban cyclists in Buenos Aires.</div></div></div>
+              <div class="demo-fi"><div class="demo-fi-dot"></div><div><div class="demo-fi-title">Two interactive entry points</div><div class="demo-fi-body">Tap the search bar to find destinations. Tap the route card to see street-level community data. Both discoverable without instruction.</div></div></div>
+              <div class="demo-fi"><div class="demo-fi-dot"></div><div><div class="demo-fi-title">Live alert on active route</div><div class="demo-fi-body">The ⚠ Alert zone pill reflects a real community report from the last 2 hours. Freshness is surfaced explicitly — not buried in a report list.</div></div></div>
+            </div></div>
+            <div class="demo-pm-note"><div class="demo-pm-label">PM decision</div><div class="demo-pm-body">The 74% safe score was the most debated V1 feature. <strong>Does a single number create false confidence?</strong> Discovery interviews said cyclists wanted a number to compare routes quickly. We shipped it and monitored. No misuse patterns emerged in the pilot.</div></div>
+          </div>
+
+          <div class="demo-ctx" id="ctx-search">
+            <span class="demo-flow-tag flow-navigation">Navigation flow · Screen 3 of 9</span>
+            <div class="demo-info-block"><div class="demo-ib-title">Route search design</div><div class="demo-feature-list">
+              <div class="demo-fi"><div class="demo-fi-dot"></div><div><div class="demo-fi-title">Safe score as primary sort</div><div class="demo-fi-body">Standard nav apps sort by distance or time. CycleSafe sorts by safe score — the core value proposition embedded in the most-used flow. 88% vs 52% safe for the same destination makes the choice obvious.</div></div></div>
+              <div class="demo-fi"><div class="demo-fi-dot"></div><div><div class="demo-fi-title">Three options, not one</div><div class="demo-fi-body">Fastest, safest, and alternative always presented together. Pilot users consistently chose the safer route even when it added 5+ minutes — directly validating the core hypothesis.</div></div></div>
+              <div class="demo-fi"><div class="demo-fi-dot"></div><div><div class="demo-fi-title">Recent searches for commuters</div><div class="demo-fi-body">Cyclists reuse the same 2–3 routes. Recent searches surface instantly — reducing time-to-map for daily users to under 2 taps.</div></div></div>
+            </div></div>
+            <div class="demo-pm-note"><div class="demo-pm-label">PM decision</div><div class="demo-pm-body">Routes named as <strong>origin → destination</strong>, not street names. "Palermo → Microcentro" is how cyclists think. "Callao → Av. de Mayo via Santa Fe" is how engineers think. Naming from the user's mental model, not the system's.</div></div>
+          </div>
+
+          <div class="demo-ctx" id="ctx-route-detail">
+            <span class="demo-flow-tag flow-navigation">Navigation flow · Screen 4 of 9</span>
+            <div class="demo-info-block"><div class="demo-ib-title">Route-level data layer</div><div class="demo-feature-list">
+              <div class="demo-fi"><div class="demo-fi-dot"></div><div><div class="demo-fi-title">Segment-level safe score</div><div class="demo-fi-body">Each street segment has its own score updated continuously. The route card shows the weighted average. The detail screen shows the breakdown — including how many reports feed the score.</div></div></div>
+              <div class="demo-fi"><div class="demo-fi-dot"></div><div><div class="demo-fi-title">Named contributors build trust</div><div class="demo-fi-body">Reports show names, not anonymous entries. Pilot showed named reports were upvoted 3x more. Cyclists trust other cyclists — not an abstract data system.</div></div></div>
+              <div class="demo-fi"><div class="demo-fi-dot"></div><div><div class="demo-fi-title">Relative timestamps communicate freshness</div><div class="demo-fi-body">"34 min ago" vs "Yesterday" changes how a cyclist acts on a report. A fresh hazard is credible. A 3-day-old one may be resolved. Relative time, not absolute dates.</div></div></div>
+            </div></div>
+            <div class="demo-pm-note"><div class="demo-pm-label">PM decision</div><div class="demo-pm-body">Reports older than 48 hours are <strong>grayed out, not deleted</strong>. Historical data builds the safety profile of a segment over time. Stale data preserves signal. Freshness made obvious at a glance without losing the record.</div></div>
+          </div>
+
+          <div class="demo-ctx" id="ctx-ride-active">
+            <span class="demo-flow-tag flow-navigation">Navigation flow · Screen 5 of 9</span>
+            <div class="demo-info-block"><div class="demo-ib-title">Active ride design principles</div><div class="demo-feature-list">
+              <div class="demo-fi"><div class="demo-fi-dot"></div><div><div class="demo-fi-title">Safety before stats</div><div class="demo-fi-body">The alert zone warning appears above navigation instruction. While riding in city traffic, a hazard ahead is more important than current speed. Visual hierarchy reflects real-world priority.</div></div></div>
+              <div class="demo-fi"><div class="demo-fi-dot"></div><div><div class="demo-fi-title">Strava-familiar stat format</div><div class="demo-fi-body">Distance, time, speed — the three stats every cyclist already tracks. No new mental model required. Familiar patterns drive adoption without training.</div></div></div>
+              <div class="demo-fi"><div class="demo-fi-dot"></div><div><div class="demo-fi-title">Passive tracking — minimal interaction</div><div class="demo-fi-body">No buttons beyond "End ride" are primary during navigation. A cyclist in traffic should not be tapping a screen. The app tracks passively; contribution happens after the ride, never during.</div></div></div>
+            </div></div>
+            <div class="demo-pm-note"><div class="demo-pm-label">PM decision</div><div class="demo-pm-body">The red RECORDING badge was deliberate UX, not decoration. <strong>30% of early prototype users thought the app had stopped tracking mid-ride.</strong> The persistent badge reduced "is it recording?" confusion to zero in the pilot.</div></div>
+          </div>
+
+          <div class="demo-ctx" id="ctx-ride-summary">
+            <span class="demo-flow-tag flow-contribution">Contribution flow · Screen 6 of 9</span>
+            <div class="demo-info-block"><div class="demo-ib-title">The highest-leverage screen in the product</div><div class="demo-feature-list">
+              <div class="demo-fi"><div class="demo-fi-dot"></div><div><div class="demo-fi-title">Where the data layer is built</div><div class="demo-fi-body">Without this moment working, the map stays empty. Every design decision here — the safe score, the social framing, the "20 seconds" promise — exists to convert ride completion into community contribution.</div></div></div>
+              <div class="demo-fi"><div class="demo-fi-dot"></div><div><div class="demo-fi-title">Social framing, not obligation</div><div class="demo-fi-body">"Your report helps 40 cyclists tomorrow" — not "help keep the map accurate." Contribution framed as direct community impact. Pilot showed 2x higher submission rate with social framing vs. platform maintenance framing.</div></div></div>
+              <div class="demo-fi"><div class="demo-fi-dot"></div><div><div class="demo-fi-title">Skip always visible</div><div class="demo-fi-body">Forced contribution flows damage trust. "Skip for now" is prominent. Voluntary contribution is sustainable. Coerced reports are low quality and users who feel forced churn faster.</div></div></div>
+            </div></div>
+            <div class="demo-pm-note"><div class="demo-pm-label">Core pilot learning</div><div class="demo-pm-body">Contribution rate: <strong>68% in week 1, dropped to 31% by week 4.</strong> Novelty wore off. The unsolved problem: a durable habit loop without gamification. Streak mechanics were designed for V2 but never shipped before the project paused.</div></div>
+          </div>
+
+          <div class="demo-ctx" id="ctx-report">
+            <span class="demo-flow-tag flow-contribution">Contribution flow · Screen 7 of 9</span>
+            <div class="demo-info-block"><div class="demo-ib-title">Contribution design principles</div><div class="demo-feature-list">
+              <div class="demo-fi"><div class="demo-fi-dot"></div><div><div class="demo-fi-title">Maximum 3 taps to submit</div><div class="demo-fi-body">Type → safety level → submit. Every additional required field reduced contribution rate measurably in prototype testing. Note is optional and labelled as such.</div></div></div>
+              <div class="demo-fi"><div class="demo-fi-dot"></div><div><div class="demo-fi-title">4 types, not 12</div><div class="demo-fi-body">Early prototype had 12 hazard categories. Pilots showed users wanted to flag fast, not classify precisely. Collapsed to 4 based on the most common report types from pilot week 1-2.</div></div></div>
+              <div class="demo-fi"><div class="demo-fi-dot"></div><div><div class="demo-fi-title">Type and severity are independent</div><div class="demo-fi-body">A construction zone can be Safe (minor, temporary) or Risk (full blockage). Separating type from severity gives the data model more signal without increasing cognitive load.</div></div></div>
+            </div></div>
+            <div class="demo-pm-note"><div class="demo-pm-label">PM decision</div><div class="demo-pm-body">Location is auto-detected from GPS, never typed. <strong>Asking users to type a street name killed 40% of reports in prototype testing.</strong> The context of where you are while riding is the most reliable location signal — and it's already there.</div></div>
+          </div>
+
+          <div class="demo-ctx" id="ctx-feed">
+            <span class="demo-flow-tag flow-community">Community flow · Screen 8 of 9</span>
+            <div class="demo-info-block"><div class="demo-ib-title">Why a community feed?</div><div class="demo-feature-list">
+              <div class="demo-fi"><div class="demo-fi-dot"></div><div><div class="demo-fi-title">Return trigger without push notifications</div><div class="demo-fi-body">The feed gives users a reason to open the app between rides. Browsing neighbourhood safety reports is a habit independent of navigation — and works without notification permission.</div></div></div>
+              <div class="demo-fi"><div class="demo-fi-dot"></div><div><div class="demo-fi-title">Upvotes as quality signal</div><div class="demo-fi-body">12 upvotes on a hazard report tells other cyclists it was verified. Social validation replaces moderation — the community curates quality without platform intervention.</div></div></div>
+              <div class="demo-fi"><div class="demo-fi-dot"></div><div><div class="demo-fi-title">"Near me" became the default</div><div class="demo-fi-body">Post-pilot: 80% of active users filtered to "Near me" within their first 3 sessions. City-wide feed felt overwhelming. Neighbourhood scale felt immediately relevant and actionable.</div></div></div>
+            </div></div>
+            <div class="demo-pm-note"><div class="demo-pm-label">PM decision</div><div class="demo-pm-body">Named contributors, not anonymous. Pilot showed named reports were <strong>upvoted 3x more and acted on more frequently.</strong> Identity signals accountability — cyclists trust other cyclists, not a data system.</div></div>
+          </div>
+
+          <div class="demo-ctx" id="ctx-profile">
+            <span class="demo-flow-tag flow-profile">Profile flow · Screen 9 of 9</span>
+            <div class="demo-info-block"><div class="demo-ib-title">Profile design philosophy</div><div class="demo-feature-list">
+              <div class="demo-fi"><div class="demo-fi-dot"></div><div><div class="demo-fi-title">Personal history, not leaderboard</div><div class="demo-fi-body">Discovery interviews: leaderboards felt competitive and stressful. Personal history felt purposeful. The profile shows your impact on your community, not your rank against others.</div></div></div>
+              <div class="demo-fi"><div class="demo-fi-dot"></div><div><div class="demo-fi-title">Safe score per ride</div><div class="demo-fi-body">Each saved ride shows the safety score for that specific journey. 91% safe on Tuesday means you chose well. Creates utility for returning users beyond navigation alone.</div></div></div>
+              <div class="demo-fi"><div class="demo-fi-dot"></div><div><div class="demo-fi-title">284 upvotes = community impact</div><div class="demo-fi-body">The most motivating stat for active contributors in pilot interviews. Not rides logged, not km covered — how many cyclists found your reports useful. Impact, not activity metrics.</div></div></div>
+            </div></div>
+            <div class="demo-pm-note"><div class="demo-pm-label">Not built in V1</div><div class="demo-pm-body">Badges, streaks, and challenges were fully designed but <strong>deliberately excluded from MVP</strong>. Goal: validate intrinsic motivation before gamification. Pilot confirmed cyclists contribute without rewards — making gamification a V2 decision, not a V1 dependency.</div></div>
+          </div>
+
+        </div>
+      </div>
     </div>
-    <p style="font-size:12px;color:var(--muted);margin-top:12px;font-family:var(--mono);text-align:center;letter-spacing:.06em;" data-en="SCROLL INSIDE THE FRAME TO SEE ALL 4 SCREENS AND ANNOTATIONS" data-es="DESPLÁZATE DENTRO DEL MARCO PARA VER LAS 4 PANTALLAS Y ANOTACIONES">SCROLL INSIDE THE FRAME TO SEE ALL 4 SCREENS AND ANNOTATIONS</p>
   </div>
 </section>
 
-<!-- ════════════════════ INTERACTIVE DEMO ════════════════════ -->
-<section class="section">
-  <div class="section-inner">
-    <span class="section-tag" data-en="Interactive Demo · Try the Product" data-es="Demo Interactiva · Prueba el Producto">Interactive Demo · Try the Product</span>
-    <h2 class="section-h2" data-en="Navigate the app.<br><em>See the PM thinking behind each screen.</em>" data-es="Navega la app.<br><em>Ve el pensamiento de PM detrás de cada pantalla.</em>">Navigate the app.<br><em>See the PM thinking behind each screen.</em></h2>
-    <p style="font-size:15px;color:var(--muted);max-width:600px;margin-bottom:48px;" data-en="A functional simulation of the CycleSafe UI. The right panel updates with PM context for every screen — the decision made, the trade-off accepted, and what the pilot taught us." data-es="Una simulación funcional de la UI de CycleSafe. El panel derecho se actualiza con contexto de PM para cada pantalla — la decisión tomada, el trade-off aceptado y lo que aprendimos en el piloto.">A functional simulation of the CycleSafe UI. The right panel updates with PM context for every screen — the decision made, the trade-off accepted, and what the pilot taught us.</p>
+<script>
+var SCREEN_CFG = {
+  'onboard':      {flow:'Onboarding Flow',    title:'Welcome \u0026 taxonomy',           sub:'The first thing a user sees. Three colour codes, one sentence each. The entire safety system explained before they touch the map.'},
+  'map':          {flow:'Navigation Flow',     title:'Community safety map',              sub:'The core product screen. Safety taxonomy overlaid on real city streets \u2014 tap the search bar or route card to navigate further.'},
+  'search':       {flow:'Navigation Flow',     title:'Destination search',                sub:'Routes ranked by safe score, not distance. The core value proposition built into the most-used flow.'},
+  'route-detail': {flow:'Navigation Flow',     title:'Route detail \u0026 community data',sub:'Segment-level safe score, alert count, and a live feed of community reports for that specific street.'},
+  'ride-active':  {flow:'Navigation Flow',     title:'Active ride tracking',              sub:'Passive tracking with real-time hazard alerts. Minimal interaction during the ride \u2014 contribution happens after.'},
+  'ride-summary': {flow:'Contribution Flow',   title:'Ride summary \u0026 post-ride prompt',sub:'The most important screen in the product. Where the data layer is built \u2014 converting ride completion into community contribution.'},
+  'report':       {flow:'Contribution Flow',   title:'Report flow',                       sub:'Maximum 3 taps to submit. Location auto-detected. Type and severity independent. Note optional.'},
+  'feed':         {flow:'Community Flow',      title:'Community feed',                    sub:'Real-time reports from the cycling community. Upvotes surface quality. Named contributors build trust.'},
+  'profile':      {flow:'Profile Flow',        title:'Rider profile \u0026 history',      sub:'Personal ride history with safe scores. Contribution stats. Community impact without leaderboard mechanics.'}
+};
+function goScreen(name) {
+  var cfg = SCREEN_CFG[name]; if (!cfg) return;
+  document.querySelectorAll('.dv-screen').forEach(function(s){s.classList.remove('active');});
+  document.getElementById('s-'+name).classList.add('active');
+  document.getElementById('panel-flow').textContent = cfg.flow;
+  document.getElementById('panel-title').textContent = cfg.title;
+  document.getElementById('panel-sub').textContent = cfg.sub;
+  document.querySelectorAll('.demo-ctx').forEach(function(c){c.classList.remove('active');});
+  var ctx = document.getElementById('ctx-'+name);
+  if (ctx) ctx.classList.add('active');
+  document.querySelectorAll('.demo-sn-btn').forEach(function(b){b.classList.toggle('active', b.dataset.screen===name);});
+}
+function selectType(el) {
+  el.closest('.dv-type-grid').querySelectorAll('.dv-tc').forEach(function(c){c.classList.remove('sel');});
+  el.classList.add('sel');
+}
+function selectSafety(el, type) {
+  el.closest('.dv-safety-row').querySelectorAll('.dv-sb2').forEach(function(b){b.classList.remove('sel-s','sel-m','sel-r');});
+  el.classList.add('sel-'+type);
+}
+function filterFeed(el) {
+  el.closest('.dv-feed-filters').querySelectorAll('.dv-ff').forEach(function(b){b.classList.remove('active');});
+  el.classList.add('active');
+}
+function submitReport() {
+  var t = document.getElementById('demo-toast');
+  t.classList.add('show');
+  setTimeout(function(){ t.classList.remove('show'); goScreen('map'); }, 2200);
+}
+goScreen('onboard');
+</script>
+<div class="demo-toast" id="demo-toast">&#10003; Report submitted \u2014 thanks for keeping the map safe!</div>
 
-    <!-- Demo iframe embed -->
-    <div class="reveal" style="border-radius:12px;overflow:hidden;border:1px solid var(--border);box-shadow:0 32px 80px rgba(0,0,0,.5);">
-      <iframe src="cyclesafe-demo.html" style="width:100%;height:600px;border:none;background:#0d0d0d;" title="CycleSafe Interactive Demo" loading="lazy"></iframe>
-    </div>
-    <p style="font-size:12px;color:var(--muted);margin-top:12px;font-family:var(--mono);text-align:center;letter-spacing:.06em;" data-en="TAP MAP · FEED · REPORT · PROFILE TO NAVIGATE BETWEEN SCREENS" data-es="TOCA MAP · FEED · REPORT · PROFILE PARA NAVEGAR ENTRE PANTALLAS">TAP MAP · FEED · REPORT · PROFILE TO NAVIGATE BETWEEN SCREENS</p>
-  </div>
-</section>
 
-<div style="border-top:1px solid var(--border);"><div class="divider"></div></div>
 
 <!-- ════════════════════ ROADMAP / PHASES ════════════════════ -->
 <section class="section">
