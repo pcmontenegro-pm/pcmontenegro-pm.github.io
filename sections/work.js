@@ -83,6 +83,66 @@ const VIS = {
       <text x="100" y="106" font-family="DM Mono,monospace" font-size="5" fill="rgba(240,223,184,.28)" text-anchor="middle">Physical + Digital inventory · WhatsApp native</text>
     </svg></div>`,
 
+  cyclesafe: `<div class="case-vis-bg" style="background:linear-gradient(150deg,#0d0a0a 0%,#1a0d0d 60%,#0e1422 100%)">
+    <span class="case-num">04</span>
+    <svg viewBox="0 0 200 120" style="width:100%;max-width:190px">
+      <!-- phone frame -->
+      <rect x="62" y="6" width="76" height="108" rx="10" fill="rgba(10,10,16,1)" stroke="rgba(192,57,43,.35)" stroke-width="1"/>
+      <rect x="66" y="12" width="68" height="88" rx="7" fill="#0a1220"/>
+      <!-- status bar -->
+      <text x="100" y="21" font-family="DM Mono,monospace" font-size="5" fill="rgba(255,255,255,.5)" text-anchor="middle">9:41</text>
+      <!-- map grid -->
+      <line x1="66" y1="46" x2="134" y2="46" stroke="rgba(255,255,255,.04)" stroke-width=".5"/>
+      <line x1="66" y1="64" x2="134" y2="64" stroke="rgba(255,255,255,.04)" stroke-width=".5"/>
+      <line x1="66" y1="82" x2="134" y2="82" stroke="rgba(255,255,255,.04)" stroke-width=".5"/>
+      <line x1="84" y1="12" x2="84" y2="100" stroke="rgba(255,255,255,.04)" stroke-width=".5"/>
+      <line x1="100" y1="12" x2="100" y2="100" stroke="rgba(255,255,255,.04)" stroke-width=".5"/>
+      <line x1="118" y1="12" x2="118" y2="100" stroke="rgba(255,255,255,.04)" stroke-width=".5"/>
+      <!-- ciclovía horizontal bold red -->
+      <line x1="66" y1="64" x2="134" y2="64" stroke="rgba(192,57,43,.8)" stroke-width="2.2"/>
+      <!-- safe vertical green -->
+      <line x1="84" y1="12" x2="84" y2="100" stroke="rgba(39,174,96,.6)" stroke-width="1.8"/>
+      <!-- mixed dashed amber -->
+      <line x1="66" y1="46" x2="134" y2="46" stroke="rgba(211,84,0,.55)" stroke-width="1.2" stroke-dasharray="5,3"/>
+      <!-- blocks -->
+      <rect x="67" y="25" width="16" height="20" rx="1.5" fill="rgba(255,255,255,.018)"/>
+      <rect x="85" y="25" width="32" height="20" rx="1.5" fill="rgba(255,255,255,.018)"/>
+      <rect x="119" y="25" width="14" height="20" rx="1.5" fill="rgba(255,255,255,.018)"/>
+      <rect x="67" y="47" width="16" height="16" rx="1.5" fill="rgba(255,255,255,.018)"/>
+      <rect x="85" y="47" width="32" height="16" rx="1.5" fill="rgba(255,255,255,.018)"/>
+      <rect x="119" y="47" width="14" height="16" rx="1.5" fill="rgba(255,255,255,.018)"/>
+      <!-- user pin on ciclovía x safe intersection -->
+      <circle cx="84" cy="64" r="6" fill="rgba(192,57,43,.15)"/>
+      <circle cx="84" cy="64" r="4" fill="rgba(192,57,43,.3)" stroke="rgba(192,57,43,.9)" stroke-width="1"/>
+      <circle cx="84" cy="64" r="1.5" fill="white"/>
+      <!-- alert pin -->
+      <circle cx="118" cy="46" r="4.5" fill="rgba(211,84,0,.2)"/>
+      <circle cx="118" cy="46" r="3" fill="rgba(211,84,0,.3)" stroke="rgba(211,84,0,.8)" stroke-width=".8"/>
+      <circle cx="118" cy="46" r="1.2" fill="#E67E22"/>
+      <!-- route card overlay -->
+      <rect x="68" y="83" width="62" height="17" rx="3" fill="rgba(10,10,18,.97)" stroke="rgba(192,57,43,.22)" stroke-width=".5"/>
+      <text x="72" y="90" font-family="DM Mono,monospace" font-size="4.5" fill="rgba(192,57,43,.75)" letter-spacing=".05em">PALERMO → CENTRO</text>
+      <text x="72" y="98" font-family="DM Mono,monospace" font-size="5" fill="rgba(255,255,255,.7)">74%</text>
+      <text x="84" y="98" font-family="DM Mono,monospace" font-size="4" fill="rgba(255,255,255,.3)">safe · 2.3km</text>
+      <!-- legend bottom left -->
+      <rect x="8" y="99" width="6" height="3" rx="1" fill="rgba(192,57,43,.8)"/>
+      <text x="16" y="103" font-family="DM Mono,monospace" font-size="4.5" fill="rgba(240,223,184,.45)">Ciclovía</text>
+      <rect x="8" y="106" width="6" height="3" rx="1" fill="rgba(39,174,96,.7)"/>
+      <text x="16" y="110" font-family="DM Mono,monospace" font-size="4.5" fill="rgba(240,223,184,.45)">Safe</text>
+      <line x1="8" y1="115" x2="14" y2="115" stroke="rgba(211,84,0,.6)" stroke-width="2" stroke-dasharray="3,2"/>
+      <text x="16" y="117" font-family="DM Mono,monospace" font-size="4.5" fill="rgba(240,223,184,.45)">Mixta</text>
+      <!-- bottom nav -->
+      <rect x="66" y="100" width="68" height="12" rx="0" fill="rgba(8,8,14,.97)"/>
+      <line x1="66" y1="100" x2="134" y2="100" stroke="rgba(255,255,255,.05)" stroke-width=".4"/>
+      <circle cx="76" cy="106" r="2.5" fill="#D93025"/>
+      <circle cx="89" cy="106" r="2" fill="rgba(160,168,185,.25)"/>
+      <circle cx="100" cy="106" r="2" fill="rgba(160,168,185,.25)"/>
+      <circle cx="111" cy="106" r="2" fill="rgba(160,168,185,.25)"/>
+      <circle cx="124" cy="106" r="2" fill="rgba(160,168,185,.25)"/>
+      <!-- phone notch -->
+      <rect x="88" y="6" width="24" height="4" rx="2" fill="rgba(10,10,16,1)"/>
+    </svg></div>`
+
   pac: `<div class="case-vis-bg" style="background:linear-gradient(150deg,#0c1a2c 0%,#0e2018 100%)">
     <span class="case-num">04</span>
     <svg viewBox="0 0 200 120" style="width:100%;max-width:190px">
