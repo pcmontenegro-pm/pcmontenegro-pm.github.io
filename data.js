@@ -29,7 +29,7 @@ window.SITE = {
 
   metrics: [
     { num: "10+",  label_en: "Years · Payments & Banking",  label_es: "Años · Pagos y Banca" },
-    { num: "$15M", label_en: "Revenue generated · QR",      label_es: "Ingresos generados · QR" },
+    { num: "~70%", label_en: "Mandate adoption · ePAC",     label_es: "Adopción de mandatos · ePAC" },
     { num: "−30%", label_en: "Complaints reduced · PAC 2.0",label_es: "Quejas reducidas · PAC 2.0" },
     { num: "9",    label_en: "Initiatives delivered",       label_es: "Iniciativas entregadas" },
   ],
@@ -150,8 +150,7 @@ window.SITE = {
         sepa_en:  "≈ PIX · Bizum · SEPA Instant · payment flow UX",
         sepa_es:  "≈ PIX · Bizum · SEPA Instant · UX de flujos de pago",
         metrics:  [
-          { num: "+25%", label_en: "Adoption increase",   label_es: "Aumento de adopción" },
-          { num: "$15M", label_en: "Annual commissions",  label_es: "Comisiones anuales" },
+          { num: "+25%", label_en: "Digital payment adoption", label_es: "Adopción de pago digital" },
         ],
         cta_en: null, vis_type: "qr",
       },
@@ -293,7 +292,7 @@ window.SITE = {
       role_es: "Senior Product Manager · Pagos y Cobranza",
       bullets_en: [
         "<strong>PAC 2.0:</strong> Redesigned recurring collections lifecycle. −30% complaints, +20% operational efficiency, +15%+ collection rate.",
-        "<strong>QR Interoperability:</strong> Mapped drop-off, redesigned error flows, benchmarked against PIX. +25% adoption, $15M annual commission revenue.",
+        "<strong>QR Interoperability:</strong> Mapped drop-off, redesigned error flows, benchmarked against PIX. +25% digital payment adoption.",
         "<strong>ePAC — Digital Direct Debit:</strong> Mandate activation from 45 days to 24 hours. ~70% adoption. Delivered in 3 months.",
         "<strong>Multi-Bank Payment Button:</strong> Single integration for high-value corporate payments across Chilean banks. Piloted with 3 companies.",
         "<strong>Notification Engine:</strong> 3-channel (SMS, email, push) with intelligent routing and plug-and-play architecture.",
@@ -301,7 +300,7 @@ window.SITE = {
       ],
       bullets_es: [
         "<strong>PAC 2.0:</strong> Rediseño del ciclo de cobranza recurrente. −30% quejas, +20% eficiencia operacional, +15%+ tasa de cobro.",
-        "<strong>Interoperabilidad QR:</strong> Mapeé abandono, rediseñé flujos de error, benchmarking con PIX. +25% adopción, USD $15M en comisiones anuales.",
+        "<strong>Interoperabilidad QR:</strong> Mapeé abandono, rediseñé flujos de error, benchmarking con PIX. +25% adopción de pago digital.",
         "<strong>ePAC — Débito Directo Digital:</strong> Activación de mandatos de 45 días a 24 horas. ~70% adopción. Entregado en 3 meses.",
         "<strong>Botón de Pago Multibanco:</strong> Integración única para pagos corporativos en bancos chilenos. Piloteado con 3 empresas.",
         "<strong>Motor de Notificaciones:</strong> 3 canales (SMS, email, push) con enrutamiento inteligente y arquitectura plug-and-play.",
