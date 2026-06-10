@@ -31,7 +31,7 @@ window.SITE = {
     { num: "10+",  label_en: "Years · Payments & Banking",  label_es: "Años · Pagos y Banca" },
     { num: "~70%", label_en: "Mandate adoption · ePAC",     label_es: "Adopción de mandatos · ePAC" },
     { num: "−30%", label_en: "Complaints reduced · PAC 2.0",label_es: "Quejas reducidas · PAC 2.0" },
-    { num: "9",    label_en: "Initiatives delivered",       label_es: "Iniciativas entregadas" },
+    { num: "10",   label_en: "Initiatives delivered",       label_es: "Iniciativas entregadas" },
   ],
 
   consulting: {
@@ -122,7 +122,7 @@ window.SITE = {
     desc_es:  "7 años como Senior PM responsable del roadmap de pagos y cobranza en el banco privado más grande de Chile. Entregué en infraestructura, cobranza recurrente, digitalización de mandatos, integraciones H2H y herramientas operacionales — en un entorno regulado a escala empresarial.",
     cases: [
       {
-        id: "pac", num: "04", year: "2021–2022",
+        id: "pac", num: "05", year: "2021–2022",
         tag_en:   "Collections Platform · Itaú Bank",
         tag_es:   "Plataforma de Cobranza · Itaú Bank",
         title_en: "PAC 2.0 — Automated <em>Collections</em>",
@@ -140,7 +140,7 @@ window.SITE = {
         cta_url: "itau-pac20.html", vis_type: "pac",
       },
       {
-        id: "qr", num: "05", year: "2022–2023",
+        id: "qr", num: "06", year: "2022–2023",
         tag_en:   "Payment UX · QR Interoperability · Itaú Bank",
         tag_es:   "UX de Pagos · Interoperabilidad QR · Itaú Bank",
         title_en: "QR Interoperability <em>Redesign</em>",
@@ -155,7 +155,7 @@ window.SITE = {
         cta_en: null, vis_type: "qr",
       },
       {
-        id: "epac", num: "06", year: "2021–2022",
+        id: "epac", num: "07", year: "2021–2022",
         tag_en:   "Mandate Digitisation · Direct Debit · Itaú Bank",
         tag_es:   "Digitalización de Mandatos · Débito Directo · Itaú Bank",
         title_en: "ePAC — Digital <em>Direct Debit</em>",
@@ -173,7 +173,7 @@ window.SITE = {
         cta_url: "itau-epac.html", vis_type: "epac",
       },
       {
-        id: "multibank", num: "07", year: "2022–2023",
+        id: "multibank", num: "08", year: "2022–2023",
         tag_en:   "B2B Payments · Multi-Bank · Enterprise · Itaú Bank",
         tag_es:   "Pagos B2B · Multibanco · Empresas · Itaú Bank",
         title_en: "Multi-Bank <em>Payment Button</em>",
@@ -191,7 +191,7 @@ window.SITE = {
         cta_url: "itau-multibank.html", vis_type: "multibank",
       },
       {
-        id: "engine", num: "08", year: "2020–2021",
+        id: "engine", num: "09", year: "2020–2021",
         tag_en:   "Platform Infrastructure · Notifications · Itaú Bank",
         tag_es:   "Infraestructura · Notificaciones · Itaú Bank",
         title_en: "Bank-Wide <em>Notification Engine</em>",
@@ -207,7 +207,7 @@ window.SITE = {
         cta_en: null, vis_type: "engine",
       },
       {
-        id: "dashboard", num: "09", year: "2020–2021",
+        id: "dashboard", num: "10", year: "2020–2021",
         tag_en:   "Operational Intelligence · Analytics · Itaú Bank",
         tag_es:   "Inteligencia Operacional · Analítica · Itaú Bank",
         title_en: "Collections <em>Monitoring Dashboard</em>",
