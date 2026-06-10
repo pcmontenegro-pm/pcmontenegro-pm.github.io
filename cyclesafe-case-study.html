@@ -649,297 +649,211 @@ footer { border-top:1px solid var(--border); padding:24px 48px; display:flex; ju
 <!-- ════════════════════ MOCKUPS ════════════════════ -->
 <section class="section" style="background:linear-gradient(180deg,#080e1a,#0a1226);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
   <div class="section-inner">
-    <span class="section-tag">Pantallas del piloto · 4 capturas clave</span>
-    <h2 class="section-h2">Así se veía<br><em>el build del piloto.</em></h2>
-    <p style="font-size:15px;color:var(--muted);max-width:600px;margin-bottom:48px;line-height:1.8;">Cuatro pantallas del build en React Native. Cada anotación refleja una decisión real de producto tomada durante el desarrollo o revisada tras el feedback del piloto.</p>
-
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px;max-width:1100px;margin:0 auto;align-items:start;grid-auto-rows:1fr;" class="reveal">
-
-      <!-- ── MOCKUP 1: Mapa ── -->
+    <span class="section-tag" data-en="Pilot screens · 4 key captures" data-es="Pantallas del piloto · 4 capturas clave">Pantallas del piloto · 4 capturas clave</span>
+    <h2 class="section-h2" data-en="What the pilot<br><em>actually looked like.</em>" data-es="Así se veía<br><em>el build del piloto.</em>">Así se veía<br><em>el build del piloto.</em></h2>
+    <p style="font-size:15px;color:var(--muted);max-width:600px;margin-bottom:48px;line-height:1.8;" data-en="Four screens from the React Native pilot build. Each annotation reflects a real product decision." data-es="Cuatro pantallas del build en React Native. Cada anotación refleja una decisión real de producto.">Cuatro pantallas del build en React Native. Cada anotación refleja una decisión real de producto.</p>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px;max-width:1100px;margin:0 auto;" class="reveal">
+      
       <div style="display:flex;flex-direction:column;gap:12px;">
-        <div style="background:#0d0d0d;border-radius:28px;padding:8px;box-shadow:0 0 0 1px rgba(255,255,255,.07),0 20px 60px rgba(0,0,0,.7);height:580px;display:flex;flex-direction:column;">
+        <div style="background:#0d0d0d;border-radius:28px;padding:8px;box-shadow:0 0 0 1px rgba(255,255,255,.07),0 20px 60px rgba(0,0,0,.8);">
           <div style="width:56px;height:16px;background:#0d0d0d;border-radius:0 0 10px 10px;margin:0 auto 3px;display:flex;align-items:center;justify-content:center;"><div style="width:32px;height:3px;background:#1c1c1c;border-radius:10px;"></div></div>
-          <div style="border-radius:20px;overflow:hidden;background:#0a1220;display:flex;flex-direction:column;flex:1;">
-            <!-- STATUS -->
-            <div style="height:22px;background:#0a1220;display:flex;align-items:center;justify-content:space-between;padding:0 12px;">
-              <span style="font-family:var(--mono);font-size:9px;color:rgba(255,255,255,.7);">9:41</span>
-              <div style="display:flex;gap:3px;"><div style="width:3px;height:3px;border-radius:50%;background:rgba(255,255,255,.5);"></div><div style="width:3px;height:3px;border-radius:50%;background:rgba(255,255,255,.3);"></div></div>
-            </div>
-            <!-- SEARCH BAR -->
-            <div style="margin:0 8px 6px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:6px 10px;display:flex;align-items:center;gap:6px;">
-              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="rgba(122,133,153,.7)" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-              <span style="font-size:8px;color:rgba(122,133,153,.7);">Buscar rutas en Buenos Aires…</span>
-            </div>
-            <!-- MAP -->
-            <div style="position:relative;height:160px;background:#0a1220;overflow:hidden;">
-              <svg style="position:absolute;inset:0;width:100%;height:100%;" viewBox="0 0 200 160" preserveAspectRatio="xMidYMid slice">
-                <!-- grid -->
-                <line x1="0" y1="60" x2="200" y2="60" stroke="rgba(255,255,255,.04)" stroke-width=".5"/>
-                <line x1="0" y1="100" x2="200" y2="100" stroke="rgba(255,255,255,.04)" stroke-width=".5"/>
-                <line x1="0" y1="130" x2="200" y2="130" stroke="rgba(255,255,255,.04)" stroke-width=".5"/>
-                <line x1="60" y1="0" x2="60" y2="160" stroke="rgba(255,255,255,.04)" stroke-width=".5"/>
-                <line x1="120" y1="0" x2="120" y2="160" stroke="rgba(255,255,255,.04)" stroke-width=".5"/>
-                <!-- ciclovía -->
-                <line x1="0" y1="100" x2="200" y2="100" stroke="rgba(192,57,43,.8)" stroke-width="3"/>
-                <!-- safe -->
-                <line x1="60" y1="0" x2="60" y2="160" stroke="rgba(39,174,96,.65)" stroke-width="2.5"/>
-                <!-- mixed -->
-                <line x1="0" y1="60" x2="200" y2="60" stroke="rgba(211,84,0,.55)" stroke-width="1.5" stroke-dasharray="8,5"/>
-                <!-- blocks -->
-                <rect x="1" y="1" width="58" height="58" rx="2" fill="rgba(255,255,255,.018)"/>
-                <rect x="62" y="1" width="57" height="58" rx="2" fill="rgba(255,255,255,.018)"/>
-                <rect x="121" y="1" width="78" height="58" rx="2" fill="rgba(255,255,255,.018)"/>
-                <rect x="1" y="61" width="58" height="38" rx="2" fill="rgba(255,255,255,.018)"/>
-                <rect x="62" y="61" width="57" height="38" rx="2" fill="rgba(255,255,255,.018)"/>
-                <rect x="121" y="61" width="78" height="38" rx="2" fill="rgba(255,255,255,.018)"/>
-                <!-- pins -->
-                <circle cx="60" cy="100" r="9" fill="rgba(192,57,43,.15)"/><circle cx="60" cy="100" r="6" fill="rgba(192,57,43,.3)" stroke="rgba(192,57,43,.9)" stroke-width="1.2"/><circle cx="60" cy="100" r="2.5" fill="white"/>
-                <circle cx="120" cy="60" r="7" fill="rgba(211,84,0,.2)"/><circle cx="120" cy="60" r="4.5" fill="rgba(211,84,0,.3)" stroke="rgba(211,84,0,.8)" stroke-width="1"/><circle cx="120" cy="60" r="2" fill="#E67E22"/>
-                <circle cx="30" cy="100" r="6" fill="rgba(39,174,96,.18)"/><circle cx="30" cy="100" r="4" fill="rgba(39,174,96,.3)" stroke="rgba(39,174,96,.8)" stroke-width="1"/><circle cx="30" cy="100" r="1.8" fill="#2ECC71"/>
-                <!-- legend -->
-                <rect x="130" y="8" width="66" height="42" rx="4" fill="rgba(10,10,18,.9)" stroke="rgba(255,255,255,.06)" stroke-width=".5"/>
-                <rect x="137" y="16" width="8" height="3" rx="1" fill="rgba(192,57,43,.8)"/><text x="148" y="20" font-family="DM Mono,monospace" font-size="6" fill="rgba(240,223,184,.5)">Ciclovía</text>
-                <rect x="137" y="26" width="8" height="3" rx="1" fill="rgba(39,174,96,.7)"/><text x="148" y="30" font-family="DM Mono,monospace" font-size="6" fill="rgba(240,223,184,.5)">Segura</text>
-                <line x1="137" y1="39" x2="145" y2="39" stroke="rgba(211,84,0,.6)" stroke-width="2" stroke-dasharray="3,2"/><text x="148" y="41" font-family="DM Mono,monospace" font-size="6" fill="rgba(240,223,184,.5)">Mixta</text>
-              </svg>
-              <!-- route card -->
-              <div style="position:absolute;bottom:8px;left:8px;right:8px;background:rgba(12,12,20,.97);border:1px solid rgba(192,57,43,.25);border-radius:10px;padding:7px 10px;">
-                <div style="font-family:var(--mono);font-size:6px;color:rgba(192,57,43,.8);letter-spacing:.08em;margin-bottom:2px;">ACTIVA · 2.3 KM — TOCA PARA DETALLE</div>
-                <div style="font-size:10px;font-weight:700;color:#fff;margin-bottom:4px;">Palermo → Microcentro</div>
-                <div style="display:flex;gap:3px;margin-bottom:5px;">
-                  <span style="font-size:7px;font-weight:600;padding:1px 5px;border-radius:3px;background:rgba(192,57,43,.15);color:#FF5247;border:1px solid rgba(192,57,43,.3);font-family:var(--mono);">Ciclovía</span>
-                  <span style="font-size:7px;font-weight:600;padding:1px 5px;border-radius:3px;background:rgba(39,174,96,.12);color:#2ECC71;border:1px solid rgba(39,174,96,.25);font-family:var(--mono);">Segura</span>
-                  <span style="font-size:7px;font-weight:600;padding:1px 5px;border-radius:3px;background:rgba(211,84,0,.1);color:#E67E22;border:1px solid rgba(211,84,0,.2);font-family:var(--mono);">⚠ Alerta</span>
+          <div style="border-radius:20px;overflow:hidden;height:480px;">
+            <div class="dv-sb"><span class="dv-sb-time">9:41</span><div class="dv-sb-icons"><div class="dv-sb-dot"></div><div class="dv-sb-dot" style="opacity:.5"></div><div class="dv-sb-dot" style="opacity:.3"></div></div></div>
+            <div style="display:flex;flex-direction:column;" id="s-map">
+              <div class="dv-map-body">
+                <svg class="dv-map-svg" viewBox="0 0 204 354" preserveAspectRatio="xMidYMid slice">
+                  <rect width="204" height="354" fill="#0a1220"/>
+                  <defs><pattern id="dg2" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0L0 0 0 20" fill="none" stroke="rgba(255,255,255,.025)" stroke-width=".4"/></pattern></defs>
+                  <rect width="204" height="354" fill="url(#dg2)"/>
+                  <rect x="8" y="38" width="44" height="30" rx="2" fill="rgba(39,174,96,.06)"/>
+                  <rect x="0" y="118" width="204" height="6" fill="rgba(255,255,255,.07)"/>
+                  <rect x="0" y="214" width="204" height="6" fill="rgba(255,255,255,.07)"/>
+                  <rect x="62" y="0" width="6" height="354" fill="rgba(255,255,255,.07)"/>
+                  <rect x="148" y="0" width="6" height="354" fill="rgba(255,255,255,.07)"/>
+                  <rect x="0" y="70" width="204" height="2" fill="rgba(255,255,255,.03)"/>
+                  <rect x="28" y="0" width="2" height="354" fill="rgba(255,255,255,.03)"/>
+                  <rect x="108" y="0" width="2" height="354" fill="rgba(255,255,255,.03)"/>
+                  <rect x="0" y="275" width="204" height="2" fill="rgba(255,255,255,.03)"/>
+                  <rect x="0" y="119" width="204" height="4" fill="rgba(217,48,37,.6)"/>
+                  <rect x="63" y="0" width="4" height="354" fill="rgba(217,48,37,.45)"/>
+                  <rect x="0" y="71" width="140" height="2" fill="rgba(39,174,96,.6)"/>
+                  <rect x="29" y="0" width="2" height="170" fill="rgba(39,174,96,.5)"/>
+                  <rect x="0" y="276" width="204" height="2" fill="rgba(230,126,34,.5)"/>
+                  <rect x="149" y="118" width="4" height="160" fill="rgba(230,126,34,.4)"/>
+                  <path d="M34 76 L66 76 L66 121" fill="none" stroke="rgba(217,48,37,.8)" stroke-width="2" stroke-dasharray="6,3" stroke-linecap="round"/>
+                  <rect x="8" y="76" width="18" height="40" rx="2" fill="rgba(255,255,255,.025)"/>
+                  <rect x="70" y="76" width="34" height="40" rx="2" fill="rgba(255,255,255,.025)"/>
+                  <rect x="108" y="76" width="36" height="40" rx="2" fill="rgba(255,255,255,.025)"/>
+                  <rect x="8" y="126" width="52" height="40" rx="2" fill="rgba(255,255,255,.025)"/>
+                  <rect x="70" y="126" width="76" height="40" rx="2" fill="rgba(255,255,255,.025)"/>
+                  <text x="102" y="115" font-family="DM Mono,monospace" font-size="5" fill="rgba(255,255,255,.3)" text-anchor="middle">AV. CORRIENTES</text>
+                  <text x="60" y="42" font-family="DM Mono,monospace" font-size="5" fill="rgba(255,255,255,.25)" text-anchor="middle" transform="rotate(-90,60,42)">CALLAO</text>
+                  <circle cx="65" cy="121" r="8" fill="rgba(217,48,37,.12)"/>
+                  <circle cx="65" cy="121" r="5" fill="rgba(217,48,37,.28)" stroke="#D93025" stroke-width="1.2"/>
+                  <circle cx="65" cy="121" r="2" fill="white"/>
+                  <circle cx="109" cy="121" r="7" fill="rgba(217,48,37,.2)"/>
+                  <circle cx="109" cy="121" r="4" fill="rgba(217,48,37,.3)" stroke="rgba(217,48,37,.8)" stroke-width="1"/>
+                  <circle cx="109" cy="121" r="1.5" fill="#D93025"/>
+                  <circle cx="30" cy="71" r="6" fill="rgba(39,174,96,.18)"/>
+                  <circle cx="30" cy="71" r="3.5" fill="rgba(39,174,96,.28)" stroke="rgba(39,174,96,.8)" stroke-width="1"/>
+                  <circle cx="30" cy="71" r="1.5" fill="#2ECC71"/>
+                </svg>
+                <div class="dv-search-bar"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg><span class="dv-search-text" onclick="goScreen('search')" style="cursor:pointer">Buscar rutas en Buenos Aires…</span></div>
+                <div class="dv-legend">
+                  <div class="dv-leg-item"><div class="dv-leg-dot" style="background:rgba(217,48,37,.85)"></div><span class="dv-leg-lbl">Ciclovía</span></div>
+                  <div class="dv-leg-item"><div class="dv-leg-dot" style="background:rgba(39,174,96,.8)"></div><span class="dv-leg-lbl">Seguras</span></div>
+                  <div class="dv-leg-item"><div class="dv-leg-dot" style="background:rgba(230,126,34,.75)"></div><span class="dv-leg-lbl">Mixta</span></div>
                 </div>
-                <div style="display:flex;border-top:1px solid rgba(255,255,255,.05);padding-top:4px;">
-                  <div style="flex:1;text-align:center;"><span style="font-family:var(--mono);font-size:12px;font-weight:500;color:#fff;display:block;">2.3</span><span style="font-size:6px;color:var(--muted);font-family:var(--mono);">KM</span></div>
-                  <div style="flex:1;text-align:center;border-left:1px solid rgba(255,255,255,.05);"><span style="font-family:var(--mono);font-size:12px;font-weight:500;color:#fff;display:block;">12'</span><span style="font-size:6px;color:var(--muted);font-family:var(--mono);">EST.</span></div>
-                  <div style="flex:1;text-align:center;border-left:1px solid rgba(255,255,255,.05);"><span style="font-family:var(--mono);font-size:12px;font-weight:500;color:#fff;display:block;">74%</span><span style="font-size:6px;color:var(--muted);font-family:var(--mono);">SEGURA</span></div>
+                <div class="dv-route-card" onclick="goScreen('route-detail')" style="cursor:pointer">
+                  <div class="dv-rc-tag">Active · 2.3 km — tap for detail</div>
+                  <div class="dv-rc-name">Palermo → Microcentro</div>
+                  <div class="dv-rc-pills"><span class="dv-pill dv-pill-r">Ciclovía</span><span class="dv-pill dv-pill-g">Seguras</span><span class="dv-pill dv-pill-a">⚠ Alert</span></div>
+                  <div class="dv-rc-stats"><div class="dv-rcs"><span class="dv-rcs-n">2.3</span><span class="dv-rcs-l">KM</span></div><div class="dv-rcs"><span class="dv-rcs-n">12'</span><span class="dv-rcs-l">EST.</span></div><div class="dv-rcs"><span class="dv-rcs-n">74%</span><span class="dv-rcs-l">SAFE</span></div></div>
                 </div>
               </div>
-            </div>
-            <!-- BOTTOM NAV -->
-            <div style="height:40px;background:rgba(8,8,14,.97);border-top:1px solid rgba(255,255,255,.05);display:flex;align-items:center;justify-content:space-around;padding:0 4px;">
-              <div style="display:flex;flex-direction:column;align-items:center;gap:2px;color:#D93025;">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
-                <span style="font-size:6px;font-family:var(--mono);">Mapa</span>
-              </div>
-              <div style="display:flex;flex-direction:column;align-items:center;gap:2px;color:rgba(160,168,185,.4);">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="18.5" cy="17.5" r="3.5"/><circle cx="5.5" cy="17.5" r="3.5"/><circle cx="15" cy="5" r="1"/><path d="M12 17.5V14l-3-3 4-3 2 3h2"/></svg>
-                <span style="font-size:6px;font-family:var(--mono);">Viaje</span>
-              </div>
-              <div style="display:flex;flex-direction:column;align-items:center;gap:2px;color:rgba(160,168,185,.4);">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-                <span style="font-size:6px;font-family:var(--mono);">Reporte</span>
-              </div>
-              <div style="display:flex;flex-direction:column;align-items:center;gap:2px;color:rgba(160,168,185,.4);">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
-                <span style="font-size:6px;font-family:var(--mono);">Feed</span>
-              </div>
-              <div style="display:flex;flex-direction:column;align-items:center;gap:2px;color:rgba(160,168,185,.4);">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                <span style="font-size:6px;font-family:var(--mono);">Perfil</span>
+              <div class="dv-bnav">
+                <button class="dv-ni active" onclick="goScreen('map')"><svg viewBox="0 0 24 24"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg><span class="dv-ni-lbl">Mapa</span></button>
+                <button class="dv-ni" onclick="goScreen('ride-active')"><svg viewBox="0 0 24 24"><circle cx="18.5" cy="17.5" r="3.5"/><circle cx="5.5" cy="17.5" r="3.5"/><circle cx="15" cy="5" r="1"/><path d="M12 17.5V14l-3-3 4-3 2 3h2"/></svg><span class="dv-ni-lbl">Viaje</span></button>
+                <button class="dv-ni" onclick="goScreen('report')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span class="dv-ni-lbl">Reporte</span></button>
+                <button class="dv-ni" onclick="goScreen('feed')"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg><span class="dv-ni-lbl">Feed</span></button>
+                <button class="dv-ni" onclick="goScreen('profile')"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="dv-ni-lbl">Perfil</span></button>
               </div>
             </div>
           </div>
         </div>
         <div style="padding:12px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);border-radius:8px;">
           <span style="font-family:var(--mono);font-size:8px;letter-spacing:.1em;color:rgba(217,48,37,.7);text-transform:uppercase;margin-bottom:4px;display:block;">Navegación · Pantalla 02</span>
-          <div style="font-size:12px;font-weight:600;color:#fff;margin-bottom:4px;">Mapa comunitario</div>
-          <div style="font-size:11px;color:var(--muted);line-height:1.5;">Taxonomía de tres niveles superpuesta sobre calles reales. El score de 74% fue la decisión más debatida del V1.</div>
+          <div style="font-size:12px;font-weight:600;color:#fff;margin-bottom:4px;" data-en="Community map" data-es="Mapa comunitario">Mapa comunitario</div>
+          <div style="font-size:11px;color:var(--muted);line-height:1.5;">Taxonomía de tres niveles sobre calles reales. El score de 74% fue la decisión más debatida del V1.</div>
         </div>
       </div>
-
-      <!-- ── MOCKUP 2: Búsqueda ── -->
+      
       <div style="display:flex;flex-direction:column;gap:12px;">
-        <div style="background:#0d0d0d;border-radius:28px;padding:8px;box-shadow:0 0 0 1px rgba(255,255,255,.07),0 20px 60px rgba(0,0,0,.7);height:580px;display:flex;flex-direction:column;">
+        <div style="background:#0d0d0d;border-radius:28px;padding:8px;box-shadow:0 0 0 1px rgba(255,255,255,.07),0 20px 60px rgba(0,0,0,.8);">
           <div style="width:56px;height:16px;background:#0d0d0d;border-radius:0 0 10px 10px;margin:0 auto 3px;display:flex;align-items:center;justify-content:center;"><div style="width:32px;height:3px;background:#1c1c1c;border-radius:10px;"></div></div>
-          <div style="border-radius:20px;overflow:hidden;background:#141414;display:flex;flex-direction:column;flex:1;">
-            <div style="height:22px;background:#141414;display:flex;align-items:center;justify-content:space-between;padding:0 12px;">
-              <span style="font-family:var(--mono);font-size:9px;color:rgba(255,255,255,.7);">9:41</span>
-              <div style="display:flex;gap:3px;"><div style="width:3px;height:3px;border-radius:50%;background:rgba(255,255,255,.5);"></div></div>
-            </div>
-            <!-- header -->
-            <div style="padding:8px 12px 6px;display:flex;align-items:center;gap:8px;">
-              <div style="width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;">
-                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.6)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+          <div style="border-radius:20px;overflow:hidden;height:480px;">
+            <div class="dv-sb"><span class="dv-sb-time">9:41</span><div class="dv-sb-icons"><div class="dv-sb-dot"></div><div class="dv-sb-dot" style="opacity:.5"></div><div class="dv-sb-dot" style="opacity:.3"></div></div></div>
+            <div style="display:flex;flex-direction:column;" id="s-search">
+              <div class="dv-search-header">
+                <div style="display:flex;align-items:center;gap:8px;padding:10px 0 8px;">
+                  <div class="dv-back" onclick="goScreen('map')"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></div>
+                  <span style="font-size:13px;font-weight:700;color:#fff;">Buscar destino</span>
+                </div>
+                <div class="dv-search-input-wrap"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg><span class="dv-search-query">Microcentro<span class="dv-search-cursor"></span></span></div>
+                <div class="dv-recent-label" style="padding:0;">Rutas sugeridas</div>
               </div>
-              <span style="font-size:11px;font-weight:700;color:#fff;">Buscar destino</span>
-            </div>
-            <!-- input -->
-            <div style="margin:0 10px 8px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:7px 10px;display:flex;align-items:center;gap:6px;">
-              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="rgba(122,133,153,.7)" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-              <span style="font-size:10px;color:#fff;">Microcentro</span><span style="display:inline-block;width:1px;height:10px;background:#D93025;margin-left:1px;animation:blink 1s step-end infinite;vertical-align:middle;"></span>
-            </div>
-            <div style="font-family:var(--mono);font-size:7px;letter-spacing:.1em;color:rgba(122,133,153,.7);text-transform:uppercase;padding:0 12px 6px;">Rutas sugeridas</div>
-            <!-- results -->
-            <div style="padding:0 10px;display:flex;flex-direction:column;gap:1px;">
-              <div style="padding:8px;display:flex;align-items:center;gap:7px;border-bottom:1px solid rgba(255,255,255,.04);">
-                <div style="width:26px;height:26px;border-radius:7px;background:rgba(192,57,43,.12);border:1px solid rgba(192,57,43,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;">🗺</div>
-                <div style="flex:1"><div style="font-size:9px;font-weight:600;color:#fff;">Palermo → Microcentro</div><div style="font-size:7px;color:var(--muted);font-family:var(--mono);margin-top:1px;">2.3 km · 12 min · vía Callao</div></div>
-                <span style="font-size:7px;font-weight:600;padding:2px 5px;border-radius:3px;font-family:var(--mono);background:rgba(39,174,96,.12);color:#2ECC71;border:1px solid rgba(39,174,96,.2);">74%</span>
+              <div>
+                <div class="dv-search-result" onclick="goScreen('map')"><div class="dv-sr-icon" style="background:rgba(217,48,37,.12);border:1px solid rgba(217,48,37,.2);">🗺️</div><div style="flex:1"><div class="dv-sr-name">Palermo → Microcentro</div><div class="dv-sr-meta">2.3 km · 12 min · vía Callao ciclovía</div></div><span class="dv-sr-badge" style="background:rgba(39,174,96,.12);color:#2ECC71;border:1px solid rgba(39,174,96,.2);">74% safe</span></div>
+                <div class="dv-search-result" onclick="goScreen('map')"><div class="dv-sr-icon" style="background:rgba(39,174,96,.1);border:1px solid rgba(39,174,96,.2);">🗺️</div><div style="flex:1"><div class="dv-sr-name">Palermo → Microcentro (alt)</div><div class="dv-sr-meta">2.8 km · 15 min · vía Thames</div></div><span class="dv-sr-badge" style="background:rgba(39,174,96,.12);color:#2ECC71;border:1px solid rgba(39,174,96,.2);">88% safe</span></div>
+                <div class="dv-search-result" onclick="goScreen('map')" style="border-bottom:none;"><div class="dv-sr-icon" style="background:rgba(230,126,34,.1);border:1px solid rgba(230,126,34,.2);">🗺️</div><div style="flex:1"><div class="dv-sr-name">Palermo → Microcentro (fast)</div><div class="dv-sr-meta">1.9 km · 9 min · vía Santa Fe</div></div><span class="dv-sr-badge" style="background:rgba(230,126,34,.1);color:#E67E22;border:1px solid rgba(230,126,34,.2);">52% safe</span></div>
+                <div style="padding:10px 12px;border-top:1px solid rgba(255,255,255,.05);">
+                  <div class="dv-recent-label" style="padding:0;margin-bottom:8px;">Recientes</div>
+                  <div class="dv-search-result" style="padding:6px 0;border-bottom:none;" onclick="goScreen('map')"><div class="dv-sr-icon" style="background:rgba(255,255,255,.04);">🕐</div><div><div class="dv-sr-name">Recoleta Loop</div><div class="dv-sr-meta">Yesterday</div></div></div>
+                </div>
               </div>
-              <div style="padding:8px;display:flex;align-items:center;gap:7px;border-bottom:1px solid rgba(255,255,255,.04);">
-                <div style="width:26px;height:26px;border-radius:7px;background:rgba(39,174,96,.1);border:1px solid rgba(39,174,96,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;">🗺</div>
-                <div style="flex:1"><div style="font-size:9px;font-weight:600;color:#fff;">Palermo → Microcentro (alt)</div><div style="font-size:7px;color:var(--muted);font-family:var(--mono);margin-top:1px;">2.8 km · 15 min · vía Thames</div></div>
-                <span style="font-size:7px;font-weight:600;padding:2px 5px;border-radius:3px;font-family:var(--mono);background:rgba(39,174,96,.12);color:#2ECC71;border:1px solid rgba(39,174,96,.2);">88%</span>
+              <div class="dv-bnav">
+                <button class="dv-ni active" onclick="goScreen('map')"><svg viewBox="0 0 24 24"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg><span class="dv-ni-lbl">Mapa</span></button>
+                <button class="dv-ni" onclick="goScreen('ride-active')"><svg viewBox="0 0 24 24"><circle cx="18.5" cy="17.5" r="3.5"/><circle cx="5.5" cy="17.5" r="3.5"/><circle cx="15" cy="5" r="1"/><path d="M12 17.5V14l-3-3 4-3 2 3h2"/></svg><span class="dv-ni-lbl">Viaje</span></button>
+                <button class="dv-ni" onclick="goScreen('report')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span class="dv-ni-lbl">Reporte</span></button>
+                <button class="dv-ni" onclick="goScreen('feed')"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg><span class="dv-ni-lbl">Feed</span></button>
+                <button class="dv-ni" onclick="goScreen('profile')"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="dv-ni-lbl">Perfil</span></button>
               </div>
-              <div style="padding:8px;display:flex;align-items:center;gap:7px;">
-                <div style="width:26px;height:26px;border-radius:7px;background:rgba(211,84,0,.1);border:1px solid rgba(211,84,0,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;">🗺</div>
-                <div style="flex:1"><div style="font-size:9px;font-weight:600;color:#fff;">Palermo → Microcentro (rápida)</div><div style="font-size:7px;color:var(--muted);font-family:var(--mono);margin-top:1px;">1.9 km · 9 min · vía Santa Fe</div></div>
-                <span style="font-size:7px;font-weight:600;padding:2px 5px;border-radius:3px;font-family:var(--mono);background:rgba(211,84,0,.1);color:#E67E22;border:1px solid rgba(211,84,0,.2);">52%</span>
-              </div>
-            </div>
-            <!-- bottom nav -->
-            <div style="height:40px;background:rgba(8,8,14,.97);border-top:1px solid rgba(255,255,255,.05);display:flex;align-items:center;justify-content:space-around;padding:0 4px;margin-top:8px;">
-              <div style="display:flex;flex-direction:column;align-items:center;gap:2px;color:#D93025;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg><span style="font-size:6px;font-family:var(--mono);">Mapa</span></div>
-              <div style="display:flex;flex-direction:column;align-items:center;gap:2px;color:rgba(160,168,185,.4);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="18.5" cy="17.5" r="3.5"/><circle cx="5.5" cy="17.5" r="3.5"/><circle cx="15" cy="5" r="1"/><path d="M12 17.5V14l-3-3 4-3 2 3h2"/></svg><span style="font-size:6px;font-family:var(--mono);">Viaje</span></div>
-              <div style="display:flex;flex-direction:column;align-items:center;gap:2px;color:rgba(160,168,185,.4);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span style="font-size:6px;font-family:var(--mono);">Reporte</span></div>
-              <div style="display:flex;flex-direction:column;align-items:center;gap:2px;color:rgba(160,168,185,.4);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg><span style="font-size:6px;font-family:var(--mono);">Feed</span></div>
-              <div style="display:flex;flex-direction:column;align-items:center;gap:2px;color:rgba(160,168,185,.4);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span style="font-size:6px;font-family:var(--mono);">Perfil</span></div>
             </div>
           </div>
         </div>
         <div style="padding:12px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);border-radius:8px;">
           <span style="font-family:var(--mono);font-size:8px;letter-spacing:.1em;color:rgba(217,48,37,.7);text-transform:uppercase;margin-bottom:4px;display:block;">Navegación · Pantalla 03</span>
-          <div style="font-size:12px;font-weight:600;color:#fff;margin-bottom:4px;">Búsqueda de destino</div>
-          <div style="font-size:11px;color:var(--muted);line-height:1.5;">Ordenadas por score de seguridad, no distancia. El 88% segura a +6 min venció consistentemente al 52% rápida en el piloto.</div>
+          <div style="font-size:12px;font-weight:600;color:#fff;margin-bottom:4px;" data-en="Destination search" data-es="Búsqueda de destino">Búsqueda de destino</div>
+          <div style="font-size:11px;color:var(--muted);line-height:1.5;">Ordenadas por score de seguridad, no distancia. El 88% segura a +6 min venció consistentemente al 52% rápida.</div>
         </div>
       </div>
-
-      <!-- ── MOCKUP 3: Viaje activo ── -->
+      
       <div style="display:flex;flex-direction:column;gap:12px;">
-        <div style="background:#0d0d0d;border-radius:28px;padding:8px;box-shadow:0 0 0 1px rgba(255,255,255,.07),0 20px 60px rgba(0,0,0,.7);height:580px;display:flex;flex-direction:column;">
+        <div style="background:#0d0d0d;border-radius:28px;padding:8px;box-shadow:0 0 0 1px rgba(255,255,255,.07),0 20px 60px rgba(0,0,0,.8);">
           <div style="width:56px;height:16px;background:#0d0d0d;border-radius:0 0 10px 10px;margin:0 auto 3px;display:flex;align-items:center;justify-content:center;"><div style="width:32px;height:3px;background:#1c1c1c;border-radius:10px;"></div></div>
-          <div style="border-radius:20px;overflow:hidden;background:#141414;display:flex;flex-direction:column;flex:1;">
-            <div style="height:22px;background:#141414;display:flex;align-items:center;justify-content:space-between;padding:0 12px;">
-              <span style="font-family:var(--mono);font-size:9px;color:rgba(255,255,255,.7);">9:41</span>
-              <div style="display:flex;gap:3px;"><div style="width:3px;height:3px;border-radius:50%;background:rgba(255,255,255,.5);"></div></div>
-            </div>
-            <!-- mini map -->
-            <div style="position:relative;height:130px;background:#0a1220;overflow:hidden;">
-              <svg style="position:absolute;inset:0;width:100%;height:100%;" viewBox="0 0 200 130" preserveAspectRatio="xMidYMid slice">
-                <line x1="0" y1="70" x2="200" y2="70" stroke="rgba(192,57,43,.75)" stroke-width="3"/>
-                <line x1="60" y1="0" x2="60" y2="130" stroke="rgba(39,174,96,.6)" stroke-width="2.5"/>
-                <path d="M15 52 L60 52 L60 71" fill="none" stroke="rgba(192,57,43,.85)" stroke-width="2.5" stroke-dasharray="7,4" stroke-linecap="round"/>
-                <circle cx="60" cy="71" r="9" fill="rgba(192,57,43,.15)"/><circle cx="60" cy="71" r="6" fill="rgba(192,57,43,.3)" stroke="rgba(192,57,43,.9)" stroke-width="1.2"/><circle cx="60" cy="71" r="2.5" fill="white"/>
-                <rect x="0" y="0" width="58" height="50" rx="2" fill="rgba(255,255,255,.018)"/>
-                <rect x="62" y="0" width="57" height="50" rx="2" fill="rgba(255,255,255,.018)"/>
-                <rect x="0" y="72" width="58" height="56" rx="2" fill="rgba(255,255,255,.018)"/>
-                <rect x="62" y="72" width="57" height="56" rx="2" fill="rgba(255,255,255,.018)"/>
-              </svg>
-              <!-- RECORDING badge -->
-              <div style="position:absolute;top:8px;left:8px;background:rgba(192,57,43,.9);color:#fff;font-family:var(--mono);font-size:7px;padding:3px 8px;border-radius:4px;letter-spacing:.08em;display:flex;align-items:center;gap:4px;">
-                <div style="width:5px;height:5px;border-radius:50%;background:rgba(255,120,120,.9);"></div>GRABANDO
+          <div style="border-radius:20px;overflow:hidden;height:480px;">
+            <div class="dv-sb"><span class="dv-sb-time">9:41</span><div class="dv-sb-icons"><div class="dv-sb-dot"></div><div class="dv-sb-dot" style="opacity:.5"></div><div class="dv-sb-dot" style="opacity:.3"></div></div></div>
+            <div style="display:flex;flex-direction:column;" id="s-ride-active">
+              <div class="dv-ride-map">
+                <svg style="width:100%;height:100%;position:absolute;inset:0" viewBox="0 0 204 160" preserveAspectRatio="xMidYMid slice">
+                  <rect width="204" height="160" fill="#0a1220"/>
+                  <rect x="0" y="78" width="204" height="5" fill="rgba(255,255,255,.07)"/><rect x="62" y="0" width="5" height="160" fill="rgba(255,255,255,.07)"/>
+                  <rect x="0" y="79" width="204" height="3" fill="rgba(217,48,37,.7)"/><rect x="63" y="0" width="3" height="160" fill="rgba(217,48,37,.5)"/>
+                  <path d="M20 60 L65 60 L65 81" fill="none" stroke="rgba(217,48,37,.9)" stroke-width="2.5" stroke-dasharray="6,3" stroke-linecap="round"/>
+                  <circle cx="65" cy="81" r="8" fill="rgba(217,48,37,.15)"/><circle cx="65" cy="81" r="5" fill="rgba(217,48,37,.3)" stroke="#D93025" stroke-width="1.5"/><circle cx="65" cy="81" r="2" fill="white"/>
+                  <text x="102" y="74" font-family="DM Mono,monospace" font-size="5" fill="rgba(255,255,255,.3)" text-anchor="middle">AV. CORRIENTES</text>
+                </svg>
+                <div style="position:absolute;top:8px;left:8px;right:8px;display:flex;justify-content:space-between;align-items:center;z-index:4;">
+                  <div style="background:rgba(217,48,37,.9);color:#fff;font-family:var(--mono);font-size:8px;padding:3px 8px;border-radius:4px;letter-spacing:.08em;">● RECORDING</div>
+                  <button style="background:rgba(217,48,37,.12);border:1px solid rgba(217,48,37,.3);color:#FF5247;border-radius:6px;padding:4px 10px;font-size:9px;font-weight:700;cursor:pointer;font-family:var(--sans);" onclick="goScreen('ride-summary')">Terminar</button>
+                </div>
               </div>
-              <button style="position:absolute;top:8px;right:8px;background:rgba(192,57,43,.12);border:1px solid rgba(192,57,43,.3);color:#FF5247;border-radius:6px;padding:3px 8px;font-size:8px;font-weight:700;font-family:var(--sans);">Terminar</button>
-            </div>
-            <!-- stats -->
-            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:rgba(255,255,255,.05);">
-              <div style="background:#141414;padding:8px;text-align:center;"><span style="font-family:var(--mono);font-size:16px;font-weight:500;color:#fff;display:block;">1.2</span><span style="font-family:var(--mono);font-size:7px;color:#D93025;">KM</span><span style="font-size:7px;color:var(--muted);font-family:var(--mono);display:block;">Distancia</span></div>
-              <div style="background:#141414;padding:8px;text-align:center;"><span style="font-family:var(--mono);font-size:16px;font-weight:500;color:#fff;display:block;">08:24</span><span style="font-family:var(--mono);font-size:7px;color:var(--muted);">MIN</span><span style="font-size:7px;color:var(--muted);font-family:var(--mono);display:block;">Tiempo</span></div>
-              <div style="background:#141414;padding:8px;text-align:center;"><span style="font-family:var(--mono);font-size:16px;font-weight:500;color:#fff;display:block;">14.2</span><span style="font-family:var(--mono);font-size:7px;color:var(--muted);">KM/H</span><span style="font-size:7px;color:var(--muted);font-family:var(--mono);display:block;">Velocidad</span></div>
-            </div>
-            <!-- alert -->
-            <div style="margin:8px;background:rgba(192,57,43,.1);border:1px solid rgba(192,57,43,.3);border-radius:8px;padding:7px 9px;display:flex;align-items:flex-start;gap:6px;">
-              <div style="width:6px;height:6px;border-radius:50%;background:#D93025;flex-shrink:0;margin-top:2px;"></div>
-              <div style="font-size:8px;color:#FF5247;line-height:1.4;"><strong style="color:#fff;">Zona de alerta</strong> — obra en Corrientes y Callao. Desvío por Thames.</div>
-            </div>
-            <!-- instruction -->
-            <div style="margin:0 8px 8px;background:rgba(39,174,96,.08);border:1px solid rgba(39,174,96,.2);border-radius:8px;padding:7px 9px;display:flex;align-items:center;gap:7px;">
-              <div style="width:24px;height:24px;border-radius:7px;background:rgba(39,174,96,.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#2ECC71" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+              <div class="dv-ride-stats">
+                <div class="dv-rs"><span class="dv-rs-n">1.2</span><span class="dv-rs-u">KM</span><span class="dv-rs-l">Distance</span></div>
+                <div class="dv-rs"><span class="dv-rs-n">08:24</span><span class="dv-rs-u" style="color:var(--muted);">MIN</span><span class="dv-rs-l">Time</span></div>
+                <div class="dv-rs"><span class="dv-rs-n">14.2</span><span class="dv-rs-u" style="color:var(--muted);">KM/H</span><span class="dv-rs-l">Speed</span></div>
               </div>
-              <div style="font-size:8px;color:#f0ede8;line-height:1.4;">Seguir en <strong style="color:#2ECC71;">ciclovía</strong> por 0.8 km. Vía dedicada, condiciones despejadas.</div>
-            </div>
-            <!-- bottom nav -->
-            <div style="height:40px;background:rgba(8,8,14,.97);border-top:1px solid rgba(255,255,255,.05);display:flex;align-items:center;justify-content:space-around;padding:0 4px;">
-              <div style="display:flex;flex-direction:column;align-items:center;gap:2px;color:rgba(160,168,185,.4);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg><span style="font-size:6px;font-family:var(--mono);">Mapa</span></div>
-              <div style="display:flex;flex-direction:column;align-items:center;gap:2px;color:#D93025;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="18.5" cy="17.5" r="3.5"/><circle cx="5.5" cy="17.5" r="3.5"/><circle cx="15" cy="5" r="1"/><path d="M12 17.5V14l-3-3 4-3 2 3h2"/></svg><span style="font-size:6px;font-family:var(--mono);">Viaje</span></div>
-              <div style="display:flex;flex-direction:column;align-items:center;gap:2px;color:rgba(160,168,185,.4);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span style="font-size:6px;font-family:var(--mono);">Reporte</span></div>
-              <div style="display:flex;flex-direction:column;align-items:center;gap:2px;color:rgba(160,168,185,.4);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg><span style="font-size:6px;font-family:var(--mono);">Feed</span></div>
-              <div style="display:flex;flex-direction:column;align-items:center;gap:2px;color:rgba(160,168,185,.4);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span style="font-size:6px;font-family:var(--mono);">Perfil</span></div>
+              <div style="padding:0 10px;margin-top:8px;display:flex;flex-direction:column;gap:6px;">
+                <div class="dv-ride-alert"><div class="dv-alert-dot"></div><div class="dv-alert-text"><strong>Zona de alerta</strong> — obra en Corrientes &amp; Callao. Desvío por Thames.</div></div>
+                <div class="dv-ride-instr"><div class="dv-instr-arrow"><svg viewBox="0 0 24 24"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg></div><div class="dv-instr-text">Seguir en <strong>ciclovía</strong> por 0.8 km. Vía dedicada, condiciones despejadas.</div></div>
+              </div>
+              <div class="dv-bnav">
+                <button class="dv-ni" onclick="goScreen('map')"><svg viewBox="0 0 24 24"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg><span class="dv-ni-lbl">Mapa</span></button>
+                <button class="dv-ni active"><svg viewBox="0 0 24 24"><circle cx="18.5" cy="17.5" r="3.5"/><circle cx="5.5" cy="17.5" r="3.5"/><circle cx="15" cy="5" r="1"/><path d="M12 17.5V14l-3-3 4-3 2 3h2"/></svg><span class="dv-ni-lbl">Viaje</span></button>
+                <button class="dv-ni" onclick="goScreen('report')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span class="dv-ni-lbl">Reporte</span></button>
+                <button class="dv-ni" onclick="goScreen('feed')"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg><span class="dv-ni-lbl">Feed</span></button>
+                <button class="dv-ni" onclick="goScreen('profile')"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="dv-ni-lbl">Perfil</span></button>
+              </div>
             </div>
           </div>
         </div>
         <div style="padding:12px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);border-radius:8px;">
           <span style="font-family:var(--mono);font-size:8px;letter-spacing:.1em;color:rgba(217,48,37,.7);text-transform:uppercase;margin-bottom:4px;display:block;">Navegación · Pantalla 05</span>
-          <div style="font-size:12px;font-weight:600;color:#fff;margin-bottom:4px;">Viaje activo</div>
-          <div style="font-size:11px;color:var(--muted);line-height:1.5;">La alerta va arriba de la instrucción. La seguridad tiene más prioridad que la dirección — en el contexto real, no en la convención de UI.</div>
+          <div style="font-size:12px;font-weight:600;color:#fff;margin-bottom:4px;" data-en="Active ride" data-es="Viaje activo">Viaje activo</div>
+          <div style="font-size:11px;color:var(--muted);line-height:1.5;">La alerta va arriba de la instrucción. Seguridad antes que dirección — en el contexto real, no en la convención de UI.</div>
         </div>
       </div>
-
-      <!-- ── MOCKUP 4: Feed comunitario ── -->
+      
       <div style="display:flex;flex-direction:column;gap:12px;">
-        <div style="background:#0d0d0d;border-radius:28px;padding:8px;box-shadow:0 0 0 1px rgba(255,255,255,.07),0 20px 60px rgba(0,0,0,.7);height:580px;display:flex;flex-direction:column;">
+        <div style="background:#0d0d0d;border-radius:28px;padding:8px;box-shadow:0 0 0 1px rgba(255,255,255,.07),0 20px 60px rgba(0,0,0,.8);">
           <div style="width:56px;height:16px;background:#0d0d0d;border-radius:0 0 10px 10px;margin:0 auto 3px;display:flex;align-items:center;justify-content:center;"><div style="width:32px;height:3px;background:#1c1c1c;border-radius:10px;"></div></div>
-          <div style="border-radius:20px;overflow:hidden;background:#141414;display:flex;flex-direction:column;flex:1;">
-            <div style="height:22px;background:#141414;display:flex;align-items:center;justify-content:space-between;padding:0 12px;">
-              <span style="font-family:var(--mono);font-size:9px;color:rgba(255,255,255,.7);">9:41</span>
-              <div style="display:flex;gap:3px;"><div style="width:3px;height:3px;border-radius:50%;background:rgba(255,255,255,.5);"></div></div>
-            </div>
-            <!-- header -->
-            <div style="padding:8px 12px 6px;display:flex;align-items:center;justify-content:space-between;">
-              <div><div style="font-size:14px;font-weight:700;color:#fff;">Comunidad</div><div style="font-size:7px;color:var(--muted);font-family:var(--mono);letter-spacing:.05em;">BUENOS AIRES · EN VIVO</div></div>
-              <div style="width:18px;height:18px;border-radius:50%;background:#D93025;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;color:#fff;">3</div>
-            </div>
-            <!-- filters -->
-            <div style="padding:0 10px 8px;display:flex;gap:4px;">
-              <button style="font-size:8px;font-weight:500;padding:2px 8px;border-radius:12px;background:#D93025;border:none;color:#fff;font-family:var(--sans);">Todo</button>
-              <button style="font-size:8px;font-weight:500;padding:2px 7px;border-radius:12px;background:none;border:1px solid rgba(255,255,255,.1);color:var(--muted);font-family:var(--sans);">Alertas</button>
-              <button style="font-size:8px;font-weight:500;padding:2px 7px;border-radius:12px;background:none;border:1px solid rgba(255,255,255,.1);color:var(--muted);font-family:var(--sans);">Seguras</button>
-              <button style="font-size:8px;font-weight:500;padding:2px 7px;border-radius:12px;background:none;border:1px solid rgba(255,255,255,.1);color:var(--muted);font-family:var(--sans);">Cerca</button>
-            </div>
-            <!-- cards -->
-            <div style="padding:0 10px;display:flex;flex-direction:column;gap:6px;">
-              <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:9px;padding:7px;">
-                <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:4px;">
-                  <div style="display:flex;align-items:center;gap:5px;"><div style="width:18px;height:18px;border-radius:50%;background:rgba(192,57,43,.2);color:#FF5247;font-size:7px;font-weight:700;display:flex;align-items:center;justify-content:center;">M</div><div><div style="font-size:8px;font-weight:600;color:#fff;">Martín G.</div><div style="font-size:6px;color:var(--muted);font-family:var(--mono);">4 min</div></div></div>
-                  <span style="font-size:6px;font-weight:600;padding:1px 5px;border-radius:3px;background:rgba(192,57,43,.15);color:#FF5247;font-family:var(--mono);">ALERTA</span>
-                </div>
-                <div style="font-size:8px;color:var(--muted);line-height:1.4;margin-bottom:4px;">Obra en <strong style="color:#f0ede8;">Corrientes y Callao</strong> — ciclovía cerrada, usar Thames.</div>
-                <div style="display:flex;align-items:center;justify-content:space-between;"><span style="font-size:6px;color:rgba(122,133,153,.5);font-family:var(--mono);">Palermo</span><button style="font-size:7px;color:#FF5247;border:1px solid rgba(192,57,43,.25);border-radius:4px;padding:1px 5px;background:rgba(192,57,43,.1);font-family:var(--sans);">👍 12</button></div>
+          <div style="border-radius:20px;overflow:hidden;height:480px;">
+            <div class="dv-sb"><span class="dv-sb-time">9:41</span><div class="dv-sb-icons"><div class="dv-sb-dot"></div><div class="dv-sb-dot" style="opacity:.5"></div><div class="dv-sb-dot" style="opacity:.3"></div></div></div>
+            <div style="display:flex;flex-direction:column;" id="s-feed">
+              <div class="dv-hbar"><div><div class="dv-hbar-title">Comunidad</div><div class="dv-hbar-sub">BUENOS AIRES · EN VIVO</div></div><div class="dv-notif">3</div></div>
+              <div class="dv-feed-filters">
+                <button class="dv-ff active" onclick="filterFeed(this)">Todo</button>
+                <button class="dv-ff" onclick="filterFeed(this)">Alertas</button>
+                <button class="dv-ff" onclick="filterFeed(this)">Seguras</button>
+                <button class="dv-ff" onclick="filterFeed(this)">Cerca</button>
               </div>
-              <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:9px;padding:7px;">
-                <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:4px;">
-                  <div style="display:flex;align-items:center;gap:5px;"><div style="width:18px;height:18px;border-radius:50%;background:rgba(39,174,96,.2);color:#2ECC71;font-size:7px;font-weight:700;display:flex;align-items:center;justify-content:center;">S</div><div><div style="font-size:8px;font-weight:600;color:#fff;">Sofía R.</div><div style="font-size:6px;color:var(--muted);font-family:var(--mono);">18 min</div></div></div>
-                  <span style="font-size:6px;font-weight:600;padding:1px 5px;border-radius:3px;background:rgba(39,174,96,.12);color:#2ECC71;font-family:var(--mono);">SEGURA</span>
-                </div>
-                <div style="font-size:8px;color:var(--muted);line-height:1.4;margin-bottom:4px;"><strong style="color:#f0ede8;">Thames</strong> despejada — poco tráfico, buena visibilidad.</div>
-                <div style="display:flex;align-items:center;justify-content:space-between;"><span style="font-size:6px;color:rgba(122,133,153,.5);font-family:var(--mono);">Palermo Soho</span><button style="font-size:7px;color:var(--muted);border:1px solid rgba(255,255,255,.08);border-radius:4px;padding:1px 5px;background:none;font-family:var(--sans);">👍 7</button></div>
+              <div class="dv-feed-list">
+                <div class="dv-fc"><div class="dv-fc-top"><div class="dv-fc-user"><div class="dv-fc-av" style="background:rgba(217,48,37,.2);color:#FF5247;">M</div><div><div class="dv-fc-name">Martín G.</div><div class="dv-fc-time">4 min ago</div></div></div><span class="dv-fc-badge b-h">HAZARD</span></div><div class="dv-fc-text">Obra bloquea <strong>Corrientes &amp; Callao</strong> — ciclovía cerrada, desvío por Thames.</div><div class="dv-fc-foot"><span class="dv-fc-loc">Palermo</span><button class="dv-fc-vote voted" onclick="this.classList.toggle('voted')">👍 12</button></div></div>
+                <div class="dv-fc"><div class="dv-fc-top"><div class="dv-fc-user"><div class="dv-fc-av" style="background:rgba(39,174,96,.2);color:#2ECC71;">S</div><div><div class="dv-fc-name">Sofía R.</div><div class="dv-fc-time">18 min ago</div></div></div><span class="dv-fc-badge b-s">SAFE</span></div><div class="dv-fc-text"><strong>Thames</strong> despejada — poco tráfico, buena visibilidad.</div><div class="dv-fc-foot"><span class="dv-fc-loc">Palermo Soho</span><button class="dv-fc-vote" onclick="this.classList.toggle('voted')">👍 7</button></div></div>
+                <div class="dv-fc"><div class="dv-fc-top"><div class="dv-fc-user"><div class="dv-fc-av" style="background:rgba(230,126,34,.2);color:#E67E22;">L</div><div><div class="dv-fc-name">Lucas P.</div><div class="dv-fc-time">35 min ago</div></div></div><span class="dv-fc-badge b-u">UPDATE</span></div><div class="dv-fc-text">Nueva ciclovía en <strong>Güemes</strong> entre Scalabrini y Medrano.</div><div class="dv-fc-foot"><span class="dv-fc-loc">Villa Crespo</span><button class="dv-fc-vote" onclick="this.classList.toggle('voted')">👍 23</button></div></div>
+                <div class="dv-fc"><div class="dv-fc-top"><div class="dv-fc-user"><div class="dv-fc-av" style="background:rgba(217,48,37,.2);color:#FF5247;">A</div><div><div class="dv-fc-name">Ana K.</div><div class="dv-fc-time">1 hr ago</div></div></div><span class="dv-fc-badge b-h">HAZARD</span></div><div class="dv-fc-text">Conductor agresivo en <strong>Santa Fe &amp; Pueyrredón</strong>. Cuidado en hora pico.</div><div class="dv-fc-foot"><span class="dv-fc-loc">Recoleta</span><button class="dv-fc-vote" onclick="this.classList.toggle('voted')">👍 8</button></div></div>
               </div>
-              <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:9px;padding:7px;">
-                <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:4px;">
-                  <div style="display:flex;align-items:center;gap:5px;"><div style="width:18px;height:18px;border-radius:50%;background:rgba(211,84,0,.2);color:#E67E22;font-size:7px;font-weight:700;display:flex;align-items:center;justify-content:center;">L</div><div><div style="font-size:8px;font-weight:600;color:#fff;">Lucas P.</div><div style="font-size:6px;color:var(--muted);font-family:var(--mono);">35 min</div></div></div>
-                  <span style="font-size:6px;font-weight:600;padding:1px 5px;border-radius:3px;background:rgba(211,84,0,.1);color:#E67E22;font-family:var(--mono);">NOVEDAD</span>
-                </div>
-                <div style="font-size:8px;color:var(--muted);line-height:1.4;margin-bottom:4px;">Nueva ciclovía en <strong style="color:#f0ede8;">Güemes</strong> entre Scalabrini y Medrano.</div>
-                <div style="display:flex;align-items:center;justify-content:space-between;"><span style="font-size:6px;color:rgba(122,133,153,.5);font-family:var(--mono);">Villa Crespo</span><button style="font-size:7px;color:var(--muted);border:1px solid rgba(255,255,255,.08);border-radius:4px;padding:1px 5px;background:none;font-family:var(--sans);">👍 23</button></div>
+              <div class="dv-bnav">
+                <button class="dv-ni" onclick="goScreen('map')"><svg viewBox="0 0 24 24"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg><span class="dv-ni-lbl">Mapa</span></button>
+                <button class="dv-ni" onclick="goScreen('ride-active')"><svg viewBox="0 0 24 24"><circle cx="18.5" cy="17.5" r="3.5"/><circle cx="5.5" cy="17.5" r="3.5"/><circle cx="15" cy="5" r="1"/><path d="M12 17.5V14l-3-3 4-3 2 3h2"/></svg><span class="dv-ni-lbl">Viaje</span></button>
+                <button class="dv-ni" onclick="goScreen('report')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span class="dv-ni-lbl">Reporte</span></button>
+                <button class="dv-ni active"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg><span class="dv-ni-lbl">Feed</span></button>
+                <button class="dv-ni" onclick="goScreen('profile')"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="dv-ni-lbl">Perfil</span></button>
               </div>
-            </div>
-            <!-- bottom nav -->
-            <div style="height:40px;background:rgba(8,8,14,.97);border-top:1px solid rgba(255,255,255,.05);display:flex;align-items:center;justify-content:space-around;padding:0 4px;margin-top:8px;">
-              <div style="display:flex;flex-direction:column;align-items:center;gap:2px;color:rgba(160,168,185,.4);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg><span style="font-size:6px;font-family:var(--mono);">Mapa</span></div>
-              <div style="display:flex;flex-direction:column;align-items:center;gap:2px;color:rgba(160,168,185,.4);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="18.5" cy="17.5" r="3.5"/><circle cx="5.5" cy="17.5" r="3.5"/><circle cx="15" cy="5" r="1"/><path d="M12 17.5V14l-3-3 4-3 2 3h2"/></svg><span style="font-size:6px;font-family:var(--mono);">Viaje</span></div>
-              <div style="display:flex;flex-direction:column;align-items:center;gap:2px;color:rgba(160,168,185,.4);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span style="font-size:6px;font-family:var(--mono);">Reporte</span></div>
-              <div style="display:flex;flex-direction:column;align-items:center;gap:2px;color:#D93025;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg><span style="font-size:6px;font-family:var(--mono);">Feed</span></div>
-              <div style="display:flex;flex-direction:column;align-items:center;gap:2px;color:rgba(160,168,185,.4);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span style="font-size:6px;font-family:var(--mono);">Perfil</span></div>
             </div>
           </div>
         </div>
         <div style="padding:12px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);border-radius:8px;">
           <span style="font-family:var(--mono);font-size:8px;letter-spacing:.1em;color:rgba(217,48,37,.7);text-transform:uppercase;margin-bottom:4px;display:block;">Comunidad · Pantalla 08</span>
-          <div style="font-size:12px;font-weight:600;color:#fff;margin-bottom:4px;">Feed comunitario</div>
-          <div style="font-size:11px;color:var(--muted);line-height:1.5;">Reportes con nombre recibieron 3× más votos que los anónimos. La identidad genera confianza — los ciclistas se fían de personas, no de un sistema de datos.</div>
+          <div style="font-size:12px;font-weight:600;color:#fff;margin-bottom:4px;" data-en="Community feed" data-es="Feed comunitario">Feed comunitario</div>
+          <div style="font-size:11px;color:var(--muted);line-height:1.5;">Reportes con nombre recibieron 3× más votos. La identidad genera confianza — los ciclistas se fían de personas.</div>
         </div>
       </div>
-
     </div>
   </div>
 </section>
 
 <div style="border-top:1px solid var(--border);"><div class="divider"></div></div>
-
 
 <!-- ════════════════════ INTERACTIVE PRODUCT DEMO ════════════════════ -->
 <style>
@@ -949,7 +863,7 @@ footer { border-top:1px solid var(--border); padding:24px 48px; display:flex; ju
 .demo-phone-frame{width:220px;background:#111;border-radius:36px;padding:8px;box-shadow:0 0 0 1px rgba(255,255,255,.07),0 20px 60px rgba(0,0,0,.8);flex-shrink:0}
 .demo-phone-notch{width:72px;height:20px;background:#111;border-radius:0 0 12px 12px;margin:0 auto 4px;display:flex;align-items:center;justify-content:center}
 .demo-notch-pill{width:44px;height:4px;background:#1c1c1c;border-radius:10px}
-.demo-screen-wrap{border-radius:28px;overflow:hidden;background:#141414;position:relative}
+.demo-screen-wrap{border-radius:28px;overflow:hidden;background:#141414;position:relative;height:530px;}
 .dv-sb{height:26px;padding:0 14px;display:flex;align-items:center;justify-content:space-between;background:inherit;position:relative;z-index:5}
 .dv-sb-time{font-family:var(--mono);font-size:9px;font-weight:500;color:#f0ede8}
 .dv-sb-icons{display:flex;gap:3px}
