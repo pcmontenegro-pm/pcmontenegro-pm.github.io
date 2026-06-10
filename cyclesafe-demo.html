@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CycleSafe — Interactive Demo</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --red:    #D93025;
+  --red2:   #E8392D;
+  --red3:   #FF5247;
+  --red-bg: rgba(217,48,37,.12);
+  --red-border: rgba(217,48,37,.3);
+  --green:  #27AE60;
+  --green2: #2ECC71;
+  --green-bg: rgba(39,174,96,.12);
+  --amber:  #E67E22;
+  --amber-bg: rgba(230,126,34,.1);
+  --dark:   #0D0D0D;
+  --dark2:  #141414;
+  --dark3:  #1C1C1C;
+  --dark4:  #242424;
+  --dark5:  #2C2C2C;
+  --white:  #FFFFFF;
+  --off:    #F0EDE8;
+  --muted:  #888880;
+  --muted2: #666660;
+  --border: rgba(255,255,255,.06);
+  --border2: rgba(255,255,255,.1);
+  --font:   'Inter', system-ui, sans-serif;
+  --mono:   'DM Mono', monospace;
+}
+
+html,body{height:100%;background:var(--dark);color:var(--off);font-family:var(--font);overflow:hidden;-webkit-font-smoothing:antialiased}
+
+/* ── LAYOUT ─────────────────────────────────── */
+.app{display:flex;height:100vh;max-width:1200px;margin:0 auto;gap:0}
+
+/* Left — phone frame */
+.phone-wrap{
+  width:390px;min-width:390px;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:24px;background:var(--dark);
+  border-right:1px solid var(--border);
+}
+.phone-label{font-family:var(--mono);font-size:10px;letter-spacing:.12em;color:var(--muted2);text-transform:uppercase;margin-bottom:16px}
+.phone-frame{
+  width:320px;height:640px;
+  background:var(--dark2);border-radius:40px;
+  padding:10px;
+  box-shadow:0 0 0 1px rgba(255,255,255,.08), 0 32px 80px rgba(0,0,0,.7), inset 0 1px 0 rgba(255,255,255,.05);
+  position:relative;
+}
+.phone-notch{
+  width:100px;height:28px;background:var(--dark2);
+  border-radius:0 0 16px 16px;margin:0 auto 6px;
+  display:flex;align-items:center;justify-content:center;
+}
+.phone-notch-pill{width:60px;height:5px;background:var(--dark3);border-radius:10px}
+.phone-screen{
+  background:var(--dark2);border-radius:30px;overflow:hidden;
+  height:calc(100% - 10px);display:flex;flex-direction:column;
+}
+
+/* Status bar */
+.status-bar{
+  height:32px;padding:0 20px;display:flex;align-items:center;
+  justify-content:space-between;flex-shrink:0;background:var(--dark2);
+}
+.status-time{font-family:var(--mono);font-size:11px;font-weight:500;color:var(--off)}
+.status-icons{display:flex;gap:4px;align-items:center}
+.status-icons svg{width:14px;height:14px;fill:var(--off)}
+
+/* Screen content */
+.screen{flex:1;overflow-y:auto;display:none;flex-direction:column}
+.screen.active{display:flex}
+.screen::-webkit-scrollbar{display:none}
+
+/* Bottom nav */
+.bottom-nav{
+  height:56px;background:rgba(13,13,13,.95);backdrop-filter:blur(20px);
+  border-top:1px solid var(--border);display:flex;align-items:center;
+  justify-content:space-around;padding:0 8px;flex-shrink:0;
+}
+.nav-item{
+  display:flex;flex-direction:column;align-items:center;gap:3px;
+  padding:6px 16px;border-radius:12px;cursor:pointer;transition:all .15s;
+  background:none;border:none;color:var(--muted);
+}
+.nav-item.active{color:var(--red)}
+.nav-item svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.nav-item span{font-size:9px;font-weight:500;letter-spacing:.04em}
+
+/* ── MAP SCREEN ─────────────────────────────── */
+.map-screen{position:relative;flex:1;overflow:hidden;background:#0a1220}
+
+/* SVG map */
+.map-svg{position:absolute;inset:0;width:100%;height:100%}
+
+/* Map search bar */
+.map-search{
+  position:absolute;top:12px;left:12px;right:12px;
+  background:rgba(20,20,20,.92);backdrop-filter:blur(20px);
+  border:1px solid var(--border2);border-radius:14px;
+  padding:10px 14px;display:flex;align-items:center;gap:10px;
+  box-shadow:0 4px 20px rgba(0,0,0,.4);
+}
+.map-search svg{width:16px;height:16px;stroke:var(--muted);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.map-search-text{font-size:13px;color:var(--muted);flex:1}
+
+/* Route overlay */
+.route-card{
+  position:absolute;bottom:12px;left:12px;right:12px;
+  background:rgba(18,18,18,.96);backdrop-filter:blur(20px);
+  border:1px solid var(--red-border);border-radius:16px;
+  padding:14px;box-shadow:0 8px 32px rgba(0,0,0,.5);
+}
+.route-tag{font-family:var(--mono);font-size:9px;letter-spacing:.1em;color:var(--red3);text-transform:uppercase;margin-bottom:4px}
+.route-name{font-size:14px;font-weight:600;color:var(--white);margin-bottom:10px}
+.route-pills{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.rpill{
+  font-size:10px;font-weight:500;padding:3px 8px;border-radius:6px;
+  font-family:var(--mono);letter-spacing:.04em;
+}
+.rpill-r{background:var(--red-bg);color:var(--red3);border:1px solid var(--red-border)}
+.rpill-g{background:var(--green-bg);color:var(--green2);border:1px solid rgba(46,204,113,.25)}
+.rpill-a{background:var(--amber-bg);color:var(--amber);border:1px solid rgba(230,126,34,.2)}
+.route-stats{display:flex;gap:0;border-top:1px solid var(--border);padding-top:10px}
+.rs{flex:1;text-align:center}
+.rs-num{font-family:var(--mono);font-size:16px;font-weight:500;color:var(--white);display:block}
+.rs-lbl{font-size:9px;color:var(--muted);font-family:var(--mono);letter-spacing:.06em}
+.rs+.rs{border-left:1px solid var(--border)}
+
+/* Map legend */
+.map-legend{
+  position:absolute;top:68px;right:12px;
+  background:rgba(18,18,18,.9);border:1px solid var(--border);border-radius:10px;
+  padding:8px 10px;display:flex;flex-direction:column;gap:5px;
+}
+.legend-item{display:flex;align-items:center;gap:6px;font-size:9px;color:var(--muted);font-family:var(--mono)}
+.legend-dot{width:8px;height:8px;border-radius:2px;flex-shrink:0}
+
+/* ── FEED SCREEN ────────────────────────────── */
+.feed-header{padding:16px 16px 8px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.feed-title{font-size:18px;font-weight:700;color:var(--white)}
+.feed-sub{font-size:11px;color:var(--muted);margin-top:1px;font-family:var(--mono);letter-spacing:.04em}
+.notif-badge{
+  background:var(--red);color:white;
+  font-size:10px;font-weight:700;width:18px;height:18px;
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+}
+
+.feed-filter{
+  padding:0 16px 12px;display:flex;gap:8px;overflow-x:auto;flex-shrink:0;
+}
+.feed-filter::-webkit-scrollbar{display:none}
+.filter-btn{
+  font-size:11px;font-weight:500;padding:5px 12px;border-radius:20px;
+  border:1px solid var(--border2);color:var(--muted);background:none;
+  cursor:pointer;white-space:nowrap;transition:all .15s;font-family:var(--font);
+}
+.filter-btn.active{background:var(--red);border-color:var(--red);color:white}
+
+.feed-list{flex:1;padding:0 16px 16px;display:flex;flex-direction:column;gap:10px;overflow-y:auto}
+.feed-list::-webkit-scrollbar{display:none}
+
+.feed-card{
+  background:var(--dark3);border:1px solid var(--border);border-radius:14px;
+  padding:12px;transition:border-color .15s;cursor:pointer;
+}
+.feed-card:hover{border-color:rgba(217,48,37,.3)}
+.fc-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:8px}
+.fc-user{display:flex;align-items:center;gap:8px}
+.fc-avatar{
+  width:28px;height:28px;border-radius:50%;display:flex;align-items:center;
+  justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;
+}
+.fc-name{font-size:12px;font-weight:600;color:var(--white)}
+.fc-time{font-size:10px;color:var(--muted);font-family:var(--mono)}
+.fc-type{font-size:9px;font-weight:600;padding:2px 7px;border-radius:4px;font-family:var(--mono);letter-spacing:.05em}
+.type-hazard{background:var(--red-bg);color:var(--red3)}
+.type-safe{background:var(--green-bg);color:var(--green2)}
+.type-update{background:var(--amber-bg);color:var(--amber)}
+.fc-route{font-size:12px;color:var(--off);line-height:1.4;margin-bottom:6px}
+.fc-route strong{color:var(--white);font-weight:600}
+.fc-meta{display:flex;align-items:center;gap:10px}
+.fc-loc{font-size:10px;color:var(--muted);font-family:var(--mono);display:flex;align-items:center;gap:4px}
+.fc-loc svg{width:10px;height:10px;stroke:currentColor;fill:none;stroke-width:2}
+.fc-votes{display:flex;align-items:center;gap:4px;margin-left:auto}
+.vote-btn{
+  background:none;border:1px solid var(--border2);border-radius:6px;
+  color:var(--muted);font-size:10px;padding:2px 8px;cursor:pointer;
+  display:flex;align-items:center;gap:3px;transition:all .15s;font-family:var(--font);
+}
+.vote-btn:hover{border-color:var(--red);color:var(--red3)}
+.vote-btn.voted{background:var(--red-bg);border-color:var(--red);color:var(--red3)}
+
+/* ── REPORT SCREEN ──────────────────────────── */
+.report-header{padding:16px;display:flex;align-items:center;gap:12px;flex-shrink:0}
+.back-btn{
+  width:32px;height:32px;border-radius:50%;background:var(--dark3);border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;cursor:pointer;
+  flex-shrink:0;
+}
+.back-btn svg{width:16px;height:16px;stroke:var(--off);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.report-title{font-size:17px;font-weight:700;color:var(--white)}
+.report-sub{font-size:11px;color:var(--muted)}
+
+.report-body{flex:1;padding:0 16px 16px;display:flex;flex-direction:column;gap:16px;overflow-y:auto}
+.report-body::-webkit-scrollbar{display:none}
+
+.report-section-label{font-size:10px;font-weight:600;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;font-family:var(--mono);margin-bottom:8px}
+
+/* Route type selector */
+.type-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.type-card{
+  background:var(--dark3);border:2px solid var(--border);border-radius:12px;
+  padding:12px;cursor:pointer;transition:all .15s;text-align:center;
+}
+.type-card.selected{border-color:var(--red);background:var(--red-bg)}
+.type-card-icon{font-size:20px;margin-bottom:4px}
+.type-card-label{font-size:11px;font-weight:600;color:var(--off)}
+.type-card-desc{font-size:9px;color:var(--muted);margin-top:2px;font-family:var(--mono)}
+
+/* Safety rating */
+.safety-row{display:flex;gap:8px}
+.safety-btn{
+  flex:1;padding:10px 6px;border-radius:10px;border:1.5px solid var(--border);
+  background:none;cursor:pointer;transition:all .15s;display:flex;flex-direction:column;align-items:center;gap:4px;
+}
+.safety-btn.sel-safe{background:var(--green-bg);border-color:var(--green2)}
+.safety-btn.sel-mixed{background:var(--amber-bg);border-color:var(--amber)}
+.safety-btn.sel-risk{background:var(--red-bg);border-color:var(--red)}
+.safety-dot{width:10px;height:10px;border-radius:50%}
+.safety-lbl{font-size:10px;color:var(--muted);font-family:var(--mono)}
+
+/* Note input */
+.note-input{
+  width:100%;background:var(--dark3);border:1px solid var(--border);border-radius:12px;
+  padding:12px;color:var(--off);font-size:13px;font-family:var(--font);resize:none;height:80px;
+  outline:none;transition:border-color .15s;
+}
+.note-input:focus{border-color:rgba(217,48,37,.4)}
+.note-input::placeholder{color:var(--muted2)}
+
+/* Submit btn */
+.submit-btn{
+  background:var(--red);color:white;border:none;border-radius:14px;
+  padding:14px;font-size:14px;font-weight:700;width:100%;cursor:pointer;
+  transition:all .15s;font-family:var(--font);
+}
+.submit-btn:hover{background:var(--red2);transform:translateY(-1px)}
+.submit-btn:active{transform:translateY(0)}
+
+/* ── PROFILE SCREEN ─────────────────────────── */
+.profile-hero{
+  background:linear-gradient(180deg,rgba(217,48,37,.15) 0%,transparent 100%);
+  padding:20px 16px;display:flex;flex-direction:column;align-items:center;gap:8px;flex-shrink:0;
+}
+.profile-avatar{
+  width:64px;height:64px;border-radius:50%;background:var(--red);
+  display:flex;align-items:center;justify-content:center;
+  font-size:24px;font-weight:700;color:white;
+  box-shadow:0 0 0 3px rgba(217,48,37,.3);
+}
+.profile-name{font-size:18px;font-weight:700;color:var(--white)}
+.profile-meta{font-size:11px;color:var(--muted);font-family:var(--mono)}
+.profile-stats{
+  display:flex;gap:0;background:var(--dark3);border:1px solid var(--border);
+  border-radius:14px;margin:0 16px;overflow:hidden;
+}
+.pstat{flex:1;padding:12px;text-align:center}
+.pstat+.pstat{border-left:1px solid var(--border)}
+.pstat-num{font-size:20px;font-weight:700;color:var(--white);display:block;font-family:var(--mono)}
+.pstat-lbl{font-size:9px;color:var(--muted);font-family:var(--mono);letter-spacing:.06em}
+
+.profile-section{padding:16px;flex-shrink:0}
+.profile-section-title{font-size:13px;font-weight:600;color:var(--white);margin-bottom:10px}
+.recent-ride{
+  background:var(--dark3);border:1px solid var(--border);border-radius:12px;
+  padding:12px;display:flex;align-items:center;gap:12px;margin-bottom:8px;
+}
+.ride-icon{
+  width:36px;height:36px;border-radius:10px;background:var(--red-bg);
+  border:1px solid var(--red-border);display:flex;align-items:center;justify-content:center;
+  font-size:16px;flex-shrink:0;
+}
+.ride-info{flex:1}
+.ride-name{font-size:12px;font-weight:600;color:var(--white)}
+.ride-meta{font-size:10px;color:var(--muted);font-family:var(--mono);margin-top:2px}
+.ride-dist{font-size:13px;font-weight:700;color:var(--red3);font-family:var(--mono)}
+
+/* ── RIGHT PANEL ────────────────────────────── */
+.panel{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.panel-header{
+  padding:24px 32px 20px;border-bottom:1px solid var(--border);flex-shrink:0;
+}
+.panel-eyebrow{font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--red3);text-transform:uppercase;margin-bottom:8px}
+.panel-title{font-size:24px;font-weight:700;color:var(--white);margin-bottom:4px}
+.panel-sub{font-size:13px;color:var(--muted);line-height:1.6}
+
+.panel-body{flex:1;overflow-y:auto;padding:24px 32px;display:flex;flex-direction:column;gap:24px}
+.panel-body::-webkit-scrollbar{width:4px}
+.panel-body::-webkit-scrollbar-track{background:transparent}
+.panel-body::-webkit-scrollbar-thumb{background:var(--dark5);border-radius:4px}
+
+/* Context info blocks */
+.info-block{background:var(--dark3);border:1px solid var(--border);border-radius:14px;padding:20px}
+.info-block-title{font-size:12px;font-weight:600;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;font-family:var(--mono);margin-bottom:12px}
+
+/* Stats row */
+.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.stat-cell{background:var(--dark3);padding:16px;text-align:center}
+.stat-num{font-family:var(--mono);font-size:22px;font-weight:500;color:var(--red3);display:block}
+.stat-lbl{font-size:10px;color:var(--muted);font-family:var(--mono);letter-spacing:.06em;margin-top:2px}
+
+/* Feature list */
+.feature-list{display:flex;flex-direction:column;gap:12px}
+.feature-item{display:flex;gap:12px;align-items:flex-start}
+.fi-dot{width:8px;height:8px;border-radius:50%;background:var(--red);flex-shrink:0;margin-top:5px}
+.fi-content{}
+.fi-title{font-size:13px;font-weight:600;color:var(--white);margin-bottom:2px}
+.fi-body{font-size:12px;color:var(--muted);line-height:1.5}
+
+/* Screen context */
+.context-screen{background:var(--dark4);border:1px solid var(--border);border-radius:12px;padding:14px}
+.cs-label{font-family:var(--mono);font-size:9px;color:var(--muted2);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
+.cs-content{font-size:12px;color:var(--muted);line-height:1.6}
+.cs-content strong{color:var(--off)}
+.cs-tag{display:inline-block;background:var(--red-bg);border:1px solid var(--red-border);color:var(--red3);font-size:10px;font-family:var(--mono);padding:2px 8px;border-radius:4px;margin-top:6px}
+
+/* PM note */
+.pm-note{background:linear-gradient(135deg,rgba(217,48,37,.08),rgba(217,48,37,.04));border:1px solid rgba(217,48,37,.2);border-radius:12px;padding:16px}
+.pm-note-label{font-family:var(--mono);font-size:9px;color:var(--red3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px}
+.pm-note-body{font-size:12px;color:var(--muted);line-height:1.6}
+.pm-note-body strong{color:var(--off)}
+
+/* Toast */
+.toast{
+  position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);
+  background:var(--green);color:white;padding:10px 20px;border-radius:20px;
+  font-size:13px;font-weight:600;transition:transform .3s ease;z-index:100;white-space:nowrap;
+  box-shadow:0 4px 20px rgba(39,174,96,.4);
+}
+.toast.show{transform:translateX(-50%) translateY(0)}
+
+/* Animations */
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+.screen.active{animation:fadeIn .2s ease}
+
+/* Responsive */
+@media(max-width:800px){
+  .app{flex-direction:column;height:auto;overflow:auto}
+  .phone-wrap{width:100%;min-width:auto;border-right:none;border-bottom:1px solid var(--border);padding:32px 16px}
+  .phone-frame{width:min(320px,100%)}
+  .panel{min-height:400px}
+  .panel-body{padding:16px}
+  .panel-header{padding:16px}
+}
+</style>
+</head>
+<body>
+
+<div class="app">
+
+  <!-- ── PHONE ─────────────────────────────── -->
+  <div class="phone-wrap">
+    <div class="phone-label">Interactive demo · CycleSafe</div>
+    <div class="phone-frame">
+      <div class="phone-notch"><div class="phone-notch-pill"></div></div>
+      <div class="phone-screen">
+
+        <!-- Status bar -->
+        <div class="status-bar">
+          <span class="status-time">9:41</span>
+          <div class="status-icons">
+            <svg viewBox="0 0 24 24"><path d="M1 6l5 5 5-5"/><path d="M6 11V3"/><path d="M13 12h4a2 2 0 012 2v2"/><rect x="13" y="16" width="8" height="5" rx="1"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M5 12.55a11 11 0 0114.08 0"/><path d="M1.42 9a16 16 0 0121.16 0"/><path d="M8.53 16.11a6 6 0 016.95 0"/><circle cx="12" cy="20" r="1" fill="currentColor"/></svg>
+            <svg viewBox="0 0 24 24"><rect x="2" y="7" width="18" height="11" rx="2"/><path d="M22 11v3"/></svg>
+          </div>
+        </div>
+
+        <!-- ══ MAP SCREEN ══ -->
+        <div class="screen active" id="screen-map">
+          <div class="map-screen">
+
+            <!-- SVG Map -->
+            <svg class="map-svg" viewBox="0 0 300 420" preserveAspectRatio="xMidYMid slice">
+              <!-- Base -->
+              <rect width="300" height="420" fill="#0a1220"/>
+              <!-- Grid -->
+              <defs>
+                <pattern id="grid" width="30" height="30" patternUnits="userSpaceOnUse">
+                  <path d="M30 0L0 0 0 30" fill="none" stroke="rgba(255,255,255,.03)" stroke-width=".5"/>
+                </pattern>
+              </defs>
+              <rect width="300" height="420" fill="url(#grid)"/>
+
+              <!-- Parks -->
+              <rect x="20" y="40" width="60" height="40" rx="4" fill="rgba(39,174,96,.07)"/>
+              <rect x="200" y="180" width="80" height="60" rx="4" fill="rgba(39,174,96,.06)"/>
+
+              <!-- Major streets -->
+              <rect x="0" y="130" width="300" height="8" fill="rgba(255,255,255,.08)"/>
+              <rect x="0" y="250" width="300" height="8" fill="rgba(255,255,255,.08)"/>
+              <rect x="90" y="0" width="8" height="420" fill="rgba(255,255,255,.08)"/>
+              <rect x="200" y="0" width="8" height="420" fill="rgba(255,255,255,.08)"/>
+
+              <!-- Minor streets -->
+              <rect x="0" y="70" width="300" height="3" fill="rgba(255,255,255,.04)"/>
+              <rect x="0" y="190" width="300" height="3" fill="rgba(255,255,255,.04)"/>
+              <rect x="0" y="320" width="300" height="3" fill="rgba(255,255,255,.04)"/>
+              <rect x="40" y="0" width="3" height="420" fill="rgba(255,255,255,.04)"/>
+              <rect x="145" y="0" width="3" height="420" fill="rgba(255,255,255,.04)"/>
+              <rect x="255" y="0" width="3" height="420" fill="rgba(255,255,255,.04)"/>
+
+              <!-- Ciclovía (red) — main street -->
+              <rect x="0" y="131" width="300" height="6" fill="rgba(217,48,37,.6)"/>
+              <!-- Ciclovía vertical -->
+              <rect x="91" y="0" width="6" height="420" fill="rgba(217,48,37,.45)"/>
+
+              <!-- Safe street (green) -->
+              <rect x="0" y="71" width="180" height="3" fill="rgba(39,174,96,.6)"/>
+              <rect x="41" y="0" width="3" height="200" fill="rgba(39,174,96,.5)"/>
+
+              <!-- Mixed (amber) -->
+              <rect x="0" y="321" width="300" height="3" fill="rgba(230,126,34,.5)"/>
+              <rect x="201" y="130" width="6" height="180" fill="rgba(230,126,34,.4)"/>
+
+              <!-- Route highlight -->
+              <path d="M 50 80 L 94 80 L 94 134" fill="none" stroke="rgba(217,48,37,.9)" stroke-width="3" stroke-dasharray="8,4" stroke-linecap="round"/>
+
+              <!-- Location pins -->
+              <!-- Risk pin -->
+              <circle cx="145" cy="134" r="10" fill="rgba(217,48,37,.2)"/>
+              <circle cx="145" cy="134" r="6" fill="rgba(217,48,37,.35)" stroke="rgba(217,48,37,.8)" stroke-width="1.5"/>
+              <circle cx="145" cy="134" r="2.5" fill="#D93025"/>
+              <!-- Safe pin -->
+              <circle cx="42" cy="71" r="8" fill="rgba(39,174,96,.2)"/>
+              <circle cx="42" cy="71" r="5" fill="rgba(39,174,96,.3)" stroke="rgba(39,174,96,.8)" stroke-width="1.2"/>
+              <circle cx="42" cy="71" r="2" fill="#27AE60"/>
+              <!-- User location -->
+              <circle cx="94" cy="134" r="12" fill="rgba(217,48,37,.15)"/>
+              <circle cx="94" cy="134" r="7" fill="rgba(217,48,37,.3)" stroke="#D93025" stroke-width="1.5"/>
+              <circle cx="94" cy="134" r="3" fill="white"/>
+
+              <!-- Blocks -->
+              <rect x="10" y="80" width="28" height="48" rx="2" fill="rgba(255,255,255,.03)"/>
+              <rect x="100" y="80" width="42" height="48" rx="2" fill="rgba(255,255,255,.03)"/>
+              <rect x="155" y="80" width="38" height="48" rx="2" fill="rgba(255,255,255,.03)"/>
+              <rect x="210" y="80" width="82" height="48" rx="2" fill="rgba(255,255,255,.03)"/>
+              <rect x="10" y="142" width="78" height="42" rx="2" fill="rgba(255,255,255,.03)"/>
+              <rect x="100" y="142" width="94" height="42" rx="2" fill="rgba(255,255,255,.03)"/>
+              <rect x="208" y="142" width="84" height="42" rx="2" fill="rgba(255,255,255,.03)"/>
+
+              <!-- Street names -->
+              <text x="150" y="127" font-family="DM Mono,monospace" font-size="7" fill="rgba(255,255,255,.4)" text-anchor="middle">AV. CORRIENTES</text>
+              <text x="88" y="60" font-family="DM Mono,monospace" font-size="7" fill="rgba(255,255,255,.35)" text-anchor="middle" transform="rotate(-90,88,60)">CALLAO</text>
+            </svg>
+
+            <!-- Search bar -->
+            <div class="map-search">
+              <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              <span class="map-search-text">Search routes in Buenos Aires…</span>
+            </div>
+
+            <!-- Legend -->
+            <div class="map-legend">
+              <div class="legend-item"><div class="legend-dot" style="background:rgba(217,48,37,.8)"></div>Ciclovía</div>
+              <div class="legend-item"><div class="legend-dot" style="background:rgba(39,174,96,.7)"></div>Safe</div>
+              <div class="legend-item"><div class="legend-dot" style="background:rgba(230,126,34,.7)"></div>Mixed</div>
+            </div>
+
+            <!-- Route card -->
+            <div class="route-card">
+              <div class="route-tag">Active route · 2.3 km</div>
+              <div class="route-name">Palermo → Microcentro</div>
+              <div class="route-pills">
+                <span class="rpill rpill-r">Ciclovía</span>
+                <span class="rpill rpill-g">Safe street</span>
+                <span class="rpill rpill-a">⚠ Alert zone</span>
+              </div>
+              <div class="route-stats">
+                <div class="rs"><span class="rs-num">2.3</span><span class="rs-lbl">KM</span></div>
+                <div class="rs"><span class="rs-num">12'</span><span class="rs-lbl">EST.</span></div>
+                <div class="rs"><span class="rs-num">74%</span><span class="rs-lbl">SAFE</span></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- ══ FEED SCREEN ══ -->
+        <div class="screen" id="screen-feed">
+          <div class="feed-header">
+            <div>
+              <div class="feed-title">Community</div>
+              <div class="feed-sub">BUENOS AIRES · LIVE</div>
+            </div>
+            <div class="notif-badge">3</div>
+          </div>
+          <div class="feed-filter">
+            <button class="filter-btn active">All</button>
+            <button class="filter-btn">Hazards</button>
+            <button class="filter-btn">Safe</button>
+            <button class="filter-btn">Updates</button>
+            <button class="filter-btn">Near me</button>
+          </div>
+          <div class="feed-list">
+
+            <div class="feed-card">
+              <div class="fc-top">
+                <div class="fc-user">
+                  <div class="fc-avatar" style="background:rgba(217,48,37,.2);color:#FF5247">M</div>
+                  <div>
+                    <div class="fc-name">Martín G.</div>
+                    <div class="fc-time">4 min ago</div>
+                  </div>
+                </div>
+                <span class="fc-type type-hazard">HAZARD</span>
+              </div>
+              <div class="fc-route">Construction blocking <strong>Av. Corrientes & Callao</strong> — ciclovía lane closed, use sidewalk or detour via Thames.</div>
+              <div class="fc-meta">
+                <span class="fc-loc"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 1118 0z"/><circle cx="12" cy="10" r="3"/></svg>Palermo</span>
+                <div class="fc-votes">
+                  <button class="vote-btn voted" onclick="this.classList.toggle('voted')">👍 12</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="feed-card">
+              <div class="fc-top">
+                <div class="fc-user">
+                  <div class="fc-avatar" style="background:rgba(39,174,96,.2);color:#2ECC71">S</div>
+                  <div>
+                    <div class="fc-name">Sofía R.</div>
+                    <div class="fc-time">18 min ago</div>
+                  </div>
+                </div>
+                <span class="fc-type type-safe">SAFE</span>
+              </div>
+              <div class="fc-route"><strong>Thames St. (Palermo)</strong> is really smooth this morning — light traffic, good visibility, no incidents.</div>
+              <div class="fc-meta">
+                <span class="fc-loc"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 1118 0z"/><circle cx="12" cy="10" r="3"/></svg>Palermo Soho</span>
+                <div class="fc-votes">
+                  <button class="vote-btn" onclick="this.classList.toggle('voted')">👍 7</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="feed-card">
+              <div class="fc-top">
+                <div class="fc-user">
+                  <div class="fc-avatar" style="background:rgba(230,126,34,.2);color:#E67E22">L</div>
+                  <div>
+                    <div class="fc-name">Lucas P.</div>
+                    <div class="fc-time">35 min ago</div>
+                  </div>
+                </div>
+                <span class="fc-type type-update">UPDATE</span>
+              </div>
+              <div class="fc-route">New ciclovía markings painted on <strong>Güemes St.</strong> between Scalabrini Ortiz and Medrano. Finally!</div>
+              <div class="fc-meta">
+                <span class="fc-loc"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 1118 0z"/><circle cx="12" cy="10" r="3"/></svg>Villa Crespo</span>
+                <div class="fc-votes">
+                  <button class="vote-btn" onclick="this.classList.toggle('voted')">👍 23</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="feed-card">
+              <div class="fc-top">
+                <div class="fc-user">
+                  <div class="fc-avatar" style="background:rgba(217,48,37,.2);color:#FF5247">A</div>
+                  <div>
+                    <div class="fc-name">Ana K.</div>
+                    <div class="fc-time">1 hr ago</div>
+                  </div>
+                </div>
+                <span class="fc-type type-hazard">HAZARD</span>
+              </div>
+              <div class="fc-route">Aggressive driver incident near <strong>Santa Fe & Pueyrredón</strong>. Be careful at that intersection during peak hour.</div>
+              <div class="fc-meta">
+                <span class="fc-loc"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 1118 0z"/><circle cx="12" cy="10" r="3"/></svg>Recoleta</span>
+                <div class="fc-votes">
+                  <button class="vote-btn" onclick="this.classList.toggle('voted')">👍 8</button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- ══ REPORT SCREEN ══ -->
+        <div class="screen" id="screen-report">
+          <div class="report-header">
+            <div class="back-btn" onclick="switchScreen('map')">
+              <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+            </div>
+            <div>
+              <div class="report-title">Report a route</div>
+              <div class="report-sub">Help keep the map accurate</div>
+            </div>
+          </div>
+          <div class="report-body">
+            <div>
+              <div class="report-section-label">What did you encounter?</div>
+              <div class="type-grid">
+                <div class="type-card selected" onclick="selectType(this)">
+                  <div class="type-card-icon">⚠️</div>
+                  <div class="type-card-label">Hazard</div>
+                  <div class="type-card-desc">Something dangerous</div>
+                </div>
+                <div class="type-card" onclick="selectType(this)">
+                  <div class="type-card-icon">✅</div>
+                  <div class="type-card-label">All clear</div>
+                  <div class="type-card-desc">Route is safe</div>
+                </div>
+                <div class="type-card" onclick="selectType(this)">
+                  <div class="type-card-icon">🚧</div>
+                  <div class="type-card-label">Construction</div>
+                  <div class="type-card-desc">Lane or path blocked</div>
+                </div>
+                <div class="type-card" onclick="selectType(this)">
+                  <div class="type-card-icon">📍</div>
+                  <div class="type-card-label">New ciclovía</div>
+                  <div class="type-card-desc">Infrastructure update</div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="report-section-label">Safety level</div>
+              <div class="safety-row">
+                <button class="safety-btn sel-safe" onclick="selectSafety(this,'safe')">
+                  <div class="safety-dot" style="background:var(--green2)"></div>
+                  <span class="safety-lbl">Safe</span>
+                </button>
+                <button class="safety-btn" onclick="selectSafety(this,'mixed')">
+                  <div class="safety-dot" style="background:var(--amber)"></div>
+                  <span class="safety-lbl">Mixed</span>
+                </button>
+                <button class="safety-btn" onclick="selectSafety(this,'risk')">
+                  <div class="safety-dot" style="background:var(--red3)"></div>
+                  <span class="safety-lbl">Risk</span>
+                </button>
+              </div>
+            </div>
+            <div>
+              <div class="report-section-label">Add a note (optional)</div>
+              <textarea class="note-input" placeholder="e.g. Ciclovía lane completely blocked by trucks…"></textarea>
+            </div>
+            <button class="submit-btn" onclick="submitReport()">Submit report →</button>
+          </div>
+        </div>
+
+        <!-- ══ PROFILE SCREEN ══ -->
+        <div class="screen" id="screen-profile">
+          <div class="profile-hero">
+            <div class="profile-avatar">P</div>
+            <div class="profile-name">Pablo M.</div>
+            <div class="profile-meta">BUENOS AIRES · JOINED JAN 2025</div>
+          </div>
+          <div class="profile-stats">
+            <div class="pstat"><span class="pstat-num">47</span><span class="pstat-lbl">Rides</span></div>
+            <div class="pstat"><span class="pstat-num">23</span><span class="pstat-lbl">Reports</span></div>
+            <div class="pstat"><span class="pstat-num">284</span><span class="pstat-lbl">Upvotes</span></div>
+          </div>
+          <div class="profile-section">
+            <div class="profile-section-title">Recent rides</div>
+            <div class="recent-ride">
+              <div class="ride-icon">🚴</div>
+              <div class="ride-info">
+                <div class="ride-name">Palermo → Microcentro</div>
+                <div class="ride-meta">Today · 9:14am · 74% safe score</div>
+              </div>
+              <div class="ride-dist">2.3km</div>
+            </div>
+            <div class="recent-ride">
+              <div class="ride-icon">🚴</div>
+              <div class="ride-info">
+                <div class="ride-name">Recoleta Loop</div>
+                <div class="ride-meta">Yesterday · 6:50pm · 88% safe score</div>
+              </div>
+              <div class="ride-dist">4.1km</div>
+            </div>
+            <div class="recent-ride">
+              <div class="ride-icon">🚴</div>
+              <div class="ride-info">
+                <div class="ride-name">Villa Crespo → Palermo</div>
+                <div class="ride-meta">Tue · 8:20am · 91% safe score</div>
+              </div>
+              <div class="ride-dist">1.8km</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom Nav -->
+        <div class="bottom-nav">
+          <button class="nav-item active" id="nav-map" onclick="switchScreen('map')">
+            <svg viewBox="0 0 24 24"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
+            <span>Map</span>
+          </button>
+          <button class="nav-item" id="nav-feed" onclick="switchScreen('feed')">
+            <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+            <span>Feed</span>
+          </button>
+          <button class="nav-item" id="nav-report" onclick="switchScreen('report')">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            <span>Report</span>
+          </button>
+          <button class="nav-item" id="nav-profile" onclick="switchScreen('profile')">
+            <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <span>Profile</span>
+          </button>
+        </div>
+
+      </div><!-- /phone-screen -->
+    </div><!-- /phone-frame -->
+  </div><!-- /phone-wrap -->
+
+  <!-- ── RIGHT PANEL ─────────────────────────── -->
+  <div class="panel">
+
+    <div class="panel-header" id="panel-header">
+      <div class="panel-eyebrow" id="panel-eyebrow">Map · Buenos Aires</div>
+      <div class="panel-title" id="panel-title">Community safety map</div>
+      <div class="panel-sub" id="panel-sub">Tap around the app to explore each screen. The right panel shows PM context for each feature decision.</div>
+    </div>
+
+    <div class="panel-body" id="panel-body">
+
+      <!-- MAP context -->
+      <div id="ctx-map">
+        <div class="stats-row">
+          <div class="stat-cell"><span class="stat-num">40</span><span class="stat-lbl">Pilot users</span></div>
+          <div class="stat-cell"><span class="stat-num">3</span><span class="stat-lbl">Route types</span></div>
+          <div class="stat-cell"><span class="stat-num">✓</span><span class="stat-lbl">Hypothesis</span></div>
+        </div>
+        <div class="info-block">
+          <div class="info-block-title">What this screen solves</div>
+          <div class="feature-list">
+            <div class="feature-item">
+              <div class="fi-dot"></div>
+              <div class="fi-content">
+                <div class="fi-title">Safety-first routing</div>
+                <div class="fi-body">Google Maps routes by time. Strava routes by performance. CycleSafe routes by <em>safety</em> — the gap no existing tool filled.</div>
+              </div>
+            </div>
+            <div class="feature-item">
+              <div class="fi-dot"></div>
+              <div class="fi-content">
+                <div class="fi-title">Three-layer taxonomy</div>
+                <div class="fi-body">Red = ciclovía (dedicated lane), green = community-validated safe, amber = mixed traffic. Simple enough to read while riding.</div>
+              </div>
+            </div>
+            <div class="feature-item">
+              <div class="fi-dot"></div>
+              <div class="fi-content">
+                <div class="fi-title">No account required to view</div>
+                <div class="fi-body">First-session value without friction. Users see the map immediately — registration gated only for reporting.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="pm-note">
+          <div class="pm-note-label">PM decision</div>
+          <div class="pm-note-body">The route card shows a <strong>74% safe score</strong> — a single number that aggregates community reports for that route segment. This was the most debated V1 feature: does a score create false confidence? Discovery interviews suggested users wanted a number, not just colours. We shipped it and monitored.</div>
+        </div>
+      </div>
+
+      <!-- FEED context -->
+      <div id="ctx-feed" style="display:none">
+        <div class="info-block">
+          <div class="info-block-title">Why a community feed?</div>
+          <div class="feature-list">
+            <div class="feature-item">
+              <div class="fi-dot"></div>
+              <div class="fi-content">
+                <div class="fi-title">Social proof of data quality</div>
+                <div class="fi-body">Seeing 12 upvotes on a hazard report tells you other cyclists verified it. Raw community data without social validation creates noise.</div>
+              </div>
+            </div>
+            <div class="feature-item">
+              <div class="fi-dot"></div>
+              <div class="fi-content">
+                <div class="fi-title">Return trigger without push</div>
+                <div class="fi-body">The feed gives users a reason to open the app when not navigating — browsing their neighbourhood's recent reports. Engagement without notifications.</div>
+              </div>
+            </div>
+            <div class="feature-item">
+              <div class="fi-dot"></div>
+              <div class="fi-content">
+                <div class="fi-title">Community identity</div>
+                <div class="fi-body">Named contributors (not anonymous) increased contribution rate. Cyclists wanted credit for helping others — gamification was unnecessary.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="pm-note">
+          <div class="pm-note-label">PM decision</div>
+          <div class="pm-note-body">Filters (All / Hazards / Safe / Updates / Near me) were added after pilot feedback. <strong>Without filters, the feed felt overwhelming after 20+ reports per day.</strong> "Near me" became the default for 80% of active users.</div>
+        </div>
+      </div>
+
+      <!-- REPORT context -->
+      <div id="ctx-report" style="display:none">
+        <div class="info-block">
+          <div class="info-block-title">Contribution design principles</div>
+          <div class="feature-list">
+            <div class="feature-item">
+              <div class="fi-dot"></div>
+              <div class="fi-content">
+                <div class="fi-title">Maximum 3 taps to submit</div>
+                <div class="fi-body">Type → safety level → submit. The note field is optional and explicitly labelled as such. Every required field added drops contribution rate.</div>
+              </div>
+            </div>
+            <div class="feature-item">
+              <div class="fi-dot"></div>
+              <div class="fi-content">
+                <div class="fi-title">Post-ride prompt, not mid-ride</div>
+                <div class="fi-body">Reports are triggered after ride completion — never during navigation. Safety of the user comes before data collection.</div>
+              </div>
+            </div>
+            <div class="feature-item">
+              <div class="fi-dot"></div>
+              <div class="fi-content">
+                <div class="fi-title">4 types, not 20</div>
+                <div class="fi-body">Early prototype had 12 hazard categories. Pilot showed users ignored most — they wanted to flag fast, not classify precisely. Collapsed to 4.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="pm-note">
+          <div class="pm-note-label">Core learning from pilot</div>
+          <div class="pm-note-body">Contribution rate dropped 60% after week 2. <strong>The initial novelty of reporting wore off.</strong> The unsolved problem: creating durable contribution habits without gamification or incentives. This is the network effect challenge that paused the project.</div>
+        </div>
+      </div>
+
+      <!-- PROFILE context -->
+      <div id="ctx-profile" style="display:none">
+        <div class="info-block">
+          <div class="info-block-title">Why show contribution stats?</div>
+          <div class="feature-list">
+            <div class="feature-item">
+              <div class="fi-dot"></div>
+              <div class="fi-content">
+                <div class="fi-title">Contributor identity, not leaderboard</div>
+                <div class="fi-body">The profile shows <em>your</em> contribution history — not a ranking. Discovery interviews found leaderboards felt competitive; personal history felt purposeful.</div>
+              </div>
+            </div>
+            <div class="feature-item">
+              <div class="fi-dot"></div>
+              <div class="fi-content">
+                <div class="fi-title">Safe score history</div>
+                <div class="fi-body">Each saved ride shows a safety score — building a personal record of route choices over time. This creates utility for returning users beyond the map alone.</div>
+              </div>
+            </div>
+            <div class="feature-item">
+              <div class="fi-dot"></div>
+              <div class="fi-content">
+                <div class="fi-title">Upvotes as impact signal</div>
+                <div class="fi-body">284 upvotes means 284 cyclists found your reports useful. This was the most motivating stat for active contributors — seeing their impact on the community.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="pm-note">
+          <div class="pm-note-label">Not built in V1</div>
+          <div class="pm-note-body">Badges, streaks, and ride challenges were fully designed but <strong>deliberately excluded from MVP</strong>. The goal was to validate intrinsic community motivation before layering gamification. Pilot confirmed cyclists would contribute without rewards — making gamification a V2 decision, not a V1 dependency.</div>
+        </div>
+      </div>
+
+    </div><!-- /panel-body -->
+  </div><!-- /panel -->
+
+</div><!-- /app -->
+
+<!-- Toast -->
+<div class="toast" id="toast">✓ Report submitted — thanks for keeping the map safe!</div>
+
+<script>
+const screens = ['map','feed','report','profile'];
+const panels = {
+  map: {
+    eyebrow: 'Map · Buenos Aires',
+    title: 'Community safety map',
+    sub: 'The core product screen. Safety taxonomy overlaid on real city streets — ciclovía (red), safe (green), mixed (amber).'
+  },
+  feed: {
+    eyebrow: 'Community Feed · Live',
+    title: 'What cyclists are reporting',
+    sub: 'Real-time reports from the community. Social validation via upvotes. The return trigger between rides.'
+  },
+  report: {
+    eyebrow: 'Report Screen · Core Loop',
+    title: 'Contribute to the map',
+    sub: 'Maximum 3 taps to submit. The entire data layer depends on this flow being frictionless enough to use consistently.'
+  },
+  profile: {
+    eyebrow: 'Profile · Contribution History',
+    title: 'Your cycling record',
+    sub: 'Personal ride history with safety scores. Community contribution stats. Identity without leaderboard mechanics.'
+  }
+};
+
+function switchScreen(name) {
+  screens.forEach(s => {
+    document.getElementById('screen-'+s).classList.toggle('active', s===name);
+    document.getElementById('nav-'+s)?.classList.toggle('active', s===name);
+    const ctx = document.getElementById('ctx-'+s);
+    if(ctx) ctx.style.display = s===name ? 'flex' : 'none';
+    if(ctx) ctx.style.flexDirection = 'column';
+    if(ctx) ctx.style.gap = '16px';
+  });
+  const p = panels[name];
+  document.getElementById('panel-eyebrow').textContent = p.eyebrow;
+  document.getElementById('panel-title').textContent = p.title;
+  document.getElementById('panel-sub').textContent = p.sub;
+}
+
+function selectType(el) {
+  el.closest('.type-grid').querySelectorAll('.type-card').forEach(c=>c.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+function selectSafety(el, type) {
+  el.closest('.safety-row').querySelectorAll('.safety-btn').forEach(b=>{
+    b.classList.remove('sel-safe','sel-mixed','sel-risk');
+  });
+  el.classList.add('sel-'+type);
+}
+
+function submitReport() {
+  const toast = document.getElementById('toast');
+  toast.classList.add('show');
+  setTimeout(()=>{ toast.classList.remove('show'); switchScreen('map'); }, 2200);
+}
+
+// Filter buttons
+document.querySelectorAll('.filter-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    btn.closest('.feed-filter').querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+  });
+});
+
+// Init
+switchScreen('map');
+</script>
+</body>
+</html>

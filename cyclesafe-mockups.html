@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CycleSafe — Screen Mockups</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&family=Cormorant+Garamond:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --red:    #D93025; --red2: #FF5247; --red3: rgba(217,48,37,.15);
+  --green:  #27AE60; --green2: #2ECC71; --green3: rgba(39,174,96,.15);
+  --amber:  #E67E22; --amber3: rgba(230,126,34,.12);
+  --navy:   #0A1226;
+  --dark:   #0D0D0D; --dark2: #141414; --dark3: #1C1C1C; --dark4: #242424;
+  --white:  #FFFFFF; --off: #F0EDE8; --muted: #888880; --muted2: #555550;
+  --border: rgba(255,255,255,.07); --border2: rgba(255,255,255,.12);
+  --gold:   #C4A05A;
+  --font: 'Inter', system-ui, sans-serif;
+  --mono: 'DM Mono', monospace;
+  --serif: 'Cormorant Garamond', Georgia, serif;
+}
+html{background:#0a0a0a;min-height:100%}
+body{font-family:var(--font);color:var(--off);-webkit-font-smoothing:antialiased;padding:48px 32px 80px}
+
+/* ── PAGE HEADER ─────────────────────────────── */
+.page-header{max-width:1400px;margin:0 auto 48px;display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:16px}
+.ph-left{}
+.ph-eyebrow{font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--red2);text-transform:uppercase;margin-bottom:8px}
+.ph-title{font-family:var(--serif);font-size:clamp(32px,4vw,52px);font-weight:300;color:var(--white);line-height:1.1}
+.ph-title em{font-style:italic;color:var(--red2)}
+.ph-sub{font-size:13px;color:var(--muted);margin-top:8px;max-width:480px;line-height:1.6}
+.ph-badge{font-family:var(--mono);font-size:10px;letter-spacing:.08em;padding:5px 14px;border:1px solid rgba(217,48,37,.3);color:var(--red2);border-radius:2px;text-transform:uppercase;align-self:flex-start}
+
+/* ── SCREENS GRID ────────────────────────────── */
+.screens-grid{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:32px;align-items:start}
+
+/* ── PHONE FRAME ─────────────────────────────── */
+.phone-wrap{display:flex;flex-direction:column;align-items:center;gap:16px}
+.screen-label{font-family:var(--mono);font-size:9px;letter-spacing:.12em;color:var(--muted2);text-transform:uppercase;text-align:center}
+.phone{
+  width:100%;max-width:280px;
+  background:#111;border-radius:36px;padding:10px;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.08),
+    0 40px 80px rgba(0,0,0,.8),
+    0 0 0 8px rgba(255,255,255,.02);
+  position:relative;
+}
+.phone-notch{width:80px;height:22px;background:#111;border-radius:0 0 12px 12px;margin:0 auto 6px;display:flex;align-items:center;justify-content:center}
+.phone-notch-pill{width:48px;height:4px;background:#1a1a1a;border-radius:10px}
+.phone-screen{border-radius:28px;overflow:hidden;background:var(--dark2)}
+
+/* Status bar */
+.sb{height:28px;padding:0 16px;display:flex;align-items:center;justify-content:space-between;background:inherit;flex-shrink:0}
+.sb-time{font-family:var(--mono);font-size:10px;font-weight:500;color:var(--off)}
+.sb-icons{display:flex;gap:3px;align-items:center}
+.sb-dot{width:4px;height:4px;border-radius:50%;background:var(--off);opacity:.7}
+
+/* Bottom nav strip */
+.bnav{height:50px;background:rgba(13,13,13,.97);border-top:1px solid rgba(255,255,255,.06);display:flex;align-items:center;justify-content:space-around;padding:0 8px}
+.bni{display:flex;flex-direction:column;align-items:center;gap:2px;opacity:.35}
+.bni.active{opacity:1}
+.bni-dot{width:18px;height:18px}
+.bni-lbl{font-size:7px;font-weight:500;letter-spacing:.04em;font-family:var(--font);color:var(--off)}
+.bni.active .bni-lbl{color:var(--red)}
+
+/* ── SCREEN 1: MAP ───────────────────────────── */
+.map-wrap{position:relative;height:480px;background:#0a1220;overflow:hidden}
+
+/* Map search */
+.ms-bar{position:absolute;top:10px;left:10px;right:10px;background:rgba(18,18,18,.95);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:8px 12px;display:flex;align-items:center;gap:8px;z-index:10}
+.ms-icon{width:12px;height:12px;border:1.5px solid var(--muted);border-radius:50%;position:relative;flex-shrink:0}
+.ms-icon::after{content:'';position:absolute;bottom:-3px;right:-3px;width:4px;height:1.5px;background:var(--muted);transform:rotate(45deg)}
+.ms-text{font-size:11px;color:var(--muted);flex:1}
+
+/* Map legend */
+.ml{position:absolute;top:56px;right:10px;background:rgba(15,15,15,.9);border:1px solid rgba(255,255,255,.07);border-radius:8px;padding:7px 9px;z-index:10}
+.ml-item{display:flex;align-items:center;gap:5px;margin-bottom:3px}
+.ml-item:last-child{margin-bottom:0}
+.ml-dot{width:7px;height:7px;border-radius:2px;flex-shrink:0}
+.ml-lbl{font-size:8px;color:var(--muted);font-family:var(--mono)}
+
+/* Route card */
+.rc{position:absolute;bottom:10px;left:10px;right:10px;background:rgba(16,16,16,.97);border:1px solid rgba(217,48,37,.25);border-radius:14px;padding:12px;z-index:10}
+.rc-tag{font-family:var(--mono);font-size:8px;letter-spacing:.1em;color:var(--red2);text-transform:uppercase;margin-bottom:3px}
+.rc-name{font-size:12px;font-weight:700;color:var(--white);margin-bottom:8px}
+.rc-pills{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:10px}
+.rp{font-size:8px;font-weight:500;padding:2px 6px;border-radius:4px;font-family:var(--mono)}
+.rp-r{background:rgba(217,48,37,.15);color:var(--red2);border:1px solid rgba(217,48,37,.3)}
+.rp-g{background:rgba(39,174,96,.12);color:var(--green2);border:1px solid rgba(39,174,96,.25)}
+.rp-a{background:rgba(230,126,34,.1);color:var(--amber);border:1px solid rgba(230,126,34,.2)}
+.rc-stats{display:flex;border-top:1px solid rgba(255,255,255,.06);padding-top:8px}
+.rcs{flex:1;text-align:center}
+.rcs-n{font-family:var(--mono);font-size:14px;font-weight:500;color:var(--white);display:block}
+.rcs-l{font-size:8px;color:var(--muted);font-family:var(--mono)}
+.rcs+.rcs{border-left:1px solid rgba(255,255,255,.06)}
+
+/* User pin */
+.upin{position:absolute;width:16px;height:16px;z-index:8}
+.upin-ring{position:absolute;inset:-4px;border-radius:50%;background:rgba(217,48,37,.15)}
+.upin-dot{width:10px;height:10px;border-radius:50%;background:rgba(217,48,37,.35);border:1.5px solid var(--red);position:absolute;top:3px;left:3px}
+.upin-center{width:4px;height:4px;border-radius:50%;background:white;position:absolute;top:6px;left:6px}
+
+/* Hazard pin */
+.hpin{position:absolute;width:12px;height:12px;z-index:8}
+.hpin-outer{width:12px;height:12px;border-radius:50%;background:rgba(217,48,37,.25);border:1px solid rgba(217,48,37,.7);display:flex;align-items:center;justify-content:center}
+.hpin-inner{width:4px;height:4px;border-radius:50%;background:var(--red)}
+
+/* Safe pin */
+.spin{position:absolute;width:10px;height:10px;z-index:8}
+.spin-outer{width:10px;height:10px;border-radius:50%;background:rgba(39,174,96,.2);border:1px solid rgba(39,174,96,.7);display:flex;align-items:center;justify-content:center}
+.spin-inner{width:3px;height:3px;border-radius:50%;background:var(--green2)}
+
+/* ── SCREEN 2: FEED ──────────────────────────── */
+.feed-wrap{background:var(--dark2)}
+.feed-hd{padding:14px 14px 8px;display:flex;align-items:flex-start;justify-content:space-between}
+.feed-hd-title{font-size:16px;font-weight:700;color:var(--white)}
+.feed-hd-sub{font-size:9px;color:var(--muted);font-family:var(--mono);letter-spacing:.05em;margin-top:2px}
+.feed-notif{background:var(--red);color:white;font-size:9px;font-weight:700;width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.feed-filters{padding:0 14px 10px;display:flex;gap:5px;overflow:hidden}
+.ff{font-size:9px;font-weight:500;padding:3px 9px;border-radius:16px;border:1px solid rgba(255,255,255,.1);color:var(--muted);white-space:nowrap}
+.ff.active{background:var(--red);border-color:var(--red);color:white}
+.feed-cards{padding:0 14px 14px;display:flex;flex-direction:column;gap:8px}
+.fc2{background:var(--dark3);border:1px solid var(--border);border-radius:12px;padding:10px}
+.fc2-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:6px}
+.fc2-user{display:flex;align-items:center;gap:6px}
+.fc2-av{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;flex-shrink:0}
+.fc2-name{font-size:10px;font-weight:600;color:var(--white)}
+.fc2-time{font-size:8px;color:var(--muted);font-family:var(--mono);margin-top:1px}
+.fc2-badge{font-size:8px;font-weight:600;padding:2px 6px;border-radius:3px;font-family:var(--mono)}
+.b-h{background:rgba(217,48,37,.15);color:var(--red2)}
+.b-s{background:rgba(39,174,96,.12);color:var(--green2)}
+.b-u{background:rgba(230,126,34,.1);color:var(--amber)}
+.fc2-text{font-size:10px;color:var(--muted);line-height:1.4;margin-bottom:6px}
+.fc2-text strong{color:var(--off)}
+.fc2-foot{display:flex;align-items:center;justify-content:space-between}
+.fc2-loc{font-size:8px;color:var(--muted2);font-family:var(--mono)}
+.fc2-vote{font-size:9px;color:var(--muted);border:1px solid rgba(255,255,255,.08);border-radius:5px;padding:1px 6px}
+
+/* ── SCREEN 3: REPORT ────────────────────────── */
+.rep-wrap{background:var(--dark2)}
+.rep-hd{padding:12px 14px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--border)}
+.rep-back{width:26px;height:26px;border-radius:50%;background:var(--dark3);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.rep-back-arrow{width:8px;height:8px;border-left:1.5px solid var(--off);border-bottom:1.5px solid var(--off);transform:rotate(45deg);margin-left:3px}
+.rep-title{font-size:14px;font-weight:700;color:var(--white)}
+.rep-sub{font-size:9px;color:var(--muted)}
+.rep-body{padding:12px 14px;display:flex;flex-direction:column;gap:14px}
+.rep-slabel{font-size:9px;font-weight:600;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;font-family:var(--mono);margin-bottom:6px}
+.rep-type-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.rtc{background:var(--dark3);border:1.5px solid var(--border);border-radius:10px;padding:10px 8px;text-align:center}
+.rtc.sel{border-color:var(--red);background:rgba(217,48,37,.1)}
+.rtc-icon{font-size:16px;margin-bottom:3px}
+.rtc-label{font-size:9px;font-weight:600;color:var(--off);display:block}
+.rtc-desc{font-size:8px;color:var(--muted);margin-top:1px;font-family:var(--mono)}
+.rep-safety{display:flex;gap:6px}
+.rsb{flex:1;padding:8px 4px;border-radius:8px;border:1.5px solid var(--border);display:flex;flex-direction:column;align-items:center;gap:3px}
+.rsb.sel-s{background:rgba(39,174,96,.12);border-color:var(--green2)}
+.rsb-dot{width:8px;height:8px;border-radius:50%}
+.rsb-lbl{font-size:8px;color:var(--muted);font-family:var(--mono)}
+.rep-note{background:var(--dark3);border:1px solid var(--border);border-radius:10px;padding:10px;font-size:10px;color:var(--muted2);font-family:var(--font);height:52px;display:flex;align-items:flex-start}
+.rep-submit{background:var(--red);color:white;border-radius:12px;padding:11px;font-size:12px;font-weight:700;text-align:center;margin-top:2px}
+
+/* ── SCREEN 4: PROFILE ───────────────────────── */
+.prof-wrap{background:var(--dark2)}
+.prof-hero{background:linear-gradient(180deg,rgba(217,48,37,.18) 0%,transparent 100%);padding:16px 14px;display:flex;flex-direction:column;align-items:center;gap:6px}
+.prof-av{width:52px;height:52px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;color:white;box-shadow:0 0 0 3px rgba(217,48,37,.25)}
+.prof-name{font-size:15px;font-weight:700;color:var(--white)}
+.prof-meta{font-size:9px;color:var(--muted);font-family:var(--mono)}
+.prof-stats{display:flex;background:var(--dark3);border:1px solid var(--border);border-radius:12px;margin:0 14px;overflow:hidden}
+.ps{flex:1;padding:10px;text-align:center}
+.ps+.ps{border-left:1px solid var(--border)}
+.ps-num{font-size:17px;font-weight:700;color:var(--white);display:block;font-family:var(--mono)}
+.ps-lbl{font-size:8px;color:var(--muted);font-family:var(--mono)}
+.prof-rides{padding:12px 14px}
+.pr-title{font-size:11px;font-weight:600;color:var(--white);margin-bottom:8px}
+.ride-row{display:flex;align-items:center;gap:8px;background:var(--dark3);border:1px solid var(--border);border-radius:10px;padding:9px 10px;margin-bottom:6px}
+.ride-icon2{width:30px;height:30px;border-radius:8px;background:rgba(217,48,37,.12);border:1px solid rgba(217,48,37,.2);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
+.ride-info2{flex:1}
+.ride-name2{font-size:10px;font-weight:600;color:var(--white)}
+.ride-meta2{font-size:8px;color:var(--muted);font-family:var(--mono);margin-top:1px}
+.ride-dist2{font-size:11px;font-weight:700;color:var(--red2);font-family:var(--mono)}
+
+/* ── ANNOTATIONS ─────────────────────────────── */
+.annotations{margin-top:14px;display:flex;flex-direction:column;gap:6px;width:100%;max-width:280px}
+.ann{display:flex;gap:8px;align-items:flex-start}
+.ann-dot{width:6px;height:6px;border-radius:50%;background:var(--red);flex-shrink:0;margin-top:4px}
+.ann-text{font-size:10px;color:var(--muted);line-height:1.5}
+.ann-text strong{color:var(--off);font-weight:600}
+
+/* ── BOTTOM CAPTION ──────────────────────────── */
+.caption-bar{max-width:1400px;margin:48px auto 0;padding-top:32px;border-top:1px solid rgba(255,255,255,.06);display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.cap-item{}
+.cap-num{font-family:var(--mono);font-size:28px;font-weight:300;color:var(--red2);display:block;margin-bottom:4px}
+.cap-label{font-size:11px;color:var(--white);font-weight:600;margin-bottom:2px}
+.cap-desc{font-size:11px;color:var(--muted);line-height:1.5}
+
+@media(max-width:1100px){.screens-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.screens-grid{grid-template-columns:1fr}.caption-bar{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="ph-left">
+    <div class="ph-eyebrow">CycleSafe · Buenos Aires · 2024–2025</div>
+    <h1 class="ph-title">Screen <em>Mockups</em></h1>
+    <p class="ph-sub">Four core screens from the pilot build. React Native. Safety-first community mapping for urban cyclists.</p>
+  </div>
+  <div class="ph-badge">React Native · Pilot · 40 users</div>
+</div>
+
+<!-- SCREENS GRID -->
+<div class="screens-grid">
+
+  <!-- ══ SCREEN 1: MAP ══ -->
+  <div class="phone-wrap">
+    <div class="screen-label">01 — Safety Map</div>
+    <div class="phone">
+      <div class="phone-notch"><div class="phone-notch-pill"></div></div>
+      <div class="phone-screen">
+        <div class="sb">
+          <span class="sb-time">9:41</span>
+          <div class="sb-icons"><div class="sb-dot"></div><div class="sb-dot" style="opacity:.5"></div><div class="sb-dot" style="opacity:.3"></div></div>
+        </div>
+
+        <div class="map-wrap">
+          <!-- SVG Map -->
+          <svg style="position:absolute;inset:0;width:100%;height:100%" viewBox="0 0 260 480" preserveAspectRatio="xMidYMid slice">
+            <rect width="260" height="480" fill="#0a1220"/>
+            <defs>
+              <pattern id="g" width="26" height="26" patternUnits="userSpaceOnUse">
+                <path d="M26 0L0 0 0 26" fill="none" stroke="rgba(255,255,255,.025)" stroke-width=".5"/>
+              </pattern>
+            </defs>
+            <rect width="260" height="480" fill="url(#g)"/>
+            <!-- Parks -->
+            <rect x="10" y="50" width="55" height="38" rx="3" fill="rgba(39,174,96,.06)"/>
+            <rect x="180" y="200" width="70" height="55" rx="3" fill="rgba(39,174,96,.055)"/>
+            <!-- Major streets -->
+            <rect x="0" y="155" width="260" height="7" fill="rgba(255,255,255,.07)"/>
+            <rect x="0" y="290" width="260" height="7" fill="rgba(255,255,255,.07)"/>
+            <rect x="80" y="0" width="7" height="480" fill="rgba(255,255,255,.07)"/>
+            <rect x="190" y="0" width="7" height="480" fill="rgba(255,255,255,.07)"/>
+            <!-- Minor -->
+            <rect x="0" y="90" width="260" height="2.5" fill="rgba(255,255,255,.035)"/>
+            <rect x="0" y="220" width="260" height="2.5" fill="rgba(255,255,255,.035)"/>
+            <rect x="0" y="370" width="260" height="2.5" fill="rgba(255,255,255,.035)"/>
+            <rect x="35" y="0" width="2.5" height="480" fill="rgba(255,255,255,.035)"/>
+            <rect x="135" y="0" width="2.5" height="480" fill="rgba(255,255,255,.035)"/>
+            <rect x="235" y="0" width="2.5" height="480" fill="rgba(255,255,255,.035)"/>
+            <!-- Ciclovía red -->
+            <rect x="0" y="156" width="260" height="5" fill="rgba(217,48,37,.65)"/>
+            <rect x="81" y="0" width="5" height="480" fill="rgba(217,48,37,.5)"/>
+            <!-- Safe green -->
+            <rect x="0" y="91" width="170" height="2.5" fill="rgba(39,174,96,.65)"/>
+            <rect x="36" y="0" width="2.5" height="210" fill="rgba(39,174,96,.55)"/>
+            <!-- Mixed amber -->
+            <rect x="0" y="371" width="260" height="2.5" fill="rgba(230,126,34,.55)"/>
+            <rect x="191" y="155" width="5" height="210" fill="rgba(230,126,34,.45)"/>
+            <!-- Route dashes -->
+            <path d="M44 100 L84 100 L84 158" fill="none" stroke="rgba(217,48,37,.85)" stroke-width="2.5" stroke-dasharray="7,4" stroke-linecap="round"/>
+            <!-- Blocks -->
+            <rect x="10" y="98" width="24" height="55" rx="2" fill="rgba(255,255,255,.025)"/>
+            <rect x="90" y="98" width="40" height="55" rx="2" fill="rgba(255,255,255,.025)"/>
+            <rect x="140" y="98" width="44" height="55" rx="2" fill="rgba(255,255,255,.025)"/>
+            <rect x="198" y="98" width="56" height="55" rx="2" fill="rgba(255,255,255,.025)"/>
+            <rect x="10" y="166" width="68" height="50" rx="2" fill="rgba(255,255,255,.025)"/>
+            <rect x="90" y="166" width="96" height="50" rx="2" fill="rgba(255,255,255,.025)"/>
+            <rect x="198" y="166" width="56" height="50" rx="2" fill="rgba(255,255,255,.025)"/>
+            <!-- Street labels -->
+            <text x="130" y="151" font-family="DM Mono,monospace" font-size="6" fill="rgba(255,255,255,.35)" text-anchor="middle">AV. CORRIENTES</text>
+            <text x="78" y="55" font-family="DM Mono,monospace" font-size="6" fill="rgba(255,255,255,.3)" text-anchor="middle" transform="rotate(-90,78,55)">CALLAO</text>
+            <!-- User pin -->
+            <circle cx="84" cy="158" r="10" fill="rgba(217,48,37,.12)"/>
+            <circle cx="84" cy="158" r="6" fill="rgba(217,48,37,.28)" stroke="var(--red)" stroke-width="1.2"/>
+            <circle cx="84" cy="158" r="2.5" fill="white"/>
+            <!-- Hazard pin -->
+            <circle cx="136" cy="158" r="8" fill="rgba(217,48,37,.2)"/>
+            <circle cx="136" cy="158" r="5" fill="rgba(217,48,37,.3)" stroke="rgba(217,48,37,.8)" stroke-width="1"/>
+            <circle cx="136" cy="158" r="2" fill="var(--red)"/>
+            <!-- Safe pin -->
+            <circle cx="37" cy="91" r="7" fill="rgba(39,174,96,.18)"/>
+            <circle cx="37" cy="91" r="4" fill="rgba(39,174,96,.28)" stroke="rgba(39,174,96,.8)" stroke-width="1"/>
+            <circle cx="37" cy="91" r="1.5" fill="var(--green2)"/>
+            <!-- Gold pin -->
+            <circle cx="192" cy="222" r="6" fill="rgba(230,126,34,.15)"/>
+            <circle cx="192" cy="222" r="3.5" fill="rgba(230,126,34,.25)" stroke="rgba(230,126,34,.7)" stroke-width="1"/>
+            <circle cx="192" cy="222" r="1.5" fill="var(--amber)"/>
+          </svg>
+
+          <!-- Search bar -->
+          <div class="ms-bar">
+            <div class="ms-icon"></div>
+            <div class="ms-text">Search routes…</div>
+          </div>
+
+          <!-- Legend -->
+          <div class="ml">
+            <div class="ml-item"><div class="ml-dot" style="background:rgba(217,48,37,.85)"></div><span class="ml-lbl">Ciclovía</span></div>
+            <div class="ml-item"><div class="ml-dot" style="background:rgba(39,174,96,.8)"></div><span class="ml-lbl">Safe</span></div>
+            <div class="ml-item"><div class="ml-dot" style="background:rgba(230,126,34,.75)"></div><span class="ml-lbl">Mixed</span></div>
+          </div>
+
+          <!-- Route card -->
+          <div class="rc">
+            <div class="rc-tag">Active · 2.3 km</div>
+            <div class="rc-name">Palermo → Microcentro</div>
+            <div class="rc-pills">
+              <span class="rp rp-r">Ciclovía</span>
+              <span class="rp rp-g">Safe</span>
+              <span class="rp rp-a">⚠ Alert</span>
+            </div>
+            <div class="rc-stats">
+              <div class="rcs"><span class="rcs-n">2.3</span><span class="rcs-l">KM</span></div>
+              <div class="rcs"><span class="rcs-n">12'</span><span class="rcs-l">EST.</span></div>
+              <div class="rcs"><span class="rcs-n">74%</span><span class="rcs-l">SAFE</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bnav">
+          <div class="bni active">
+            <svg class="bni-dot" viewBox="0 0 24 24" fill="none" stroke="#D93025" stroke-width="1.8" stroke-linecap="round"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
+            <span class="bni-lbl" style="color:#D93025">Map</span>
+          </div>
+          <div class="bni">
+            <svg class="bni-dot" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+            <span class="bni-lbl">Feed</span>
+          </div>
+          <div class="bni">
+            <svg class="bni-dot" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/></svg>
+            <span class="bni-lbl">Report</span>
+          </div>
+          <div class="bni">
+            <svg class="bni-dot" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+            <span class="bni-lbl">Profile</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="annotations">
+      <div class="ann"><div class="ann-dot"></div><div class="ann-text"><strong>Red = ciclovía.</strong> Dedicated lane, highest safety rating.</div></div>
+      <div class="ann"><div class="ann-dot" style="background:var(--green2)"></div><div class="ann-text"><strong>Green = community-validated safe.</strong> No dedicated lane but low risk.</div></div>
+      <div class="ann"><div class="ann-dot" style="background:var(--amber)"></div><div class="ann-text"><strong>Amber = mixed traffic.</strong> Use with caution.</div></div>
+    </div>
+  </div>
+
+  <!-- ══ SCREEN 2: FEED ══ -->
+  <div class="phone-wrap">
+    <div class="screen-label">02 — Community Feed</div>
+    <div class="phone">
+      <div class="phone-notch"><div class="phone-notch-pill"></div></div>
+      <div class="phone-screen">
+        <div class="sb">
+          <span class="sb-time">9:41</span>
+          <div class="sb-icons"><div class="sb-dot"></div><div class="sb-dot" style="opacity:.5"></div><div class="sb-dot" style="opacity:.3"></div></div>
+        </div>
+
+        <div class="feed-wrap">
+          <div class="feed-hd">
+            <div>
+              <div class="feed-hd-title">Community</div>
+              <div class="feed-hd-sub">BUENOS AIRES · LIVE</div>
+            </div>
+            <div class="feed-notif">3</div>
+          </div>
+          <div class="feed-filters">
+            <div class="ff active">All</div>
+            <div class="ff">Hazards</div>
+            <div class="ff">Safe</div>
+            <div class="ff">Near me</div>
+          </div>
+          <div class="feed-cards">
+
+            <div class="fc2">
+              <div class="fc2-top">
+                <div class="fc2-user">
+                  <div class="fc2-av" style="background:rgba(217,48,37,.2);color:#FF5247">M</div>
+                  <div>
+                    <div class="fc2-name">Martín G.</div>
+                    <div class="fc2-time">4 min ago</div>
+                  </div>
+                </div>
+                <span class="fc2-badge b-h">HAZARD</span>
+              </div>
+              <div class="fc2-text">Construction blocking <strong>Av. Corrientes & Callao</strong> — ciclovía closed, use Thames detour.</div>
+              <div class="fc2-foot">
+                <span class="fc2-loc">Palermo</span>
+                <span class="fc2-vote">👍 12</span>
+              </div>
+            </div>
+
+            <div class="fc2">
+              <div class="fc2-top">
+                <div class="fc2-user">
+                  <div class="fc2-av" style="background:rgba(39,174,96,.2);color:#2ECC71">S</div>
+                  <div>
+                    <div class="fc2-name">Sofía R.</div>
+                    <div class="fc2-time">18 min ago</div>
+                  </div>
+                </div>
+                <span class="fc2-badge b-s">SAFE</span>
+              </div>
+              <div class="fc2-text"><strong>Thames St.</strong> smooth this morning — light traffic, good visibility.</div>
+              <div class="fc2-foot">
+                <span class="fc2-loc">Palermo Soho</span>
+                <span class="fc2-vote">👍 7</span>
+              </div>
+            </div>
+
+            <div class="fc2">
+              <div class="fc2-top">
+                <div class="fc2-user">
+                  <div class="fc2-av" style="background:rgba(230,126,34,.2);color:#E67E22">L</div>
+                  <div>
+                    <div class="fc2-name">Lucas P.</div>
+                    <div class="fc2-time">35 min ago</div>
+                  </div>
+                </div>
+                <span class="fc2-badge b-u">UPDATE</span>
+              </div>
+              <div class="fc2-text">New ciclovía markings on <strong>Güemes St.</strong> between Scalabrini and Medrano.</div>
+              <div class="fc2-foot">
+                <span class="fc2-loc">Villa Crespo</span>
+                <span class="fc2-vote">👍 23</span>
+              </div>
+            </div>
+
+            <div class="fc2">
+              <div class="fc2-top">
+                <div class="fc2-user">
+                  <div class="fc2-av" style="background:rgba(217,48,37,.2);color:#FF5247">A</div>
+                  <div>
+                    <div class="fc2-name">Ana K.</div>
+                    <div class="fc2-time">1 hr ago</div>
+                  </div>
+                </div>
+                <span class="fc2-badge b-h">HAZARD</span>
+              </div>
+              <div class="fc2-text">Aggressive driver near <strong>Santa Fe & Pueyrredón</strong>. Careful during peak hour.</div>
+              <div class="fc2-foot">
+                <span class="fc2-loc">Recoleta</span>
+                <span class="fc2-vote">👍 8</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="bnav">
+          <div class="bni">
+            <svg class="bni-dot" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
+            <span class="bni-lbl">Map</span>
+          </div>
+          <div class="bni active">
+            <svg class="bni-dot" viewBox="0 0 24 24" fill="none" stroke="#D93025" stroke-width="1.8" stroke-linecap="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+            <span class="bni-lbl" style="color:#D93025">Feed</span>
+          </div>
+          <div class="bni">
+            <svg class="bni-dot" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/></svg>
+            <span class="bni-lbl">Report</span>
+          </div>
+          <div class="bni">
+            <svg class="bni-dot" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+            <span class="bni-lbl">Profile</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="annotations">
+      <div class="ann"><div class="ann-dot"></div><div class="ann-text"><strong>Named contributors</strong> increased reporting vs. anonymous — cyclists wanted credit.</div></div>
+      <div class="ann"><div class="ann-dot"></div><div class="ann-text"><strong>Upvotes</strong> surface quality reports without moderation overhead.</div></div>
+      <div class="ann"><div class="ann-dot"></div><div class="ann-text"><strong>"Near me" filter</strong> became default for 80% of active users post-pilot.</div></div>
+    </div>
+  </div>
+
+  <!-- ══ SCREEN 3: REPORT ══ -->
+  <div class="phone-wrap">
+    <div class="screen-label">03 — Report Flow</div>
+    <div class="phone">
+      <div class="phone-notch"><div class="phone-notch-pill"></div></div>
+      <div class="phone-screen">
+        <div class="sb">
+          <span class="sb-time">9:41</span>
+          <div class="sb-icons"><div class="sb-dot"></div><div class="sb-dot" style="opacity:.5"></div><div class="sb-dot" style="opacity:.3"></div></div>
+        </div>
+
+        <div class="rep-wrap">
+          <div class="rep-hd">
+            <div class="rep-back"><div class="rep-back-arrow"></div></div>
+            <div>
+              <div class="rep-title">Report a route</div>
+              <div class="rep-sub">Keep the map accurate</div>
+            </div>
+          </div>
+          <div class="rep-body">
+
+            <div>
+              <div class="rep-slabel">What did you encounter?</div>
+              <div class="rep-type-grid">
+                <div class="rtc sel">
+                  <div class="rtc-icon">⚠️</div>
+                  <span class="rtc-label">Hazard</span>
+                  <div class="rtc-desc">Something dangerous</div>
+                </div>
+                <div class="rtc">
+                  <div class="rtc-icon">✅</div>
+                  <span class="rtc-label">All clear</span>
+                  <div class="rtc-desc">Route is safe</div>
+                </div>
+                <div class="rtc">
+                  <div class="rtc-icon">🚧</div>
+                  <span class="rtc-label">Construction</span>
+                  <div class="rtc-desc">Lane blocked</div>
+                </div>
+                <div class="rtc">
+                  <div class="rtc-icon">📍</div>
+                  <span class="rtc-label">New ciclovía</span>
+                  <div class="rtc-desc">Infrastructure</div>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <div class="rep-slabel">Safety level</div>
+              <div class="rep-safety">
+                <div class="rsb sel-s">
+                  <div class="rsb-dot" style="background:#2ECC71"></div>
+                  <span class="rsb-lbl">Safe</span>
+                </div>
+                <div class="rsb">
+                  <div class="rsb-dot" style="background:#E67E22"></div>
+                  <span class="rsb-lbl">Mixed</span>
+                </div>
+                <div class="rsb">
+                  <div class="rsb-dot" style="background:#FF5247"></div>
+                  <span class="rsb-lbl">Risk</span>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <div class="rep-slabel">Note (optional)</div>
+              <div class="rep-note">Ciclovía blocked by trucks…</div>
+            </div>
+
+            <div class="rep-submit">Submit report →</div>
+
+          </div>
+        </div>
+
+        <div class="bnav">
+          <div class="bni">
+            <svg class="bni-dot" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
+            <span class="bni-lbl">Map</span>
+          </div>
+          <div class="bni">
+            <svg class="bni-dot" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+            <span class="bni-lbl">Feed</span>
+          </div>
+          <div class="bni active">
+            <svg class="bni-dot" viewBox="0 0 24 24" fill="none" stroke="#D93025" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/></svg>
+            <span class="bni-lbl" style="color:#D93025">Report</span>
+          </div>
+          <div class="bni">
+            <svg class="bni-dot" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+            <span class="bni-lbl">Profile</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="annotations">
+      <div class="ann"><div class="ann-dot"></div><div class="ann-text"><strong>Max 3 taps</strong> to submit. Note is explicitly optional.</div></div>
+      <div class="ann"><div class="ann-dot"></div><div class="ann-text"><strong>4 types, not 12.</strong> Early prototype had too many — collapsed after pilot feedback.</div></div>
+      <div class="ann"><div class="ann-dot"></div><div class="ann-text"><strong>Post-ride prompt only.</strong> Never interrupts active navigation.</div></div>
+    </div>
+  </div>
+
+  <!-- ══ SCREEN 4: PROFILE ══ -->
+  <div class="phone-wrap">
+    <div class="screen-label">04 — Rider Profile</div>
+    <div class="phone">
+      <div class="phone-notch"><div class="phone-notch-pill"></div></div>
+      <div class="phone-screen">
+        <div class="sb">
+          <span class="sb-time">9:41</span>
+          <div class="sb-icons"><div class="sb-dot"></div><div class="sb-dot" style="opacity:.5"></div><div class="sb-dot" style="opacity:.3"></div></div>
+        </div>
+
+        <div class="prof-wrap">
+          <div class="prof-hero">
+            <div class="prof-av">P</div>
+            <div class="prof-name">Pablo M.</div>
+            <div class="prof-meta">BUENOS AIRES · JAN 2025</div>
+          </div>
+          <div class="prof-stats">
+            <div class="ps"><span class="ps-num">47</span><span class="ps-lbl">Rides</span></div>
+            <div class="ps"><span class="ps-num">23</span><span class="ps-lbl">Reports</span></div>
+            <div class="ps"><span class="ps-num">284</span><span class="ps-lbl">Upvotes</span></div>
+          </div>
+          <div class="prof-rides">
+            <div class="pr-title">Recent rides</div>
+            <div class="ride-row">
+              <div class="ride-icon2">🚴</div>
+              <div class="ride-info2">
+                <div class="ride-name2">Palermo → Microcentro</div>
+                <div class="ride-meta2">Today · 9:14am · 74% safe</div>
+              </div>
+              <div class="ride-dist2">2.3km</div>
+            </div>
+            <div class="ride-row">
+              <div class="ride-icon2">🚴</div>
+              <div class="ride-info2">
+                <div class="ride-name2">Recoleta Loop</div>
+                <div class="ride-meta2">Yesterday · 88% safe</div>
+              </div>
+              <div class="ride-dist2">4.1km</div>
+            </div>
+            <div class="ride-row">
+              <div class="ride-icon2">🚴</div>
+              <div class="ride-info2">
+                <div class="ride-name2">Villa Crespo → Palermo</div>
+                <div class="ride-meta2">Tue · 8:20am · 91% safe</div>
+              </div>
+              <div class="ride-dist2">1.8km</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bnav">
+          <div class="bni">
+            <svg class="bni-dot" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
+            <span class="bni-lbl">Map</span>
+          </div>
+          <div class="bni">
+            <svg class="bni-dot" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+            <span class="bni-lbl">Feed</span>
+          </div>
+          <div class="bni">
+            <svg class="bni-dot" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/></svg>
+            <span class="bni-lbl">Report</span>
+          </div>
+          <div class="bni active">
+            <svg class="bni-dot" viewBox="0 0 24 24" fill="none" stroke="#D93025" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+            <span class="bni-lbl" style="color:#D93025">Profile</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="annotations">
+      <div class="ann"><div class="ann-dot"></div><div class="ann-text"><strong>No leaderboard.</strong> Personal history only — cyclists found rankings competitive, not motivating.</div></div>
+      <div class="ann"><div class="ann-dot"></div><div class="ann-text"><strong>Safe score per ride</strong> creates utility beyond navigation — your own safety record.</div></div>
+      <div class="ann"><div class="ann-dot"></div><div class="ann-text"><strong>284 upvotes</strong> = most motivating stat for active contributors. Impact, not rank.</div></div>
+    </div>
+  </div>
+
+</div><!-- /screens-grid -->
+
+<!-- CAPTION BAR -->
+<div class="caption-bar">
+  <div class="cap-item">
+    <span class="cap-num">40</span>
+    <div class="cap-label">Pilot users</div>
+    <div class="cap-desc">Buenos Aires urban cyclists recruited via cycling community channels.</div>
+  </div>
+  <div class="cap-item">
+    <span class="cap-num">3</span>
+    <div class="cap-label">Route safety tiers</div>
+    <div class="cap-desc">Ciclovía / community-validated safe / mixed traffic. Readable while riding.</div>
+  </div>
+  <div class="cap-item">
+    <span class="cap-num">≤3</span>
+    <div class="cap-label">Taps to report</div>
+    <div class="cap-desc">Maximum contribution friction allowed. Every additional tap reduces report rate.</div>
+  </div>
+  <div class="cap-item">
+    <span class="cap-num">✓</span>
+    <div class="cap-label">Core hypothesis</div>
+    <div class="cap-desc">Safety is a primary routing criterion. Cyclists will contribute data without incentives.</div>
+  </div>
+</div>
+
+</body>
+</html>
