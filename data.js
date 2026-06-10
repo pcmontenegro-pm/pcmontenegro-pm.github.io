@@ -41,7 +41,7 @@ window.SITE = {
     desc_es:  "Cuatro proyectos en operaciones de pago, diseño de producto, flujos internacionales y movilidad urbana — definidos, entregados y medidos de forma independiente.",
     cases: [
       {
-        id: "monevol", num: "01", year: "2024",
+        id: "monevol", num: "01", year: "2024", advisory: true,
         tag_en:   "Product Strategy · UX Research · Personal Finance",
         tag_es:   "Estrategia de Producto · Investigación UX · Finanzas Personales",
         title_en: "Monevol <em>360</em>",
@@ -95,7 +95,7 @@ window.SITE = {
         cta_url: "karigab-case-study.html", vis_type: "karigab",
       },
       {
-        id: "cyclesafe", num: "04", year: "2024–2025",
+        id: "cyclesafe", num: "04", year: "2024–2025", advisory: true,
         tag_en:   "Urban Mobility · Community Product · React Native",
         tag_es:   "Movilidad Urbana · Producto Comunitario · React Native",
         title_en: "<em>CycleSafe</em> — Community Safety Map",
