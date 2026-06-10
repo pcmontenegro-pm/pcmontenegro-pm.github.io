@@ -2,7 +2,7 @@
 
 const VIS = {
   monevol: `<div class="case-vis-bg" style="background:linear-gradient(150deg,#0d1a2e 0%,#16243a 100%)">
-    <span class="case-num">01</span>
+    
     <svg viewBox="0 0 200 120" style="width:100%;max-width:190px">
       <!-- Phone frame -->
       <rect x="62" y="8" width="76" height="104" rx="10" fill="rgba(12,24,44,1)" stroke="rgba(196,160,90,.35)" stroke-width="1"/>
@@ -32,7 +32,7 @@ const VIS = {
     </svg></div>`,
 
   remesas: `<div class="case-vis-bg" style="background:linear-gradient(150deg,#0e1e30 0%,#141e2e 100%)">
-    <span class="case-num">02</span>
+    
     <svg viewBox="0 0 200 120" style="width:100%;max-width:190px">
       <text x="100" y="12" font-family="DM Mono,monospace" font-size="6" fill="rgba(196,160,90,.55)" text-anchor="middle" letter-spacing="2">EUROPE → BOLIVIA</text>
       <!-- Left node -->
@@ -54,7 +54,7 @@ const VIS = {
     </svg></div>`,
 
   karigab: `<div class="case-vis-bg" style="background:linear-gradient(150deg,#0e1826 0%,#1a1428 100%)">
-    <span class="case-num">03</span>
+    
     <svg viewBox="0 0 200 120" style="width:100%;max-width:190px">
       <text x="100" y="12" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(196,160,90,.55)" text-anchor="middle" letter-spacing="1.5">LIVE · ORDER · MATCH · DELIVER</text>
       <!-- Flow boxes — consistent navy/gold style, NO brand colors -->
@@ -84,7 +84,7 @@ const VIS = {
     </svg></div>`,
 
   cyclesafe: `<div class="case-vis-bg" style="background:linear-gradient(150deg,#1a0c0c 0%,#2a1010 100%)">
-    <span class="case-num">04</span>
+    
     <svg viewBox="0 0 200 120" style="width:100%;max-width:190px">
       <text x="100" y="12" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(192,80,80,.65)" text-anchor="middle" letter-spacing="2">SAFETY MAP · BUENOS AIRES</text>
       <rect x="10" y="18" width="180" height="78" rx="4" fill="rgba(10,16,28,.8)" stroke="rgba(192,80,80,.2)" stroke-width=".5"/>
@@ -115,7 +115,7 @@ const VIS = {
     </svg></div>`,
 
   pac: `<div class="case-vis-bg" style="background:linear-gradient(150deg,#0c1a2c 0%,#0e2018 100%)">
-    <span class="case-num">04</span>
+    
     <svg viewBox="0 0 200 120" style="width:100%;max-width:190px">
       <text x="100" y="12" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(196,160,90,.55)" text-anchor="middle" letter-spacing="2">COLLECTIONS LIFECYCLE</text>
       <!-- Step 1: Fail -->
@@ -144,7 +144,7 @@ const VIS = {
     </svg></div>`,
 
   qr: `<div class="case-vis-bg" style="background:linear-gradient(150deg,#0c1e18 0%,#14201a 100%)">
-    <span class="case-num">05</span>
+    
     <svg viewBox="0 0 200 120" style="width:100%;max-width:190px">
       <text x="100" y="12" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(196,160,90,.55)" text-anchor="middle" letter-spacing="2">QR PAYMENT FLOW</text>
       <!-- Old flow: broken -->
@@ -174,7 +174,7 @@ const VIS = {
     </svg></div>`,
 
   epac: `<div class="case-vis-bg" style="background:linear-gradient(150deg,#150e2a 0%,#0e1828 100%)">
-    <span class="case-num">06</span>
+    
     <svg viewBox="0 0 200 120" style="width:100%;max-width:190px">
       <text x="100" y="12" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(196,160,90,.55)" text-anchor="middle" letter-spacing="2">MANDATE ACTIVATION</text>
       <!-- Paper box -->
@@ -196,7 +196,7 @@ const VIS = {
     </svg></div>`,
 
   multibank: `<div class="case-vis-bg" style="background:linear-gradient(150deg,#0e1828 0%,#1e140e 100%)">
-    <span class="case-num">07</span>
+    
     <svg viewBox="0 0 200 120" style="width:100%;max-width:190px">
       <text x="100" y="12" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(196,160,90,.55)" text-anchor="middle" letter-spacing="2">MULTI-BANK INTEGRATION</text>
       <!-- Bank nodes -->
@@ -227,7 +227,7 @@ const VIS = {
     </svg></div>`,
 
   engine: `<div class="case-vis-bg" style="background:linear-gradient(150deg,#0e1e14 0%,#0c1826 100%)">
-    <span class="case-num">08</span>
+    
     <svg viewBox="0 0 200 120" style="width:100%;max-width:190px">
       <text x="100" y="12" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(196,160,90,.55)" text-anchor="middle" letter-spacing="2">NOTIFICATION ENGINE</text>
       <!-- Central router -->
@@ -254,7 +254,7 @@ const VIS = {
     </svg></div>`,
 
   dashboard: `<div class="case-vis-bg" style="background:linear-gradient(150deg,#0e2016 0%,#14102a 100%)">
-    <span class="case-num">09</span>
+    
     <svg viewBox="0 0 200 120" style="width:100%;max-width:190px">
       <text x="100" y="12" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(196,160,90,.55)" text-anchor="middle" letter-spacing="2">COLLECTIONS MONITORING</text>
       <!-- Dashboard frame -->
@@ -303,9 +303,12 @@ function caseCard(c, lang) {
        data-en="${c.cta_en}" data-es="${c.cta_es}"
        ${c.cta_url.startsWith('http')?'target="_blank" rel="noopener"':''}>${ctaLbl} →</a>` : '';
 
+  const visHtml = VIS[c.vis_type] || '';
+  const visWithNum = visHtml.replace('</div>', `<span class="case-num">${c.num}</span></div>`);
+
   return `
   <div class="cc reveal">
-    ${VIS[c.vis_type]||''}
+    ${visWithNum}
     <div class="cc-body">
       <p class="cc-tag${c.advisory?' cc-tag--advisory':''}" data-en="${c.tag_en}" data-es="${c.tag_es}">${tag}</p>
       <h3 class="cc-title" data-en="${c.title_en}" data-es="${c.title_es}">${title}</h3>
