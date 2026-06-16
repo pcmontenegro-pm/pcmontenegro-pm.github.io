@@ -322,9 +322,7 @@ function caseCard(c, lang) {
 
 function renderWork(lang) {
   const d = window.SITE;
-  const cl = lang==='es' ? d.consulting.label_es : d.consulting.label_en;
   const cd = lang==='es' ? d.consulting.desc_es  : d.consulting.desc_en;
-  const il = lang==='es' ? d.itau.label_es        : d.itau.label_en;
   const id = lang==='es' ? d.itau.desc_es         : d.itau.desc_en;
 
   return `
@@ -341,15 +339,15 @@ function renderWork(lang) {
         <button class="work-tab active" onclick="switchTab('consulting',this)">
           <span class="tab-dot consulting-dot"></span>
           <span class="tab-label">
-            <strong data-en="Consulting" data-es="Consultoría">${lang==='es'?'Consultoría':'Consulting'}</strong>
-            <small data-en="${d.consulting.label_en}" data-es="${d.consulting.label_es}">${cl}</small>
+            <strong data-en="Consulting Work" data-es="Trabajo de Consultoría">${lang==='es'?'Trabajo de Consultoría':'Consulting Work'}</strong>
+            <small data-en="Fintech, ops &amp; 0-to-1 · 2024–Present" data-es="Fintech, ops y 0 a 1 · 2024–Presente">${lang==='es'?'Fintech, ops y 0 a 1 · 2024–Presente':'Fintech, ops & 0-to-1 · 2024–Present'}</small>
           </span>
         </button>
         <button class="work-tab" onclick="switchTab('itau',this)">
           <span class="tab-dot itau-dot"></span>
           <span class="tab-label">
-            <strong>Itaú Bank</strong>
-            <small data-en="${d.itau.label_en}" data-es="${d.itau.label_es}">${il}</small>
+            <strong data-en="Banking &amp; Payments Career" data-es="Carrera en Banca y Pagos">${lang==='es'?'Carrera en Banca y Pagos':'Banking & Payments Career'}</strong>
+            <small data-en="Itaú Chile · 2017–2024" data-es="Itaú Chile · 2017–2024">Itaú Chile · 2017–2024</small>
           </span>
         </button>
       </div>

@@ -113,9 +113,9 @@ function renderAbout(lang) {
   const d = window.SITE;
 
   const specs = [
-    { icon: ICO.location,  label_en:'Location',     label_es:'Ubicación',      val:'Dublin, Ireland',         sub_en:'Open to relocation',          sub_es:'Abierto a reubicación' },
-    { icon: ICO.target,    label_en:'Open to',       label_es:'Abierto a',      val:'Ireland · Spain · Europe',sub_en:'Remote LatAm welcome',         sub_es:'Remoto LatAm bienvenido' },
-    { icon: ICO.clock,     label_en:'Availability',  label_es:'Disponibilidad', val_en:'Immediately',          val_es:'Inmediata',                    sub_en:'Critical Skills Permit eligible', sub_es:'Elegible Critical Skills Permit' },
+    { icon: ICO.location,  label_en:'Based in',     label_es:'Basado en',      val:'Dublin, Ireland',         sub_en:'Open to Europe-wide engagements', sub_es:'Abierto a proyectos en toda Europa' },
+    { icon: ICO.target,    label_en:'Focus',         label_es:'Enfoque',        val:'Payments · Banking · Product', sub_en:'Applied across regulated and consumer products', sub_es:'Aplicado en productos regulados y de consumo' },
+    { icon: ICO.clock,     label_en:'Engagement',    label_es:'Modalidad',      val_en:'Consulting + Senior PM roles', val_es:'Consultoría + roles Senior PM', sub_en:'Critical Skills Permit eligible', sub_es:'Elegible Critical Skills Permit' },
     { icon: ICO.language,  label_en:'Languages',     label_es:'Idiomas',        val:'Spanish · English',    sub_en:'Native · Business Proficient',       sub_es:'Nativo · Nivel Profesional' },
   ].map(s => `
     <div class="spec-item">
@@ -143,16 +143,16 @@ function renderAbout(lang) {
   <section id="about">
     <div class="si">
       <span class="sec-tag" data-en="About" data-es="Sobre mí">${lang==='es'?'Sobre mí':'About'}</span>
-      <h2 class="sec-h2" data-en="Payments. Collections. <em>10 years.</em>" data-es="Pagos. Cobranza. <em>10 años.</em>">${lang==='es'?'Pagos. Cobranza. <em>10 años.</em>':'Payments. Collections. <em>10 years.</em>'}</h2>
+      <h2 class="sec-h2" data-en="Deep in payments. <em>Built for more.</em>" data-es="Profundo en pagos. <em>Construido para más.</em>">${lang==='es'?'Profundo en pagos. <em>Construido para más.</em>':'Deep in payments. <em>Built for more.</em>'}</h2>
       <div class="spec-strip reveal">${specs}</div>
       <div class="about-grid">
         <div class="about-body">
-          <p ${lang==='es'?'style="display:none"':''}><strong>I build payment systems that work</strong> — and fix the ones that don't. 10+ years in banking and financial services, 7 of them at Itaú Chile owning the roadmap for payments and collections at the country's largest private bank.</p>
-          <p ${lang==='es'?'style="display:none"':''}>Shipped PAC 2.0, ePAC, QR Interoperability and a multi-bank payment layer from scratch. I know how SEPA equivalents behave, why direct debit fails, and how to build retry logic that doesn't frustrate customers or operations. <strong>I understand the full stack</strong> — rails, failure modes, mandate lifecycle, notification infrastructure.</p>
-          <p ${lang==='es'?'style="display:none"':''}>Now based in Dublin. Targeting Senior PM roles in payments, banking or collections — Ireland, Spain, or broader Europe. Available immediately. Critical Skills Permit eligible.</p>
-          <p ${lang==='en'?'style="display:none"':''}><strong>Construyo sistemas de pago que funcionan</strong> — y arreglo los que no. 10+ años en banca y servicios financieros, 7 de ellos en Itaú Chile como responsable del roadmap de pagos y cobranza en el banco privado más grande del país.</p>
-          <p ${lang==='en'?'style="display:none"':''}>Entregué PAC 2.0, ePAC, Interoperabilidad QR y una capa de pago multibanco desde cero. Sé cómo se comportan los equivalentes de SEPA, por qué falla el débito directo y cómo construir lógica de reintento que no frustre a clientes ni a operaciones. <strong>Entiendo el stack completo</strong> — rieles, modos de falla, ciclo de vida del mandato, infraestructura de notificaciones.</p>
-          <p ${lang==='en'?'style="display:none"':''}>Basado en Dublín. Buscando roles Senior PM en pagos, banca o cobranza — Irlanda, España o Europa en general. Disponible de inmediato. Elegible para Critical Skills Permit.</p>
+          <p ${lang==='es'?'style="display:none"':''}><strong>I make regulated, multi-stakeholder products work</strong> — and fix the ones that don't. 10+ years in banking and financial services, 7 of them at Itaú Chile owning the roadmap for payments and collections at the country's largest private bank.</p>
+          <p ${lang==='es'?'style="display:none"':''}>Shipped PAC 2.0, ePAC, QR Interoperability and a multi-bank payment layer from scratch — each one a case of conflicting stakeholders, real trade-offs, and a deadline. <strong>The method transfers</strong>: structured discovery, explicit trade-offs, measurable delivery — applied since 2024 to consumer fintech, cross-border operations and a 0-to-1 mobility platform.</p>
+          <p ${lang==='es'?'style="display:none"':''}>Now based in Dublin. Open to selected consulting engagements and senior product leadership roles — payments, banking, or any product where money, risk and operations collide. Critical Skills Permit eligible.</p>
+          <p ${lang==='en'?'style="display:none"':''}><strong>Hago que productos regulados y multi-stakeholder funcionen</strong> — y arreglo los que no. 10+ años en banca y servicios financieros, 7 de ellos en Itaú Chile como responsable del roadmap de pagos y cobranza en el banco privado más grande del país.</p>
+          <p ${lang==='en'?'style="display:none"':''}>Entregué PAC 2.0, ePAC, Interoperabilidad QR y una capa de pago multibanco desde cero — cada uno un caso de stakeholders en conflicto, trade-offs reales y un plazo. <strong>El método se traslada</strong>: discovery estructurado, trade-offs explícitos, entrega medible — aplicado desde 2024 a fintech de consumo, operaciones internacionales y una plataforma de movilidad 0 a 1.</p>
+          <p ${lang==='en'?'style="display:none"':''}>Basado en Dublín. Abierto a proyectos de consultoría seleccionados y roles senior de liderazgo de producto — pagos, banca, o cualquier producto donde dinero, riesgo y operaciones se cruzan. Elegible para Critical Skills Permit.</p>
         </div>
         <div>
           <div class="recs-header">
@@ -368,24 +368,24 @@ function renderContact(lang) {
         <div class="sig-wrap reveal">
           <img src="${d.sig}" alt="" class="contact-sig" loading="lazy" aria-hidden="true">
         </div>
-        <h2 class="contact-h2 reveal" data-en="Open to the right <em>opportunity.</em>" data-es="Abierto a la <em>oportunidad correcta.</em>">${lang==='es'?'Abierto a la <em>oportunidad correcta.</em>':'Open to the right <em>opportunity.</em>'}</h2>
+        <h2 class="contact-h2 reveal" data-en="Let's talk about <em>your problem.</em>" data-es="Hablemos de <em>tu problema.</em>">${lang==='es'?'Hablemos de <em>tu problema.</em>':'Let\'s talk about <em>your problem.</em>'}</h2>
         <p class="contact-sub reveal"
-           data-en="Senior PM roles in payments, collections or digital banking. Ireland and Spain preferred. Remote LatAm welcome."
-           data-es="Roles Senior PM en pagos, cobranza o banca digital. Irlanda y España preferidos. Remoto LatAm bienvenido."
-        >${lang==='es'?'Roles Senior PM en pagos, cobranza o banca digital. Irlanda y España preferidos. Remoto LatAm bienvenido.':'Senior PM roles in payments, collections or digital banking. Ireland and Spain preferred. Remote LatAm welcome.'}</p>
+           data-en="Open to selected consulting engagements — discovery sprints, implementation, or fractional product leadership — and senior or lead PM / Head of Product roles in payments, banking or digital products across Europe."
+           data-es="Abierto a proyectos de consultoría seleccionados — sprints de discovery, implementación, o liderazgo de producto fractional — y roles senior o lead PM / Head of Product en pagos, banca o productos digitales en Europa."
+        >${lang==='es'?'Abierto a proyectos de consultoría seleccionados — sprints de discovery, implementación, o liderazgo de producto fractional — y roles senior o lead PM / Head of Product en pagos, banca o productos digitales en Europa.':'Open to selected consulting engagements — discovery sprints, implementation, or fractional product leadership — and senior or lead PM / Head of Product roles in payments, banking or digital products across Europe.'}</p>
         <p class="contact-detail reveal"
-           data-en="Based in <strong>Dublin</strong> · Critical Skills Permit eligible · Alumni Universidad de Cantabria · Available immediately."
-           data-es="Basado en <strong>Dublín</strong> · Elegible Critical Skills Permit · Alumni Universidad de Cantabria · Disponible de inmediato."
-        >${lang==='es'?'Basado en <strong>Dublín</strong> · Elegible Critical Skills Permit · Alumni Universidad de Cantabria · Disponible de inmediato.':'Based in <strong>Dublin</strong> · Critical Skills Permit eligible · Alumni Universidad de Cantabria · Available immediately.'}</p>
+           data-en="Based in <strong>Dublin</strong> · Critical Skills Permit eligible · Alumni Universidad de Cantabria."
+           data-es="Basado en <strong>Dublín</strong> · Elegible Critical Skills Permit · Alumni Universidad de Cantabria."
+        >${lang==='es'?'Basado en <strong>Dublín</strong> · Elegible Critical Skills Permit · Alumni Universidad de Cantabria.':'Based in <strong>Dublin</strong> · Critical Skills Permit eligible · Alumni Universidad de Cantabria.'}</p>
         <div class="contact-links reveal">
+          <a href="mailto:${d.email}?subject=Let's%20talk" class="contact-link-btn">
+            <span class="clb-icon ico">${ICO.email}</span>
+            <div><span class="clb-type" data-en="Start a conversation" data-es="Iniciar conversación">${lang==='es'?'Iniciar conversación':'Start a conversation'}</span><span class="clb-val">${d.email}</span></div>
+          </a>
           <a href="${d.cv_url}" class="contact-link-btn" target="_blank">
             <span class="clb-icon ico">${ICO.document}</span>
             <div><span class="clb-type" data-en="Download" data-es="Descargar">${lang==='es'?'Descargar':'Download'}</span>
             <span class="clb-val">CV (PDF)</span></div>
-          </a>
-          <a href="mailto:${d.email}" class="contact-link-btn">
-            <span class="clb-icon ico">${ICO.email}</span>
-            <div><span class="clb-type">Email</span><span class="clb-val">${d.email}</span></div>
           </a>
           <a href="${d.linkedin}" class="contact-link-btn" target="_blank" rel="noopener">
             <span class="clb-icon ico">${ICO.network}</span>

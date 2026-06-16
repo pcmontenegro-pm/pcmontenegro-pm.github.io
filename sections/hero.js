@@ -28,16 +28,16 @@ function renderHero(lang) {
       <div class="hero-text">
         <div class="hero-kicker reveal-up">
           <span class="hero-kicker-dot"></span>
-          <span class="hero-kicker-text" data-en="Available · Dublin, Ireland" data-es="Disponible · Dublín, Irlanda">${lang==='es'?'Disponible · Dublín, Irlanda':'Available · Dublin, Ireland'}</span>
+          <span class="hero-kicker-text" data-en="Dublin, Ireland · Consulting &amp; Senior Roles" data-es="Dublín, Irlanda · Consultoría y Roles Senior">${lang==='es'?'Dublín, Irlanda · Consultoría y Roles Senior':'Dublin, Ireland · Consulting & Senior Roles'}</span>
         </div>
         <h1 class="hero-h1 reveal-up" style="animation-delay:.08s">${hl[0]}</h1>
         <p class="hero-h1-sub reveal-up" style="animation-delay:.14s">${hl[1]}</p>
         <p class="hero-summary reveal-up" style="animation-delay:.2s"
            data-en="${h.quote_en}" data-es="${h.quote_es}">${quote}</p>
         <div class="hero-ctas reveal-up" style="animation-delay:.26s">
-          <a href="#work" class="btn-gold" data-en="See my work →" data-es="Ver mi trabajo →">${lang==='es'?'Ver mi trabajo →':'See my work →'}</a>
-          <a href="${d.cv_url}" class="btn-outline" target="_blank" data-en="↓ Download CV" data-es="↓ Descargar CV">${lang==='es'?'↓ Descargar CV':'↓ Download CV'}</a>
-          <a href="mailto:${d.email}" class="btn-outline" data-en="Get in touch" data-es="Contactar">${lang==='es'?'Contactar':'Get in touch'}</a>
+          <a href="mailto:${d.email}?subject=Let's%20talk" class="btn-gold" data-en="Tell me about your problem →" data-es="Cuéntame tu problema →">${lang==='es'?'Cuéntame tu problema →':'Tell me about your problem →'}</a>
+          <a href="#work" class="btn-outline" data-en="See the work" data-es="Ver el trabajo">${lang==='es'?'Ver el trabajo':'See the work'}</a>
+          <a href="${d.cv_url}" class="btn-outline" target="_blank" data-en="↓ CV" data-es="↓ CV">${lang==='es'?'↓ CV':'↓ CV'}</a>
         </div>
         <div class="hero-avail reveal-up" style="animation-delay:.32s">
           <span class="hero-avail-dot"></span>
