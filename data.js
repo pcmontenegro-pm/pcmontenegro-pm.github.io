@@ -19,12 +19,52 @@ window.SITE = {
   logo:     "/assets/logo.webp",
 
   hero: {
-    headline_en: ["Senior Product Manager.", "<em>Payments. Collections. Fintech.</em>"],
-    headline_es: ["Senior Product Manager.", "<em>Pagos. Cobranza. Fintech.</em>"],
-    quote_en: "10+ years building payment infrastructure, collections systems and banking products at scale. Itaú Chile and independent consulting across Europe and LatAm. Based in Dublin. Available now.",
-    quote_es: "10+ años construyendo infraestructura de pagos, sistemas de cobranza y productos bancarios a escala. Itaú Chile y consultoría independiente en Europa y LatAm. Basado en Dublín. Disponible ahora.",
-    open_to_en: "Open to relocation · Ireland · Spain · Europe · Remote",
-    open_to_es: "Disponible para reubicación · Irlanda · España · Europa · Remoto",
+    headline_en: ["Senior Product Leader.", "<em>Deep roots in payments &amp; banking — applied wherever products meet money, risk and operations.</em>"],
+    headline_es: ["Senior Product Leader.", "<em>Raíces profundas en pagos y banca — aplicadas donde el producto se cruza con dinero, riesgo y operaciones.</em>"],
+    quote_en: "10+ years making regulated, multi-stakeholder products work at scale — payments, collections, banking infrastructure — and the same discovery-to-delivery method applied to consumer fintech, cross-border operations and 0-to-1 ventures. Based in Dublin.",
+    quote_es: "10+ años haciendo que productos regulados y multi-stakeholder funcionen a escala — pagos, cobranza, infraestructura bancaria — y el mismo método de discovery a entrega aplicado a fintech de consumo, operaciones internacionales y proyectos 0 a 1. Basado en Dublín.",
+    open_to_en: "Open to selected consulting engagements and senior product leadership roles",
+    open_to_es: "Abierto a proyectos de consultoría seleccionados y roles senior de liderazgo de producto",
+  },
+
+  services: {
+    tag_en: "How I help", tag_es: "Cómo ayudo",
+    h2_en: "Three kinds of <em>hard problems.</em>", h2_es: "Tres tipos de <em>problemas difíciles.</em>",
+    sub_en: "Engagements take the shape the problem needs — a short discovery sprint, hands-on implementation, or fractional leadership over a few months. The format follows the work, not the other way around.",
+    sub_es: "Los proyectos toman la forma que el problema necesita — un sprint corto de discovery, implementación práctica, o liderazgo fractional durante algunos meses. El formato sigue al trabajo, no al revés.",
+    pillars: [
+      {
+        num: "01",
+        title_en: "Untangling regulated, multi-stakeholder products",
+        title_es: "Desenredar productos regulados y multi-stakeholder",
+        desc_en: "Products where compliance, operations, customer experience and engineering all pull in different directions — and someone has to make the trade-off explicit and shippable.",
+        desc_es: "Productos donde compliance, operaciones, experiencia de cliente e ingeniería tiran en direcciones distintas — y alguien tiene que hacer el trade-off explícito y entregable.",
+        proof_en: "Proof: redesigned mandate lifecycle and collections logic for SEPA-equivalent direct debit at a top-5 bank — cut customer complaints 30%, raised collection rate 15%.",
+        proof_es: "Prueba: rediseño del ciclo de vida de mandatos y lógica de cobranza para débito directo equivalente a SEPA en un banco top-5 — redujo quejas 30%, subió tasa de cobro 15%.",
+        link_en: "See PAC 2.0 →", link_es: "Ver PAC 2.0 →", link_url: "itau-pac20.html",
+      },
+      {
+        num: "02",
+        title_en: "Turning operational chaos into structured, working flows",
+        title_es: "Convertir el caos operativo en flujos estructurados",
+        desc_en: "Manual, error-prone processes that grew faster than anyone designed for. The fix is rarely more tooling — it's a clear-headed redesign of the workflow itself.",
+        desc_es: "Procesos manuales y propensos a error que crecieron más rápido de lo que alguien diseñó. La solución rara vez es más herramientas — es un rediseño claro del flujo mismo.",
+        proof_en: "Proof: rebuilt onboarding, reconciliation and payout controls for a cross-border transfer service — cut verification workload 70% at zero tooling cost. A full payment + inventory system shipped in 7 days for a retailer scaling through TikTok Live.",
+        proof_es: "Prueba: rediseño de onboarding, reconciliación y controles de pago para un servicio de transferencias internacionales — redujo la carga de verificación 70% sin costo de herramientas. Sistema completo de pagos e inventario entregado en 7 días para un retailer que escalaba por TikTok Live.",
+        link_en: "See the cross-border case →", link_es: "Ver el caso internacional →", link_url: "case-remesas-portfolio.html",
+      },
+      {
+        num: "03",
+        title_en: "0-to-1 discovery for ambiguous, unproven markets",
+        title_es: "Discovery 0 a 1 para mercados ambiguos",
+        desc_en: "Before a roadmap makes sense, someone needs to find out what's actually true — what users need, what's worth building, and what isn't. Research-led, not assumption-led.",
+        desc_es: "Antes de que un roadmap tenga sentido, alguien necesita averiguar qué es realmente cierto — qué necesitan los usuarios, qué vale la pena construir y qué no. Guiado por investigación, no por suposiciones.",
+        proof_en: "Proof: led full discovery for a personal finance app — 34 interviews across 3 countries, MVP scope, 60-screen prototype, 98% usability success rate. Validated the core safety hypothesis for a community cycling platform with 40 pilot users in Buenos Aires.",
+        proof_es: "Prueba: discovery completo para una app de finanzas personales — 34 entrevistas en 3 países, scope de MVP, prototipo de 60 pantallas, 98% de éxito en usabilidad. Validó la hipótesis central de seguridad para una plataforma comunitaria de ciclismo con 40 usuarios piloto en Buenos Aires.",
+        link_en: "See the discovery case →", link_es: "Ver el caso de discovery →", link_url: "monevol-case-study.html",
+      },
+    ],
+    cta_en: "Tell me about your problem →", cta_es: "Cuéntame tu problema →",
   },
 
   metrics: [
@@ -35,10 +75,10 @@ window.SITE = {
   ],
 
   consulting: {
-    label_en: "Independent Consulting · 2024–Present",
-    label_es: "Consultoría Independiente · 2024–Presente",
-    desc_en:  "Four engagements across payment operations, product design, cross-border workflows, and urban mobility — scoped, delivered and measured independently.",
-    desc_es:  "Cuatro proyectos en operaciones de pago, diseño de producto, flujos internacionales y movilidad urbana — definidos, entregados y medidos de forma independiente.",
+    label_en: "Consulting Engagements · 2024–Present",
+    label_es: "Proyectos de Consultoría · 2024–Presente",
+    desc_en:  "Four independent engagements — payment operations, consumer fintech discovery, cross-border workflow design, and a 0-to-1 mobility platform. Scoped, delivered and measured end-to-end.",
+    desc_es:  "Cuatro proyectos independientes — operaciones de pago, discovery de fintech de consumo, diseño de flujos internacionales y una plataforma de movilidad 0 a 1. Definidos, entregados y medidos de forma end-to-end.",
     cases: [
       {
         id: "monevol", num: "01", year: "2024", advisory: true,
