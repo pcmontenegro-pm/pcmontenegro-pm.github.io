@@ -67,6 +67,75 @@ window.SITE = {
     cta_en: "Tell me about your problem →", cta_es: "Cuéntame tu problema →",
   },
 
+  engagements: {
+    tag_en: "Ways to work together", tag_es: "Formas de trabajar juntos",
+    h2_en: "Three engagement <em>models.</em>", h2_es: "Tres modelos de <em>colaboración.</em>",
+    sub_en: "The format follows the problem, not the other way around. Each model below maps to a type of need — pick the one that fits, or use the conversation to figure out which one applies.",
+    sub_es: "El formato sigue al problema, no al revés. Cada modelo abajo corresponde a un tipo de necesidad — elige el que calce, o usa la conversación inicial para definir cuál aplica.",
+    packages: [
+      {
+        num: "01",
+        name_en: "Discovery Sprint", name_es: "Discovery Sprint",
+        duration_en: "2 weeks", duration_es: "2 semanas",
+        for_en: "When you need to validate a hypothesis before committing real budget.",
+        for_es: "Cuando necesitas validar una hipótesis antes de comprometer presupuesto real.",
+        includes_en: [
+          "Structured interviews or stakeholder sessions",
+          "A clear problem definition — what's actually true, not assumed",
+          "Scope recommendation: build, don't build, or investigate further",
+        ],
+        includes_es: [
+          "Entrevistas estructuradas o sesiones con stakeholders",
+          "Una definición clara del problema — qué es realmente cierto, no asumido",
+          "Recomendación de alcance: construir, no construir, o seguir investigando",
+        ],
+        proof_en: "Proof: this is the format behind Monevol's 34-interview discovery and CycleSafe's safety hypothesis validation.",
+        proof_es: "Prueba: este es el formato detrás del discovery de 34 entrevistas de Monevol y la validación de la hipótesis de seguridad de CycleSafe.",
+      },
+      {
+        num: "02",
+        name_en: "Operational Redesign Engagement", name_es: "Operational Redesign Engagement",
+        duration_en: "4–8 weeks", duration_es: "4–8 semanas",
+        for_en: "When a specific payment, collections or operational flow is breaking under its own volume.",
+        for_es: "Cuando un flujo específico de pagos, cobranza u operaciones se está rompiendo por su propio volumen.",
+        includes_en: [
+          "Audit of the current flow — where time, trust or money leaks",
+          "Redesigned process with the trade-offs made explicit",
+          "Working prototype or implementation-ready spec, plus a measured before/after",
+        ],
+        includes_es: [
+          "Auditoría del flujo actual — dónde se filtra tiempo, confianza o dinero",
+          "Proceso rediseñado con los trade-offs explícitos",
+          "Prototipo funcional o especificación lista para implementar, más medición antes/después",
+        ],
+        proof_en: "Proof: this format produced the cross-border verification redesign (−70% workload, zero tooling cost) and the mandate lifecycle rebuild at a top-5 bank (−30% complaints, +15% collection rate).",
+        proof_es: "Prueba: este formato produjo el rediseño de verificación internacional (−70% carga de trabajo, costo cero de herramientas) y el rediseño del ciclo de vida de mandatos en un banco top-5 (−30% quejas, +15% tasa de cobro).",
+      },
+      {
+        num: "03",
+        name_en: "Fractional Product Leadership", name_es: "Fractional Product Leadership",
+        duration_en: "From 3 months, 10–20h/week", duration_es: "Desde 3 meses, 10–20h/semana",
+        for_en: "When the need isn't a single project but ongoing senior judgment — without a full-time hire.",
+        for_es: "Cuando la necesidad no es un proyecto puntual sino criterio senior continuo — sin contratar full-time.",
+        includes_en: [
+          "Embedded product leadership — roadmap, prioritization, stakeholder alignment",
+          "Direct involvement in delivery, not just advisory recommendations",
+          "Flexible scope, reviewed and adjusted as the engagement evolves",
+        ],
+        includes_es: [
+          "Liderazgo de producto integrado — roadmap, priorización, alineación de stakeholders",
+          "Involucramiento directo en la entrega, no solo recomendaciones de asesoría",
+          "Alcance flexible, revisado y ajustado a medida que avanza el proyecto",
+        ],
+        proof_en: "Proof: 10+ years leading product end-to-end inside regulated, multi-stakeholder organizations — not just advising from the outside.",
+        proof_es: "Prueba: 10+ años liderando producto end-to-end dentro de organizaciones reguladas y multi-stakeholder — no solo asesorando desde afuera.",
+      },
+    ],
+    note_en: "Pricing depends on scope and is discussed directly — these are the shapes engagements typically take, not fixed quotes.",
+    note_es: "El precio depende del alcance y se discute directamente — estas son las formas que suelen tomar los proyectos, no cotizaciones fijas.",
+    cta_en: "Tell me about your problem →", cta_es: "Cuéntame tu problema →",
+  },
+
   metrics: [
     { num: "10+",  label_en: "Years · Payments & Banking",  label_es: "Años · Pagos y Banca" },
     { num: "~70%", label_en: "Mandate adoption · ePAC",     label_es: "Adopción de mandatos · ePAC" },
