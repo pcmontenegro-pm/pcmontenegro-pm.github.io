@@ -9,7 +9,7 @@ window.SITE = {
   role:     "Senior Product Manager · Payments & Collections",
   tagline:  "I build payment systems that work.",
   location: "Dublin, Ireland",
-  email:    "pc.montenegro@gmail.com",
+  email:    "hello@pablomontenegro.ie",
   linkedin: "https://linkedin.com/in/montenegrofp",
   website:  "https://pablomontenegro.ie",
   cv_url:   "/assets/CV_Pablo_Montenegro.pdf",
