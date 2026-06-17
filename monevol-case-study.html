@@ -285,15 +285,12 @@ nav {
   gap:1px; background:var(--border); border:1px solid var(--border); margin-top:48px;
 }
 .feature-card{display:flex;flex-direction:column;}
-/* 7th card: spans all 3 columns */
+/* 7th card: spans all 3 columns, same internal layout as the others — just wider */
 .feature-grid .feature-card:nth-child(7) {
   grid-column: 1 / span 3;
-  display:grid;
-  grid-template-columns:1fr 2fr;
-  gap:0;
 }
 .feature-grid .feature-card:nth-child(7) .fc-body {
-  border-left:1px solid var(--border);
+  max-width: 720px;
 }
 .feature-card { background:var(--navy); padding:30px; transition:background .2s; }
 .feature-card:hover { background:var(--navy2); }
