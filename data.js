@@ -140,8 +140,8 @@ window.SITE = {
         tag_es:   "Movilidad Urbana · Producto Comunitario · React Native",
         title_en: "<em>CycleSafe</em> — Community Safety Map",
         title_es: "<em>CycleSafe</em> — Mapa Comunitario de Seguridad",
-        desc_en:  "Led product from discovery to pilot for a community-powered cycling safety platform in Buenos Aires. Cyclists share real-time route safety data — ciclovías, mixed streets, risk zones — filling the gap that Google Maps and Strava leave. 40 pilot users. Core hypothesis validated: safety is a primary routing criterion. Paused at scale due to relocation to Ireland.",
-        desc_es:  "Lideré el producto desde el discovery hasta el piloto para una plataforma de seguridad ciclista impulsada por la comunidad en Buenos Aires. Los ciclistas comparten datos de seguridad en tiempo real — ciclovías, calles mixtas, zonas de riesgo — cubriendo el vacío que dejan Google Maps y Strava. 40 usuarios piloto. Hipótesis central validada: la seguridad es un criterio primario de ruta. Pausado en fase de escala por traslado a Irlanda.",
+        desc_en:  "Led product from discovery to pilot for a community-powered cycling safety platform in Buenos Aires. Cyclists share real-time route safety data — ciclovías, mixed streets, risk zones — filling the gap that Google Maps and Strava leave. 40 pilot users. Core hypothesis validated: safety is a primary routing criterion. Growth phase paused due to a resourcing decision on the partner's side.",
+        desc_es:  "Lideré el producto desde el discovery hasta el piloto para una plataforma de seguridad ciclista impulsada por la comunidad en Buenos Aires. Los ciclistas comparten datos de seguridad en tiempo real — ciclovías, calles mixtas, zonas de riesgo — cubriendo el vacío que dejan Google Maps y Strava. 40 usuarios piloto. Hipótesis central validada: la seguridad es un criterio primario de ruta. Fase de crecimiento pausada por una decisión de recursos del lado del partner.",
         sepa_en:  "≈ Community platforms · network effects · mobile product · 0-to-1",
         sepa_es:  "≈ Plataformas comunitarias · efectos de red · producto móvil · 0 a 1",
         metrics:  [
