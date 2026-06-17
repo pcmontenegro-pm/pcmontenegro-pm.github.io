@@ -16,8 +16,8 @@ function renderHero(lang) {
   const ICO_GLOBE = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>`;
 
   const pills = [
-    {icon: ICO_BANK,  text: lang==='es'?'Itaú Bank Chile · 2017–2024':'Itaú Bank Chile · 2017–2024'},
     {icon: ICO_BRIEF, text: lang==='es'?'Consultor Independiente · 2024–Presente':'Independent Consultant · 2024–Present'},
+    {icon: ICO_BANK,  text: lang==='es'?'Itaú Bank Chile · 2017–2024':'Itaú Bank Chile · 2017–2024'},
     {icon: ICO_GLOBE, text: lang==='es'?'Santander · SURA':'Santander · SURA'},
   ].map(p=>`<span class="bar-pill"><span class="bar-pill-icon">${p.icon}</span>${p.text}</span>`).join('');
 
