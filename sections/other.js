@@ -139,6 +139,21 @@ function renderAbout(lang) {
       </div>
     </div>`).join('');
 
+  const INTEREST_ICONS = {
+    'Fiction & World-Building': ICO.book,
+    'Films':    ICO.film,
+    'Cycling':  ICO.cycle,
+  };
+
+  const interests = d.interests.map(it => `
+    <div class="interest-item">
+      <span class="interest-icon ico">${INTEREST_ICONS[it.title_en]||ICO.book}</span>
+      <div class="interest-body">
+        <div class="interest-title" data-en="${it.title_en}" data-es="${it.title_es}">${lang==='es'?it.title_es:it.title_en}</div>
+        <div class="interest-desc" data-en="${it.desc_en}" data-es="${it.desc_es}">${lang==='es'?it.desc_es:it.desc_en}</div>
+      </div>
+    </div>`).join('');
+
   return `
   <section id="about">
     <div class="si">
@@ -161,6 +176,10 @@ function renderAbout(lang) {
           </div>
           <div class="recs-grid">${recs}</div>
         </div>
+      </div>
+      <div class="about-interests-wrap">
+        <h3 class="interests-h3" data-en="Beyond work" data-es="Más allá del trabajo">${lang==='es'?'Más allá del trabajo':'Beyond work'}</h3>
+        <div class="interests-list">${interests}</div>
       </div>
     </div>
   </section>`;
@@ -346,24 +365,9 @@ function renderWriting(lang) {
 function renderContact(lang) {
   const d = window.SITE;
 
-  const INTEREST_ICONS = {
-    'Fiction & World-Building': ICO.book,
-    'Films':    ICO.film,
-    'Cycling':  ICO.cycle,
-  };
-
-  const interests = d.interests.map(it => `
-    <div class="interest-item">
-      <span class="interest-icon ico">${INTEREST_ICONS[it.title_en]||ICO.book}</span>
-      <div class="interest-body">
-        <div class="interest-title" data-en="${it.title_en}" data-es="${it.title_es}">${lang==='es'?it.title_es:it.title_en}</div>
-        <div class="interest-desc" data-en="${it.desc_en}" data-es="${it.desc_es}">${lang==='es'?it.desc_es:it.desc_en}</div>
-      </div>
-    </div>`).join('');
-
   return `
   <section id="contact">
-    <div class="si contact-grid">
+    <div class="si contact-grid contact-grid-solo">
       <div>
         <div class="sig-wrap reveal">
           <img src="${d.sig}" alt="" class="contact-sig" loading="lazy" aria-hidden="true">
@@ -392,10 +396,6 @@ function renderContact(lang) {
             <div><span class="clb-type">LinkedIn</span><span class="clb-val">montenegrofp</span></div>
           </a>
         </div>
-      </div>
-      <div>
-        <h3 class="interests-h3" data-en="Beyond work" data-es="Más allá del trabajo">${lang==='es'?'Más allá del trabajo':'Beyond work'}</h3>
-        <div class="interests-list">${interests}</div>
       </div>
     </div>
   </section>`;

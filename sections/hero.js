@@ -36,7 +36,7 @@ function renderHero(lang) {
            data-en="${h.quote_en}" data-es="${h.quote_es}">${quote}</p>
         <div class="hero-ctas reveal-up" style="animation-delay:.26s">
           <a href="mailto:${d.email}?subject=Let's%20talk" class="btn-gold" data-en="Tell me about your problem →" data-es="Cuéntame tu problema →">${lang==='es'?'Cuéntame tu problema →':'Tell me about your problem →'}</a>
-          <a href="#work" class="btn-outline" data-en="See the work" data-es="Ver el trabajo">${lang==='es'?'Ver el trabajo':'See the work'}</a>
+          <a href="work.html" class="btn-outline" data-en="See the work" data-es="Ver el trabajo">${lang==='es'?'Ver el trabajo':'See the work'}</a>
           <a href="${d.cv_url}" class="btn-outline" target="_blank" data-en="↓ CV" data-es="↓ CV">${lang==='es'?'↓ CV':'↓ CV'}</a>
         </div>
         <div class="hero-avail reveal-up" style="animation-delay:.32s">
