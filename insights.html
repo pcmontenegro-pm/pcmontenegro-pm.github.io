@@ -3,47 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Pablo Montenegro — Senior Product Manager specialising in payments, collections and fintech consulting. 10+ years at Itaú Bank Chile, now consulting for fintech teams across Europe and Latin America from Dublin.">
-<meta name="keywords" content="Pablo Montenegro, Senior Product Manager, product manager pagos, payments product manager Dublin, fintech consultant Ireland, collections consultant, SEPA direct debit consultant, payment operations consultant, consultor producto fintech, consultor pagos LatAm">
-<meta property="og:type" content="profile">
-<meta property="og:title" content="Pablo Montenegro — Senior Product Manager · Payments, Collections & Fintech Consulting">
-<meta property="og:description" content="10+ years making regulated, multi-stakeholder payment products work at scale. Itaú Bank Chile and independent consulting across Europe and Latin America.">
-<meta property="og:url" content="https://pablomontenegro.ie">
+<meta name="description" content="Articles and resources on payments, collections and fintech product strategy by Pablo Montenegro — written from 10+ years of hands-on delivery.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Insights — Pablo Montenegro">
+<meta property="og:description" content="Payment industry perspectives and practical tools for fintech product teams.">
+<meta property="og:url" content="https://pablomontenegro.ie/insights.html">
 <meta property="og:image" content="https://pablomontenegro.ie/assets/pablo-photo.webp">
 <meta name="twitter:card" content="summary">
-<link rel="canonical" href="https://pablomontenegro.ie">
-<title>Pablo Montenegro — Senior Product Manager · Payments, Collections & Fintech Consulting | Dublin</title>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Person",
-  "name": "Pablo Montenegro",
-  "url": "https://pablomontenegro.ie",
-  "image": "https://pablomontenegro.ie/assets/pablo-photo.webp",
-  "jobTitle": "Senior Product Manager",
-  "description": "Senior Product Manager specialising in payments, collections and fintech infrastructure. 10+ years of experience, including 7 years at Itaú Bank Chile. Currently providing independent consulting for fintech teams across Europe and Latin America from Dublin, Ireland.",
-  "address": {
-    "@type": "PostalAddress",
-    "addressLocality": "Dublin",
-    "addressCountry": "IE"
-  },
-  "sameAs": [
-    "https://linkedin.com/in/montenegrofp"
-  ],
-  "knowsAbout": [
-    "Payments", "SEPA Direct Debit", "PSD2", "Open Banking", "Collections", "Recurring Payments",
-    "Payment Operations", "Cross-border Payments", "Product Management", "Fintech Consulting"
-  ],
-  "alumniOf": [
-    {"@type": "CollegeOrUniversity", "name": "Universidad de Cantabria"},
-    {"@type": "CollegeOrUniversity", "name": "Pontificia Universidad Católica de Valparaíso"}
-  ],
-  "worksFor": {
-    "@type": "Organization",
-    "name": "Montenegro Product Advisory"
-  }
-}
-</script>
+<link rel="canonical" href="https://pablomontenegro.ie/insights.html">
+<title>Insights — Pablo Montenegro | Payments Articles & Product Resources</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -528,17 +496,17 @@ section{padding:80px 48px;}
 
 <!-- NAV -->
 <nav class="site-nav" id="nav">
-  <a href="#" class="nav-brand">
+  <a href="/" class="nav-brand">
     <img id="nav-logo" src="/assets/logo.webp" alt="">
     <span class="nav-brand-name">Pablo Montenegro</span>
   </a>
   <div class="nav-links">
     <a href="consulting.html" class="nav-link" data-en="Consulting" data-es="Consultoría">Consulting</a>
-    <a href="work.html"       class="nav-link" data-en="Work"       data-es="Trabajo">Work</a>
+    <a href="work.html" class="nav-link" data-en="Work" data-es="Trabajo">Work</a>
     <a href="experience.html" class="nav-link" data-en="Experience" data-es="Experiencia">Experience</a>
-    <a href="insights.html"   class="nav-link" data-en="Insights"   data-es="Insights">Insights</a>
-    <a href="about.html"      class="nav-link" data-en="About"      data-es="Sobre mí">About</a>
-    <a href="contact.html"    class="nav-link" data-en="Contact"    data-es="Contacto">Contact</a>
+    <a href="insights.html" class="nav-link active" data-en="Insights" data-es="Insights">Insights</a>
+    <a href="about.html" class="nav-link" data-en="About" data-es="Sobre mí">About</a>
+    <a href="contact.html" class="nav-link" data-en="Contact" data-es="Contacto">Contact</a>
   </div>
   <div class="nav-right">
     <div class="nav-lang">
@@ -569,7 +537,7 @@ section{padding:80px 48px;}
 </footer>
 
 <script src="data.js"></script>
-<script src="sections/hero.js"></script>
+<script src="sections/other.js"></script>
 
 <script>
 let LANG = localStorage.getItem('pm_lang') || 'en';
@@ -579,14 +547,24 @@ function setLang(lang, btn) {
   localStorage.setItem('pm_lang', lang);
   document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
-  buildSite(lang);
+  buildPage(lang);
   document.documentElement.lang = lang;
 }
 
-function buildSite(lang) {
+function buildPage(lang) {
   const S = window.SECTIONS;
-  document.getElementById('main').innerHTML = S.hero(lang);
+  document.getElementById('main').innerHTML = S.writing(lang) + S.products(lang);
   initReveal();
+}
+
+function switchTab(id, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => {
+    p.classList.remove('active'); p.classList.add('hidden');
+  });
+  const panel = document.getElementById('tab-' + id);
+  if (panel) { panel.classList.remove('hidden'); panel.classList.add('active'); }
+  document.querySelectorAll('.work-tab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
 }
 
 function initReveal() {
@@ -602,22 +580,17 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('btn-' + LANG).classList.add('active');
   document.getElementById('btn-' + (LANG==='en'?'es':'en')).classList.remove('active');
   document.documentElement.lang = LANG;
-  buildSite(LANG);
+  buildPage(LANG);
 });
 
 // ─── VISIT COUNTER ─────────────────────────────────
 (function() {
-  // Usar countapi.xyz para contar visitas reales
   const KEY = 'pablomontenegro-portfolio-visits';
   const el = document.getElementById('visit-count');
   const lbl = document.getElementById('visit-label');
   if (!el) return;
-
-  // Primero mostrar el count guardado localmente mientras carga
   const local = localStorage.getItem(KEY);
   if (local) el.textContent = parseInt(local).toLocaleString();
-
-  // Llamar a countapi para incrementar y obtener el count real
   fetch('https://api.countapi.xyz/hit/pablomontenegro.ie/visits')
     .then(r => r.json())
     .then(data => {
@@ -629,7 +602,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     })
     .catch(() => {
-      // Fallback: count local solo (no depende de API externa)
       let count = parseInt(localStorage.getItem(KEY + '-local') || '0') + 1;
       localStorage.setItem(KEY + '-local', count);
       el.textContent = count.toLocaleString();

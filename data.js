@@ -21,8 +21,8 @@ window.SITE = {
   hero: {
     headline_en: ["Senior Product Leader.", "<em>Deep roots in payments &amp; banking — applied wherever products meet money, risk and operations.</em>"],
     headline_es: ["Senior Product Leader.", "<em>Raíces profundas en pagos y banca — aplicadas donde el producto se cruza con dinero, riesgo y operaciones.</em>"],
-    quote_en: "10+ years making regulated, multi-stakeholder products work at scale — payments, collections, banking infrastructure — and the same discovery-to-delivery method applied to consumer fintech, cross-border operations and 0-to-1 ventures. Based in Dublin.",
-    quote_es: "10+ años haciendo que productos regulados y multi-stakeholder funcionen a escala — pagos, cobranza, infraestructura bancaria — y el mismo método de discovery a entrega aplicado a fintech de consumo, operaciones internacionales y proyectos 0 a 1. Basado en Dublín.",
+    quote_en: "Over 10 years building payment infrastructure that handles real money at scale — not advising on it from the outside. Based in Dublin, working with fintech teams across Europe and Latin America.",
+    quote_es: "Más de 10 años construyendo infraestructura de pagos que maneja dinero real a escala — no asesorando desde afuera. Basado en Dublín, trabajando con equipos fintech en Europa y América Latina.",
     open_to_en: "Open to selected consulting engagements and senior product leadership roles",
     open_to_es: "Abierto a proyectos de consultoría seleccionados y roles senior de liderazgo de producto",
   },
