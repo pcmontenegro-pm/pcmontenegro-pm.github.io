@@ -118,7 +118,7 @@ window.SITE = {
         for_en: "When the need isn't a single project but ongoing senior judgment — without a full-time hire.",
         for_es: "Cuando la necesidad no es un proyecto puntual sino criterio senior continuo — sin contratar full-time.",
         includes_en: [
-          "Embedded product leadership — roadmap, prioritization, stakeholder alignment",
+          "Embedded product leadership — roadmap, prioritisation, stakeholder alignment",
           "Direct involvement in delivery, not just advisory recommendations",
           "Flexible scope, reviewed and adjusted as the engagement evolves",
         ],
@@ -127,7 +127,7 @@ window.SITE = {
           "Involucramiento directo en la entrega, no solo recomendaciones de asesoría",
           "Alcance flexible, revisado y ajustado a medida que avanza el proyecto",
         ],
-        proof_en: "Proof: 10+ years leading product end-to-end inside regulated, multi-stakeholder organizations — not just advising from the outside.",
+        proof_en: "Proof: 10+ years leading product end-to-end inside regulated, multi-stakeholder organisations — not just advising from the outside.",
         proof_es: "Prueba: 10+ años liderando producto end-to-end dentro de organizaciones reguladas y multi-stakeholder — no solo asesorando desde afuera.",
       },
     ],
