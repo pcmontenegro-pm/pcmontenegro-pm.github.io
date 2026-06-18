@@ -455,6 +455,138 @@ section{padding:80px 48px;}
   font-family:var(--mono);letter-spacing:.04em;
 }
 
+/* ══ TESTIMONIALS ══════════════════════════════════ */
+#testimonials{
+  background:linear-gradient(180deg,#0b1628 0%,#0A1226 100%);
+  border-top:1px solid var(--border2);
+}
+.tcards-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1px;
+  background:var(--border);
+  border:1px solid var(--border);
+  margin-top:36px;
+}
+.tcard{
+  background:var(--navy2);
+  padding:28px 24px 20px;
+  display:flex;
+  flex-direction:column;
+  gap:0;
+  transition:background .18s;
+  position:relative;
+}
+.tcard:hover{background:var(--navy3);}
+.tcard--expanded{background:var(--navy3);}
+
+/* Opening quotation mark — decorative */
+.tcard-top{position:relative;padding-top:4px;}
+.tcard-openquote{
+  font-family:var(--serif);
+  font-size:56px;
+  font-weight:300;
+  color:rgba(196,160,90,.18);
+  line-height:1;
+  position:absolute;
+  top:-8px;left:-4px;
+  pointer-events:none;
+  user-select:none;
+}
+.tcard-quote{
+  font-family:var(--serif);
+  font-size:17px;
+  font-style:italic;
+  color:var(--cream);
+  line-height:1.55;
+  padding-left:2px;
+  margin-top:16px;
+  flex:1;
+}
+
+/* Expandable full text */
+.tcard-full{
+  max-height:0;
+  overflow:hidden;
+  transition:max-height .35s ease, opacity .3s ease;
+  opacity:0;
+  margin-top:0;
+}
+.tcard-full.open{
+  max-height:320px;
+  opacity:1;
+  margin-top:16px;
+}
+.tcard-full-text{
+  font-size:13.5px;
+  color:var(--muted);
+  line-height:1.75;
+  padding-top:14px;
+  border-top:1px solid var(--border2);
+}
+.tcard-li-note{
+  font-family:var(--mono);
+  font-size:9.5px;
+  color:var(--muted2);
+  margin-top:10px;
+  letter-spacing:.03em;
+}
+
+/* Footer: name + actions */
+.tcard-footer{
+  margin-top:20px;
+  padding-top:14px;
+  border-top:1px solid var(--border2);
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:12px;
+  flex-wrap:wrap;
+}
+.tcard-meta{display:flex;flex-direction:column;gap:2px;}
+.tcard-name{font-size:13px;font-weight:500;color:var(--cream);}
+.tcard-role{font-size:11.5px;color:var(--muted);line-height:1.4;}
+.tcard-date{font-family:var(--mono);font-size:9.5px;color:var(--muted2);margin-top:2px;}
+
+.tcard-actions{display:flex;align-items:center;gap:10px;flex-shrink:0;}
+.tcard-expand-btn{
+  font-family:var(--mono);
+  font-size:9.5px;
+  letter-spacing:.05em;
+  color:var(--gold);
+  background:none;
+  border:1px solid var(--border);
+  padding:5px 12px;
+  border-radius:2px;
+  cursor:pointer;
+  transition:all .18s;
+  white-space:nowrap;
+}
+.tcard-expand-btn:hover{
+  background:var(--gold);
+  color:var(--navy);
+  border-color:var(--gold);
+}
+.tcard-li-link{
+  display:flex;
+  align-items:center;
+  gap:5px;
+  font-family:var(--mono);
+  font-size:9px;
+  color:var(--muted);
+  border:1px solid var(--border2);
+  padding:5px 10px;
+  border-radius:2px;
+  transition:all .18s;
+  white-space:nowrap;
+}
+.tcard-li-link:hover{color:var(--gold);border-color:var(--border);}
+
+/* Responsive */
+@media(max-width:960px){
+  .tcards-grid{grid-template-columns:1fr;}
+}
+
 /* ══ ANIMATIONS ════════════════════════════════════ */
 @keyframes fadeUp{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
 .reveal-up{animation:fadeUp .5s ease both;}
@@ -557,6 +689,7 @@ section{padding:80px 48px;}
 <script src="data.js"></script>
 <script src="sections/services.js"></script>
 <script src="sections/engagements.js"></script>
+<script src="sections/testimonials.js"></script>
 
 <script>
 let LANG = localStorage.getItem('pm_lang') || 'en';
@@ -589,7 +722,8 @@ window.addEventListener('resize', () => {
 
 function buildPage(lang) {
   const S = window.SECTIONS;
-  document.getElementById('main').innerHTML = S.services(lang) + S.engagements(lang);
+  document.getElementById('main').innerHTML =
+    S.services(lang) + S.engagements(lang) + S.testimonials(lang);
   initReveal();
 }
 
