@@ -65,14 +65,19 @@ body>*{position:relative;z-index:1;}
 .nav-link.active{color:var(--gold);}
 .nav-link:hover{color:var(--gold);}
 .nav-right{display:flex;align-items:center;gap:10px;}
+.nav-burger{display:none;flex-direction:column;justify-content:center;gap:4px;width:28px;height:28px;background:none;border:none;cursor:pointer;padding:0;}
+.nav-burger span{display:block;width:100%;height:1.5px;background:var(--cream);transition:transform .2s,opacity .2s;}
+.nav-burger.open span:nth-child(1){transform:translateY(5.5px) rotate(45deg);}
+.nav-burger.open span:nth-child(2){opacity:0;}
+.nav-burger.open span:nth-child(3){transform:translateY(-5.5px) rotate(-45deg);}
 .nav-lang{display:flex;border:1px solid var(--border);border-radius:2px;overflow:hidden;}
 .lang-btn{padding:3px 9px;font-family:var(--mono);font-size:10px;letter-spacing:.08em;
   background:transparent;border:none;color:var(--muted);cursor:pointer;transition:all .15s;}
 .lang-btn.active{background:var(--gold);color:var(--navy);font-weight:500;}
-.nav-cv{font-family:var(--mono);font-size:10px;letter-spacing:.06em;
+.nav-cv{font-family:var(--mono);font-size:10px;letter-spacing:.06em;white-space:nowrap;
   padding:4px 12px;border:1px solid var(--border);color:var(--gold3);border-radius:2px;transition:all .2s;}
 .nav-cv:hover{background:var(--gold);color:var(--navy);border-color:var(--gold);}
-.nav-cta{font-size:11.5px;padding:5px 14px;background:var(--gold);color:var(--navy);
+.nav-cta{font-size:11.5px;padding:5px 14px;background:var(--gold);color:var(--navy);white-space:nowrap;
   border-radius:2px;font-weight:500;transition:all .2s;}
 .nav-cta:hover{background:var(--gold2);}
 
@@ -175,10 +180,10 @@ section{padding:80px 48px;}
 .eng-card{background:var(--navy2);padding:30px 26px;display:flex;flex-direction:column;
   transition:background .18s,transform .18s;}
 .eng-card:hover{background:var(--navy3);transform:translateY(-2px);}
-.eng-card-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;}
-.eng-num{font-family:var(--serif);font-size:13px;color:var(--gold);letter-spacing:.04em;}
+.eng-card-head{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px;}
+.eng-num{font-family:var(--serif);font-size:36px;font-weight:300;color:rgba(196,160,90,.35);letter-spacing:.02em;line-height:1;}
 .eng-duration{font-family:var(--mono);font-size:10px;letter-spacing:.05em;color:var(--green2);
-  text-transform:uppercase;border:1px solid rgba(53,160,112,.3);padding:3px 9px;border-radius:20px;}
+  text-transform:uppercase;border:1px solid rgba(53,160,112,.3);padding:3px 9px;border-radius:20px;margin-top:4px;}
 .eng-name{font-family:var(--serif);font-size:21px;font-weight:400;color:var(--white);
   line-height:1.25;margin-bottom:10px;}
 .eng-for{font-size:13.5px;color:var(--gold2);line-height:1.6;margin-bottom:18px;font-style:italic;}
@@ -240,7 +245,7 @@ section{padding:80px 48px;}
 .case-vis-bg{width:100%;aspect-ratio:16/9;display:flex;align-items:center;
   justify-content:center;position:relative;overflow:hidden;min-height:130px;}
 .case-num{position:absolute;top:10px;right:14px;font-family:var(--serif);
-  font-size:2.8rem;font-weight:300;color:rgba(255,255,255,.06);line-height:1;pointer-events:none;}
+  font-size:2.8rem;font-weight:300;color:rgba(196,160,90,.22);line-height:1;pointer-events:none;}
 .cc-body{padding:18px 20px;flex:1;display:flex;flex-direction:column;}
 .cc-tag{font-family:var(--mono);font-size:8.5px;letter-spacing:.1em;color:var(--gold);
   text-transform:uppercase;display:block;margin-bottom:8px;}
@@ -428,12 +433,10 @@ section{padding:80px 48px;}
 }
 .contact-sig{
   width:100%;
-  max-width:100%;
+  max-width:180px;
   opacity:.92;
-  mix-blend-mode:screen;
-  /* mix-blend-mode:screen hace que el negro del PNG desaparezca
-     y solo quede la firma blanca/gold flotando sobre el fondo */
   display:block;
+  /* SVG con fondo transparente real — sin necesidad de blend mode */
 }
 /* ── SVG CUSTOM ICONS ──────────────────── */
 .ico{display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;}
@@ -467,7 +470,19 @@ section{padding:80px 48px;}
   section{padding:56px 24px;}
   #work{padding:56px 24px;}
   .site-nav{padding:0 20px;}
-  .nav-links{display:none;}
+  .nav-right{gap:6px;}
+  .nav-cv{padding:4px 8px;font-size:9px;}
+  .nav-cta{padding:5px 10px;font-size:10.5px;}
+  .nav-burger{display:flex;}
+  .nav-links{
+    display:none;position:absolute;top:56px;left:0;right:0;
+    flex-direction:column;gap:0;padding:8px 20px 16px;
+    background:rgba(10,18,38,.98);backdrop-filter:blur(24px);
+    border-bottom:1px solid var(--border2);
+  }
+  .nav-links.open{display:flex;}
+  .nav-links .nav-link{padding:12px 0;border-bottom:1px solid var(--border2);font-size:13px;}
+  .nav-links .nav-link:last-child{border-bottom:none;}
   .hero-section{padding:56px 24px 0;}
   .hero-inner{grid-template-columns:1fr;}
   .hero-visual{display:flex;justify-content:center;margin-bottom:24px;}
@@ -500,7 +515,7 @@ section{padding:80px 48px;}
     <img id="nav-logo" src="/assets/logo.webp" alt="">
     <span class="nav-brand-name">Pablo Montenegro</span>
   </a>
-  <div class="nav-links">
+  <div class="nav-links" id="nav-links">
     <a href="consulting.html" class="nav-link" data-en="Consulting" data-es="Consultoría">Consulting</a>
     <a href="work.html" class="nav-link" data-en="Work" data-es="Trabajo">Work</a>
     <a href="experience.html" class="nav-link" data-en="Experience" data-es="Experiencia">Experience</a>
@@ -516,6 +531,9 @@ section{padding:80px 48px;}
     <a href="/assets/CV_Pablo_Montenegro.pdf" class="nav-cv" target="_blank">↓ CV</a>
     <a href="mailto:hello@pablomontenegro.ie?subject=Let's%20talk" class="nav-cta"
        data-en="Let's talk" data-es="Hablemos">Let's talk</a>
+    <button class="nav-burger" id="nav-burger" onclick="toggleMobileNav()" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </nav>
 
@@ -550,6 +568,23 @@ function setLang(lang, btn) {
   buildPage(lang);
   document.documentElement.lang = lang;
 }
+
+function toggleMobileNav() {
+  const links = document.getElementById('nav-links');
+  const burger = document.getElementById('nav-burger');
+  const isOpen = links.classList.toggle('open');
+  burger.classList.toggle('open', isOpen);
+  burger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+}
+
+window.addEventListener('resize', () => {
+  if (window.innerWidth > 960) {
+    const links = document.getElementById('nav-links');
+    const burger = document.getElementById('nav-burger');
+    if (links) links.classList.remove('open');
+    if (burger) { burger.classList.remove('open'); burger.setAttribute('aria-expanded', 'false'); }
+  }
+});
 
 function buildPage(lang) {
   const S = window.SECTIONS;

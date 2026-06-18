@@ -277,7 +277,7 @@ section{padding:80px 48px;}
 .case-vis-bg{width:100%;aspect-ratio:16/9;display:flex;align-items:center;
   justify-content:center;position:relative;overflow:hidden;min-height:130px;}
 .case-num{position:absolute;top:10px;right:14px;font-family:var(--serif);
-  font-size:2.8rem;font-weight:300;color:rgba(255,255,255,.06);line-height:1;pointer-events:none;}
+  font-size:2.8rem;font-weight:300;color:rgba(196,160,90,.22);line-height:1;pointer-events:none;}
 .cc-body{padding:18px 20px;flex:1;display:flex;flex-direction:column;}
 .cc-tag{font-family:var(--mono);font-size:8.5px;letter-spacing:.1em;color:var(--gold);
   text-transform:uppercase;display:block;margin-bottom:8px;}
@@ -467,10 +467,8 @@ section{padding:80px 48px;}
   width:100%;
   max-width:180px;
   opacity:.92;
-  mix-blend-mode:screen;
-  /* mix-blend-mode:screen hace que el negro del PNG desaparezca
-     y solo quede la firma blanca/gold flotando sobre el fondo */
   display:block;
+  /* SVG con fondo transparente real — sin necesidad de blend mode */
 }
 /* ── SVG CUSTOM ICONS ──────────────────── */
 .ico{display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;}

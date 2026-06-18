@@ -15,7 +15,7 @@ window.SITE = {
   cv_url:   "/assets/CV_Pablo_Montenegro.pdf",
   photo:    "/assets/pablo-photo.webp",
   seal:     "/assets/pablo-seal.webp",
-  sig:      "/assets/pablo-sig.webp",
+  sig:      "/assets/pablo-sig.svg",
   logo:     "/assets/logo.webp",
 
   hero: {
@@ -189,8 +189,8 @@ window.SITE = {
         id: "karigab", num: "03", year: "2025",
         tag_en:   "Payment Operations · Social Commerce · Retail",
         tag_es:   "Operaciones de Pago · Social Commerce · Retail",
-        title_en: "<em>Karigab</em> — Payment & Inventory System",
-        title_es: "<em>Karigab</em> — Sistema de Pagos e Inventario",
+        title_en: "<em>Karigab</em> — Operations System for Social Commerce",
+        title_es: "<em>Karigab</em> — Sistema Operativo para Comercio Social",
         desc_en:  "Designed end-to-end payment operations and inventory system for a fashion retailer scaling through TikTok Live. WhatsApp-native checkout, unified physical and digital stock, batch bank reconciliation. Delivered in 7 days. Reduced daily operational workload by 85%.",
         desc_es:  "Sistema completo de operaciones de pago e inventario para tienda de moda que escala por TikTok Live. Checkout por WhatsApp, stock físico y digital unificado, conciliación bancaria por lotes. Entregado en 7 días. Redujo la carga operativa diaria en un 85%.",
         sepa_en:  "≈ Social commerce · payment flows · inventory ops",
