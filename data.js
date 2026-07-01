@@ -49,9 +49,9 @@ window.SITE = {
         title_es: "Convertir el caos operativo en flujos estructurados",
         desc_en: "Manual, error-prone processes that grew faster than anyone designed for. The fix is rarely more tooling — it's a clear-headed redesign of the workflow itself.",
         desc_es: "Procesos manuales y propensos a error que crecieron más rápido de lo que alguien diseñó. La solución rara vez es más herramientas — es un rediseño claro del flujo mismo.",
-        proof_en: "Proof: I rebuilt onboarding, reconciliation and payout controls for a cross-border transfer service — cut verification workload 70% at zero tooling cost. I also shipped a full payment + inventory system in 7 days for a retailer scaling through TikTok Live.",
-        proof_es: "Prueba: rediseñé onboarding, reconciliación y controles de pago para un servicio de transferencias internacionales — reduje la carga de verificación 70% sin costo de herramientas. También entregué un sistema completo de pagos e inventario en 7 días para un retailer que escalaba por TikTok Live.",
-        link_en: "See the cross-border case →", link_es: "Ver el caso internacional →", link_url: "case-remesas-portfolio.html",
+        proof_en: "Proof: I rebuilt onboarding, reconciliation and payout controls for a cross-border transfer service — cut verification workload 70% at zero tooling cost. I also shipped a full operations system in 7 days for a retailer scaling through TikTok Live.",
+        proof_es: "Prueba: rediseñé onboarding, reconciliación y controles de pago para un servicio de transferencias internacionales — reduje la carga de verificación 70% sin costo de herramientas. También entregué un sistema operativo completo en 7 días para un retailer que escalaba por TikTok Live.",
+        link_en: "See the Karigab case →", link_es: "Ver el caso Karigab →", link_url: "karigab-case-study.html",
       },
       {
         num: "03",
@@ -108,8 +108,8 @@ window.SITE = {
           "Proceso rediseñado con los trade-offs explícitos",
           "Prototipo funcional o especificación lista para implementar, más medición antes/después",
         ],
-        proof_en: "Proof: this format produced the cross-border verification redesign (−70% workload, zero tooling cost) and the mandate lifecycle rebuild at a top-5 bank (−30% complaints, +15% collection rate).",
-        proof_es: "Prueba: este formato produjo el rediseño de verificación internacional (−70% carga de trabajo, costo cero de herramientas) y el rediseño del ciclo de vida de mandatos en un banco top-5 (−30% quejas, +15% tasa de cobro).",
+        proof_en: "Proof: this format produced the Karigab operations system (−85% workload, shipped in 7 days) and the mandate lifecycle rebuild at a top-5 bank (−30% complaints, +15% collection rate).",
+        proof_es: "Prueba: este formato produjo el sistema operativo de Karigab (−85% carga de trabajo, entregado en 7 días) y el rediseño del ciclo de vida de mandatos en un banco top-5 (−30% quejas, +15% tasa de cobro).",
       },
       {
         num: "03",
@@ -146,8 +146,8 @@ window.SITE = {
   consulting: {
     label_en: "Independent Consulting · 2024–Present",
     label_es: "Consultoría Independiente · 2024–Presente",
-    desc_en:  "Four engagements across payment operations, product design, cross-border workflows, and urban mobility — scoped, delivered and measured independently.",
-    desc_es:  "Cuatro proyectos en operaciones de pago, diseño de producto, flujos internacionales y movilidad urbana — definidos, entregados y medidos de forma independiente.",
+    desc_en:  "Three engagements across payment operations, product design, and urban mobility — scoped, delivered and measured independently.",
+    desc_es:  "Tres proyectos en operaciones de pago, diseño de producto y movilidad urbana — definidos, entregados y medidos de forma independiente.",
     cases: [
       {
         id: "monevol", num: "01", year: "2024", advisory: true,
