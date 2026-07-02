@@ -387,13 +387,11 @@ window.SITE = {
       bullets_en: [
         "<strong>Monevol 360 (2024):</strong> Full product lifecycle — 34 user interviews, MVP scope, 60-screen Figma prototype, 98% usability success rate.",
         "<strong>Karigab (2025):</strong> Operations system for social commerce retail — checkout and inventory. −85% operational workload. Shipped in 7 days.",
-        "<strong>Cross-border payment operations (2026):</strong> Workflow redesign for Europe–Bolivia transfer service. Structured onboarding, transaction tracking, payout controls and reconciliation. −70% verification workload.",
         "Ongoing: 500+ annotated training data points for an AI model platform — payment and collections use cases, above 95% accuracy.",
       ],
       bullets_es: [
         "<strong>Monevol 360 (2024):</strong> Ciclo completo de producto — 34 entrevistas, scope del MVP, prototipo Figma de 60 pantallas, 98% de tasa de éxito en usabilidad.",
         "<strong>Karigab (2025):</strong> Sistema operativo para retail de social commerce — cobro e inventario. −85% de carga operativa. Entregado en 7 días.",
-        "<strong>Operaciones de pago internacionales (2026):</strong> Rediseño de flujos para servicio Europa–Bolivia. Onboarding estructurado, seguimiento de transacciones, controles de pago y reconciliación. −70% en carga de verificación.",
         "En curso: 500+ puntos de datos de entrenamiento para una plataforma de IA en casos de uso de pagos y cobranza, con precisión superior al 95%.",
       ],
     },
