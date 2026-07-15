@@ -53,34 +53,35 @@ const VIS = {
       <text x="100" y="104" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(196,160,90,.4)" text-anchor="middle">−70% workload · 100% traceable · €0 cost</text>
     </svg></div>`,
 
-  karigab: `<div class="case-vis-bg" style="background:linear-gradient(150deg,#0e1826 0%,#1a1428 100%)">
-    
+  karigab: `<div class="case-vis-bg" style="background:linear-gradient(150deg,#0e1826 0%,#111a2e 100%)">
     <svg viewBox="0 0 200 120" style="width:100%;max-width:190px">
-      <text x="100" y="12" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(196,160,90,.55)" text-anchor="middle" letter-spacing="1.5">LIVE · ORDER · MATCH · DELIVER</text>
-      <!-- Flow boxes — consistent navy/gold style, NO brand colors -->
-      <rect x="10" y="28" width="38" height="38" rx="6" fill="rgba(196,160,90,.08)" stroke="rgba(196,160,90,.3)" stroke-width="1"/>
-      <text x="29" y="44" font-family="DM Sans,sans-serif" font-size="10" fill="rgba(196,160,90,.85)" text-anchor="middle">📹</text>
-      <text x="29" y="57" font-family="DM Mono,monospace" font-size="5" fill="rgba(240,223,184,.5)" text-anchor="middle">Live</text>
-      <!-- Arrow -->
-      <text x="54" y="50" font-family="DM Mono,monospace" font-size="10" fill="rgba(196,160,90,.4)" text-anchor="middle">›</text>
-      <rect x="62" y="28" width="38" height="38" rx="6" fill="rgba(196,160,90,.08)" stroke="rgba(196,160,90,.3)" stroke-width="1"/>
-      <text x="81" y="44" font-family="DM Sans,sans-serif" font-size="10" fill="rgba(196,160,90,.85)" text-anchor="middle">💬</text>
-      <text x="81" y="57" font-family="DM Mono,monospace" font-size="5" fill="rgba(240,223,184,.5)" text-anchor="middle">Order</text>
-      <!-- Arrow -->
-      <text x="106" y="50" font-family="DM Mono,monospace" font-size="10" fill="rgba(196,160,90,.4)" text-anchor="middle">›</text>
-      <rect x="114" y="28" width="38" height="38" rx="6" fill="rgba(196,160,90,.08)" stroke="rgba(196,160,90,.3)" stroke-width="1"/>
-      <text x="133" y="44" font-family="DM Mono,monospace" font-size="9" fill="rgba(90,180,130,.9)" text-anchor="middle">✓</text>
-      <text x="133" y="57" font-family="DM Mono,monospace" font-size="5" fill="rgba(240,223,184,.5)" text-anchor="middle">Match</text>
-      <!-- Arrow -->
-      <text x="158" y="50" font-family="DM Mono,monospace" font-size="10" fill="rgba(196,160,90,.4)" text-anchor="middle">›</text>
-      <rect x="162" y="28" width="28" height="38" rx="6" fill="rgba(90,180,130,.08)" stroke="rgba(90,180,130,.3)" stroke-width="1"/>
-      <text x="176" y="44" font-family="DM Mono,monospace" font-size="9" fill="rgba(90,180,130,.9)" text-anchor="middle">$</text>
-      <text x="176" y="57" font-family="DM Mono,monospace" font-size="5" fill="rgba(240,223,184,.5)" text-anchor="middle">Pay</text>
+      <!-- Phase 1 label -->
+      <text x="48" y="11" font-family="DM Mono,monospace" font-size="5" fill="rgba(196,160,90,.5)" text-anchor="middle" letter-spacing="1">PHASE 1 · MANUAL</text>
+      <!-- Phase 1 boxes: WhatsApp + Sheets system -->
+      <rect x="10" y="18" width="76" height="34" rx="5" fill="rgba(196,160,90,.05)" stroke="rgba(196,160,90,.25)" stroke-width="1"/>
+      <text x="22" y="31" font-family="DM Mono,monospace" font-size="5" fill="rgba(196,160,90,.7)">WhatsApp</text>
+      <text x="22" y="41" font-family="DM Mono,monospace" font-size="5" fill="rgba(240,223,184,.45)">+ Sheets</text>
+      <text x="60" y="34" font-family="DM Mono,monospace" font-size="8" fill="rgba(196,160,90,.6)" text-anchor="middle">−85%</text>
+      <text x="60" y="44" font-family="DM Mono,monospace" font-size="4.5" fill="rgba(240,223,184,.35)" text-anchor="middle">7 days · Bs.0</text>
+      <!-- Arrow between phases -->
+      <text x="100" y="38" font-family="DM Mono,monospace" font-size="12" fill="rgba(53,160,112,.5)" text-anchor="middle">→</text>
+      <text x="100" y="48" font-family="DM Mono,monospace" font-size="4" fill="rgba(53,160,112,.4)" text-anchor="middle">validated</text>
+      <!-- Phase 2 label -->
+      <text x="152" y="11" font-family="DM Mono,monospace" font-size="5" fill="rgba(53,160,112,.5)" text-anchor="middle" letter-spacing="1">PHASE 2 · SAAS</text>
+      <!-- Phase 2 box: Órbita OS -->
+      <rect x="114" y="18" width="76" height="34" rx="5" fill="rgba(53,160,112,.05)" stroke="rgba(53,160,112,.3)" stroke-width="1"/>
+      <text x="126" y="31" font-family="DM Mono,monospace" font-size="5" fill="rgba(53,160,112,.8)">Órbita OS</text>
+      <text x="126" y="41" font-family="DM Mono,monospace" font-size="5" fill="rgba(240,223,184,.45)">Multi-tenant</text>
+      <text x="170" y="34" font-family="DM Mono,monospace" font-size="7" fill="rgba(53,160,112,.7)" text-anchor="middle">Live</text>
+      <text x="170" y="44" font-family="DM Mono,monospace" font-size="4.5" fill="rgba(240,223,184,.35)" text-anchor="middle">1 pilot</text>
       <!-- Separator -->
-      <line x1="10" y1="82" x2="190" y2="82" stroke="rgba(196,160,90,.1)" stroke-width=".5"/>
-      <text x="100" y="95" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(196,160,90,.4)" text-anchor="middle">−85% workload · Bs.0 cost · 7 days</text>
-      <!-- Inventory note -->
-      <text x="100" y="106" font-family="DM Mono,monospace" font-size="5" fill="rgba(240,223,184,.28)" text-anchor="middle">Physical + Digital inventory · WhatsApp native</text>
+      <line x1="10" y1="66" x2="190" y2="66" stroke="rgba(196,160,90,.08)" stroke-width=".5"/>
+      <!-- Bottom labels -->
+      <text x="48" y="78" font-family="DM Mono,monospace" font-size="4.5" fill="rgba(196,160,90,.35)" text-anchor="middle">Constraint → System</text>
+      <text x="152" y="78" font-family="DM Mono,monospace" font-size="4.5" fill="rgba(53,160,112,.4)" text-anchor="middle">System → Product</text>
+      <!-- Module pills for Órbita -->
+      <text x="100" y="93" font-family="DM Mono,monospace" font-size="4.5" fill="rgba(240,223,184,.22)" text-anchor="middle">Sales · Inventory · Payments · Dispatch</text>
+      <text x="100" y="104" font-family="DM Mono,monospace" font-size="4" fill="rgba(240,223,184,.15)" text-anchor="middle">Karigab = Pilot tenant #1</text>
     </svg></div>`,
 
   cyclesafe: `<div class="case-vis-bg" style="background:linear-gradient(150deg,#1a0c0c 0%,#2a1010 100%)">
