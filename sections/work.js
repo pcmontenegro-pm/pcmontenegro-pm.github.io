@@ -1,6 +1,33 @@
 (function() {
 
 const VIS = {
+  dermoskin: `<div class="case-vis-bg" style="background:linear-gradient(150deg,#1a160e 0%,#241d12 100%)">
+    <svg viewBox="0 0 200 120" style="width:100%;max-width:190px">
+      <!-- Phone frame -->
+      <rect x="62" y="8" width="76" height="104" rx="10" fill="rgba(24,20,12,1)" stroke="rgba(170,115,88,.4)" stroke-width="1"/>
+      <!-- Screen -->
+      <rect x="66" y="14" width="68" height="92" rx="7" fill="#3d3b29"/>
+      <!-- Header -->
+      <text x="100" y="23" font-family="DM Mono,monospace" font-size="5" fill="rgba(217,197,172,.75)" text-anchor="middle">DermoSkin</text>
+      <!-- Patient card with alert -->
+      <rect x="70" y="27" width="60" height="18" rx="4" fill="rgba(217,197,172,.08)" stroke="rgba(217,197,172,.2)" stroke-width=".5"/>
+      <circle cx="76" cy="36" r="3" fill="rgba(217,197,172,.5)"/>
+      <text x="82" y="34" font-family="DM Sans,sans-serif" font-size="4.5" fill="rgba(237,228,211,.85)">Sofía Quiroga</text>
+      <rect x="82" y="37" width="26" height="5" rx="2.5" fill="rgba(163,68,51,.35)"/>
+      <text x="95" y="40.6" font-family="DM Sans,sans-serif" font-size="3.6" fill="rgba(240,210,200,.9)" text-anchor="middle">Alerta</text>
+      <!-- Agenda rows -->
+      <text x="73" y="52" font-family="DM Mono,monospace" font-size="4" letter-spacing=".05em" fill="rgba(170,115,88,.9)">AGENDA</text>
+      <rect x="73" y="55" width="54" height="10" rx="3" fill="rgba(78,122,72,.18)"/>
+      <text x="76" y="61.5" font-family="DM Sans,sans-serif" font-size="4.2" fill="rgba(237,228,211,.85)">10:00 · Toxina botulínica</text>
+      <rect x="73" y="67" width="54" height="10" rx="3" fill="rgba(170,115,88,.18)"/>
+      <text x="76" y="73.5" font-family="DM Sans,sans-serif" font-size="4.2" fill="rgba(237,228,211,.85)">15:00 · Peeling químico</text>
+      <!-- Financial strip -->
+      <text x="73" y="86" font-family="DM Mono,monospace" font-size="4" letter-spacing=".05em" fill="rgba(170,115,88,.9)">INGRESO NETO</text>
+      <text x="73" y="96" font-family="DM Mono,monospace" font-size="8" fill="rgba(217,197,172,.95)">Bs. 1,450</text>
+      <rect x="73" y="99" width="54" height="3" rx="1.5" fill="rgba(255,255,255,.08)"/>
+      <rect x="73" y="99" width="38" height="3" rx="1.5" fill="rgba(78,122,72,.75)"/>
+    </svg></div>`,
+
   monevol: `<div class="case-vis-bg" style="background:linear-gradient(150deg,#0d1a2e 0%,#16243a 100%)">
     
     <svg viewBox="0 0 200 120" style="width:100%;max-width:190px">

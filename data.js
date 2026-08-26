@@ -6,7 +6,7 @@
 window.SITE = {
 
   name:     "Pablo Montenegro",
-  role:     "Senior Product Leader · Payments & Banking",
+  role:     "Product & Operations Consultant for Founders",
   tagline:  "Over 10 years building payment infrastructure that handles real money at scale.",
   location: "Dublin, Ireland",
   email:    "hello@pablomontenegro.ie",
@@ -19,12 +19,12 @@ window.SITE = {
   logo:     "/assets/logo.webp",
 
   hero: {
-    headline_en: ["Senior Product Leader.", "<em>Deep roots in payments &amp; banking — applied wherever products meet money, risk and operations.</em>"],
-    headline_es: ["Senior Product Leader.", "<em>Raíces profundas en pagos y banca — aplicadas donde los productos se cruzan con dinero, riesgo y operaciones.</em>"],
-    quote_en: "Over 10 years building payment infrastructure that handles real money at scale — not advising on it from the outside. Based in Dublin, working with fintech teams across Europe and Latin America.",
-    quote_es: "Más de 10 años construyendo infraestructura de pagos que maneja dinero real a escala — no asesorando desde afuera. Basado en Dublín, trabajando con equipos fintech en Europa y América Latina.",
-    open_to_en: "Open to relocation · Ireland · Spain · Europe · Remote",
-    open_to_es: "Disponible para reubicación · Irlanda · España · Europa · Remoto",
+    headline_en: ["I build what your business runs on.", "<em>Payments, operations and product — untangled and shipped, not just advised on.</em>"],
+    headline_es: ["Construyo lo que hace funcionar tu negocio.", "<em>Pagos, operaciones y producto — desenredados y entregados, no solo asesorados.</em>"],
+    quote_en: "Over 10 years turning regulated, chaotic or ambiguous operations into products that work — inside a top-5 bank, and from zero for founders who can't wait for a full-time hire. Based in Dublin, working with founders and business owners across Europe and Latin America.",
+    quote_es: "Más de 10 años convirtiendo operaciones reguladas, caóticas o ambiguas en productos que funcionan — dentro de un banco top-5, y desde cero para founders que no pueden esperar a contratar full-time. Basado en Dublín, trabajando con founders y dueños de negocio en Europa y América Latina.",
+    open_to_en: "Taking on new engagements · Remote · Europe &amp; Latin America",
+    open_to_es: "Disponible para nuevos proyectos · Remoto · Europa y Latinoamérica",
   },
 
   services: {
@@ -146,11 +146,29 @@ window.SITE = {
   consulting: {
     label_en: "Independent Consulting · 2024–Present",
     label_es: "Consultoría Independiente · 2024–Presente",
-    desc_en:  "Three engagements across payment operations, product design, and urban mobility — scoped, delivered and measured independently.",
-    desc_es:  "Tres proyectos en operaciones de pago, diseño de producto y movilidad urbana — definidos, entregados y medidos de forma independiente.",
+    desc_en:  "Four engagements across healthtech operations, payment operations, product design, and urban mobility — scoped, delivered and measured independently.",
+    desc_es:  "Cuatro proyectos en operaciones healthtech, operaciones de pago, diseño de producto y movilidad urbana — definidos, entregados y medidos de forma independiente.",
     cases: [
       {
-        id: "monevol", num: "01", year: "2024", advisory: true,
+        id: "dermoskin", num: "01", year: "2026",
+        tag_en:   "Practice Management · Healthtech · SaaS",
+        tag_es:   "Gestión de Consultorio · Healthtech · SaaS",
+        title_en: "<em>DermoSkin</em> — From clinic system to Filum",
+        title_es: "<em>DermoSkin</em> — De sistema de clínica a Filum",
+        desc_en:  "Built the full operating system for a dermatology clinic — patient records with contraindication alerts, scheduling, informed-consent workflows, financial control and WhatsApp-based follow-ups — replacing scattered notebooks and spreadsheets. What it proved about running a regulated, appointment-based practice became the starting point for Filum, a multi-tenant SaaS now in development.",
+        desc_es:  "Construí el sistema operativo completo para una clínica de dermatología — fichas de pacientes con alertas de contraindicación, agenda, consentimiento informado, control financiero y seguimiento por WhatsApp — reemplazando cuadernos y planillas dispersas. Lo que ese sistema demostró sobre operar una práctica regulada y basada en citas se convirtió en el punto de partida de Filum, un SaaS multi-tenant ahora en desarrollo.",
+        sepa_en:  "≈ Practice management · patient records · healthtech operations",
+        sepa_es:  "≈ Gestión de consultorio · fichas de pacientes · operaciones healthtech",
+        metrics:  [
+          { num: "1",   label_en: "Live clinic operating on the system", label_es: "Clínica en producción con el sistema" },
+          { num: "6",   label_en: "Modules — patients to finance",        label_es: "Módulos — pacientes a finanzas" },
+          { num: "→",   label_en: "Now evolving into Filum (SaaS)",       label_es: "Ahora evoluciona a Filum (SaaS)" },
+        ],
+        cta_en: "Full case study →", cta_es: "Caso completo →",
+        cta_url: "dermoskin-case-study.html", vis_type: "dermoskin",
+      },
+      {
+        id: "monevol", num: "02", year: "2024", advisory: true,
         tag_en:   "Product Strategy · UX Research · Personal Finance",
         tag_es:   "Estrategia de Producto · Investigación UX · Finanzas Personales",
         title_en: "Monevol <em>360</em>",
@@ -188,7 +206,7 @@ window.SITE = {
       },
       */
       {
-        id: "karigab", num: "02", year: "2025–2026",
+        id: "karigab", num: "03", year: "2025–2026",
         tag_en:   "Operations Design · Social Commerce · SaaS",
         tag_es:   "Diseño Operativo · Social Commerce · SaaS",
         title_en: "<em>Karigab → Órbita OS</em> — From spreadsheet to SaaS",
@@ -206,7 +224,7 @@ window.SITE = {
         cta_url: "karigab-case-study.html", vis_type: "karigab",
       },
       {
-        id: "cyclesafe", num: "03", year: "2024–2025", advisory: true,
+        id: "cyclesafe", num: "04", year: "2024–2025", advisory: true,
         tag_en:   "Urban Mobility · Community Product · React Native",
         tag_es:   "Movilidad Urbana · Producto Comunitario · React Native",
         title_en: "<em>CycleSafe</em> — Community Safety Map",

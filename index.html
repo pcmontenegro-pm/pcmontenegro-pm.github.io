@@ -3,16 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Pablo Montenegro — Senior Product Manager specialising in payments, collections and fintech consulting. 10+ years at Itaú Bank Chile, now consulting for fintech teams across Europe and Latin America from Dublin.">
-<meta name="keywords" content="Pablo Montenegro, Senior Product Manager, product manager pagos, payments product manager Dublin, fintech consultant Ireland, collections consultant, SEPA direct debit consultant, payment operations consultant, consultor producto fintech, consultor pagos LatAm">
+<meta name="description" content="Pablo Montenegro helps founders and business owners untangle regulated, chaotic or ambiguous products — payments, operations and 0-to-1 discovery. 10+ years shipping inside a top-5 bank and independently. Based in Dublin, working across Europe and Latin America.">
+<meta name="keywords" content="Pablo Montenegro, product consultant for founders, operations consultant Dublin, fintech consultant Ireland, payments consultant, collections consultant, product discovery consultant, consultor de producto para founders, consultor de operaciones LatAm">
 <meta property="og:type" content="profile">
-<meta property="og:title" content="Pablo Montenegro — Senior Product Manager · Payments, Collections & Fintech Consulting">
-<meta property="og:description" content="10+ years making regulated, multi-stakeholder payment products work at scale. Itaú Bank Chile and independent consulting across Europe and Latin America.">
+<meta property="og:title" content="Pablo Montenegro — Product &amp; Operations Consultant for Founders">
+<meta property="og:description" content="I help founders and business owners untangle regulated, chaotic or ambiguous products — from payment operations to 0-to-1 discovery. 10+ years inside a top-5 bank and independently.">
 <meta property="og:url" content="https://pablomontenegro.ie">
 <meta property="og:image" content="https://pablomontenegro.ie/assets/pablo-photo.webp">
 <meta name="twitter:card" content="summary">
 <link rel="canonical" href="https://pablomontenegro.ie">
-<title>Pablo Montenegro — Senior Product Manager · Payments, Collections & Fintech Consulting | Dublin</title>
+<title>Pablo Montenegro — Product &amp; Operations Consultant for Founders | Dublin</title>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -20,8 +20,8 @@
   "name": "Pablo Montenegro",
   "url": "https://pablomontenegro.ie",
   "image": "https://pablomontenegro.ie/assets/pablo-photo.webp",
-  "jobTitle": "Senior Product Manager",
-  "description": "Senior Product Manager specialising in payments, collections and fintech infrastructure. 10+ years of experience, including 7 years at Itaú Bank Chile. Currently providing independent consulting for fintech teams across Europe and Latin America from Dublin, Ireland.",
+  "jobTitle": "Product & Operations Consultant",
+  "description": "Product and operations consultant for founders and business owners — untangling regulated, chaotic or ambiguous products. 10+ years of experience, including 7 years at Itaú Bank Chile. Currently consulting independently from Dublin, Ireland.",
   "address": {
     "@type": "PostalAddress",
     "addressLocality": "Dublin",
@@ -473,19 +473,6 @@ section{padding:80px 48px;}
 /* ── SVG CUSTOM ICONS ──────────────────── */
 .ico{display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;}
 .ico svg{display:block;}
-/* ── VISIT COUNTER ─────────────────────── */
-.footer-counter{
-  display:flex;align-items:center;gap:10px;
-  font-family:var(--mono);font-size:11px;color:var(--muted2);
-}
-.counter-dot{
-  width:6px;height:6px;border-radius:50%;
-  background:var(--green2);animation:pulse 2.5s infinite;flex-shrink:0;
-}
-.counter-num{
-  font-size:13px;font-weight:500;color:var(--cream);
-  font-family:var(--mono);letter-spacing:.04em;
-}
 
 /* ══ ANIMATIONS ════════════════════════════════════ */
 @keyframes fadeUp{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
@@ -574,16 +561,9 @@ section{padding:80px 48px;}
 <footer class="site-footer">
   <div class="footer-brand">
     <img src="/assets/logo.webp" alt="">
-    <span>Pablo Montenegro · Senior Product Leader · Payments &amp; Banking · Dublin</span>
+    <span>Pablo Montenegro · Product &amp; Operations Consultant · Dublin</span>
   </div>
-  <div style="display:flex;align-items:center;gap:24px;">
-    <div class="footer-counter">
-      <span class="counter-dot"></span>
-      <span id="visit-label" style="font-size:11px;color:var(--muted2);">Visits</span>
-      <span class="counter-num" id="visit-count">—</span>
-    </div>
-    <div class="footer-right">© 2026</div>
-  </div>
+  <div class="footer-right">© 2026</div>
 </footer>
 
 <script src="data.js"></script>
@@ -640,36 +620,6 @@ document.addEventListener('DOMContentLoaded', () => {
   buildSite(LANG);
 });
 
-// ─── VISIT COUNTER ─────────────────────────────────
-(function() {
-  // Usar countapi.xyz para contar visitas reales
-  const KEY = 'pablomontenegro-portfolio-visits';
-  const el = document.getElementById('visit-count');
-  const lbl = document.getElementById('visit-label');
-  if (!el) return;
-
-  // Primero mostrar el count guardado localmente mientras carga
-  const local = localStorage.getItem(KEY);
-  if (local) el.textContent = parseInt(local).toLocaleString();
-
-  // Llamar a countapi para incrementar y obtener el count real
-  fetch('https://api.countapi.xyz/hit/pablomontenegro.ie/visits')
-    .then(r => r.json())
-    .then(data => {
-      if (data && data.value) {
-        const count = data.value;
-        el.textContent = count.toLocaleString();
-        localStorage.setItem(KEY, count);
-        if (lbl) lbl.textContent = count === 1 ? 'Visit' : 'Visits';
-      }
-    })
-    .catch(() => {
-      // Fallback: count local solo (no depende de API externa)
-      let count = parseInt(localStorage.getItem(KEY + '-local') || '0') + 1;
-      localStorage.setItem(KEY + '-local', count);
-      el.textContent = count.toLocaleString();
-    });
-})();
 </script>
 </body>
 </html>

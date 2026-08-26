@@ -1,0 +1,1735 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DermoSkin — Demo</title>
+<meta name="robots" content="noindex">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap');
+
+  :root{
+    --onyx:#3d3b29; --sidebar:#3d3b29; --card-dark:#464433; --card-dark-hover:#524f3c;
+    --ivory:#d9c5ac; --ivory-dark:#b8a488; --offwhite:#ede4d3; --grey:#a39a85; --bg-page:#504e37;
+    --amber:#aa7358; --green:#4e7a48; --red:#a34433;
+    --content-bg:#f2ead9; --content-card:#ffffff; --content-card-hover:#f7f1e4;
+    --content-text:#3d3b29; --content-muted:#6e6654; --content-border:rgba(61,59,41,.12);
+    --font-sans: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-serif: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;height:100%;}
+  body{
+    background:var(--bg-page); color:var(--offwhite); font-family:var(--font-sans);
+    font-weight:400; -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit; text-decoration:none;}
+  button, select, input, textarea{font-family:inherit; font-size:inherit; color:inherit;}
+  button{cursor:pointer;}
+  ul{list-style:none; margin:0; padding:0;}
+
+  #shell{display:flex; min-height:100vh; flex-direction:column;}
+  @media(min-width:768px){ #shell{flex-direction:row;} }
+
+  /* ---------- sidebar (desktop) ---------- */
+  #sidebar{display:none; width:240px; flex-shrink:0; flex-direction:column; border-right:1px solid rgba(217,197,172,.1); background:var(--sidebar); padding:28px 16px;}
+  @media(min-width:768px){ #sidebar{display:flex;} }
+  .brand{padding:0 8px;}
+  .brand-name{font-family:var(--font-serif); font-size:21px; color:var(--offwhite);}
+  .brand-dot{position:relative;}
+  .brand-dot::after{content:""; position:absolute; top:-2px; right:-11px; width:6px; height:6px; border-radius:999px; background:var(--amber);}
+  .brand-sub{margin-bottom:32px; font-size:10.5px; letter-spacing:.03em; color:var(--grey);}
+  .demo-badge{display:inline-block; margin-top:8px; margin-bottom:20px; padding:3px 9px; border-radius:999px; background:var(--amber); color:var(--offwhite); font-size:9.5px; font-weight:600; letter-spacing:.05em;}
+  nav.mainnav{display:flex; flex-direction:column; gap:2px;}
+  nav.mainnav a{display:flex; align-items:center; gap:12px; border-radius:10px; padding:10px 12px; font-size:14px; color:var(--grey);}
+  nav.mainnav a:hover{background:rgba(255,255,255,.05); color:var(--offwhite);}
+  nav.mainnav a.active{background:rgba(217,197,172,.1); color:var(--offwhite); font-weight:600;}
+  nav.mainnav a .icn{width:20px; text-align:center; font-size:16px;}
+  .sidebar-spacer{flex:1;}
+  .sidebar-foot{padding:0 8px; font-size:10.5px; color:var(--grey);}
+  .role-pill{display:inline-block; margin-bottom:10px; padding:4px 8px; border-radius:5px; background:rgba(217,197,172,.1); color:var(--ivory); text-transform:capitalize;}
+  .exit-link{display:block; margin-top:6px; color:var(--grey);}
+  .exit-link:hover{color:var(--offwhite);}
+
+  /* ---------- topbar + bottom nav (mobile) ---------- */
+  #topbar{display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid rgba(217,197,172,.1); background:var(--sidebar); padding:12px 16px;}
+  @media(min-width:768px){ #topbar{display:none;} }
+  #topbar .brand-name{font-size:18px;}
+  #bottomnav{position:fixed; left:0; right:0; bottom:0; z-index:40; display:flex; justify-content:space-around; border-top:1px solid rgba(217,197,172,.1); background:rgba(61,59,41,.97); padding:8px 4px 14px; backdrop-filter:blur(6px);}
+  @media(min-width:768px){ #bottomnav{display:none;} }
+  #bottomnav a{display:flex; flex:1; flex-direction:column; align-items:center; gap:2px; font-size:9.5px; color:var(--grey);}
+  #bottomnav a.active{color:var(--ivory);}
+  #bottomnav a .icn{font-size:17px;}
+
+  /* ---------- content area ---------- */
+  #content{flex:1; min-height:100vh; background:var(--content-bg); color:var(--content-text); padding-bottom:64px;}
+  @media(min-width:768px){ #content{padding-bottom:0;} }
+  main{margin:0 auto; width:100%; max-width:640px; padding:24px 16px 28px;}
+  @media(min-width:768px){ main{padding:28px 32px;} }
+  h1.page-title{margin:0 0 16px; font-family:var(--font-serif); font-weight:500; font-size:26px; color:var(--content-text);}
+  @media(min-width:768px){ h1.page-title{font-size:28px;} }
+
+  /* ---------- ds-* design system ---------- */
+  .ds-card{border-radius:16px; border:1px solid var(--content-border); background:var(--content-card); padding:14px 16px; box-shadow:0 1px 2px rgba(0,0,0,.04);}
+  .ds-card-clickable{cursor:pointer; transition:background-color .15s;}
+  .ds-card-clickable:hover{background:var(--content-card-hover);}
+  .ds-section-label{margin:20px 0 10px; font-size:10.5px; font-weight:600; letter-spacing:.14em; color:var(--amber); text-transform:uppercase;}
+  .ds-section-label:first-child{margin-top:0;}
+  .ds-input{width:100%; border-radius:10px; border:1px solid var(--content-border); background:var(--content-bg); padding:10px 12px; font-size:14px; color:var(--content-text);}
+  .ds-input::placeholder{color:var(--content-muted);}
+  .ds-input:focus{outline:none; border-color:rgba(61,59,41,.3);}
+  .ds-label{display:flex; flex-direction:column; gap:4px; font-size:13px; color:var(--content-muted);}
+  .ds-btn-primary{border-radius:999px; border:none; background:var(--onyx); padding:10px 20px; font-size:13px; font-weight:600; color:var(--offwhite); transition:opacity .15s;}
+  .ds-btn-primary:hover{opacity:.9;}
+  .ds-btn-primary:disabled{opacity:.5; cursor:not-allowed;}
+  .ds-btn-outline{border-radius:999px; border:1px solid rgba(61,59,41,.25); background:transparent; padding:10px 20px; font-size:13px; font-weight:600; color:var(--content-text); transition:background-color .15s;}
+  .ds-btn-outline:hover{background:rgba(61,59,41,.05);}
+  .ds-btn-outline:disabled{opacity:.5; cursor:not-allowed;}
+  .ds-btn-outline.danger{border-color:rgba(163,68,51,.4); color:var(--red);}
+  .ds-btn-outline.danger:hover{background:rgba(163,68,51,.05);}
+  .ds-pill{display:inline-block; border-radius:999px; padding:4px 10px; font-size:9.5px; font-weight:600; white-space:nowrap;}
+  .pill-red{background:rgba(163,68,51,.2); color:var(--red);}
+  .pill-green{background:rgba(78,122,72,.2); color:var(--green);}
+  .pill-amber{background:rgba(170,115,88,.2); color:var(--amber);}
+  .pill-muted{background:rgba(61,59,41,.08); color:var(--content-muted);}
+  .txt-muted{color:var(--content-muted);}
+  .txt-red{color:var(--red);}
+  .txt-green{color:var(--green);}
+  .txt-amber{color:var(--amber);}
+  .flex-row{display:flex; align-items:center; gap:8px;}
+  .flex-between{display:flex; align-items:center; justify-content:space-between; gap:10px;}
+  .flex-col{display:flex; flex-direction:column;}
+  .gap2{gap:8px;} .gap3{gap:12px;}
+  .grid2{display:grid; grid-template-columns:1fr 1fr; gap:8px;}
+  .mb2{margin-bottom:8px;} .mb3{margin-bottom:12px;} .mb4{margin-bottom:16px;} .mb5{margin-bottom:20px;} .mb6{margin-bottom:24px;}
+  .mt1{margin-top:4px;} .mt2{margin-top:8px;} .mt3{margin-top:12px;}
+  .tile{display:flex; flex-direction:column; align-items:center; gap:4px; padding:18px 8px; text-align:center;}
+  .tile .num{font-size:21px; font-weight:600; color:var(--content-text);}
+  .tile .cap{font-size:10.5px; color:var(--content-muted);}
+  .small-btn{border-radius:999px; border:1px solid rgba(61,59,41,.25); background:transparent; padding:5px 11px; font-size:11px; font-weight:600; color:var(--content-text);}
+  .small-btn:hover{background:rgba(61,59,41,.05);}
+  .link-muted{font-size:11px; color:var(--content-muted); text-decoration:underline; text-decoration-style:dotted; text-underline-offset:2px;}
+  .link-muted:hover{color:var(--content-text);}
+  .back-link{display:inline-block; margin-bottom:12px; font-size:12px; color:var(--content-muted);}
+  .back-link:hover{color:var(--content-text);}
+  input[type=checkbox]{accent-color:var(--onyx); width:15px; height:15px;}
+
+  /* ---------- modal ---------- */
+  .modal-overlay{position:fixed; inset:0; z-index:50; display:flex; align-items:center; justify-content:center; background:rgba(61,59,41,.4); padding:16px;}
+  .modal-box{width:100%; max-width:400px; max-height:88vh; overflow-y:auto; border-radius:16px;}
+  .modal-box .ds-card{border-radius:16px;}
+  .modal-box .ds-card + .ds-card{margin-top:0; border-top-left-radius:0; border-top-right-radius:0;}
+
+  /* ---------- toast ---------- */
+  #toast{position:fixed; left:50%; bottom:26px; transform:translateX(-50%); z-index:100; max-width:340px; border-radius:14px; background:var(--onyx); color:var(--offwhite); padding:14px 18px; font-size:12.5px; text-align:center; box-shadow:0 8px 24px rgba(0,0,0,.25); opacity:0; pointer-events:none; transition:opacity .2s, transform .2s;}
+  #toast.show{opacity:1; transform:translateX(-50%) translateY(0);}
+  @media(min-width:768px){ #toast{bottom:22px;} }
+
+  /* fake QR */
+  .fakeqr{width:132px; height:132px; border-radius:8px; background:#fff; border:1px solid var(--content-border); padding:6px; display:grid; grid-template-columns:repeat(9,1fr); grid-template-rows:repeat(9,1fr); gap:2px;}
+  .fakeqr div{background:var(--content-text);}
+
+  .country-btn{display:flex; align-items:center; gap:6px; padding:0 10px; white-space:nowrap; width:auto;}
+  .country-pop{position:absolute; z-index:20; margin-top:4px; max-height:220px; width:210px; overflow-y:auto; border-radius:12px; border:1px solid var(--content-border); background:var(--content-card); padding:8px; box-shadow:0 8px 20px rgba(0,0,0,.12);}
+  .country-row{display:flex; width:100%; align-items:center; gap:8px; border-radius:8px; padding:6px 8px; text-align:left; background:none; border:none;}
+  .country-row:hover{background:rgba(61,59,41,.05);}
+  .relative{position:relative;}
+
+  .tabs{display:flex; gap:6px; margin-bottom:18px;}
+  .tab-btn{flex:1; border-radius:999px; border:1px solid rgba(61,59,41,.2); background:transparent; padding:9px; font-size:12.5px; font-weight:600; color:var(--content-text);}
+  .tab-btn.active{background:var(--onyx); color:var(--offwhite); border-color:var(--onyx);}
+
+  .hero-card{text-align:center;}
+  .hero-card .lbl{font-size:11px; text-transform:uppercase; letter-spacing:.05em; color:var(--content-muted);}
+  .hero-card .amt{margin:4px 0 0; font-family:var(--font-serif); font-size:36px; color:var(--content-text);}
+  .barwrap{margin-top:16px; display:flex; height:14px; overflow:hidden; border-radius:999px; background:rgba(61,59,41,.1);}
+  .dot{display:inline-block; width:8px; height:8px; border-radius:999px; margin-right:5px;}
+
+  ::-webkit-scrollbar{width:8px; height:8px;}
+  ::-webkit-scrollbar-thumb{background:rgba(61,59,41,.25); border-radius:999px;}
+</style>
+</head>
+<body>
+<div id="shell">
+  <aside id="sidebar">
+    <div class="brand">
+      <div class="brand-name">Dermo<span class="brand-dot">Skin</span></div>
+      <div class="brand-sub">Sistema operativo interno</div>
+      <div class="demo-badge">DEMO — datos ficticios</div>
+    </div>
+    <nav class="mainnav" id="nav-desktop"></nav>
+    <div class="sidebar-spacer"></div>
+    <div class="sidebar-foot">
+      <span class="role-pill">Administrador</span>
+      <a class="exit-link" href="#" onclick="return false;">Esta es una demo — no representa datos reales</a>
+    </div>
+  </aside>
+
+  <div id="topbar">
+    <div class="brand-name">DermoSkin <span style="font-size:9px; vertical-align:middle; background:var(--amber); padding:2px 6px; border-radius:999px; margin-left:6px;">DEMO</span></div>
+    <span class="role-pill" style="margin-bottom:0;">Administrador</span>
+  </div>
+
+  <div id="content">
+    <main id="app"></main>
+  </div>
+
+  <nav id="bottomnav"></nav>
+</div>
+<div id="toast"></div>
+
+<script>
+"use strict";
+
+/* ============================== helpers ============================== */
+function esc(s){
+  if (s === null || s === undefined) return "";
+  return String(s).replace(/[&<>"']/g, function(c){
+    return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c];
+  });
+}
+function money(n){ return "Bs. " + (Number(n)||0).toFixed(2); }
+function uid(prefix){ return prefix + "-" + Math.random().toString(36).slice(2,9); }
+function pad(n){ return String(n).padStart(2,"0"); }
+function diasDesde(dias, hora, minuto){
+  var d = new Date();
+  d.setDate(d.getDate() + dias);
+  d.setHours(hora, minuto || 0, 0, 0);
+  return d.toISOString();
+}
+function fDate(iso, opts){
+  return new Date(iso).toLocaleDateString("es-BO", opts || {day:"numeric", month:"short", year:"numeric"});
+}
+function fDateTime(iso){
+  return new Date(iso).toLocaleString("es-BO", {dateStyle:"full", timeStyle:"short"});
+}
+function fDateShort(iso){
+  return new Date(iso).toLocaleDateString("es-BO", {day:"numeric", month:"short"});
+}
+function toDatetimeLocal(iso){
+  var d = new Date(iso);
+  return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate())+"T"+pad(d.getHours())+":"+pad(d.getMinutes());
+}
+function fromDatetimeLocal(v){
+  // interpreted as local browser time, fine for a self-contained demo
+  return new Date(v).toISOString();
+}
+function telWhatsapp(tel){
+  var digits = (tel||"").replace(/\D/g,"");
+  return digits.length <= 8 ? "591"+digits : digits;
+}
+function val(id){ var el = document.getElementById(id); return el ? el.value : ""; }
+function checked(id){ var el = document.getElementById(id); return el ? el.checked : false; }
+
+var TOAST_TIMER = null;
+function toast(msg){
+  var el = document.getElementById("toast");
+  el.textContent = msg;
+  el.classList.add("show");
+  clearTimeout(TOAST_TIMER);
+  TOAST_TIMER = setTimeout(function(){ el.classList.remove("show"); }, 3400);
+}
+function copyText(text){
+  function done(){ toast("Mensaje copiado al portapapeles."); }
+  if (navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(done).catch(function(){ window.prompt("Copiá el mensaje manualmente:", text); });
+  } else {
+    window.prompt("Copiá el mensaje manualmente:", text);
+  }
+}
+
+/* ============================== static reference data ============================== */
+var ANTECEDENTE_LABELS = {
+  embarazo: "Embarazo / lactancia",
+  alergias: "Alergias",
+  anticoagulantes: "Anticoagulantes",
+  infeccion_activa: "Infección activa",
+  autoinmune: "Enfermedad autoinmune",
+  enfermedad_base: "Enfermedad de base"
+};
+var ANTECEDENTE_ORDEN = ["embarazo","alergias","anticoagulantes","infeccion_activa","autoinmune","enfermedad_base"];
+var DETALLE_CAMPO = {
+  alergias: "alergias_detalle", anticoagulantes: "anticoagulantes_detalle",
+  infeccion_activa: "infeccion_activa_detalle", autoinmune: "autoinmune_detalle",
+  enfermedad_base: "enfermedad_base_detalle"
+};
+var DETALLE_PLACEHOLDER = {
+  alergias: "¿A qué?", anticoagulantes: "¿Qué medicamento?", infeccion_activa: "¿Cuál?",
+  autoinmune: "¿Cuál?", enfermedad_base: "¿Qué medicamento usa?"
+};
+var GRUPOS_CONSENTIMIENTO = ["rinomodelacion_ah","bioplastia_labial_ah","aumento_menton_ah","toxina_botulinica","bioestimulantes","procedimientos_superficiales"];
+var GRUPO_LABELS = {
+  rinomodelacion_ah: "1. Rinomodelación AH", bioplastia_labial_ah: "2. Bioplastia labial AH",
+  aumento_menton_ah: "3. Aumento de mentón AH", toxina_botulinica: "4. Toxina botulínica",
+  bioestimulantes: "5. Bioestimulantes", procedimientos_superficiales: "6. Procedimientos superficiales"
+};
+var GRUPO_TEXTO = {
+  rinomodelacion_ah: "Consentimiento informado para rinomodelación con ácido hialurónico. Declaro haber sido informado/a de los riesgos, beneficios y alternativas del procedimiento...",
+  bioplastia_labial_ah: "Consentimiento informado para bioplastia labial con ácido hialurónico. Declaro haber sido informado/a de los riesgos, beneficios y alternativas del procedimiento...",
+  aumento_menton_ah: "Consentimiento informado para aumento de mentón con ácido hialurónico. Declaro haber sido informado/a de los riesgos, beneficios y alternativas del procedimiento...",
+  toxina_botulinica: "Consentimiento informado para aplicación de toxina botulínica. Declaro haber sido informado/a de los riesgos, beneficios y alternativas del procedimiento, incluyendo posibles efectos temporales de asimetría...",
+  bioestimulantes: "Consentimiento informado para aplicación de bioestimulantes de colágeno. Declaro haber sido informado/a de los riesgos, beneficios y alternativas del procedimiento...",
+  procedimientos_superficiales: "Consentimiento informado para procedimientos superficiales (peelings, exfoliaciones). Declaro haber sido informado/a de los riesgos, beneficios y alternativas del procedimiento..."
+};
+var PAISES = [
+  {codigo:"+591", bandera:"🇧🇴", nombre:"Bolivia"},
+  {codigo:"+54", bandera:"🇦🇷", nombre:"Argentina"},
+  {codigo:"+55", bandera:"🇧🇷", nombre:"Brasil"},
+  {codigo:"+56", bandera:"🇨🇱", nombre:"Chile"},
+  {codigo:"+51", bandera:"🇵🇪", nombre:"Perú"},
+  {codigo:"+34", bandera:"🇪🇸", nombre:"España"},
+  {codigo:"+1", bandera:"🇺🇸", nombre:"Estados Unidos"}
+];
+var CI_EXTENSIONES = [
+  {value:"LP", label:"La Paz"}, {value:"SC", label:"Santa Cruz"}, {value:"CB", label:"Cochabamba"},
+  {value:"OR", label:"Oruro"}, {value:"PT", label:"Potosí"}, {value:"TJ", label:"Tarija"},
+  {value:"CH", label:"Chuquisaca"}, {value:"BN", label:"Beni"}, {value:"PA", label:"Pando"}, {value:"E", label:"Extranjero"}
+];
+var NAV = [
+  {href:"#/", label:"Inicio", icon:"⌂"},
+  {href:"#/pacientes", label:"Pacientes", icon:"◇"},
+  {href:"#/agenda", label:"Agenda", icon:"▤"},
+  {href:"#/financiero", label:"Financiero", icon:"$"},
+  {href:"#/ajustes", label:"Ajustes", icon:"⚙"}
+];
+var ESTADO_CITA_LABEL = {pendiente:"Por confirmar", confirmada:"Confirmada", completada:"Completada", cancelada:"Cancelada"};
+
+/* ============================== seed data (fresh each load) ============================== */
+function seed(){
+  var servicios = [
+    {id:"srv-1", nombre:"Toxina botulínica", duracion_min:30, sesiones_iniciales:"1", retoque_semanas:null, repeticion_meses:4, precio:900, grupo_consentimiento:"toxina_botulinica", activo:true},
+    {id:"srv-2", nombre:"Bioplastia labial", duracion_min:45, sesiones_iniciales:"1", retoque_semanas:null, repeticion_meses:8, precio:1200, grupo_consentimiento:"bioplastia_labial_ah", activo:true},
+    {id:"srv-3", nombre:"Peeling químico", duracion_min:30, sesiones_iniciales:"3-6", retoque_semanas:4, repeticion_meses:null, precio:350, grupo_consentimiento:"procedimientos_superficiales", activo:true},
+    {id:"srv-4", nombre:"Hidratación facial profunda", duracion_min:40, sesiones_iniciales:"1", retoque_semanas:null, repeticion_meses:null, precio:400, grupo_consentimiento:"", activo:true},
+    {id:"srv-5", nombre:"PDRN", duracion_min:30, sesiones_iniciales:"3", retoque_semanas:3, repeticion_meses:null, precio:600, grupo_consentimiento:"bioestimulantes", activo:true}
+  ];
+  var insumos = [
+    {id:"ins-1", nombre:"Toxina botulínica", unidad:"U", stock_actual:240, activo:true},
+    {id:"ins-2", nombre:"Ácido hialurónico", unidad:"mL", stock_actual:12, activo:true},
+    {id:"ins-3", nombre:"Guantes", unidad:"par", stock_actual:40, activo:true},
+    {id:"ins-4", nombre:"Gasas", unidad:"unidad", stock_actual:6, activo:true},
+    {id:"ins-5", nombre:"Anestésico tópico", unidad:"g", stock_actual:3, activo:true},
+    {id:"ins-6", nombre:"Solución de peeling", unidad:"mL", stock_actual:80, activo:true},
+    {id:"ins-7", nombre:"PDRN vial", unidad:"unidad", stock_actual:3, activo:true}
+  ];
+  var servicioInsumos = [
+    {servicio_id:"srv-1", insumo_id:"ins-1", cantidad_por_servicio:50},
+    {servicio_id:"srv-1", insumo_id:"ins-4", cantidad_por_servicio:2},
+    {servicio_id:"srv-2", insumo_id:"ins-2", cantidad_por_servicio:2},
+    {servicio_id:"srv-2", insumo_id:"ins-4", cantidad_por_servicio:2},
+    {servicio_id:"srv-3", insumo_id:"ins-6", cantidad_por_servicio:5},
+    {servicio_id:"srv-3", insumo_id:"ins-5", cantidad_por_servicio:1},
+    {servicio_id:"srv-5", insumo_id:"ins-7", cantidad_por_servicio:1}
+  ];
+  var pacientes = [
+    {id:"pac-1", nombre:"Camila Vargas", telefono:"+591 70011223", correo:"camila.vargas@correo-demo.com", ci:"4521178-SC", fecha_nacimiento:"1994-03-12", origen:"Instagram", eliminado_en:null,
+      embarazo:false, alergias:false, alergias_detalle:null, anticoagulantes:false, anticoagulantes_detalle:null, infeccion_activa:false, infeccion_activa_detalle:null, autoinmune:false, autoinmune_detalle:null, enfermedad_base:false, enfermedad_base_detalle:null,
+      antecedentes_actualizado_en: diasDesde(-10,9), alerta_contraindicacion:false},
+    {id:"pac-2", nombre:"Diego Salinas", telefono:"+591 65544332", correo:"diego.salinas@correo-demo.com", ci:"5893201-LP", fecha_nacimiento:"1989-07-24", origen:"Referido", eliminado_en:null,
+      embarazo:false, alergias:false, alergias_detalle:null, anticoagulantes:false, anticoagulantes_detalle:null, infeccion_activa:false, infeccion_activa_detalle:null, autoinmune:false, autoinmune_detalle:null, enfermedad_base:false, enfermedad_base_detalle:null,
+      antecedentes_actualizado_en: diasDesde(-20,9), alerta_contraindicacion:false},
+    {id:"pac-3", nombre:"Mateo Cárdenas", telefono:"+591 77812345", correo:"mateo.cardenas@correo-demo.com", ci:"3312890-CB", fecha_nacimiento:"1997-11-02", origen:"Facebook", eliminado_en:null,
+      embarazo:false, alergias:false, alergias_detalle:null, anticoagulantes:false, anticoagulantes_detalle:null, infeccion_activa:false, infeccion_activa_detalle:null, autoinmune:false, autoinmune_detalle:null, enfermedad_base:false, enfermedad_base_detalle:null,
+      antecedentes_actualizado_en: diasDesde(-5,9), alerta_contraindicacion:false},
+    {id:"pac-4", nombre:"Andrea Villalba", telefono:"+591 76655443", correo:"andrea.villalba@correo-demo.com", ci:"6104477-SC", fecha_nacimiento:"1992-05-18", origen:"Instagram", eliminado_en:null,
+      embarazo:false, alergias:false, alergias_detalle:null, anticoagulantes:false, anticoagulantes_detalle:null, infeccion_activa:false, infeccion_activa_detalle:null, autoinmune:false, autoinmune_detalle:null, enfermedad_base:false, enfermedad_base_detalle:null,
+      antecedentes_actualizado_en: diasDesde(-8,9), alerta_contraindicacion:false},
+    {id:"pac-5", nombre:"Renata Ibáñez", telefono:"+591 78899001", correo:"renata.ibanez@correo-demo.com", ci:"2287744-LP", fecha_nacimiento:"1990-09-09", origen:"Referido", eliminado_en:null,
+      embarazo:false, alergias:false, alergias_detalle:null, anticoagulantes:false, anticoagulantes_detalle:null, infeccion_activa:false, infeccion_activa_detalle:null, autoinmune:false, autoinmune_detalle:null, enfermedad_base:false, enfermedad_base_detalle:null,
+      antecedentes_actualizado_en: diasDesde(-14,9), alerta_contraindicacion:false},
+    {id:"pac-6", nombre:"Sofía Quiroga", telefono:"+591 76654321", correo:"sofia.quiroga@correo-demo.com", ci:"4498821-CB", fecha_nacimiento:"1995-01-30", origen:"Instagram", eliminado_en:null,
+      embarazo:false, alergias:true, alergias_detalle:"Penicilina", anticoagulantes:false, anticoagulantes_detalle:null, infeccion_activa:false, infeccion_activa_detalle:null, autoinmune:false, autoinmune_detalle:null, enfermedad_base:false, enfermedad_base_detalle:null,
+      antecedentes_actualizado_en: diasDesde(-16,9), alerta_contraindicacion:true}
+  ];
+  var solicitudes = [
+    {id:"sol-1", nombre:"Valeria Montes", telefono:"+591 73344556", fecha_nacimiento:"1996-02-14", estado:"pendiente",
+      embarazo:false, alergias:false, alergias_detalle:null, anticoagulantes:false, anticoagulantes_detalle:null,
+      infeccion_activa:false, infeccion_activa_detalle:null, autoinmune:true, autoinmune_detalle:"Vitíligo",
+      enfermedad_base:false, enfermedad_base_detalle:null, creado_en: diasDesde(-2,10)}
+  ];
+  var citas = [
+    {id:"cita-1", paciente_id:"pac-1", servicio_id:"srv-1", fecha_hora: diasDesde(-3,11), estado:"completada", alerta_confirmada:false, creado_en: diasDesde(-3,11)},
+    {id:"cita-2", paciente_id:"pac-2", servicio_id:"srv-4", fecha_hora: diasDesde(-2,16), estado:"completada", alerta_confirmada:false, creado_en: diasDesde(-2,16)},
+    {id:"cita-3", paciente_id:"pac-3", servicio_id:"srv-3", fecha_hora: diasDesde(-1,9), estado:"completada", alerta_confirmada:false, creado_en: diasDesde(-1,9)},
+    {id:"cita-4", paciente_id:"pac-4", servicio_id:"srv-5", fecha_hora: diasDesde(1,10), estado:"confirmada", alerta_confirmada:false, creado_en: diasDesde(-1,9)},
+    {id:"cita-5", paciente_id:"pac-5", servicio_id:"srv-2", fecha_hora: diasDesde(2,15), estado:"pendiente", alerta_confirmada:false, creado_en: diasDesde(-1,9)},
+    {id:"cita-6", paciente_id:"pac-6", servicio_id:"srv-1", fecha_hora: diasDesde(4,12), estado:"pendiente", alerta_confirmada:true, creado_en: diasDesde(-1,9)},
+    {id:"cita-7", paciente_id:"pac-1", servicio_id:"srv-3", fecha_hora: diasDesde(-1,14), estado:"pendiente", alerta_confirmada:false, creado_en: diasDesde(-4,9)}
+  ];
+  var movimientos = [
+    {id:"mov-1", tipo:"ingreso", canal:"dermoskin", cita_id:"cita-1", insumo_id:null, servicio_nombre:"Toxina botulínica", monto:900, estado_pago:"pagado", pago_en_cuotas:false, concepto:null, creado_en: diasDesde(-3,11)},
+    {id:"mov-2", tipo:"ingreso", canal:"dermoskin", cita_id:"cita-2", insumo_id:null, servicio_nombre:"Hidratación facial profunda", monto:400, estado_pago:"pendiente", pago_en_cuotas:false, concepto:null, creado_en: diasDesde(-2,16)},
+    {id:"mov-3", tipo:"ingreso", canal:"dermoskin", cita_id:"cita-3", insumo_id:null, servicio_nombre:"Peeling químico", monto:350, estado_pago:"pagado", pago_en_cuotas:false, concepto:null, creado_en: diasDesde(-1,9)},
+    {id:"mov-4", tipo:"ingreso", canal:"clinica_socia", cita_id:null, insumo_id:null, servicio_nombre:null, monto:600, estado_pago:"pagado", pago_en_cuotas:false, concepto:"Derivación clínica socia", creado_en: diasDesde(-6,10)},
+    {id:"mov-5", tipo:"gasto", canal:"dermoskin", cita_id:null, insumo_id:"ins-3", servicio_nombre:null, monto:80, estado_pago:"pagado", pago_en_cuotas:false, concepto:"Compra de guantes", creado_en: diasDesde(-5,9)}
+  ];
+  var cuotas = [];
+  var consentimientos = [];
+  var notas = [
+    {id:"nota-1", paciente_id:"pac-1", texto:"Piel sensible — usar anestésico tópico suave.", autor_nombre:"Administrador", creado_en: diasDesde(-9,10)}
+  ];
+  var recordatorios = [
+    {id:"rec-1", cita_id:"cita-4", tipo:"confirmacion", estado:"pendiente", fecha_disparo: diasDesde(1,8)},
+    {id:"rec-2", cita_id:"cita-5", tipo:"confirmacion", estado:"pendiente", fecha_disparo: diasDesde(2,9)},
+    {id:"rec-3", cita_id:"cita-3", tipo:"retoque", estado:"pendiente", fecha_disparo: diasDesde(-1,9)}
+  ];
+  var usuarios = [
+    {id:"usr-1", nombre:"Administrador Demo", correo:"admin@demo.dermoskin", rol:"administrador", estado_invitacion:"aceptada",
+      permiso_editar_catalogo:true, permiso_activar_servicios:true, permiso_eliminar_pacientes:true, permiso_eliminar_movimientos:true},
+    {id:"usr-2", nombre:"Julia Rodríguez", correo:"julia.rodriguez@correo-demo.com", rol:"asistente", estado_invitacion:"aceptada",
+      permiso_editar_catalogo:false, permiso_activar_servicios:false, permiso_eliminar_pacientes:true, permiso_eliminar_movimientos:false}
+  ];
+  return {
+    servicios: servicios, insumos: insumos, servicioInsumos: servicioInsumos,
+    pacientes: pacientes, solicitudes: solicitudes, citas: citas, movimientos: movimientos, cuotas: cuotas,
+    consentimientos: consentimientos, notas: notas, recordatorios: recordatorios, usuarios: usuarios,
+    configuracion: {umbral_alerta_stock_sesiones: 5},
+    ui: {
+      busquedaPacientes:"", verDadosDeBaja:false, mostrarModalPacientesDelMes:false,
+      ajustesTab:"servicios",
+      agenda: {usaInsumosNuevoServicio:null, insumosStaged:[], countryOpen:false, countrySel:"+591", countryBusqueda:"",
+        alertaModal:null /* {citaTipo:"nueva"|"cita", citaDatos, pacienteId} */ },
+      citaDetalle: {},
+      insumosBusqueda:"", compraAbierta:null,
+      cuotasUI: {}
+    }
+  };
+}
+var S = seed();
+
+/* ============================== router / render ============================== */
+function navigate(hash){ location.hash = hash; }
+window.addEventListener("hashchange", render);
+window.addEventListener("DOMContentLoaded", render);
+
+function currentRoute(){
+  var h = location.hash || "#/";
+  return h;
+}
+function routeParts(){
+  var h = currentRoute();
+  var qi = h.indexOf("?");
+  if (qi >= 0) h = h.substring(0, qi);
+  return h.replace(/^#\//,"").split("/").filter(Boolean);
+}
+
+function render(){
+  var app = document.getElementById("app");
+  var parts = routeParts();
+  var html = "";
+  try{
+    if (parts.length === 0) html = pageInicio();
+    else if (parts[0] === "pacientes" && parts.length === 1) html = pagePacientes();
+    else if (parts[0] === "pacientes" && parts.length === 2) html = pagePacienteFicha(parts[1]);
+    else if (parts[0] === "agenda" && parts.length === 1) html = pageAgenda();
+    else if (parts[0] === "agenda" && parts.length === 2) html = pageCitaDetalle(parts[1]);
+    else if (parts[0] === "financiero" && parts.length === 1) html = pageFinanciero();
+    else if (parts[0] === "financiero" && parts[1] === "pendientes") html = pageSaldoPendiente();
+    else if (parts[0] === "financiero" && parts[1] === "cobro") html = pageCobroDetalle(parts[2]);
+    else if (parts[0] === "ajustes") html = pageAjustes();
+    else html = pageInicio();
+  }catch(e){
+    console.error(e);
+    html = "<p class='txt-red'>Ocurrió un error mostrando esta pantalla.</p>";
+  }
+  app.innerHTML = html;
+  renderNav();
+  window.scrollTo(0,0);
+}
+
+function renderNav(){
+  var d = document.getElementById("nav-desktop");
+  var b = document.getElementById("bottomnav");
+  var h = currentRoute();
+  function activeFor(href){
+    if (href === "#/") return h === "#/" || h === "";
+    return h.indexOf(href) === 0;
+  }
+  d.innerHTML = NAV.map(function(item){
+    return '<a href="'+item.href+'" class="'+(activeFor(item.href)?"active":"")+'"><span class="icn">'+item.icon+'</span><span>'+item.label+'</span></a>';
+  }).join("");
+  b.innerHTML = NAV.map(function(item){
+    return '<a href="'+item.href+'" class="'+(activeFor(item.href)?"active":"")+'"><span class="icn">'+item.icon+'</span><span>'+item.label+'</span></a>';
+  }).join("");
+}
+
+/* ============================== shared lookups ============================== */
+function pacienteById(id){ return S.pacientes.filter(function(p){return p.id===id;})[0]; }
+function servicioById(id){ return S.servicios.filter(function(s){return s.id===id;})[0]; }
+function insumoById(id){ return S.insumos.filter(function(i){return i.id===id;})[0]; }
+function citaById(id){ return S.citas.filter(function(c){return c.id===id;})[0]; }
+function movimientoById(id){ return S.movimientos.filter(function(m){return m.id===id;})[0]; }
+function insumosDeServicio(servicioId){
+  return S.servicioInsumos.filter(function(si){return si.servicio_id===servicioId;}).map(function(si){
+    var ins = insumoById(si.insumo_id);
+    var stockBajo = ins ? (ins.stock_actual / si.cantidad_por_servicio) < S.configuracion.umbral_alerta_stock_sesiones : false;
+    return {insumo_id: si.insumo_id, nombre: ins?ins.nombre:"?", unidad: ins?ins.unidad:"", cantidad_por_servicio: si.cantidad_por_servicio, stock_actual: ins?ins.stock_actual:0, stock_bajo: stockBajo};
+  });
+}
+function insumosBajosGlobal(){
+  var set = {};
+  S.servicioInsumos.forEach(function(si){
+    var ins = insumoById(si.insumo_id);
+    if (ins && (ins.stock_actual / si.cantidad_por_servicio) < S.configuracion.umbral_alerta_stock_sesiones) set[si.insumo_id]=true;
+  });
+  return Object.keys(set);
+}
+function cuotasDe(movId){ return S.cuotas.filter(function(c){return c.movimiento_id===movId;}).sort(function(a,b){return a.numero-b.numero;}); }
+function saldoRestante(mov){
+  if (!mov.pago_en_cuotas) return mov.estado_pago === "pagado" ? 0 : mov.monto;
+  var pagado = cuotasDe(mov.id).filter(function(c){return c.estado==="pagado";}).reduce(function(s,c){return s+c.monto;},0);
+  return mov.monto - pagado;
+}
+function mensajeRecordatorio(tipo, pacienteNombre, servicioNombre){
+  var servicio = servicioNombre ? (" de "+servicioNombre) : "";
+  if (tipo === "confirmacion") return "Hola "+pacienteNombre+", te escribimos de DermoSkin para confirmar tu próxima cita"+servicio+". ¿Nos confirmás tu asistencia?";
+  if (tipo === "retoque") return "Hola "+pacienteNombre+", te escribimos de DermoSkin — según tu tratamiento"+servicio+", es momento de agendar tu retoque. ¿Coordinamos una fecha?";
+  return "Hola "+pacienteNombre+", te escribimos de DermoSkin — ya se cumplió el tiempo sugerido desde tu"+(servicio||" último tratamiento")+". ¿Coordinamos tu próxima sesión?";
+}
+var TIPO_RECORDATORIO_LABEL = {confirmacion:"Confirmación", retoque:"Retoque", repeticion:"Repetición"};
+
+function fakeQr(){
+  var cells = "";
+  for (var i=0;i<81;i++){ cells += "<div style='background:"+(Math.random()>0.55?"var(--content-text)":"transparent")+"'></div>"; }
+  return '<div class="fakeqr">'+cells+'</div>';
+}
+
+/* ============================== PAGE: Inicio ============================== */
+function pageInicio(){
+  var ahora = new Date();
+  var inicioMes = new Date(ahora.getFullYear(), ahora.getMonth(), 1).getTime();
+  var finMes = new Date(ahora.getFullYear(), ahora.getMonth()+1, 0, 23,59,59,999).getTime();
+  var citasMes = S.citas.filter(function(c){ return c.estado==="completada" && new Date(c.fecha_hora).getTime()>=inicioMes && new Date(c.fecha_hora).getTime()<=finMes; });
+  var pacientesDelMesIds = {}; citasMes.forEach(function(c){ pacientesDelMesIds[c.paciente_id]=true; });
+  var pacientesDelMesNombres = Object.keys(pacientesDelMesIds).map(function(id){ var p=pacienteById(id); return p?p.nombre:"Paciente"; }).sort();
+
+  var conteo = {};
+  citasMes.forEach(function(c){ conteo[c.servicio_id] = (conteo[c.servicio_id]||0)+1; });
+  var topId = null, topN = 0;
+  Object.keys(conteo).forEach(function(k){ if (conteo[k] > topN){ topN = conteo[k]; topId = k; } });
+  var topNombre = topId ? (servicioById(topId)||{}).nombre : "—";
+
+  var pendientes = S.recordatorios.filter(function(r){return r.estado==="pendiente";});
+  var nowMs = Date.now();
+  var proximos = pendientes.filter(function(r){ return new Date(r.fecha_disparo).getTime() >= nowMs; });
+  var atrasados = pendientes.filter(function(r){ return new Date(r.fecha_disparo).getTime() < nowMs; });
+
+  var bajos = insumosBajosGlobal();
+
+  function filaRecordatorio(r){
+    var cita = citaById(r.cita_id);
+    var paciente = cita ? pacienteById(cita.paciente_id) : null;
+    var servicio = cita ? servicioById(cita.servicio_id) : null;
+    var mensaje = mensajeRecordatorio(r.tipo, paciente?paciente.nombre:"", servicio?servicio.nombre:"");
+    return {r:r, paciente:paciente, servicio:servicio, mensaje:mensaje};
+  }
+
+  function filaHtml(fila, atrasado){
+    var nombreHtml = fila.paciente
+      ? '<a href="#/pacientes/'+fila.paciente.id+'" class="link-muted" style="text-decoration-style:dotted;">'+esc(fila.paciente.nombre)+'</a>'
+      : '<span>Paciente</span>';
+    var pillHtml = atrasado
+      ? '<span class="ds-pill pill-red">Atrasado · '+fDateShort(fila.r.fecha_disparo)+'</span>'
+      : '<span class="txt-muted" style="font-size:11.5px;">'+fDateShort(fila.r.fecha_disparo)+'</span>';
+    return '<li class="ds-card mb2">'
+      + '<div class="flex-between">'
+      + '<div><p style="margin:0; font-size:14px; color:var(--content-text);">'+nombreHtml+'</p>'
+      + '<p class="txt-muted mt1" style="margin:0; font-size:11.5px;">'+TIPO_RECORDATORIO_LABEL[fila.r.tipo]+'</p></div>'
+      + pillHtml
+      + '</div>'
+      + (fila.paciente ? (
+        '<div class="mt2">'
+        + '<div class="flex-row" style="flex-wrap:wrap;">'
+        + '<button class="small-btn" onclick="actWhatsapp(\''+fila.r.id+'\')">Enviar por WhatsApp</button>'
+        + '<button class="small-btn" onclick="actEmail(\''+fila.r.id+'\')">Enviar por email</button>'
+        + '<button class="small-btn" onclick="actCopiarMensaje(\''+fila.r.id+'\')">Copiar mensaje</button>'
+        + '</div>'
+        + '<button class="link-muted" style="display:block; margin-top:6px; background:none; border:none; cursor:pointer;" onclick="actMarcarContactado(\''+fila.r.id+'\')">✓ Marcar como contactado</button>'
+        + '</div>'
+      ) : "")
+      + '</li>';
+  }
+
+  var proximosHtml = proximos.length
+    ? proximos.map(function(r){ return filaHtml(filaRecordatorio(r), false); }).join("")
+    : '<li class="txt-muted" style="font-size:14px;">Sin recordatorios próximos.</li>';
+  var atrasadosHtml = atrasados.length
+    ? atrasados.map(function(r){ return filaHtml(filaRecordatorio(r), true); }).join("")
+    : '<li class="txt-muted" style="font-size:14px;">Nadie atrasado — al día.</li>';
+
+  return ''
+    + '<h1 class="page-title">Inicio</h1>'
+    + '<div class="grid2 mb4">'
+    + '  <button class="ds-card ds-card-clickable tile" style="border:1px solid var(--content-border); width:100%;" onclick="actAbrirPacientesDelMes()"><span class="num">'+pacientesDelMesNombres.length+'</span><span class="cap">Pacientes del mes</span></button>'
+    + '  <div class="ds-card tile"><span class="num">'+proximos.length+'</span><span class="cap">Próximos controles</span></div>'
+    + '  <div class="ds-card tile"><span class="num" style="'+(atrasados.length>0?"color:var(--red);":"")+'">'+atrasados.length+'</span><span class="cap">Pendientes de contactar</span></div>'
+    + '  <div class="ds-card tile"><span class="num" style="font-size:15px;">'+esc(topNombre)+'</span><span class="cap">Más solicitado del mes</span></div>'
+    + '</div>'
+    + '<div class="ds-card ds-card-clickable mb6" onclick="navigate(\'#/ajustes\'); setTimeout(function(){actAjustesTab(\'insumos\');},0);">'
+    + '  <div class="flex-between">'
+    + '    <div><p style="margin:0; font-size:14px; font-weight:600;">Insumos con stock bajo</p><p class="txt-muted mt1" style="margin:0; font-size:11.5px;">Ver detalle en Ajustes</p></div>'
+    + '    <span class="ds-pill '+(bajos.length>0?"pill-red":"pill-green")+'">'+bajos.length+'</span>'
+    + '  </div>'
+    + '</div>'
+    + '<div class="ds-section-label">Próximos controles y recordatorios</div>'
+    + '<ul class="mb6">'+proximosHtml+'</ul>'
+    + '<div class="ds-section-label">Pendientes de contactar</div>'
+    + '<ul class="mb6">'+atrasadosHtml+'</ul>'
+    + '<button class="ds-btn-outline" style="width:100%;" onclick="toast(\'Esto descargaría un ZIP con un CSV por tabla y los PDFs de consentimientos firmados.\')">Respaldo manual — descargar todo</button>'
+    + (S.ui.mostrarModalPacientesDelMes ? modalPacientesDelMes(pacientesDelMesNombres) : "");
+}
+
+function modalPacientesDelMes(nombres){
+  var items = nombres.length
+    ? nombres.map(function(n){ return '<li style="font-size:14px; padding:3px 0;">'+esc(n)+'</li>'; }).join("")
+    : '<p class="txt-muted" style="font-size:14px;">Sin pacientes atendidos este mes.</p>';
+  return '<div class="modal-overlay" onclick="actCerrarPacientesDelMes()">'
+    + '<div class="ds-card" style="max-width:360px; max-height:80vh; display:flex; flex-direction:column;" onclick="event.stopPropagation()">'
+    + '<div class="ds-section-label" style="margin-top:0;">Pacientes del mes ('+nombres.length+')</div>'
+    + '<ul style="overflow-y:auto; flex:1; min-height:0;">'+items+'</ul>'
+    + '<button class="ds-btn-outline mt3" style="width:100%;" onclick="actCerrarPacientesDelMes()">Cerrar</button>'
+    + '</div></div>';
+}
+
+/* actions: Inicio */
+function actAbrirPacientesDelMes(){ S.ui.mostrarModalPacientesDelMes = true; render(); }
+function actCerrarPacientesDelMes(){ S.ui.mostrarModalPacientesDelMes = false; render(); }
+function recordatorioContext(id){
+  var r = S.recordatorios.filter(function(x){return x.id===id;})[0];
+  var cita = citaById(r.cita_id);
+  var paciente = pacienteById(cita.paciente_id);
+  var servicio = servicioById(cita.servicio_id);
+  return {r:r, paciente:paciente, mensaje: mensajeRecordatorio(r.tipo, paciente.nombre, servicio?servicio.nombre:"")};
+}
+function actWhatsapp(id){ var ctx = recordatorioContext(id); toast('Esto abriría WhatsApp con el mensaje: "'+ctx.mensaje+'"'); }
+function actEmail(id){ var ctx = recordatorioContext(id); toast('Esto abriría tu cliente de correo para '+ctx.paciente.correo+' con el mensaje ya escrito.'); }
+function actCopiarMensaje(id){ var ctx = recordatorioContext(id); copyText(ctx.mensaje); }
+function actMarcarContactado(id){
+  S.recordatorios = S.recordatorios.map(function(r){ return r.id===id ? Object.assign({},r,{estado:"contactado"}) : r; });
+  toast("Marcado como contactado.");
+  render();
+}
+
+/* ============================== PAGE: Pacientes ============================== */
+function antecedentesMarcados(obj){
+  return ANTECEDENTE_ORDEN.filter(function(a){ return obj[a]; }).map(function(a){
+    var det = DETALLE_CAMPO[a] ? obj[DETALLE_CAMPO[a]] : null;
+    return det ? (ANTECEDENTE_LABELS[a]+" — "+det) : ANTECEDENTE_LABELS[a];
+  });
+}
+
+function pagePacientes(){
+  var busqueda = S.ui.busquedaPacientes || "";
+  var verBaja = S.ui.verDadosDeBaja;
+  var lista = S.pacientes.filter(function(p){ return verBaja ? !!p.eliminado_en : !p.eliminado_en; })
+    .filter(function(p){ return p.nombre.toLowerCase().indexOf(busqueda.trim().toLowerCase())>=0; })
+    .sort(function(a,b){ return a.nombre.localeCompare(b.nombre,"es"); });
+
+  var solicitudesHtml = "";
+  if (!verBaja && S.solicitudes.filter(function(s){return s.estado==="pendiente";}).length){
+    var pend = S.solicitudes.filter(function(s){return s.estado==="pendiente";});
+    solicitudesHtml = '<div class="ds-section-label">Solicitudes pendientes ('+pend.length+')</div><ul class="mb6">'
+      + pend.map(function(s){
+        var ants = antecedentesMarcados(s);
+        return '<li class="ds-card mb2 flex-between">'
+          + '<div><span style="font-size:14px; font-weight:600;">'+esc(s.nombre)+'</span>'
+          + (ants.length ? '<div class="mt1" style="display:flex; flex-wrap:wrap; gap:4px;">'+ants.map(function(t){return '<span class="ds-pill pill-red">'+esc(t)+'</span>';}).join("")+'</div>' : "")
+          + '<p class="txt-muted mt1" style="margin:0; font-size:11.5px;">'+esc(s.telefono)+' · nacimiento '+esc(s.fecha_nacimiento)+'</p></div>'
+          + '<button class="ds-btn-primary" style="padding:7px 16px; font-size:12px; flex-shrink:0;" onclick="actConvertirSolicitud(\''+s.id+'\')">Convertir a paciente</button>'
+          + '</li>';
+      }).join("") + '</ul>';
+  }
+
+  var nuevoFormHtml = verBaja ? "" : nuevoPacienteFormHtml();
+
+  var listaHtml = lista.map(function(p){
+    return '<li class="ds-card ds-card-clickable mb2" onclick="navigate(\'#/pacientes/'+p.id+'\')">'
+      + '<div class="flex-between">'
+      + '<div><div class="flex-row"><span style="font-size:14px; font-weight:600;">'+esc(p.nombre)+'</span>'
+      + (p.alerta_contraindicacion ? '<span class="ds-pill pill-red">⚠ Alerta</span>' : "")
+      + (verBaja ? '<span class="ds-pill pill-muted">Dado de baja</span>' : "")
+      + '</div><p class="txt-muted mt1" style="margin:0; font-size:11.5px;">'+esc(p.telefono)+'</p></div>'
+      + '<span class="txt-muted">→</span>'
+      + '</div></li>';
+  }).join("") || '<li class="txt-muted" style="font-size:14px;">'+(busqueda.trim()?"Ningún paciente coincide con la búsqueda.":(verBaja?"No hay pacientes dados de baja.":"Todavía no hay pacientes cargados."))+'</li>';
+
+  return ''
+    + '<div class="flex-between mb4"><h1 class="page-title" style="margin-bottom:0;">Pacientes</h1>'
+    + '<label class="flex-row" style="font-size:12.5px; color:var(--content-muted);"><input type="checkbox" '+(verBaja?"checked":"")+' onchange="actToggleVerBaja(this.checked)"> Ver dados de baja</label>'
+    + '</div>'
+    + '<input class="ds-input mb4" placeholder="Buscar por nombre..." value="'+esc(busqueda)+'" oninput="actBuscarPacientes(this.value)">'
+    + solicitudesHtml
+    + nuevoFormHtml
+    + '<div class="ds-section-label">'+(verBaja? (lista.length+" pacientes dados de baja") : (lista.length+" pacientes"))+'</div>'
+    + '<ul>'+listaHtml+'</ul>';
+}
+
+function nuevoPacienteFormHtml(){
+  var ui = S.ui.agenda;
+  var pais = PAISES.filter(function(p){return p.codigo===ui.countrySel;})[0] || PAISES[0];
+  var d = S.ui.pacienteDraft || {};
+  var antecedentesFields = ANTECEDENTE_ORDEN.map(function(a){
+    var det = DETALLE_CAMPO[a];
+    var marcado = !!d[a];
+    return '<div>'
+      + '<label class="flex-row" style="font-size:11.5px;"><input type="checkbox" id="np-'+a+'" '+(marcado?"checked":"")+' onchange="actGuardarBorradorPaciente(); render_npDetalle();"> '+ANTECEDENTE_LABELS[a]+'</label>'
+      + (det ? '<div id="np-detalle-wrap-'+a+'" style="margin-top:4px; margin-left:22px; display:'+(marcado?"block":"none")+';"><input class="ds-input" id="np-'+det+'" value="'+esc(d[det]||"")+'" oninput="actGuardarBorradorPaciente()" placeholder="'+DETALLE_PLACEHOLDER[a]+'" style="width:210px; font-size:12px;"></div>' : "")
+      + '</div>';
+  }).join("");
+
+  return '<div class="mb6">'
+    + '<div class="ds-section-label">Nuevo paciente</div>'
+    + '<div class="flex-col gap2">'
+    + '<label class="ds-label">Nombre<input class="ds-input" id="np-nombre" value="'+esc(d.nombre||"")+'" oninput="actGuardarBorradorPaciente()"></label>'
+    + '<label class="ds-label">Teléfono<div class="flex-row">'
+    + '  <div class="relative">'
+    + '    <button type="button" class="ds-input country-btn" onclick="actToggleCountry()">'+pais.bandera+' <span class="txt-muted">'+pais.codigo+'</span></button>'
+    + (ui.countryOpen ? countryPopupHtml() : "")
+    + '  </div>'
+    + '  <input class="ds-input" id="np-telefono" value="'+esc(d.telefono||"")+'" oninput="actGuardarBorradorPaciente()" placeholder="Número" inputmode="numeric" style="flex:1; min-width:0;">'
+    + '</div></label>'
+    + '<label class="ds-label">Correo<input class="ds-input" type="email" id="np-correo" value="'+esc(d.correo||"")+'" oninput="actGuardarBorradorPaciente()"></label>'
+    + '<label class="ds-label">CI<div class="flex-row">'
+    + '  <input class="ds-input" id="np-ci-numero" value="'+esc(d.ciNumero||"")+'" oninput="actGuardarBorradorPaciente()" placeholder="1234567" inputmode="numeric" style="flex:1; min-width:0;">'
+    + '  <select class="ds-input" id="np-ci-ext" onchange="actGuardarBorradorPaciente()" style="width:120px;">' + '<option value="">— Depto. —</option>' + CI_EXTENSIONES.map(function(e){return '<option value="'+e.value+'" '+(d.ciExt===e.value?"selected":"")+'>'+e.label+' ('+e.value+')</option>';}).join("") + '</select>'
+    + '</div></label>'
+    + '<label class="ds-label">Nacimiento<input class="ds-input" type="date" id="np-nacimiento" value="'+esc(d.nacimiento||"")+'" onchange="actGuardarBorradorPaciente()"></label>'
+    + '<label class="ds-label">Origen<input class="ds-input" id="np-origen" value="'+esc(d.origen||"")+'" oninput="actGuardarBorradorPaciente()" placeholder="Instagram..."></label>'
+    + '</div>'
+    + '<div class="mt3" style="display:flex; flex-wrap:wrap; gap:12px 16px;">'+antecedentesFields+'</div>'
+    + '<button class="ds-btn-primary mt3" onclick="actCrearPaciente()">Agregar</button>'
+    + '</div>';
+}
+function countryPopupHtml(){
+  var q = S.ui.agenda.countryBusqueda || "";
+  var filtrados = PAISES.filter(function(p){ return p.nombre.toLowerCase().indexOf(q.toLowerCase())>=0; });
+  return '<div class="country-pop" onclick="event.stopPropagation()">'
+    + '<input class="ds-input mb2" placeholder="Buscar país..." value="'+esc(q)+'" oninput="actBuscarPais(this.value)">'
+    + filtrados.map(function(p){ return '<button type="button" class="country-row" onclick="actElegirPais(\''+p.codigo+'\')">'+p.bandera+' <span style="flex:1;">'+p.nombre+'</span><span class="txt-muted">'+p.codigo+'</span></button>'; }).join("")
+    + '</div>';
+}
+function actGuardarBorradorPaciente(){
+  var d = {nombre: val("np-nombre"), telefono: val("np-telefono"), correo: val("np-correo"),
+    ciNumero: val("np-ci-numero"), ciExt: val("np-ci-ext"), nacimiento: val("np-nacimiento"), origen: val("np-origen")};
+  ANTECEDENTE_ORDEN.forEach(function(a){
+    d[a] = checked("np-"+a);
+    var det = DETALLE_CAMPO[a];
+    if (det) d[det] = val("np-"+det);
+  });
+  S.ui.pacienteDraft = d;
+}
+function render_npDetalle(){
+  ANTECEDENTE_ORDEN.forEach(function(a){
+    var det = DETALLE_CAMPO[a];
+    if (!det) return;
+    var cb = document.getElementById("np-"+a);
+    var wrap = document.getElementById("np-detalle-wrap-"+a);
+    if (cb && wrap) wrap.style.display = cb.checked ? "block" : "none";
+  });
+}
+
+/* actions: Pacientes list */
+function actBuscarPacientes(v){ S.ui.busquedaPacientes = v; renderKeepFocus(); }
+function actToggleVerBaja(v){ S.ui.verDadosDeBaja = v; render(); }
+function actToggleCountry(){ S.ui.agenda.countryOpen = !S.ui.agenda.countryOpen; render(); }
+function actBuscarPais(v){ S.ui.agenda.countryBusqueda = v; render(); }
+function actElegirPais(codigo){ S.ui.agenda.countrySel = codigo; S.ui.agenda.countryOpen = false; render(); }
+
+function renderKeepFocus(){
+  var active = document.activeElement;
+  var id = active ? active.id : null;
+  var selStart = active && "selectionStart" in active ? active.selectionStart : null;
+  render();
+  if (id){
+    var el = document.getElementById(id);
+    if (el){ el.focus(); if (selStart !== null && el.setSelectionRange){ try{ el.setSelectionRange(selStart, selStart);}catch(e){} } }
+  }
+}
+
+function actConvertirSolicitud(id){
+  var s = S.solicitudes.filter(function(x){return x.id===id;})[0];
+  if (!confirm('¿Convertir la solicitud de "'+s.nombre+'" en paciente?')) return;
+  var nuevo = {
+    id: uid("pac"), nombre: s.nombre, telefono: s.telefono, correo: null, ci: null, fecha_nacimiento: s.fecha_nacimiento, origen: "Registro público", eliminado_en:null,
+    embarazo:s.embarazo, alergias:s.alergias, alergias_detalle:s.alergias_detalle, anticoagulantes:s.anticoagulantes, anticoagulantes_detalle:s.anticoagulantes_detalle,
+    infeccion_activa:s.infeccion_activa, infeccion_activa_detalle:s.infeccion_activa_detalle, autoinmune:s.autoinmune, autoinmune_detalle:s.autoinmune_detalle,
+    enfermedad_base:s.enfermedad_base, enfermedad_base_detalle:s.enfermedad_base_detalle, antecedentes_actualizado_en: new Date().toISOString(),
+    alerta_contraindicacion: !!(s.embarazo||s.alergias||s.anticoagulantes||s.infeccion_activa||s.autoinmune||s.enfermedad_base)
+  };
+  S.pacientes.push(nuevo);
+  S.solicitudes = S.solicitudes.map(function(x){ return x.id===id ? Object.assign({},x,{estado:"convertido"}) : x; });
+  toast('"'+nuevo.nombre+'" se convirtió en paciente.');
+  navigate("#/pacientes/"+nuevo.id);
+}
+
+function actCrearPaciente(){
+  var nombre = val("np-nombre").trim();
+  var correo = val("np-correo").trim();
+  var telNum = val("np-telefono").replace(/\D/g,"");
+  var ciNum = val("np-ci-numero").replace(/\D/g,"");
+  var ciExt = val("np-ci-ext");
+  var nacimiento = val("np-nacimiento");
+  var origen = val("np-origen").trim();
+  if (!nombre){ alert("El nombre es obligatorio."); return; }
+  if (!telNum){ alert("El teléfono es obligatorio."); return; }
+  if (!nacimiento){ alert("La fecha de nacimiento es obligatoria."); return; }
+  var obj = {id: uid("pac"), nombre: nombre, telefono: S.ui.agenda.countrySel+" "+telNum, correo: correo||null,
+    ci: ciNum ? (ciNum.padStart(7,"0")+(ciExt?("-"+ciExt):"")) : null, fecha_nacimiento: nacimiento, origen: origen||null, eliminado_en:null,
+    antecedentes_actualizado_en: new Date().toISOString()};
+  ANTECEDENTE_ORDEN.forEach(function(a){
+    var c = checked("np-"+a);
+    obj[a] = c;
+    var det = DETALLE_CAMPO[a];
+    if (det) obj[det] = c ? (val("np-"+det).trim()||null) : null;
+  });
+  obj.alerta_contraindicacion = ANTECEDENTE_ORDEN.some(function(a){ return obj[a]; });
+  S.pacientes.push(obj);
+  S.ui.pacienteDraft = {};
+  toast('"'+obj.nombre+'" se creó correctamente.');
+  navigate("#/pacientes/"+obj.id);
+}
+
+/* ============================== PAGE: Ficha paciente ============================== */
+function pagePacienteFicha(id){
+  var p = pacienteById(id);
+  if (!p) return '<p class="txt-muted">Paciente no encontrado en la demo.</p>';
+  var soloLectura = !!p.eliminado_en;
+  var notas = S.notas.filter(function(n){return n.paciente_id===id;}).sort(function(a,b){return new Date(b.creado_en)-new Date(a.creado_en);});
+
+  return ''
+    + '<div class="flex-between mb4">'
+    + '<div><h1 class="page-title" style="margin-bottom:2px;">'+esc(p.nombre)+(p.eliminado_en?' <span class="ds-pill pill-muted">Dado de baja</span>':'')+'</h1><p class="txt-muted" style="margin:0; font-size:12.5px;">'+esc(p.telefono)+'</p></div>'
+    + (!p.eliminado_en ? '<button class="ds-btn-primary" style="padding:7px 16px; font-size:12px; flex-shrink:0;" onclick="navigate(\'#/agenda?paciente='+p.id+'\')">Agendar cita</button>' : '')
+    + '</div>'
+    + (p.eliminado_en ? '<button class="ds-btn-outline mb4" onclick="actReactivarPaciente(\''+p.id+'\')">Reactivar</button>' : '')
+    + antecedentesPanelHtml(p, "ficha", soloLectura)
+    + '<div class="ds-section-label">Datos del paciente</div>'
+    + (soloLectura ? datosSoloLecturaHtml(p) : editarPacienteFormHtml(p))
+    + '<div class="ds-section-label">Notas clínicas</div>'
+    + (!soloLectura ? (
+        '<div class="flex-col gap2 mb3">'
+        + '<textarea class="ds-input" id="nota-texto" placeholder="Nueva nota clínica..." style="min-height:70px;"></textarea>'
+        + '<button class="ds-btn-outline" style="align-self:flex-start; padding:7px 16px; font-size:12px;" onclick="actAgregarNota(\''+p.id+'\')">Agregar nota</button>'
+        + '</div>'
+      ) : "")
+    + '<ul class="flex-col gap2">'
+    + (notas.length ? notas.map(function(n){
+        return '<li class="ds-card"><p class="txt-muted" style="margin:0; font-size:11px;">'+fDate(n.creado_en,{day:"numeric",month:"short",year:"numeric"})+' · '+esc(n.autor_nombre)+'</p><p style="margin:4px 0 0; font-size:14px;">'+esc(n.texto)+'</p></li>';
+      }).join("") : '<li class="txt-muted" style="font-size:14px;">Sin notas todavía.</li>')
+    + '</ul>'
+    + (!p.eliminado_en ? '<button class="mt6" style="background:none; border:none; cursor:pointer; font-size:12px; color:var(--red); text-decoration:underline;" onclick="actDarDeBaja(\''+p.id+'\')">Dar de baja</button>' : '')
+    + '<a href="#/pacientes" class="link-muted" style="display:block; margin-top:8px;">← Volver a Pacientes</a>';
+}
+
+function antecedentesPanelHtml(p, ctx, soloLectura){
+  var items = ANTECEDENTE_ORDEN.map(function(a){
+    var det = DETALLE_CAMPO[a];
+    var checked_ = p[a];
+    var prefix = "pan-"+ctx+"-"+p.id+"-";
+    return '<li>'
+      + '<label class="flex-row" style="font-size:14px;"><input type="checkbox" id="'+prefix+a+'" '+(checked_?"checked":"")+' '+(soloLectura?"disabled":"")+' onchange="render_panDetalle(\''+ctx+'\',\''+p.id+'\')"> '+ANTECEDENTE_LABELS[a]+'</label>'
+      + (det ? '<div id="'+prefix+'wrap-'+a+'" style="margin-top:6px; margin-left:24px; display:'+(checked_?"block":"none")+';"><input class="ds-input" id="'+prefix+det+'" value="'+esc(p[det]||"")+'" placeholder="'+DETALLE_PLACEHOLDER[a]+'" '+(soloLectura?"disabled":"")+'></div>' : "")
+      + '</li>';
+  }).join("");
+  return '<div class="ds-card mb5">'
+    + '<div class="ds-section-label" style="margin-top:0;">Antecedentes de salud</div>'
+    + (p.antecedentes_actualizado_en ? '<p class="txt-muted" style="margin:-4px 0 8px; font-size:11px;">Última actualización: '+fDate(p.antecedentes_actualizado_en,{day:"numeric",month:"short",year:"numeric"})+'</p>' : "")
+    + '<ul class="flex-col gap2">'+items+'</ul>'
+    + (!soloLectura ? '<button class="ds-btn-outline mt3" style="padding:7px 16px; font-size:12px;" onclick="actGuardarAntecedentes(\''+ctx+'\',\''+p.id+'\')">Guardar antecedentes</button>' : "")
+    + '</div>';
+}
+function render_panDetalle(ctx, pacienteId){
+  var prefix = "pan-"+ctx+"-"+pacienteId+"-";
+  ANTECEDENTE_ORDEN.forEach(function(a){
+    var det = DETALLE_CAMPO[a];
+    if (!det) return;
+    var cb = document.getElementById(prefix+a);
+    var wrap = document.getElementById(prefix+"wrap-"+a);
+    if (cb && wrap) wrap.style.display = cb.checked ? "block" : "none";
+  });
+}
+function actGuardarAntecedentes(ctx, pacienteId){
+  var prefix = "pan-"+ctx+"-"+pacienteId+"-";
+  var p = pacienteById(pacienteId);
+  var updated = Object.assign({}, p);
+  ANTECEDENTE_ORDEN.forEach(function(a){
+    var c = checked(prefix+a);
+    updated[a] = c;
+    var det = DETALLE_CAMPO[a];
+    if (det) updated[det] = c ? (val(prefix+det).trim()||null) : null;
+  });
+  updated.alerta_contraindicacion = ANTECEDENTE_ORDEN.some(function(a){ return updated[a]; });
+  updated.antecedentes_actualizado_en = new Date().toISOString();
+  S.pacientes = S.pacientes.map(function(x){ return x.id===pacienteId ? updated : x; });
+  toast("Antecedentes guardados.");
+  render();
+}
+
+function datosSoloLecturaHtml(p){
+  return '<div class="flex-col gap3">'
+    + ['Nombre','Teléfono','Correo','CI','Fecha de nacimiento','Origen'].map(function(label,i){
+        var vals = [p.nombre, p.telefono, p.correo||"—", p.ci||"—", p.fecha_nacimiento, p.origen||"—"];
+        return '<div class="ds-label">'+label+'<p style="margin:0; font-size:14px; color:var(--content-text);">'+esc(vals[i])+'</p></div>';
+      }).join("")
+    + '</div>';
+}
+function editarPacienteFormHtml(p){
+  var pais = PAISES.filter(function(x){return p.telefono && p.telefono.indexOf(x.codigo)===0;})[0] || PAISES[0];
+  var numero = p.telefono ? p.telefono.replace(pais.codigo,"").trim() : "";
+  var ciParts = (p.ci||"").match(/^(\d+)-([A-Z]+)$/);
+  return '<div class="flex-col gap2">'
+    + '<label class="ds-label">Nombre<input class="ds-input" id="ep-nombre" value="'+esc(p.nombre)+'"></label>'
+    + '<label class="ds-label">Teléfono<div class="flex-row"><span class="ds-input" style="width:auto; padding:10px 12px;">'+pais.bandera+' '+pais.codigo+'</span><input class="ds-input" id="ep-telefono" value="'+esc(numero)+'" style="flex:1; min-width:0;"></div></label>'
+    + '<label class="ds-label">Correo<input class="ds-input" type="email" id="ep-correo" value="'+esc(p.correo||"")+'"></label>'
+    + '<label class="ds-label">CI<div class="flex-row">'
+    + '<input class="ds-input" id="ep-ci-numero" value="'+esc(ciParts?ciParts[1]:"")+'" style="flex:1; min-width:0;">'
+    + '<select class="ds-input" id="ep-ci-ext" style="width:120px;"><option value="">— Depto. —</option>'+CI_EXTENSIONES.map(function(e){return '<option value="'+e.value+'" '+(ciParts&&ciParts[2]===e.value?"selected":"")+'>'+e.label+' ('+e.value+')</option>';}).join("")+'</select>'
+    + '</div></label>'
+    + '<label class="ds-label">Fecha de nacimiento<input class="ds-input" type="date" id="ep-nacimiento" value="'+esc(p.fecha_nacimiento)+'"></label>'
+    + '<label class="ds-label">Origen<input class="ds-input" id="ep-origen" value="'+esc(p.origen||"")+'"></label>'
+    + '<button class="ds-btn-primary" style="align-self:flex-start;" onclick="actGuardarPaciente(\''+p.id+'\',\''+pais.codigo+'\')">Guardar cambios</button>'
+    + '</div>';
+}
+function actGuardarPaciente(id, codigoPais){
+  var p = pacienteById(id);
+  var numero = val("ep-telefono").replace(/\D/g,"");
+  var ciNum = val("ep-ci-numero").replace(/\D/g,"");
+  var ciExt = val("ep-ci-ext");
+  var updated = Object.assign({}, p, {
+    nombre: val("ep-nombre").trim(), telefono: codigoPais+" "+numero, correo: val("ep-correo").trim()||null,
+    ci: ciNum ? (ciNum.padStart(7,"0")+(ciExt?("-"+ciExt):"")) : null,
+    fecha_nacimiento: val("ep-nacimiento"), origen: val("ep-origen").trim()||null
+  });
+  S.pacientes = S.pacientes.map(function(x){ return x.id===id ? updated : x; });
+  toast("Cambios guardados.");
+  render();
+}
+function actAgregarNota(pacienteId){
+  var texto = val("nota-texto").trim();
+  if (!texto) return;
+  S.notas.unshift({id: uid("nota"), paciente_id: pacienteId, texto: texto, autor_nombre:"Administrador", creado_en: new Date().toISOString()});
+  render();
+}
+function actDarDeBaja(id){
+  var p = pacienteById(id);
+  if (!confirm('¿Dar de baja a "'+p.nombre+'"?')) return;
+  S.pacientes = S.pacientes.map(function(x){ return x.id===id ? Object.assign({},x,{eliminado_en:new Date().toISOString()}) : x; });
+  toast('"'+p.nombre+'" fue dado de baja.');
+  render();
+}
+function actReactivarPaciente(id){
+  S.pacientes = S.pacientes.map(function(x){ return x.id===id ? Object.assign({},x,{eliminado_en:null}) : x; });
+  toast("Paciente reactivado.");
+  render();
+}
+
+/* ============================== PAGE: Agenda ============================== */
+function parseHashQuery(){
+  var h = location.hash;
+  var qi = h.indexOf("?");
+  var out = {};
+  if (qi < 0) return out;
+  h.substring(qi+1).split("&").forEach(function(kv){
+    var parts = kv.split("=");
+    if (parts[0]) out[decodeURIComponent(parts[0])] = decodeURIComponent(parts[1]||"");
+  });
+  return out;
+}
+
+function pageAgenda(){
+  var q = parseHashQuery();
+  var citasOrdenadas = S.citas.slice().sort(function(a,b){ return new Date(a.fecha_hora)-new Date(b.fecha_hora); });
+  var pacienteIdPre = q.paciente || S.ui.agenda.pacienteSel || "";
+  var pacienteSel = S.ui.agenda.pacienteSel !== undefined && S.ui.agenda.pacienteSel !== null ? S.ui.agenda.pacienteSel : pacienteIdPre;
+  var servicioSel = S.ui.agenda.servicioSel || "";
+  var pacienteElegido = pacienteById(pacienteSel);
+  var servicioElegido = servicioById(servicioSel);
+  var pacientesActivos = S.pacientes.filter(function(p){return !p.eliminado_en;});
+  var serviciosActivos = S.servicios.filter(function(s){return s.activo;});
+
+  var formHtml = '<div class="ds-card mb6">'
+    + '<div class="ds-section-label" style="margin-top:0;">Agendar cita</div>'
+    + '<div class="flex-col gap3">'
+    + '<label class="ds-label">Paciente<select class="ds-input" id="ac-paciente" onchange="actCambiarPacienteAgenda(this.value)">'
+    + '<option value="">— Elegir —</option>'
+    + pacientesActivos.map(function(p){ return '<option value="'+p.id+'" '+(p.id===pacienteSel?"selected":"")+'>'+esc(p.nombre)+'</option>'; }).join("")
+    + '</select></label>'
+    + (pacienteElegido && pacienteElegido.alerta_contraindicacion ? (
+        '<div style="border-radius:14px; border:1px solid rgba(163,68,51,.3); background:rgba(163,68,51,.1); padding:11px 13px;">'
+        + '<p class="txt-red" style="margin:0; font-size:13px; font-weight:600;">⚠ Alerta de contraindicación</p>'
+        + '<p class="txt-muted" style="margin:2px 0 0; font-size:11.5px;">Este paciente tiene antecedentes activos — al agendar, primero vas a tener que revisarlos y decidir.</p>'
+        + '</div>'
+      ) : "")
+    + '<label class="ds-label">Servicio<select class="ds-input" id="ac-servicio" onchange="actCambiarServicioAgenda(this.value)">'
+    + '<option value="">— Elegir —</option>'
+    + serviciosActivos.map(function(s){ return '<option value="'+s.id+'" '+(s.id===servicioSel?"selected":"")+'>'+esc(s.nombre)+'</option>'; }).join("")
+    + '</select></label>'
+    + (servicioElegido ? '<p class="txt-muted" style="margin:-8px 0 0; font-size:11.5px;">Duración: '+servicioElegido.duracion_min+' min</p>' : "")
+    + '<label class="ds-label">Fecha y hora (hora de Bolivia)<input class="ds-input" type="datetime-local" id="ac-fecha" value="'+esc(S.ui.agenda.fechaSel||"")+'" onchange="S.ui.agenda.fechaSel=this.value;"></label>'
+    + '<button class="ds-btn-primary" style="margin-top:4px;" onclick="actIntentarAgendar()">Agendar</button>'
+    + '</div></div>';
+
+  var citasHtml = citasOrdenadas.map(function(c){
+    var p = pacienteById(c.paciente_id); var s = servicioById(c.servicio_id);
+    var pillClass = c.estado==="confirmada"?"pill-green":c.estado==="pendiente"?"pill-amber":c.estado==="cancelada"?"pill-red":"pill-muted";
+    var borderColor = c.estado==="confirmada"?"var(--green)":c.estado==="pendiente"?"var(--amber)":c.estado==="cancelada"?"rgba(163,68,51,.5)":"var(--content-border)";
+    return '<li><a href="#/agenda/'+c.id+'" class="ds-card ds-card-clickable" style="display:block; border-left:4px solid '+borderColor+';">'
+      + '<div class="flex-between">'
+      + '<div><p style="margin:0; font-size:14px; font-weight:600;">'+fDate(c.fecha_hora,{day:"numeric",month:"short"})+' · '+(p?esc(p.nombre):"Paciente")+'</p>'
+      + '<p class="txt-muted mt1" style="margin:0; font-size:11.5px;">'+(s?esc(s.nombre):"Servicio")+'</p></div>'
+      + '<span class="ds-pill '+pillClass+'">'+ESTADO_CITA_LABEL[c.estado]+'</span>'
+      + '</div></a></li>';
+  }).join("") || '<li class="txt-muted" style="font-size:14px;">No hay citas agendadas.</li>';
+
+  return '<h1 class="page-title">Agenda</h1>'
+    + formHtml
+    + '<div class="ds-section-label">Citas</div>'
+    + '<ul class="flex-col gap2">'+citasHtml+'</ul>'
+    + (S.ui.agenda.alertaModal ? antecedentesModalHtml(S.ui.agenda.alertaModal) : "");
+}
+
+function actCambiarPacienteAgenda(v){ S.ui.agenda.pacienteSel = v; render(); }
+function actCambiarServicioAgenda(v){ S.ui.agenda.servicioSel = v; render(); }
+
+function actIntentarAgendar(){
+  var pacienteId = val("ac-paciente");
+  var servicioId = val("ac-servicio");
+  var fecha = val("ac-fecha");
+  if (!pacienteId || !servicioId || !fecha){ alert("Completá paciente, servicio y fecha."); return; }
+  var p = pacienteById(pacienteId);
+  var datos = {pacienteId:pacienteId, servicioId:servicioId, fecha:fecha};
+  if (p.alerta_contraindicacion){
+    S.ui.agenda.alertaModal = {kind:"nueva", datos: datos, pacienteId: pacienteId};
+    render();
+    return;
+  }
+  crearCitaDesdeAgenda(datos, false);
+}
+function crearCitaDesdeAgenda(datos, alertaConfirmada){
+  var nueva = {id: uid("cita"), paciente_id: datos.pacienteId, servicio_id: datos.servicioId, fecha_hora: fromDatetimeLocal(datos.fecha), estado:"pendiente", alerta_confirmada: !!alertaConfirmada, creado_en: new Date().toISOString()};
+  S.citas.push(nueva);
+  S.ui.agenda.pacienteSel = ""; S.ui.agenda.servicioSel = ""; S.ui.agenda.fechaSel = "";
+  toast("Cita agendada correctamente.");
+  navigate("#/agenda");
+}
+
+function antecedentesModalHtml(modalState){
+  var paciente = pacienteById(modalState.pacienteId);
+  var panel = antecedentesPanelHtml(paciente, "modal", false);
+  return '<div class="modal-overlay" onclick="actCerrarModalAgenda()">'
+    + '<div class="modal-box" onclick="event.stopPropagation()">'
+    + panel
+    + '<div class="ds-card">'
+    + '<div class="flex-row gap2"><button class="ds-btn-primary" style="flex:1;" onclick="actConfirmarRevisionAgenda()">Confirmar revisión</button>'
+    + '<button class="ds-btn-outline danger" style="flex:1;" onclick="actNoAtenderAgenda()">No atender</button></div>'
+    + '<button style="display:block; width:100%; margin-top:8px; background:none; border:none; cursor:pointer; text-align:center; font-size:11px; color:var(--content-muted); text-decoration:underline;" onclick="actCerrarModalAgenda()">Cerrar sin decidir</button>'
+    + '</div></div></div>';
+}
+function actCerrarModalAgenda(){ S.ui.agenda.alertaModal = null; render(); }
+function actConfirmarRevisionAgenda(){
+  var m = S.ui.agenda.alertaModal;
+  actGuardarAntecedentes("modal", m.pacienteId);
+  var freshModal = S.ui.agenda.alertaModal; // guardar antecedentes ya re-renderizó, releer estado
+  if (m.kind === "nueva"){
+    crearCitaDesdeAgenda(m.datos, true);
+    S.ui.agenda.alertaModal = null;
+  } else if (m.kind === "cita"){
+    S.citas = S.citas.map(function(c){ return c.id===m.citaId ? Object.assign({},c,{alerta_confirmada:true}) : c; });
+    S.ui.agenda.alertaModal = null;
+    toast("Revisión confirmada.");
+    render();
+  }
+}
+function actNoAtenderAgenda(){
+  var motivo = window.prompt("¿Por qué no se puede atender? Contanos brevemente:");
+  if (motivo===null || motivo.trim()==="") return;
+  var m = S.ui.agenda.alertaModal;
+  S.ui.agenda.alertaModal = null;
+  toast('Se registró "No atender" ('+motivo+') — la cita no se creó.');
+  if (m.kind === "cita") navigate("#/agenda/"+m.citaId); else render();
+}
+
+/* ============================== PAGE: Cita detalle ============================== */
+function pageCitaDetalle(id){
+  var cita = citaById(id);
+  if (!cita) return '<p class="txt-muted">Cita no encontrada.</p>';
+  if (S.ui.citaDetalle.citaId !== id){
+    S.ui.citaDetalle = {citaId: id};
+  }
+  var paciente = pacienteById(cita.paciente_id);
+  var servicio = servicioById(cita.servicio_id);
+  var insumos = insumosDeServicio(cita.servicio_id);
+  var mov = S.movimientos.filter(function(m){return m.cita_id===cita.id && m.tipo==="ingreso";})[0];
+
+  var html = '<a href="#/agenda" class="back-link">← Volver a la agenda</a>'
+    + '<h1 class="page-title" style="margin-bottom:2px;">'+esc(paciente?paciente.nombre:"Cita")+'</h1>'
+    + '<p class="txt-muted mb4" style="font-size:12.5px;">'+fDateTime(cita.fecha_hora)+'</p>';
+
+  if (paciente && paciente.alerta_contraindicacion && !cita.alerta_confirmada){
+    html += '<div class="mb4" style="border-radius:14px; border:1px solid rgba(163,68,51,.3); background:rgba(163,68,51,.1); padding:14px 16px;">'
+      + '<p class="txt-red" style="margin:0; font-size:14px; font-weight:600;">⚠ Alerta de contraindicación</p>'
+      + '<p class="txt-muted mt1" style="margin:4px 0 0; font-size:12.5px;">Este paciente tiene antecedentes activos — revisalos antes de continuar.</p>'
+      + '<button class="ds-btn-outline danger mt3" style="padding:7px 16px; font-size:12px;" onclick="actAbrirModalCita(\''+cita.id+'\')">Confirmar revisión</button>'
+      + '</div>';
+  }
+  if (paciente && paciente.alerta_contraindicacion && cita.alerta_confirmada){
+    var ants = antecedentesMarcados(paciente);
+    html += '<div class="mb4" style="border-radius:14px; border:1px solid var(--content-border); background:var(--content-card); padding:14px 16px;">'
+      + '<p style="margin:0; font-size:14px; font-weight:600;"><span class="txt-green">✓</span> Contraindicación revisada</p>'
+      + '<ul class="mt2" style="font-size:12px; color:var(--content-muted);">'+ants.map(function(t){return '<li>'+esc(t)+'</li>';}).join("")+'</ul>'
+      + '</div>';
+  }
+
+  if (paciente) html += consentimientoSeccionHtml(cita, servicio, paciente);
+
+  html += '<div class="ds-section-label">Detalle de la cita</div>' + editarCitaFormHtml(cita, servicio);
+
+  if (cita.estado === "pendiente" || cita.estado === "confirmada"){
+    html += '<div class="mt3">'
+      + '<button class="ds-btn-primary" onclick="actIniciarCompletar(\''+cita.id+'\')">Completar cita</button>'
+      + '</div>';
+  }
+
+  if (cita.estado === "completada" && mov){
+    var pillClass = mov.estado_pago==="pagado" ? "pill-green" : "pill-amber";
+    html += '<div class="ds-section-label">Cobro</div>'
+      + '<a href="#/financiero/cobro/'+mov.id+'" class="ds-card ds-card-clickable" style="display:block;">'
+      + '<div class="flex-between"><span style="font-size:14px;">'+money(mov.monto)+'</span><span class="ds-pill '+pillClass+'">'+(mov.estado_pago==="pagado"?"Pagado":"Pendiente")+'</span></div>'
+      + '</a>';
+  }
+
+  if (cita.estado === "completada" && servicio && (servicio.retoque_semanas || servicio.repeticion_meses) && !(paciente && paciente.eliminado_en)){
+    html += '<div class="ds-section-label">Recordatorio de seguimiento</div><div class="flex-col gap3">';
+    if (servicio.retoque_semanas) html += recordatorioManualHtml(cita.id, "retoque", "Fecha de retoque");
+    if (servicio.repeticion_meses) html += recordatorioManualHtml(cita.id, "repeticion", "Fecha de repetición");
+    html += '</div>';
+  }
+
+  var modalIns = S.ui.citaDetalle.completarModal === cita.id ? completarConInsumosModalHtml(cita, insumos) : "";
+  var modalAlerta = S.ui.agenda.alertaModal && S.ui.agenda.alertaModal.kind==="cita" && S.ui.agenda.alertaModal.citaId===cita.id ? antecedentesModalHtml(S.ui.agenda.alertaModal) : "";
+
+  return html + modalIns + modalAlerta;
+}
+
+function consentimientoSeccionHtml(cita, servicio, paciente){
+  var grupoSel = S.ui.citaDetalle.grupo !== undefined ? S.ui.citaDetalle.grupo : (servicio?servicio.grupo_consentimiento:"") || "";
+  S.ui.citaDetalle.grupo = grupoSel;
+  var registros = S.consentimientos.filter(function(c){ return c.paciente_id===paciente.id && c.grupo===grupoSel; });
+  var firmado = registros.filter(function(c){return c.estado==="firmado";})[0];
+  var pendiente = registros.filter(function(c){return c.estado==="pendiente";})[0];
+  var registro = firmado || pendiente;
+
+  var body = '<label class="ds-label">Grupo<select class="ds-input" '+(registro?"disabled":"")+' onchange="actCambiarGrupoConsentimiento(this.value)">'
+    + '<option value="">— Elegir —</option>'
+    + GRUPOS_CONSENTIMIENTO.map(function(g){ return '<option value="'+g+'" '+(g===grupoSel?"selected":"")+'>'+GRUPO_LABELS[g]+'</option>'; }).join("")
+    + '</select></label>';
+
+  if (!grupoSel){
+    body += '<p class="txt-muted mt2" style="font-size:12px;">Este servicio no tiene un grupo de consentimiento asignado — elegilo arriba, o asignalo de forma permanente en Ajustes → Servicios.</p>';
+  } else if (firmado){
+    body += '<div class="mt3" style="border-top:1px solid var(--content-border); padding-top:12px;">'
+      + '<p style="margin:0; font-size:14px; font-weight:600;"><span class="txt-green">✓</span> Consentimiento firmado el '+fDate(firmado.fecha,{day:"numeric",month:"short",year:"numeric"})+'</p>'
+      + '<p class="txt-muted mt1" style="margin:0; font-size:12px;">Firma: '+esc(firmado.firma_paciente)+'</p></div>';
+  } else if (pendiente){
+    body += '<div class="mt3" style="border-top:1px solid var(--content-border); padding-top:12px;">'
+      + '<p style="margin:0; font-size:14px; font-weight:600;"><span class="txt-amber">⏳</span> Pendiente de firma del paciente</p>'
+      + '<p class="txt-muted mt1" style="margin:4px 0 12px; font-size:12px;">El paciente todavía no completó el formulario — compartí el link o el QR de nuevo si hace falta.</p>'
+      + '<div class="flex-row" style="align-items:flex-start; flex-wrap:wrap; gap:12px;">'
+      + fakeQr()
+      + '<div class="flex-row" style="flex-wrap:wrap;">'
+      + '<button class="small-btn" onclick="toast(\'Esto abriría WhatsApp con el link de firma para '+esc(paciente.nombre)+'.\')">Enviar por WhatsApp</button>'
+      + '<button class="small-btn" onclick="toast(\'Esto abriría tu cliente de correo con el link de firma para '+esc(paciente.nombre)+'.\')">Enviar por email</button>'
+      + '<button class="ds-btn-primary" style="padding:6px 14px; font-size:11px;" onclick="actSimularFirma(\''+pendiente.id+'\',\''+paciente.id+'\',\''+esc(paciente.nombre).replace(/'/g,"\\'")+'\',\''+esc(paciente.ci||"").replace(/'/g,"\\'")+'\')">Simular firma del paciente</button>'
+      + '</div></div></div>';
+  } else {
+    body += '<div class="mt3" style="border-top:1px solid var(--content-border); padding-top:12px;">'
+      + '<p class="txt-muted" style="font-size:12px; max-height:110px; overflow-y:auto;">'+esc(GRUPO_TEXTO[grupoSel]||"")+'</p>'
+      + '<div class="flex-row gap2 mt3"><button class="ds-btn-primary" style="flex:1;" onclick="actGenerarConsentimiento(\''+cita.id+'\',\''+paciente.id+'\',\'generar\')">Generar (QR)</button>'
+      + '<button class="ds-btn-outline" style="flex:1;" onclick="actGenerarConsentimiento(\''+cita.id+'\',\''+paciente.id+'\',\'enviar\')">Enviar</button></div></div>';
+  }
+
+  return '<div class="ds-card mb4">'
+    + '<div class="ds-section-label" style="margin-top:0;">Consentimiento informado</div>'
+    + body + '</div>';
+}
+function actCambiarGrupoConsentimiento(v){ S.ui.citaDetalle.grupo = v; render(); }
+function actGenerarConsentimiento(citaId, pacienteId, accion){
+  var grupo = S.ui.citaDetalle.grupo;
+  if (!grupo) return;
+  var nuevo = {id: uid("cons"), paciente_id: pacienteId, grupo: grupo, estado:"pendiente", version_firmada:null, fecha:null, firma_paciente:null};
+  S.consentimientos.push(nuevo);
+  if (accion === "enviar"){ var p = pacienteById(pacienteId); toast('Esto le mandaría a '+p.nombre+' el link de firma por WhatsApp o email.'); }
+  render();
+}
+function actSimularFirma(consentId, pacienteId, nombre, ci){
+  S.consentimientos = S.consentimientos.map(function(c){ return c.id===consentId ? Object.assign({},c,{estado:"firmado", fecha:new Date().toISOString(), firma_paciente:nombre+(ci?(" · CI "+ci):""), version_firmada:1}) : c; });
+  toast(nombre+" firmó el consentimiento (simulado — en el sistema real lo firma desde su celular).");
+  render();
+}
+
+function editarCitaFormHtml(cita, servicio){
+  var estadoEditable = cita.estado==="pendiente" || cita.estado==="confirmada";
+  var servicioEditable = cita.estado !== "completada";
+  var fechaEditable = cita.estado !== "completada";
+  var serviciosOpts = S.servicios.map(function(s){ return '<option value="'+s.id+'" '+(s.id===cita.servicio_id?"selected":"")+'>'+esc(s.nombre)+(!s.activo?" (inactivo)":"")+'</option>'; }).join("");
+
+  var html = '<div class="flex-col gap3">';
+  html += servicioEditable
+    ? '<label class="ds-label">Servicio<select class="ds-input" id="ec-servicio">'+serviciosOpts+'</select></label>'
+    : '<div class="ds-label">Servicio<p style="margin:0; font-size:14px; color:var(--content-text);">'+esc(servicio?servicio.nombre:cita.servicio_id)+'</p></div>';
+
+  html += fechaEditable
+    ? '<label class="ds-label">Fecha y hora (hora de Bolivia)<input class="ds-input" type="datetime-local" id="ec-fecha" value="'+toDatetimeLocal(cita.fecha_hora)+'"></label>'
+    : '<div class="ds-label">Fecha y hora<p style="margin:0; font-size:14px; color:var(--content-text);">'+fDateTime(cita.fecha_hora)+'</p></div>';
+
+  if (estadoEditable){
+    html += '<label class="ds-label">Estado<select class="ds-input" id="ec-estado">'
+      + '<option value="pendiente" '+(cita.estado==="pendiente"?"selected":"")+'>Por confirmar</option>'
+      + '<option value="confirmada" '+(cita.estado==="confirmada"?"selected":"")+'>Confirmada</option>'
+      + '<option value="cancelada" '+(cita.estado==="cancelada"?"selected":"")+'>Cancelada</option>'
+      + '</select></label>';
+  } else {
+    var pillClass = cita.estado==="completada" ? "pill-muted" : "pill-red";
+    html += '<div class="ds-label">Estado<div class="flex-row"><span class="ds-pill '+pillClass+'">'+ESTADO_CITA_LABEL[cita.estado]+'</span>'
+      + (cita.estado==="cancelada" ? '<button class="ds-btn-outline" style="padding:6px 14px; font-size:12px;" onclick="actReactivarCita(\''+cita.id+'\')">Reactivar</button>' : '')
+      + '</div></div>';
+  }
+
+  html += '<button class="ds-btn-primary" style="align-self:flex-start;" onclick="actGuardarCita(\''+cita.id+'\')">Guardar cambios</button>';
+  if (cita.estado === "completada") html += '<p class="txt-muted" style="font-size:11px;">Esta cita ya está completada — es un estado final. El servicio y la fecha quedan bloqueados; el monto se corrige desde Financiero.</p>';
+  html += '</div>';
+  return html;
+}
+function actGuardarCita(id){
+  var cita = citaById(id);
+  var estadoEditable = cita.estado==="pendiente" || cita.estado==="confirmada";
+  var fechaEditable = cita.estado !== "completada";
+  var servicioEditable = cita.estado !== "completada";
+  var updated = Object.assign({}, cita);
+  if (fechaEditable){
+    var f = val("ec-fecha");
+    if (!f){ alert("Elegí una fecha y hora completas — el campo quedó vacío."); return; }
+    updated.fecha_hora = fromDatetimeLocal(f);
+  }
+  if (servicioEditable) updated.servicio_id = val("ec-servicio");
+  if (estadoEditable) updated.estado = val("ec-estado");
+  S.citas = S.citas.map(function(c){ return c.id===id ? updated : c; });
+  toast("Cambios guardados.");
+  render();
+}
+function actReactivarCita(id){
+  if (!confirm('¿Reactivar esta cita? Vuelve al estado "Por confirmar".')) return;
+  S.citas = S.citas.map(function(c){ return c.id===id ? Object.assign({},c,{estado:"pendiente"}) : c; });
+  render();
+}
+function actAbrirModalCita(citaId){
+  var cita = citaById(citaId);
+  S.ui.agenda.alertaModal = {kind:"cita", citaId: citaId, pacienteId: cita.paciente_id};
+  render();
+}
+
+function actIniciarCompletar(citaId){
+  var cita = citaById(citaId);
+  var insumos = insumosDeServicio(cita.servicio_id);
+  if (insumos.length > 0){
+    S.ui.citaDetalle.completarModal = citaId;
+    S.ui.citaDetalle.cantidades = {};
+    insumos.forEach(function(i){ S.ui.citaDetalle.cantidades[i.insumo_id] = i.cantidad_por_servicio; });
+    render();
+    return;
+  }
+  completarCitaFinal(citaId, []);
+}
+function completarCitaFinal(citaId, confirmaciones){
+  var cita = citaById(citaId);
+  if (new Date(cita.fecha_hora).getTime() > Date.now()){
+    alert("Todavía no llegó la fecha y hora agendada ("+fDate(cita.fecha_hora,{day:"numeric",month:"short",year:"numeric"})+", "+new Date(cita.fecha_hora).toLocaleTimeString("es-BO",{hour:"2-digit",minute:"2-digit"})+") — no se puede completar una cita antes de que ocurra.");
+    return;
+  }
+  S.citas = S.citas.map(function(c){ return c.id===citaId ? Object.assign({},c,{estado:"completada"}) : c; });
+  confirmaciones.forEach(function(cf){
+    S.insumos = S.insumos.map(function(i){ return i.id===cf.insumo_id ? Object.assign({},i,{stock_actual: Math.max(0, i.stock_actual - cf.cantidad)}) : i; });
+    S.movimientos.push({id: uid("mov"), tipo:"gasto", canal:"dermoskin", cita_id:citaId, insumo_id: cf.insumo_id, servicio_nombre:null, monto:0, estado_pago:"pagado", pago_en_cuotas:false, concepto:"Consumo de insumo", creado_en: new Date().toISOString()});
+  });
+  var servicio = servicioById(cita.servicio_id);
+  S.movimientos.push({id: uid("mov"), tipo:"ingreso", canal:"dermoskin", cita_id:citaId, insumo_id:null, servicio_nombre: servicio?servicio.nombre:"", monto: servicio?servicio.precio:0, estado_pago:"pendiente", pago_en_cuotas:false, concepto:null, creado_en: new Date().toISOString()});
+  S.ui.citaDetalle.completarModal = null;
+  toast("Cita completada — ingreso generado en Financiero.");
+  render();
+}
+function completarConInsumosModalHtml(cita, insumos){
+  var cantidades = S.ui.citaDetalle.cantidades || {};
+  return '<div class="modal-overlay">'
+    + '<div class="ds-card" style="max-width:380px; max-height:85vh; overflow-y:auto;" onclick="event.stopPropagation()">'
+    + '<div class="ds-section-label" style="margin-top:0;">Confirmar consumo de insumos</div>'
+    + '<p class="txt-muted" style="margin:-6px 0 10px; font-size:11.5px;">Este servicio tiene insumos asociados — confirmá lo que se usó de verdad para poder completar la cita.</p>'
+    + insumos.map(function(i){
+        return '<label class="ds-label mb2">'+esc(i.nombre)+' ('+i.unidad+') — sugerido: '+i.cantidad_por_servicio
+          + '<input class="ds-input" type="number" step="0.01" min="0" id="cci-'+i.insumo_id+'" value="'+cantidades[i.insumo_id]+'"></label>';
+      }).join("")
+    + '<button class="ds-btn-primary" style="width:100%; margin-top:8px;" onclick="actConfirmarInsumosYCompletar(\''+cita.id+'\')">Confirmar y completar cita</button>'
+    + '</div></div>';
+}
+function actConfirmarInsumosYCompletar(citaId){
+  var insumos = insumosDeServicio(citaById(citaId).servicio_id);
+  var confirmaciones = insumos.map(function(i){ return {insumo_id: i.insumo_id, cantidad: Number(val("cci-"+i.insumo_id))}; });
+  completarCitaFinal(citaId, confirmaciones);
+}
+
+function recordatorioManualHtml(citaId, tipo, label){
+  var val_ = S.ui.citaDetalle["rec_"+tipo] || "";
+  return '<div class="flex-row" style="align-items:flex-end;">'
+    + '<label class="ds-label" style="flex:1;">'+label+' (hora de Bolivia)<input class="ds-input" type="datetime-local" id="rm-'+tipo+'" value="'+val_+'" onchange="S.ui.citaDetalle.rec_'+tipo+'=this.value;"></label>'
+    + '<button class="ds-btn-outline" style="padding:10px 16px; font-size:12px;" onclick="actAgendarRecordatorioManual(\''+citaId+'\',\''+tipo+'\',\''+label+'\')">Agendar</button>'
+    + '</div>';
+}
+function actAgendarRecordatorioManual(citaId, tipo, label){
+  var f = val("rm-"+tipo);
+  if (!f) return;
+  var cita = citaById(citaId);
+  var nueva = {id: uid("cita"), paciente_id: cita.paciente_id, servicio_id: cita.servicio_id, fecha_hora: fromDatetimeLocal(f), estado:"pendiente", alerta_confirmada:false, creado_en:new Date().toISOString()};
+  S.citas.push(nueva);
+  toast("Cita de "+label.toLowerCase()+" agendada en la Agenda.");
+  navigate("#/agenda/"+nueva.id);
+}
+
+/* ============================== PAGE: Financiero ============================== */
+function pageFinanciero(){
+  var ahora = new Date();
+  var inicioMes = new Date(ahora.getFullYear(), ahora.getMonth(), 1).getTime();
+  var finMes = new Date(ahora.getFullYear(), ahora.getMonth()+1, 0, 23,59,59,999).getTime();
+  var enMes = S.movimientos.filter(function(m){ var t=new Date(m.creado_en).getTime(); return t>=inicioMes && t<=finMes; });
+  var ingresosDermoskin = enMes.filter(function(m){return m.tipo==="ingreso" && m.canal==="dermoskin";}).reduce(function(s,m){return s+m.monto;},0);
+  var ingresosSocia = enMes.filter(function(m){return m.tipo==="ingreso" && m.canal==="clinica_socia";}).reduce(function(s,m){return s+m.monto;},0);
+  var gastos = enMes.filter(function(m){return m.tipo==="gasto";}).reduce(function(s,m){return s+m.monto;},0);
+  var bruto = ingresosDermoskin + ingresosSocia;
+  var neto = bruto - gastos;
+  var gastoPct = bruto>0 ? Math.min(100,(gastos/bruto)*100) : 0;
+  var netoPct = 100 - gastoPct;
+
+  var pendientes = S.movimientos.filter(function(m){return m.tipo==="ingreso" && m.canal==="dermoskin" && m.estado_pago==="pendiente";});
+  var saldoPendiente = pendientes.reduce(function(s,m){return s+saldoRestante(m);},0);
+
+  var etiquetaMes = ahora.toLocaleDateString("es-BO",{month:"long", year:"numeric"});
+
+  return '<h1 class="page-title">Control financiero</h1>'
+    + '<div class="ds-card hero-card mb4">'
+    + '<p class="lbl">Ingreso neto · '+etiquetaMes+'</p>'
+    + '<p class="amt">'+money(neto)+'</p>'
+    + '<div class="barwrap">'+(bruto>0 ? ('<div style="width:'+netoPct+'%; background:var(--green);"></div><div style="width:'+gastoPct+'%; background:var(--red);"></div>') : '<div style="width:100%; background:rgba(61,59,41,.1);"></div>')+'</div>'
+    + '<div class="flex-row" style="justify-content:center; gap:16px; margin-top:8px; font-size:11px; color:var(--content-muted);">'
+    + '<span><span class="dot" style="background:var(--green);"></span>Ingreso neto · '+(bruto>0?netoPct.toFixed(0):0)+'%</span>'
+    + '<span><span class="dot" style="background:var(--red);"></span>Gastos · '+(bruto>0?gastoPct.toFixed(0):0)+'%</span>'
+    + '</div></div>'
+    + '<div class="grid2">'
+    + '<a href="#/financiero/pendientes" class="ds-card ds-card-clickable tile"><span style="font-size:20px;">⏳</span><span class="num" style="color:var(--amber); font-size:16px;">'+money(saldoPendiente)+'</span><span class="cap">Saldo pendiente</span></a>'
+    + '<button class="ds-card ds-card-clickable tile" style="width:100%; border:1px solid var(--content-border);" onclick="toast(\'Esto abriría el detalle de Ingresos DermoSkin del mes.\')"><span style="font-size:20px;">$</span><span class="num" style="color:var(--green); font-size:16px;">'+money(ingresosDermoskin)+'</span><span class="cap">Ingresos DermoSkin</span></button>'
+    + '<button class="ds-card ds-card-clickable tile" style="width:100%; border:1px solid var(--content-border);" onclick="toast(\'Esto abriría el detalle de la Clínica socia del mes.\')"><span style="font-size:20px;">⇄</span><span class="num" style="color:var(--green); font-size:16px;">'+money(ingresosSocia)+'</span><span class="cap">Clínica socia</span></button>'
+    + '<button class="ds-card ds-card-clickable tile" style="width:100%; border:1px solid var(--content-border);" onclick="toast(\'Esto abriría el detalle de Gastos del mes.\')"><span style="font-size:20px;">−</span><span class="num" style="color:var(--red); font-size:16px;">'+money(gastos)+'</span><span class="cap">Gastos</span></button>'
+    + '</div>';
+}
+
+function pageSaldoPendiente(){
+  var pendientes = S.movimientos.filter(function(m){return m.tipo==="ingreso" && m.canal==="dermoskin" && m.estado_pago==="pendiente";});
+  var q = (S.ui.busquedaCobros||"").toLowerCase();
+  var lista = pendientes.filter(function(m){
+    if (!q) return true;
+    var cita = citaById(m.cita_id); var p = cita?pacienteById(cita.paciente_id):null;
+    var txt = ((p?p.nombre:"")+" "+(cita?fDate(cita.fecha_hora):"")).toLowerCase();
+    return txt.indexOf(q)>=0;
+  });
+  var total = pendientes.reduce(function(s,m){return s+saldoRestante(m);},0);
+  var html = lista.map(function(m){
+    var cita = citaById(m.cita_id); var p = cita?pacienteById(cita.paciente_id):null; var s = cita?servicioById(cita.servicio_id):null;
+    return '<li><a href="#/financiero/cobro/'+m.id+'" class="ds-card ds-card-clickable" style="display:block;">'
+      + '<div class="flex-between"><div><p style="margin:0; font-size:14px; font-weight:600;">'+(p?esc(p.nombre):"Paciente")+'</p>'
+      + '<p class="txt-muted mt1" style="margin:0; font-size:11.5px;">'+(s?esc(s.nombre):"Servicio")+(cita?(' · '+fDate(cita.fecha_hora)):"")+(m.pago_en_cuotas?" · en cuotas":"")+'</p></div>'
+      + '<span class="ds-pill pill-amber">'+money(saldoRestante(m))+'</span></div></a></li>';
+  }).join("") || '<li class="txt-muted" style="font-size:14px;">No hay cobros pendientes.</li>';
+
+  return '<a href="#/financiero" class="back-link">← Volver</a>'
+    + '<h1 class="page-title" style="margin-bottom:2px;">Saldo pendiente</h1>'
+    + '<p class="txt-muted mb4" style="font-size:12.5px;">'+money(total)+' sin cobrar</p>'
+    + '<input class="ds-input mb3" placeholder="Buscar por paciente o fecha..." value="'+esc(S.ui.busquedaCobros||"")+'" oninput="actBuscarCobros(this.value)">'
+    + '<ul class="flex-col gap2">'+html+'</ul>';
+}
+function actBuscarCobros(v){ S.ui.busquedaCobros = v; renderKeepFocus(); }
+
+function pageCobroDetalle(id){
+  var mov = movimientoById(id);
+  if (!mov) return '<p class="txt-muted">Movimiento no encontrado.</p>';
+  var cita = mov.cita_id ? citaById(mov.cita_id) : null;
+  var paciente = cita ? pacienteById(cita.paciente_id) : null;
+  var servicio = cita ? servicioById(cita.servicio_id) : null;
+  var titulo = mov.canal==="clinica_socia" ? "Clínica socia" : (mov.tipo==="gasto"?"Gasto de insumo":"Cobro");
+
+  var html = '<a href="#/financiero" class="back-link">← Volver a Financiero</a>'
+    + '<h1 class="page-title" style="margin-bottom:2px;">'+titulo+'</h1>'
+    + '<div class="ds-card mb4">'
+    + (paciente ? ('<div class="flex-between"><span class="txt-muted" style="font-size:12.5px;">Paciente</span><span style="font-size:13.5px;">'+esc(paciente.nombre)+'</span></div>') : "")
+    + (servicio ? ('<div class="flex-between mt2"><span class="txt-muted" style="font-size:12.5px;">Servicio</span><span style="font-size:13.5px;">'+esc(servicio.nombre)+'</span></div>') : "")
+    + (mov.concepto ? ('<div class="flex-between mt2"><span class="txt-muted" style="font-size:12.5px;">Concepto</span><span style="font-size:13.5px;">'+esc(mov.concepto)+'</span></div>') : "")
+    + '<div class="flex-between mt2"><span class="txt-muted" style="font-size:12.5px;">Fecha</span><span style="font-size:13.5px;">'+fDate(mov.creado_en)+'</span></div>'
+    + '<div class="flex-between mt3" style="border-top:1px solid var(--content-border); padding-top:10px;"><span style="font-size:14px; font-weight:600;">Monto</span><span style="font-size:20px; font-weight:600;">'+money(mov.monto)+'</span></div>'
+    + (mov.tipo==="ingreso" ? ('<div style="text-align:right; margin-top:6px;"><span class="ds-pill '+(mov.estado_pago==="pagado"?"pill-green":"pill-amber")+'">'+(mov.estado_pago==="pagado"?"Pagado":"Pendiente")+'</span></div>') : "")
+    + '</div>';
+
+  if (mov.tipo === "ingreso" && mov.estado_pago === "pendiente" && !mov.pago_en_cuotas){
+    html += '<div class="flex-col gap2 mb4">'
+      + '<button class="ds-btn-primary" style="width:100%;" onclick="actMarcarPagado(\''+mov.id+'\')">Marcar como pagado</button>'
+      + pagoEnCuotasHtml(mov)
+      + '</div>';
+  } else if (mov.tipo === "ingreso" && mov.pago_en_cuotas){
+    html += pagoEnCuotasHtml(mov);
+  }
+
+  html += '<div class="ds-section-label">Corregir un error de cobro</div>'
+    + '<div class="flex-row" style="align-items:flex-end;">'
+    + '<label class="ds-label" style="flex:1;">Corregir monto (Bs.)<input class="ds-input" type="number" step="0.01" min="0" id="cm-monto" value="'+mov.monto+'"></label>'
+    + '<button class="ds-btn-outline" style="padding:10px 16px; font-size:12px;" onclick="actCorregirMonto(\''+mov.id+'\')">Guardar</button>'
+    + '</div>'
+    + '<p class="txt-muted mt2" style="font-size:11px;">Editable solo por Administrador — cada cambio queda registrado en el historial de auditoría.</p>';
+
+  return html;
+}
+function pagoEnCuotasHtml(mov){
+  var cuUi = S.ui.cuotasUI[mov.id] || {};
+  if (mov.pago_en_cuotas){
+    var cuotas = cuotasDe(mov.id);
+    var pagado = cuotas.filter(function(c){return c.estado==="pagado";}).reduce(function(s,c){return s+c.monto;},0);
+    var falta = mov.monto - pagado;
+    return '<div class="mb4"><div class="ds-section-label" style="margin-top:0;">Cuotas</div>'
+      + '<p class="txt-muted" style="margin:-6px 0 8px; font-size:12.5px;">Falta '+money(falta)+' de '+money(mov.monto)+'</p>'
+      + '<ul class="flex-col gap2">'
+      + cuotas.map(function(c){
+          return '<li class="ds-card flex-between" style="padding:10px 14px;">'
+            + '<div><p style="margin:0; font-size:14px;">Cuota '+c.numero+' · '+money(c.monto)+'</p>'
+            + '<p class="txt-muted" style="margin:0; font-size:11px;">'+(c.estado==="pagado" ? ("Pagada "+fDate(c.fecha_pagada)) : ("Prevista "+fDate(c.fecha_prevista+"T00:00:00")))+'</p></div>'
+            + (c.estado==="pendiente" ? '<button class="ds-btn-outline" style="padding:6px 12px; font-size:11px; flex-shrink:0;" onclick="actMarcarCuotaPagada(\''+c.id+'\',\''+mov.id+'\')">Marcar pagada</button>' : '<span class="ds-pill pill-green" style="flex-shrink:0;">Pagada</span>')
+            + '</li>';
+        }).join("")
+      + '</ul></div>';
+  }
+  if (!cuUi.eligiendo){
+    return '<button class="ds-btn-outline" style="width:100%;" onclick="actAbrirCuotas(\''+mov.id+'\')">Cuotas</button>';
+  }
+  if (!cuUi.cantidad){
+    return '<div class="ds-card"><p style="margin:0 0 8px; font-size:14px;">¿En cuántas cuotas?</p>'
+      + '<div class="flex-row gap2"><button class="ds-btn-outline" style="flex:1;" onclick="actElegirCantidadCuotas(\''+mov.id+'\',2)">2 cuotas</button>'
+      + '<button class="ds-btn-outline" style="flex:1;" onclick="actElegirCantidadCuotas(\''+mov.id+'\',3)">3 cuotas</button></div></div>';
+  }
+  var plan = cuUi.plan || [];
+  return '<div class="ds-card">'
+    + plan.map(function(c,i){
+        return '<div class="flex-row" style="align-items:flex-end; margin-bottom:10px;">'
+          + '<label class="ds-label" style="flex:1;">Cuota '+(i+1)+' — Monto (Bs.)<input class="ds-input" type="number" step="0.01" min="0" id="cu-monto-'+mov.id+'-'+i+'" value="'+(c.monto||"")+'" onchange="actActualizarPlan(\''+mov.id+'\','+i+',\'monto\',this.value)"></label>'
+          + '<label class="ds-label" style="flex:1;">Fecha<input class="ds-input" type="date" id="cu-fecha-'+mov.id+'-'+i+'" value="'+(c.fecha_prevista||"")+'" onchange="actActualizarPlan(\''+mov.id+'\','+i+',\'fecha_prevista\',this.value)"></label>'
+          + '</div>';
+      }).join("")
+    + (cuUi.error ? ('<p class="txt-red" style="font-size:12px;">'+esc(cuUi.error)+'</p>') : "")
+    + '<button class="ds-btn-primary" style="width:100%; margin-top:6px;" onclick="actGuardarPlanCuotas(\''+mov.id+'\')">Guardar plan de cuotas</button>'
+    + '</div>';
+}
+function actMarcarPagado(id){
+  S.movimientos = S.movimientos.map(function(m){ return m.id===id ? Object.assign({},m,{estado_pago:"pagado"}) : m; });
+  toast("Cobro marcado como pagado.");
+  render();
+}
+function actAbrirCuotas(movId){ S.ui.cuotasUI[movId] = {eligiendo:true}; render(); }
+function actElegirCantidadCuotas(movId, n){
+  var plan = []; for (var i=0;i<n;i++) plan.push({monto:"", fecha_prevista:""});
+  S.ui.cuotasUI[movId] = {eligiendo:true, cantidad:n, plan:plan};
+  render();
+}
+function actActualizarPlan(movId, i, campo, valor){
+  var ui = S.ui.cuotasUI[movId];
+  ui.plan[i][campo] = valor;
+}
+function actGuardarPlanCuotas(movId){
+  var ui = S.ui.cuotasUI[movId];
+  var incompleto = ui.plan.some(function(c){ return !c.monto || !c.fecha_prevista; });
+  if (incompleto){ ui.error = "Completá monto y fecha de cada cuota."; render(); return; }
+  ui.plan.forEach(function(c, i){
+    S.cuotas.push({id: uid("cuota"), movimiento_id: movId, numero: i+1, monto: Number(c.monto), fecha_prevista: c.fecha_prevista, estado:"pendiente", fecha_pagada:null});
+  });
+  S.movimientos = S.movimientos.map(function(m){ return m.id===movId ? Object.assign({},m,{pago_en_cuotas:true}) : m; });
+  delete S.ui.cuotasUI[movId];
+  toast("Plan de cuotas guardado.");
+  render();
+}
+function actMarcarCuotaPagada(cuotaId, movId){
+  S.cuotas = S.cuotas.map(function(c){ return c.id===cuotaId ? Object.assign({},c,{estado:"pagado", fecha_pagada:new Date().toISOString()}) : c; });
+  var cuotas = cuotasDe(movId);
+  var todasPagadas = cuotas.every(function(c){return c.estado==="pagado";});
+  if (todasPagadas) S.movimientos = S.movimientos.map(function(m){ return m.id===movId ? Object.assign({},m,{estado_pago:"pagado"}) : m; });
+  toast("Cuota marcada como pagada.");
+  render();
+}
+function actCorregirMonto(movId){
+  var v = Number(val("cm-monto"));
+  S.movimientos = S.movimientos.map(function(m){ return m.id===movId ? Object.assign({},m,{monto:v}) : m; });
+  toast("Monto corregido.");
+  render();
+}
+
+/* ============================== PAGE: Ajustes ============================== */
+function pageAjustes(){
+  var tab = S.ui.ajustesTab;
+  return '<h1 class="page-title">Ajustes</h1>'
+    + '<div class="tabs">'
+    + '<button class="tab-btn '+(tab==="servicios"?"active":"")+'" onclick="actAjustesTab(\'servicios\')">Servicios</button>'
+    + '<button class="tab-btn '+(tab==="insumos"?"active":"")+'" onclick="actAjustesTab(\'insumos\')">Insumos</button>'
+    + '<button class="tab-btn '+(tab==="usuarios"?"active":"")+'" onclick="actAjustesTab(\'usuarios\')">Usuarios</button>'
+    + '</div>'
+    + (tab==="servicios" ? tabServiciosHtml() : tab==="insumos" ? tabInsumosHtml() : tabUsuariosHtml());
+}
+function actAjustesTab(tab){
+  S.ui.ajustesTab = tab;
+  if (currentRoute().indexOf("#/ajustes") === 0) render(); else navigate("#/ajustes");
+}
+
+function tabServiciosHtml(){
+  var ui = S.ui.agenda; // reuse usaInsumosNuevoServicio/insumosStaged bucket
+  var usaInsumos = ui.usaInsumosNuevoServicio;
+  var staged = ui.insumosStaged;
+  var bloqueado = usaInsumos===null || (usaInsumos==="si" && staged.length===0);
+  var d = S.ui.servicioDraft || {};
+
+  var html = '<div class="ds-section-label" style="margin-top:0;">Nuevo servicio</div>'
+    + '<div class="flex-col gap3 mb3">'
+    + '<label class="ds-label">Nombre<input class="ds-input" id="sv-nombre" value="'+esc(d.nombre||"")+'" oninput="actGuardarBorradorServicio()"></label>'
+    + '<label class="ds-label">Duración (minutos)<input class="ds-input" type="number" min="1" id="sv-duracion" value="'+esc(d.duracion||"")+'" oninput="actGuardarBorradorServicio()"></label>'
+    + '<label class="ds-label">Sesiones iniciales (ej. "1" o "3-6")<input class="ds-input" id="sv-sesiones" value="'+esc(d.sesiones||"")+'" oninput="actGuardarBorradorServicio()"></label>'
+    + '<label class="ds-label">Retoque (semanas) — opcional<input class="ds-input" type="number" min="1" id="sv-retoque" value="'+esc(d.retoque||"")+'" oninput="actGuardarBorradorServicio()"></label>'
+    + '<label class="ds-label">Repetición (meses, referencial) — opcional<input class="ds-input" id="sv-repeticion" value="'+esc(d.repeticion||"")+'" oninput="actGuardarBorradorServicio()"></label>'
+    + '<label class="ds-label">Precio (Bs.)<input class="ds-input" type="number" step="0.01" min="0" id="sv-precio" value="'+esc(d.precio||"")+'" oninput="actGuardarBorradorServicio()"></label>'
+    + '<label class="ds-label">Grupo de consentimiento<select class="ds-input" id="sv-grupo" onchange="actGuardarBorradorServicio()"><option value="">— Sin asignar —</option>'
+    + GRUPOS_CONSENTIMIENTO.map(function(g){return '<option value="'+g+'" '+(d.grupo===g?"selected":"")+'>'+GRUPO_LABELS[g]+'</option>';}).join("") + '</select></label>'
+    + '<button class="ds-btn-primary mt2" '+(bloqueado?"disabled":"")+' onclick="actCrearServicio()">Crear servicio</button>'
+    + '</div>'
+    + '<div class="ds-section-label">¿Este servicio usa insumos?</div>'
+    + '<div class="flex-row gap2">'
+    + '<button class="'+(usaInsumos==="no"?"ds-btn-primary":"ds-btn-outline")+'" style="flex:1;" onclick="actElegirUsaInsumos(\'no\')">No usa insumos</button>'
+    + '<button class="'+(usaInsumos==="si"?"ds-btn-primary":"ds-btn-outline")+'" style="flex:1;" onclick="actElegirUsaInsumos(\'si\')">Sí usa insumos</button>'
+    + '</div>';
+  if (usaInsumos === null) html += '<p class="txt-muted mt2" style="font-size:11px;">Elegí una opción — hace falta para poder guardar el servicio.</p>';
+  if (usaInsumos === "si"){
+    html += '<div class="mt3">'
+      + '<ul class="flex-col gap2 mb3">'
+      + (staged.length ? staged.map(function(s){
+          return '<li class="ds-card flex-between"><span style="font-size:14px;">'+esc(s.nombre)+' — '+s.cantidad_por_servicio+' / sesión</span><button class="link-muted" style="background:none;border:none;cursor:pointer; color:var(--red);" onclick="actQuitarInsumoStaged(\''+s.insumo_id+'\')">Quitar</button></li>';
+        }).join("") : '<li class="txt-muted" style="font-size:14px;">Todavía no asociaste ningún insumo — hace falta al menos uno para guardar.</li>')
+      + '</ul>'
+      + '<div class="flex-row" style="align-items:flex-end;">'
+      + '<label class="ds-label" style="flex:1;">Insumo<select class="ds-input" id="sv-insumo-id">'
+      + '<option value="">— Elegir —</option>'
+      + S.insumos.filter(function(i){return i.activo && !staged.some(function(s){return s.insumo_id===i.id;});}).map(function(i){return '<option value="'+i.id+'">'+esc(i.nombre)+'</option>';}).join("")
+      + '</select></label>'
+      + '<label class="ds-label" style="width:96px;">Cantidad<input class="ds-input" type="number" step="0.01" min="0.01" id="sv-insumo-cant"></label>'
+      + '<button class="ds-btn-outline" style="padding:10px 14px; font-size:12px;" onclick="actAgregarInsumoStaged()">Agregar</button>'
+      + '</div></div>';
+  }
+
+  html += '<div class="ds-section-label">Catálogo de servicios</div><ul class="flex-col gap2">'
+    + S.servicios.map(function(s){
+        return '<li class="ds-card flex-between"><div><span style="font-size:14px; font-weight:600;">'+esc(s.nombre)+'</span> '
+          + (!s.activo ? '<span class="ds-pill pill-muted">Inactivo</span>' : '')
+          + '<p class="txt-muted mt1" style="margin:0; font-size:11.5px;">'+money(s.precio)+' · '+s.duracion_min+' min'+(s.grupo_consentimiento?(' · '+GRUPO_LABELS[s.grupo_consentimiento]):'')+'</p></div>'
+          + '<button class="small-btn" onclick="actToggleServicioActivo(\''+s.id+'\')">'+(s.activo?"Desactivar":"Activar")+'</button>'
+          + '</li>';
+      }).join("") + '</ul>';
+  return html;
+}
+function actElegirUsaInsumos(v){ S.ui.agenda.usaInsumosNuevoServicio = v; if (v==="no") S.ui.agenda.insumosStaged=[]; render(); }
+function actGuardarBorradorServicio(){
+  S.ui.servicioDraft = {
+    nombre: val("sv-nombre"), duracion: val("sv-duracion"), sesiones: val("sv-sesiones"),
+    retoque: val("sv-retoque"), repeticion: val("sv-repeticion"), precio: val("sv-precio"), grupo: val("sv-grupo")
+  };
+}
+function actAgregarInsumoStaged(){
+  var id = val("sv-insumo-id"); var cant = val("sv-insumo-cant");
+  if (!id || !cant) return;
+  var ins = insumoById(id);
+  actGuardarBorradorServicio();
+  S.ui.agenda.insumosStaged.push({insumo_id:id, nombre:ins.nombre, cantidad_por_servicio:Number(cant)});
+  render();
+}
+function actQuitarInsumoStaged(id){
+  actGuardarBorradorServicio();
+  S.ui.agenda.insumosStaged = S.ui.agenda.insumosStaged.filter(function(s){return s.insumo_id!==id;});
+  render();
+}
+function actCrearServicio(){
+  var ui = S.ui.agenda;
+  var bloqueado = ui.usaInsumosNuevoServicio===null || (ui.usaInsumosNuevoServicio==="si" && ui.insumosStaged.length===0);
+  if (bloqueado) return;
+  var nombre = val("sv-nombre").trim();
+  var precioStr = val("sv-precio");
+  if (!nombre){ alert("El nombre es obligatorio."); return; }
+  if (precioStr===""){ alert("El precio es obligatorio."); return; }
+  var nuevo = {id: uid("srv"), nombre:nombre, duracion_min:Number(val("sv-duracion"))||30, sesiones_iniciales: val("sv-sesiones")||"1",
+    retoque_semanas: val("sv-retoque")?Number(val("sv-retoque")):null, repeticion_meses: val("sv-repeticion")?Number(val("sv-repeticion")):null,
+    precio: Number(precioStr), grupo_consentimiento: val("sv-grupo")||"", activo:true};
+  S.servicios.push(nuevo);
+  if (ui.usaInsumosNuevoServicio === "si"){
+    ui.insumosStaged.forEach(function(s){ S.servicioInsumos.push({servicio_id:nuevo.id, insumo_id:s.insumo_id, cantidad_por_servicio:s.cantidad_por_servicio}); });
+  }
+  ui.usaInsumosNuevoServicio = null; ui.insumosStaged = [];
+  S.ui.servicioDraft = {};
+  toast('"'+nuevo.nombre+'" se creó correctamente.');
+  render();
+}
+function actToggleServicioActivo(id){
+  S.servicios = S.servicios.map(function(s){ return s.id===id ? Object.assign({},s,{activo:!s.activo}) : s; });
+  render();
+}
+
+function tabInsumosHtml(){
+  var busqueda = S.ui.insumosBusqueda || "";
+  var lista = S.insumos.filter(function(i){ return i.nombre.toLowerCase().indexOf(busqueda.toLowerCase())>=0; });
+  var html = '<div class="ds-section-label" style="margin-top:0;">Nuevo insumo</div>'
+    + '<div class="flex-row" style="flex-wrap:wrap; align-items:flex-end;">'
+    + '<label class="ds-label" style="flex:1; min-width:140px;">Nombre<input class="ds-input" id="ni-nombre"></label>'
+    + '<label class="ds-label" style="width:90px;">Unidad<input class="ds-input" id="ni-unidad"></label>'
+    + '<label class="ds-label" style="width:110px;">Stock inicial<input class="ds-input" type="number" step="0.01" min="0" id="ni-stock"></label>'
+    + '<button class="ds-btn-primary" onclick="actCrearInsumo()">Agregar</button>'
+    + '</div>'
+    + '<div class="ds-section-label">Catálogo de insumos</div>'
+    + '<input class="ds-input mb3" placeholder="Buscar por nombre..." value="'+esc(busqueda)+'" oninput="actBuscarInsumos(this.value)">'
+    + '<ul class="flex-col gap2">'
+    + lista.map(function(i){ return insumoRowHtml(i); }).join("")
+    + '</ul>';
+  return html;
+}
+function insumoRowHtml(i){
+  var abiertoCompra = S.ui.compraAbierta === i.id;
+  var right = abiertoCompra ? registrarCompraFormHtml(i) : (
+    '<div class="flex-col" style="align-items:flex-end; gap:3px; flex-shrink:0;">'
+    + '<button class="ds-btn-primary" style="padding:6px 14px; font-size:11px;" onclick="actAbrirCompra(\''+i.id+'\')">Registrar compra</button>'
+    + '<button class="link-muted" style="background:none;border:none;cursor:pointer;" onclick="actCorregirStock(\''+i.id+'\')">Corregir stock manualmente</button>'
+    + (i.activo
+        ? '<button style="background:none;border:none;cursor:pointer; font-size:11px; color:rgba(163,68,51,.7); text-decoration:underline dotted;" onclick="actEliminarInsumo(\''+i.id+'\')">Eliminar</button>'
+        : '<button class="link-muted" style="background:none;border:none;cursor:pointer;" onclick="actReactivarInsumo(\''+i.id+'\')">Reactivar</button>')
+    + '</div>'
+  );
+  return '<li class="ds-card flex-between" style="align-items:flex-start;">'
+    + '<span style="font-size:14px;">'+esc(i.nombre)+' — '+i.stock_actual+' '+esc(i.unidad)+(!i.activo?' <span class="ds-pill pill-muted">Inactivo</span>':'')+'</span>'
+    + right + '</li>';
+}
+function registrarCompraFormHtml(i){
+  return '<div class="ds-card" style="width:220px; flex-shrink:0;" onclick="event.stopPropagation()">'
+    + '<label class="ds-label mb2">Cantidad comprada ('+i.unidad+')<input class="ds-input" type="number" step="0.01" min="0" id="rc-cant"></label>'
+    + '<label class="ds-label mb2">Monto pagado (opcional, Bs.)<input class="ds-input" type="number" step="0.01" min="0" id="rc-monto"></label>'
+    + '<p class="txt-muted" style="font-size:11px;">Solo de referencia — no se usa para calcular Gastos en Financiero.</p>'
+    + '<div class="flex-row gap2 mt2"><button class="ds-btn-primary" style="padding:6px 14px; font-size:11px;" onclick="actGuardarCompra(\''+i.id+'\')">Registrar compra</button>'
+    + '<button class="link-muted" style="background:none;border:none;cursor:pointer;" onclick="actCancelarCompra()">Cancelar</button></div></div>';
+}
+function actBuscarInsumos(v){ S.ui.insumosBusqueda = v; renderKeepFocus(); }
+function actCrearInsumo(){
+  var nombre = val("ni-nombre").trim();
+  if (!nombre) return;
+  S.insumos.push({id: uid("ins"), nombre:nombre, unidad: val("ni-unidad").trim()||"unidad", stock_actual: Number(val("ni-stock"))||0, activo:true});
+  toast('"'+nombre+'" se agregó al catálogo.');
+  render();
+}
+function actAbrirCompra(id){ S.ui.compraAbierta = id; render(); }
+function actCancelarCompra(){ S.ui.compraAbierta = null; render(); }
+function actGuardarCompra(id){
+  var cant = Number(val("rc-cant"));
+  if (!cant) return;
+  S.insumos = S.insumos.map(function(i){ return i.id===id ? Object.assign({},i,{stock_actual:i.stock_actual+cant}) : i; });
+  S.ui.compraAbierta = null;
+  toast("Compra registrada.");
+  render();
+}
+function actCorregirStock(id){
+  var i = insumoById(id);
+  var nuevo = window.prompt('Nuevo stock total de "'+i.nombre+'" (actual: '+i.stock_actual+' '+i.unidad+'):', String(i.stock_actual));
+  if (nuevo===null || nuevo.trim()==="") return;
+  if (!confirm('¿Reemplazar el stock de "'+i.nombre+'" por '+nuevo+' '+i.unidad+'?')) return;
+  S.insumos = S.insumos.map(function(x){ return x.id===id ? Object.assign({},x,{stock_actual:Number(nuevo)}) : x; });
+  render();
+}
+function actEliminarInsumo(id){
+  var i = insumoById(id);
+  if (!confirm('¿Eliminar "'+i.nombre+'" del catálogo? Si nunca se usó en un gasto, se borra por completo. Si ya tiene gastos registrados, se desactiva en su lugar.')) return;
+  var usado = S.movimientos.some(function(m){return m.insumo_id===id;}) || S.servicioInsumos.some(function(si){return si.insumo_id===id;});
+  if (usado){
+    S.insumos = S.insumos.map(function(x){ return x.id===id ? Object.assign({},x,{activo:false}) : x; });
+    toast('"'+i.nombre+'" ya tiene uso registrado — se desactivó en vez de eliminarse.');
+  } else {
+    S.insumos = S.insumos.filter(function(x){return x.id!==id;});
+    toast('"'+i.nombre+'" se eliminó del catálogo.');
+  }
+  render();
+}
+function actReactivarInsumo(id){
+  S.insumos = S.insumos.map(function(x){ return x.id===id ? Object.assign({},x,{activo:true}) : x; });
+  render();
+}
+
+function tabUsuariosHtml(){
+  var html = '<div class="ds-section-label" style="margin-top:0;">Invitar Asistente</div>'
+    + '<div class="ds-card flex-col gap3 mb4">'
+    + '<input class="ds-input" id="iu-nombre" placeholder="Nombre">'
+    + '<input class="ds-input" type="email" id="iu-correo" placeholder="Correo">'
+    + '<button class="ds-btn-primary mt1" onclick="actInvitarAsistente()">Invitar Asistente</button>'
+    + '</div>'
+    + '<div class="ds-section-label">Usuarios del sistema</div><ul class="flex-col gap2">';
+  html += S.usuarios.map(function(u){
+    var permisosHtml = "";
+    if (u.rol === "asistente"){
+      var perms = [["permiso_editar_catalogo","Editar catálogo (precios, servicios, insumos)"],["permiso_activar_servicios","Activar/desactivar servicios"],["permiso_eliminar_pacientes","Eliminar pacientes"],["permiso_eliminar_movimientos","Eliminar movimientos financieros"]];
+      permisosHtml = '<div class="mt2" style="border-top:1px solid rgba(61,59,41,.08); padding-top:8px;">'
+        + '<div style="display:grid; grid-template-columns:1fr 1fr; gap:4px;">'
+        + perms.map(function(p){
+            return '<label class="flex-row" style="font-size:11.5px;"><input type="checkbox" id="perm-'+u.id+'-'+p[0]+'" '+(u[p[0]]?"checked":"")+'> '+p[1]+'</label>';
+          }).join("")
+        + '</div>'
+        + '<button class="ds-btn-outline mt2" style="padding:6px 14px; font-size:11px;" onclick="actGuardarPermisos(\''+u.id+'\')">Guardar permisos</button>'
+        + '</div>';
+    }
+    return '<li class="ds-card"><div class="flex-between">'
+      + '<div><p style="margin:0; font-size:14px;">'+esc(u.nombre)+'</p><p class="txt-muted" style="margin:0; font-size:11px;">'+esc(u.correo)+'</p></div>'
+      + '<div class="flex-row" style="flex-wrap:wrap; justify-content:flex-end;">'
+      + '<span class="ds-pill pill-muted">'+(u.rol==="administrador"?"Administrador":"Asistente")+'</span>'
+      + (u.id!=="usr-1" ? '<button style="background:none;border:none;cursor:pointer; font-size:11px; color:var(--red); text-decoration:underline;" onclick="actEliminarUsuario(\''+u.id+'\')">Eliminar</button>' : '')
+      + '</div></div>'
+      + permisosHtml
+      + '</li>';
+  }).join("");
+  html += '</ul>';
+  return html;
+}
+function actInvitarAsistente(){
+  var nombre = val("iu-nombre").trim(); var correo = val("iu-correo").trim();
+  if (!nombre || !correo) return;
+  S.usuarios.push({id: uid("usr"), nombre:nombre, correo:correo, rol:"asistente", estado_invitacion:"pendiente",
+    permiso_editar_catalogo:false, permiso_activar_servicios:false, permiso_eliminar_pacientes:false, permiso_eliminar_movimientos:false});
+  toast("Invitación enviada.");
+  render();
+}
+function actEliminarUsuario(id){
+  var u = S.usuarios.filter(function(x){return x.id===id;})[0];
+  if (!confirm('¿Eliminar a "'+u.nombre+'" ('+u.correo+')? Esta acción no se puede deshacer.')) return;
+  S.usuarios = S.usuarios.filter(function(x){return x.id!==id;});
+  render();
+}
+function actGuardarPermisos(id){
+  var perms = ["permiso_editar_catalogo","permiso_activar_servicios","permiso_eliminar_pacientes","permiso_eliminar_movimientos"];
+  var updated = {};
+  perms.forEach(function(p){ updated[p] = checked("perm-"+id+"-"+p); });
+  S.usuarios = S.usuarios.map(function(u){ return u.id===id ? Object.assign({},u,updated) : u; });
+  toast("Permisos guardados.");
+  render();
+}
+
+/* expose helpers used inline */
+window.navigate = navigate;
+window.toast = toast;
+window.S = S;
+window.render = render;
+</script>
+</body>
+</html>

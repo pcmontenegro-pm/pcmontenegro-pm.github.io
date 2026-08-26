@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DermoSkin — From clinic operations to Filum · Pablo Montenegro</title>
+<meta name="description" content="How I built the full operating system for a dermatology clinic — patient records, agenda, informed consent and financial control — and what it's becoming next: Filum, a multi-tenant SaaS.">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy:    #0A1226;
+  --navy2:   #111D35;
+  --navy3:   #1A2A44;
+  --gold:    #C4A05A;
+  --gold2:   #DDB870;
+  --gold3:   #F0DFB8;
+  --cream:   #FAF7F2;
+  --cream2:  #F0EBE1;
+  --white:   #FFFFFF;
+  --muted:   #7A8599;
+  --border:  rgba(196,160,90,.15);
+  --border2: rgba(255,255,255,.08);
+  --green:   #2A7A5A;
+  --green2:  #35A070;
+
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --sans:  'DM Sans', sans-serif;
+  --mono:  'DM Mono', monospace;
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+
+body {
+  background: var(--navy);
+  color: var(--cream);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── GRAIN OVERLAY ── */
+body::before {
+  content:'';
+  position:fixed; inset:0; z-index:0; pointer-events:none;
+  opacity:.025;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 200px;
+}
+
+section, nav, footer { position:relative; z-index:1; }
+
+/* ── NAV ── */
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 40px;
+  border-bottom: 1px solid var(--border2);
+  position: sticky;
+  top: 0;
+  background: rgba(10,18,38,.95);
+  backdrop-filter: blur(20px);
+  z-index: 100;
+}
+
+.nav-brand {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: .08em;
+  color: var(--gold);
+  text-decoration: none;
+}
+
+.nav-back {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .08em;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color .2s;
+}
+.nav-back:hover { color: var(--gold); }
+
+/* ── HERO ── */
+.hero {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 80px 40px 60px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 60px;
+  align-items: start;
+}
+
+.hero-tag {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .15em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.hero-title {
+  font-family: var(--serif);
+  font-size: clamp(36px, 5vw, 58px);
+  font-weight: 300;
+  line-height: 1.1;
+  color: var(--white);
+  margin-bottom: 22px;
+}
+.hero-title em { color: var(--gold); font-style: italic; }
+
+.hero-sub {
+  font-size: 16px;
+  color: var(--muted);
+  line-height: 1.75;
+  max-width: 580px;
+  margin-bottom: 28px;
+}
+
+.hero-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.badge {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--gold3);
+  border: 1px solid var(--border);
+  padding: 4px 12px;
+  border-radius: 2px;
+}
+
+.hero-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  padding: 28px;
+  background: rgba(255,255,255,.03);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  min-width: 180px;
+}
+
+.stat-num {
+  display: block;
+  font-family: var(--serif);
+  font-size: 36px;
+  font-weight: 300;
+  color: var(--gold2);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.stat-label {
+  font-size: 11px;
+  color: var(--muted);
+  font-family: var(--mono);
+  letter-spacing: .06em;
+}
+
+/* ── DIVIDER ── */
+.divider {
+  height: 1px;
+  background: var(--border2);
+  margin: 0;
+}
+
+/* ── CONTEXT BAND ── */
+.context-band {
+  background: var(--navy2);
+  padding: 64px 40px;
+}
+.context-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: start;
+}
+
+/* ── SECTION ── */
+.section {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 64px 40px;
+}
+
+.section-label {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 14px;
+}
+
+.section-title {
+  font-family: var(--serif);
+  font-size: clamp(28px, 3.5vw, 42px);
+  font-weight: 300;
+  line-height: 1.15;
+  color: var(--white);
+  margin-bottom: 24px;
+}
+.section-title em { color: var(--gold); font-style: italic; }
+
+.section-body {
+  font-size: 15px;
+  color: var(--muted);
+  line-height: 1.8;
+  max-width: 640px;
+}
+.section-body p + p { margin-top: 16px; }
+
+/* ── PHASE HEADER ── */
+.phase-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+.phase-tag {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 2px;
+  border: 1px solid;
+}
+.phase-tag--1 {
+  color: var(--gold);
+  border-color: rgba(196,160,90,.3);
+  background: rgba(196,160,90,.06);
+}
+.phase-tag--2 {
+  color: var(--green2);
+  border-color: rgba(53,160,112,.3);
+  background: rgba(53,160,112,.06);
+}
+.phase-line {
+  flex: 1;
+  height: 1px;
+  background: var(--border2);
+}
+
+/* ── CHALLENGE BLOCK ── */
+.challenge-block {
+  background: rgba(196,160,90,.04);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 28px;
+}
+.challenge-title {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 16px;
+}
+.challenge-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.challenge-list li {
+  font-size: 13.5px;
+  color: var(--cream2);
+  padding-left: 16px;
+  position: relative;
+  line-height: 1.6;
+}
+.challenge-list li::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  color: var(--gold);
+  opacity: .5;
+}
+
+/* ── PULL QUOTE ── */
+.pull-quote {
+  margin: 40px 0;
+  padding: 28px 32px;
+  border-left: 2px solid var(--gold);
+  background: rgba(196,160,90,.04);
+}
+.pull-quote-text {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--cream);
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+.pull-quote-attr {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .08em;
+  color: var(--muted);
+}
+
+/* ── SOLUTION GRID ── */
+.solution-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 40px;
+}
+.sol-item {
+  background: var(--navy2);
+  border: 1px solid var(--border2);
+  padding: 24px;
+  border-radius: 4px;
+}
+.sol-num {
+  display: block;
+  font-family: var(--serif);
+  font-size: 36px;
+  font-weight: 300;
+  color: rgba(196,160,90,.25);
+  line-height: 1;
+  margin-bottom: 12px;
+}
+.sol-title {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--white);
+  margin-bottom: 10px;
+}
+.sol-body {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.7;
+  margin-bottom: 14px;
+}
+.sol-tag {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: .6;
+}
+
+/* ── PROCESS TIMELINE ── */
+.process-timeline {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.process-step {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  gap: 32px;
+  padding: 28px 0;
+  border-top: 1px solid var(--border2);
+}
+.process-step:last-child { border-bottom: 1px solid var(--border2); }
+.step-phase {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .08em;
+  color: var(--gold);
+  opacity: .7;
+  line-height: 1.5;
+}
+.step-title {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+.step-body {
+  font-size: 13.5px;
+  color: var(--muted);
+  line-height: 1.75;
+}
+
+/* ── OUTCOMES ── */
+.outcomes-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 40px;
+}
+.outcome-item {
+  padding: 24px;
+  background: rgba(255,255,255,.02);
+  border: 1px solid var(--border2);
+  border-radius: 4px;
+}
+.outcome-num {
+  display: block;
+  font-family: var(--serif);
+  font-size: 40px;
+  font-weight: 300;
+  color: var(--gold2);
+  line-height: 1;
+  margin-bottom: 10px;
+}
+.outcome-label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.55;
+}
+.outcome-label strong {
+  color: var(--cream2);
+  font-weight: 500;
+}
+
+/* ── DEMO SECTION ── */
+.demo-section {
+  background: var(--navy2);
+  padding: 64px 40px;
+}
+.demo-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.demo-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 48px;
+}
+.demo-frame {
+  background: var(--navy);
+  border: 1px solid var(--border2);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.demo-frame-label {
+  padding: 12px 16px;
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border-bottom: 1px solid var(--border2);
+}
+.demo-frame-content {
+  background: #FFFFFF;
+  padding: 0;
+  aspect-ratio: 9/16;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  overflow: hidden;
+}
+.demo-note {
+  margin-top: 20px;
+  font-size: 12px;
+  color: rgba(122,133,153,.6);
+  font-family: var(--mono);
+  letter-spacing: .04em;
+}
+
+/* ── RELEVANCE BAND ── */
+.relevance-band {
+  background: var(--navy3);
+  padding: 64px 40px;
+}
+.relevance-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.relevance-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  margin-top: 40px;
+}
+.relevance-item {}
+.relevance-icon {
+  margin-bottom: 14px;
+}
+.relevance-title {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--white);
+  margin-bottom: 10px;
+}
+.relevance-body {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+/* ── CTA ── */
+.cta-section {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 64px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  border-top: 1px solid var(--border2);
+}
+.cta-title {
+  font-family: var(--serif);
+  font-size: clamp(26px, 3vw, 38px);
+  font-weight: 300;
+  color: var(--white);
+  line-height: 1.2;
+}
+.cta-title em { color: var(--gold); font-style: italic; }
+.cta-sub {
+  font-size: 14px;
+  color: var(--muted);
+  margin-top: 10px;
+  max-width: 480px;
+  line-height: 1.7;
+}
+.cta-btn {
+  flex-shrink: 0;
+  display: inline-block;
+  padding: 14px 28px;
+  background: var(--gold);
+  color: var(--navy);
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 2px;
+  transition: background .2s;
+}
+.cta-btn:hover { background: var(--gold2); }
+
+/* ── FOOTER ── */
+footer {
+  padding: 24px 40px;
+  border-top: 1px solid var(--border2);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.footer-note {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .08em;
+  color: var(--muted);
+}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(20px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+.fade-up {
+  animation: fadeUp .6s ease both;
+}
+.fade-up:nth-child(1) { animation-delay:.1s; }
+.fade-up:nth-child(2) { animation-delay:.2s; }
+.fade-up:nth-child(3) { animation-delay:.3s; }
+.fade-up:nth-child(4) { animation-delay:.4s; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  nav { padding: 16px 20px; }
+  .hero { grid-template-columns: 1fr; padding: 48px 20px 40px; gap: 32px; }
+  .hero-stats { flex-direction: row; gap: 24px; min-width: auto; }
+  .context-inner { grid-template-columns: 1fr; gap: 32px; }
+  .context-band, .demo-section, .relevance-band { padding: 48px 20px; }
+  .section { padding: 48px 20px; }
+  .solution-grid { grid-template-columns: 1fr 1fr; }
+  .outcomes-row { grid-template-columns: 1fr 1fr; }
+  .demo-grid { grid-template-columns: 1fr; max-width: 360px; }
+  .relevance-grid { grid-template-columns: 1fr; gap: 24px; }
+  .cta-section { flex-direction: column; padding: 48px 20px; }
+  footer { padding: 20px; flex-direction: column; gap: 8px; text-align: center; }
+  .process-step { grid-template-columns: 80px 1fr; gap: 20px; }
+}
+@media (max-width: 600px) {
+  .solution-grid { grid-template-columns: 1fr; }
+  .outcomes-row { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="https://pablomontenegro.ie" class="nav-brand">Pablo Montenegro</a>
+  <div style="display:flex;align-items:center;gap:14px;">
+    <div style="display:flex;gap:0;border:1px solid rgba(180,150,90,.18);border-radius:2px;overflow:hidden;">
+      <button onclick="setLang('en')" id="btn-en" style="padding:4px 10px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.08em;background:var(--gold);color:var(--navy);border:none;cursor:pointer;">EN</button>
+      <button onclick="setLang('es')" id="btn-es" style="padding:4px 10px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.08em;background:transparent;color:var(--muted);border:none;cursor:pointer;">ES</button>
+    </div>
+    <a href="https://pablomontenegro.ie/work.html" class="nav-back" id="nav-back" data-en="← Back to work" data-es="← Volver al trabajo">← Back to work</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section>
+  <div class="hero">
+    <div class="hero-meta fade-up">
+      <div class="hero-tag" data-en="Practice Management · Healthtech · SaaS · 2026" data-es="Gestión de Consultorio · Healthtech · SaaS · 2026">Practice Management · Healthtech · SaaS · 2026</div>
+      <h1 class="hero-title">
+        <span data-en="A clinic that ran on notebooks." data-es="Una clínica que operaba en cuadernos.">A clinic that ran on notebooks.</span><br>
+        <em data-en="Now it runs on a system — one that's becoming a product." data-es="Ahora corre sobre un sistema — uno que se está volviendo un producto.">Now it runs on a system — one that's becoming a product.</em>
+      </h1>
+      <p class="hero-sub">
+        <span data-en="DermoSkin needed to stop losing information between notebooks, WhatsApp threads and a spreadsheet nobody fully trusted. I built the operating system the clinic actually runs on: patients, agenda, consent, stock and money in one place. What that proved about running a regulated, appointment-based practice is now the starting point for Filum — a multi-tenant SaaS I'm building for clinics like it." data-es="DermoSkin necesitaba dejar de perder información entre cuadernos, hilos de WhatsApp y una planilla en la que nadie confiaba del todo. Construí el sistema operativo sobre el que la clínica corre hoy: pacientes, agenda, consentimiento, insumos y dinero en un solo lugar. Lo que eso demostró sobre operar una práctica regulada y basada en citas es ahora el punto de partida de Filum — un SaaS multi-tenant que estoy construyendo para clínicas como esa.">DermoSkin needed to stop losing information between notebooks, WhatsApp threads and a spreadsheet nobody fully trusted. I built the operating system the clinic actually runs on: patients, agenda, consent, stock and money in one place. What that proved about running a regulated, appointment-based practice is now the starting point for Filum — a multi-tenant SaaS I'm building for clinics like it.</span>
+      </p>
+      <div class="hero-badges">
+        <span class="badge" data-en="Practice Management" data-es="Gestión de Consultorio">Practice Management</span>
+        <span class="badge" data-en="Patient Records" data-es="Fichas de Pacientes">Patient Records</span>
+        <span class="badge" data-en="Healthtech · SaaS" data-es="Healthtech · SaaS">Healthtech · SaaS</span>
+        <span class="badge" data-en="Bolivia · 2026" data-es="Bolivia · 2026">Bolivia · 2026</span>
+      </div>
+    </div>
+    <div class="hero-stats fade-up">
+      <div class="stat">
+        <span class="stat-num">6</span>
+        <span class="stat-label" data-en="Modules — patients to finance" data-es="Módulos — pacientes a finanzas">Modules — patients to finance</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">1</span>
+        <span class="stat-label" data-en="Clinic live on the system" data-es="Clínica en producción con el sistema">Clinic live on the system</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">→</span>
+        <span class="stat-label" data-en="Now evolving into Filum" data-es="Ahora evoluciona a Filum">Now evolving into Filum</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- EXECUTIVE SUMMARY -->
+<div class="context-band">
+  <div class="context-inner">
+    <div>
+      <div class="section-label" data-en="The full arc" data-es="El arco completo">The full arc</div>
+      <h2 class="section-title" style="margin-bottom:20px;" data-en="A clinic's chaos became<br><em>a product thesis.</em>" data-es="El caos de una clínica se volvió<br><em>una tesis de producto.</em>">A clinic's chaos became<br><em>a product thesis.</em></h2>
+      <div class="section-body">
+        <p><span data-en="DermoSkin is a dermatology clinic running aesthetic and dermatological procedures — botulinum toxin, fillers, peelings, biostimulators — on a recurring, appointment-based model. Patient history lived in a paper folder. Appointments were tracked in a WhatsApp group. Money moved between a notebook and the owner's memory. Nothing talked to anything else, and nothing caught a contraindication before it became a risk." data-es="DermoSkin es una clínica de dermatología que realiza procedimientos estéticos y dermatológicos — toxina botulínica, rellenos, peelings, bioestimulantes — bajo un modelo recurrente basado en citas. El historial de las pacientes vivía en una carpeta de papel. Las citas se llevaban en un grupo de WhatsApp. El dinero se movía entre un cuaderno y la memoria de la dueña. Nada se comunicaba con nada, y nada detectaba una contraindicación antes de que se volviera un riesgo.">DermoSkin is a dermatology clinic running aesthetic and dermatological procedures — botulinum toxin, fillers, peelings, biostimulators — on a recurring, appointment-based model. Patient history lived in a paper folder. Appointments were tracked in a WhatsApp group. Money moved between a notebook and the owner's memory. Nothing talked to anything else, and nothing caught a contraindication before it became a risk.</span></p>
+        <p><span data-en="I designed and built a complete internal operating system: patient records with structured health-history flags that surface automatically at the moment of booking, informed consent tracked as part of the appointment itself, stock control tied to what each service actually consumes, and a financial view that reconciles income, pending payments and instalments without a spreadsheet." data-es="Diseñé y construí un sistema operativo interno completo: fichas de pacientes con antecedentes de salud estructurados que aparecen automáticamente al momento de agendar, consentimiento informado integrado a la cita misma, control de insumos ligado a lo que cada servicio realmente consume, y una vista financiera que reconcilia ingresos, pagos pendientes y cuotas sin planilla.">I designed and built a complete internal operating system: patient records with structured health-history flags that surface automatically at the moment of booking, informed consent tracked as part of the appointment itself, stock control tied to what each service actually consumes, and a financial view that reconciles income, pending payments and instalments without a spreadsheet.</span></p>
+        <p><span data-en="Running that system for a real clinic surfaced a pattern I'd seen before, in a different market, with Karigab → Órbita OS: the operational logic of a specific kind of business — here, a regulated, recurring, appointment-based practice — is specific, teachable, and repeatable. That's the thesis behind Filum, the multi-tenant SaaS I'm now building from what DermoSkin proved." data-es="Correr ese sistema para una clínica real reveló un patrón que ya había visto antes, en otro mercado, con Karigab → Órbita OS: la lógica operativa de un tipo específico de negocio — acá, una práctica regulada, recurrente y basada en citas — es específica, enseñable y repetible. Esa es la tesis detrás de Filum, el SaaS multi-tenant que ahora estoy construyendo a partir de lo que DermoSkin demostró.">Running that system for a real clinic surfaced a pattern I'd seen before, in a different market, with Karigab → Órbita OS: the operational logic of a specific kind of business — here, a regulated, recurring, appointment-based practice — is specific, teachable, and repeatable. That's the thesis behind Filum, the multi-tenant SaaS I'm now building from what DermoSkin proved.</span></p>
+      </div>
+    </div>
+    <div>
+      <div class="challenge-block">
+        <div class="challenge-title" data-en="At a glance" data-es="En resumen">At a glance</div>
+        <ul class="challenge-list">
+          <li data-en="<strong>The clinic:</strong> dermatology and aesthetic procedures, appointment-based, regulated by informed-consent requirements." data-es="<strong>La clínica:</strong> procedimientos estéticos y dermatológicos, basados en citas, regulados por requisitos de consentimiento informado."><strong>The clinic:</strong> dermatology and aesthetic procedures, appointment-based, regulated by informed-consent requirements.</li>
+          <li data-en="<strong>The system:</strong> patient records, agenda, informed consent, stock, financial control and WhatsApp/email follow-ups — one internal tool." data-es="<strong>El sistema:</strong> fichas de pacientes, agenda, consentimiento informado, insumos, control financiero y seguimiento por WhatsApp/email — una sola herramienta interna."><strong>The system:</strong> patient records, agenda, informed consent, stock, financial control and WhatsApp/email follow-ups — one internal tool.</li>
+          <li data-en="<strong>What it proved:</strong> a non-technical clinic team can run a fully digital operating system when the workflow — not just the interface — is built around how they actually work." data-es="<strong>Lo que demostró:</strong> un equipo de clínica no técnico puede operar un sistema totalmente digital cuando el flujo — no solo la interfaz — está construido alrededor de cómo trabajan realmente."><strong>What it proved:</strong> a non-technical clinic team can run a fully digital operating system when the workflow — not just the interface — is built around how they actually work.</li>
+          <li data-en="<strong>What's next:</strong> Filum — generalising the same operating logic into a multi-tenant SaaS for clinics beyond DermoSkin." data-es="<strong>Lo que sigue:</strong> Filum — generalizando la misma lógica operativa en un SaaS multi-tenant para clínicas más allá de DermoSkin."><strong>What's next:</strong> Filum — generalising the same operating logic into a multi-tenant SaaS for clinics beyond DermoSkin.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- PROBLEM -->
+<section class="section">
+  <div class="section-label" data-en="The problem" data-es="El problema">The problem</div>
+  <h2 class="section-title" data-en="A contraindication is easy to miss<br><em>when it lives in a notebook.</em>" data-es="Una contraindicación es fácil de perder<br><em>cuando vive en un cuaderno.</em>">A contraindication is easy to miss<br><em>when it lives in a notebook.</em></h2>
+  <div class="section-body">
+    <p><span data-en="DermoSkin's patient history — allergies, pregnancy, anticoagulant use, active infections, autoimmune conditions — lived on paper, one folder per patient, referenced from memory before a procedure. Appointments were booked through a WhatsApp thread scrolled by hand. Informed consent was a printed form, signed on paper, filed loosely. Every payment — full, partial, or in instalments — was tracked in a personal notebook only the owner could interpret." data-es="El historial de las pacientes de DermoSkin — alergias, embarazo, uso de anticoagulantes, infecciones activas, enfermedades autoinmunes — vivía en papel, una carpeta por paciente, consultada de memoria antes de un procedimiento. Las citas se agendaban en un hilo de WhatsApp revisado a mano. El consentimiento informado era un formulario impreso, firmado en papel, archivado sin orden. Cada pago — total, parcial o en cuotas — se llevaba en un cuaderno personal que solo la dueña sabía interpretar.">DermoSkin's patient history — allergies, pregnancy, anticoagulant use, active infections, autoimmune conditions — lived on paper, one folder per patient, referenced from memory before a procedure. Appointments were booked through a WhatsApp thread scrolled by hand. Informed consent was a printed form, signed on paper, filed loosely. Every payment — full, partial, or in instalments — was tracked in a personal notebook only the owner could interpret.</span></p>
+    <p><span data-en="None of this failed loudly. It failed quietly: a follow-up that never got booked, a contraindication that surfaced after the appointment was already confirmed, a partial payment nobody remembered to chase. The risk wasn't visible until it was too late to act on it." data-es="Nada de esto fallaba de forma ruidosa. Fallaba en silencio: un seguimiento que nunca se agendó, una contraindicación que apareció después de confirmar la cita, un pago parcial que nadie recordó cobrar. El riesgo no era visible hasta que ya era tarde para actuar.">None of this failed loudly. It failed quietly: a follow-up that never got booked, a contraindication that surfaced after the appointment was already confirmed, a partial payment nobody remembered to chase. The risk wasn't visible until it was too late to act on it.</span></p>
+  </div>
+
+  <div class="pull-quote">
+    <div class="pull-quote-text" data-en="'The system didn't need more features. It needed to put the one fact that mattered — this patient has a contraindication — in front of the right person at the right moment.'" data-es="'El sistema no necesitaba más funciones. Necesitaba poner el único hecho que importaba — esta paciente tiene una contraindicación — frente a la persona correcta en el momento correcto.'">"The system didn't need more features. It needed to put the one fact that mattered — this patient has a contraindication — in front of the right person at the right moment."</div>
+    <div class="pull-quote-attr" data-en="Observation from discovery" data-es="Observación del discovery">Observation from discovery</div>
+  </div>
+
+  <div class="section-label" data-en="What was built" data-es="Qué se construyó">What was built</div>
+  <h2 class="section-title" data-en="Six modules.<br><em>One operating system.</em>" data-es="Seis módulos.<br><em>Un sistema operativo.</em>">Six modules.<br><em>One operating system.</em></h2>
+
+  <div class="solution-grid">
+    <div class="sol-item">
+      <span class="sol-num">01</span>
+      <div class="sol-title" data-en="Patient records &amp; contraindication alerts" data-es="Fichas de pacientes y alertas de contraindicación">Patient records &amp; contraindication alerts</div>
+      <div class="sol-body"><span data-en="A structured intake for pregnancy, allergies, anticoagulants, active infection, autoimmune conditions and underlying disease — each with room for detail. Any flag raises a visible alert that follows the patient into every future booking, until someone explicitly reviews it." data-es="Un ingreso estructurado para embarazo, alergias, anticoagulantes, infección activa, enfermedad autoinmune y enfermedad de base — cada uno con espacio para detalle. Cualquier marca genera una alerta visible que sigue a la paciente en cada agendamiento futuro, hasta que alguien la revisa explícitamente.">A structured intake for pregnancy, allergies, anticoagulants, active infection, autoimmune conditions and underlying disease — each with room for detail. Any flag raises a visible alert that follows the patient into every future booking, until someone explicitly reviews it.</span></div>
+      <span class="sol-tag">Patient safety</span>
+    </div>
+    <div class="sol-item">
+      <span class="sol-num">02</span>
+      <div class="sol-title" data-en="Appointment-linked informed consent" data-es="Consentimiento informado integrado a la cita">Appointment-linked informed consent</div>
+      <div class="sol-body"><span data-en="Six consent groups matched to procedure type, generated per appointment, shareable by WhatsApp or QR, tracked as pending or signed — replacing a loose stack of printed forms with a record tied to the actual visit." data-es="Seis grupos de consentimiento según el tipo de procedimiento, generados por cita, compartibles por WhatsApp o QR, con estado pendiente o firmado — reemplazando una pila de formularios impresos con un registro ligado a la visita real.">Six consent groups matched to procedure type, generated per appointment, shareable by WhatsApp or QR, tracked as pending or signed — replacing a loose stack of printed forms with a record tied to the actual visit.</span></div>
+      <span class="sol-tag">Compliance</span>
+    </div>
+    <div class="sol-item">
+      <span class="sol-num">03</span>
+      <div class="sol-title" data-en="Stock tied to services, not guesswork" data-es="Insumos ligados a servicios, no a la intuición">Stock tied to services, not guesswork</div>
+      <div class="sol-body"><span data-en="Every service declares what it consumes per session. Completing an appointment prompts a real consumption check against the suggested amount, and stock alerts trigger automatically once supply drops below a safety threshold." data-es="Cada servicio declara lo que consume por sesión. Completar una cita pide confirmar el consumo real frente a la cantidad sugerida, y las alertas de stock se disparan automáticamente cuando el insumo baja del umbral de seguridad.">Every service declares what it consumes per session. Completing an appointment prompts a real consumption check against the suggested amount, and stock alerts trigger automatically once supply drops below a safety threshold.</span></div>
+      <span class="sol-tag">Inventory</span>
+    </div>
+    <div class="sol-item">
+      <span class="sol-num">04</span>
+      <div class="sol-title" data-en="Financial control without a spreadsheet" data-es="Control financiero sin planilla">Financial control without a spreadsheet</div>
+      <div class="sol-body"><span data-en="Every appointment generates its own income record — paid, pending, or split into instalments — reconciled against a monthly net view, with an audit trail for manual corrections." data-es="Cada cita genera su propio registro de ingreso — pagado, pendiente, o dividido en cuotas — reconciliado contra una vista neta mensual, con historial de auditoría para correcciones manuales.">Every appointment generates its own income record — paid, pending, or split into instalments — reconciled against a monthly net view, with an audit trail for manual corrections.</span></div>
+      <span class="sol-tag">Finance</span>
+    </div>
+    <div class="sol-item">
+      <span class="sol-num">05</span>
+      <div class="sol-title" data-en="Follow-up &amp; retouch reminders" data-es="Recordatorios de seguimiento y retoque">Follow-up &amp; retouch reminders</div>
+      <div class="sol-body"><span data-en="Services with a retouch window or repetition cycle generate their own reminder automatically, surfaced on the clinic's home screen with a ready-to-send WhatsApp or email message — so a follow-up depends on the system, not on memory." data-es="Los servicios con ventana de retoque o ciclo de repetición generan su propio recordatorio automáticamente, mostrado en el inicio de la clínica con un mensaje listo para enviar por WhatsApp o email — así el seguimiento depende del sistema, no de la memoria.">Services with a retouch window or repetition cycle generate their own reminder automatically, surfaced on the clinic's home screen with a ready-to-send WhatsApp or email message — so a follow-up depends on the system, not on memory.</span></div>
+      <span class="sol-tag">Retention</span>
+    </div>
+    <div class="sol-item">
+      <span class="sol-num">06</span>
+      <div class="sol-title" data-en="Role-based access for a growing team" data-es="Acceso por rol para un equipo que crece">Role-based access for a growing team</div>
+      <div class="sol-body"><span data-en="An administrator role and an assistant role with configurable permissions — editing the service catalogue, deactivating services, deleting patients or financial records — so the clinic can bring on staff without losing control of sensitive actions." data-es="Un rol de administrador y un rol de asistente con permisos configurables — editar el catálogo de servicios, desactivar servicios, eliminar pacientes o movimientos financieros — así la clínica puede sumar personal sin perder control sobre las acciones sensibles.">An administrator role and an assistant role with configurable permissions — editing the service catalogue, deactivating services, deleting patients or financial records — so the clinic can bring on staff without losing control of sensitive actions.</span></div>
+      <span class="sol-tag">Team &amp; access</span>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- DEMO -->
+<div class="demo-section">
+  <div class="demo-inner">
+    <div class="section-label" data-en="See it running" data-es="Vela en funcionamiento">See it running</div>
+    <h2 class="section-title" data-en="The system itself —<br><em>not a mockup.</em>" data-es="El sistema mismo —<br><em>no una maqueta.</em>">The system itself —<br><em>not a mockup.</em></h2>
+    <p style="font-size:15px;color:var(--muted);max-width:620px;margin-bottom:28px;"><span data-en="This is the actual interface DermoSkin's team uses day to day, loaded with fictional patients so you can click through it freely — book an appointment, trigger a contraindication alert, complete a consent flow, check the financial view. Nothing you do here touches real data." data-es="Esta es la interfaz real que usa el equipo de DermoSkin día a día, cargada con pacientes ficticios para que puedas recorrerla libremente — agendar una cita, disparar una alerta de contraindicación, completar un flujo de consentimiento, revisar la vista financiera. Nada de lo que hagas acá toca datos reales.">This is the actual interface DermoSkin's team uses day to day, loaded with fictional patients so you can click through it freely — book an appointment, trigger a contraindication alert, complete a consent flow, check the financial view. Nothing you do here touches real data.</span></p>
+
+    <div style="border:1px solid var(--border);border-radius:10px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.35);">
+      <iframe src="dermoskin-demo.html" title="DermoSkin — interactive demo" style="width:100%;height:720px;border:none;display:block;background:#504e37;" loading="lazy"></iframe>
+    </div>
+    <p class="demo-note" style="margin-top:14px;">
+      <a href="dermoskin-demo.html" target="_blank" rel="noopener" style="color:var(--gold);font-family:var(--mono);font-size:11px;letter-spacing:.05em;" data-en="Open the demo full-screen →" data-es="Abrir la demo a pantalla completa →">Open the demo full-screen →</a>
+    </p>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- OUTCOMES -->
+<section class="section">
+  <div class="section-label" data-en="Outcomes" data-es="Resultados">Outcomes</div>
+  <h2 class="section-title" data-en="From paper folders<br><em>to a system that scales.</em>" data-es="De carpetas de papel<br><em>a un sistema que escala.</em>">From paper folders<br><em>to a system that scales.</em></h2>
+
+  <div class="outcomes-row">
+    <div class="outcome-item">
+      <span class="outcome-num">1</span>
+      <div class="outcome-label">
+        <strong data-en="Clinic fully live on the system" data-es="Clínica en producción íntegra">Clinic fully live on the system</strong>
+        <span data-en="Patients, agenda, consent, stock and finance all run through one tool, day to day" data-es="Pacientes, agenda, consentimiento, insumos y finanzas corren por una sola herramienta, día a día">Patients, agenda, consent, stock and finance all run through one tool, day to day</span>
+      </div>
+    </div>
+    <div class="outcome-item">
+      <span class="outcome-num">6</span>
+      <div class="outcome-label">
+        <strong data-en="Modules shipped as one coherent tool" data-es="Módulos entregados como una sola herramienta">Modules shipped as one coherent tool</strong>
+        <span data-en="Not six disconnected features — one workflow from booking to reconciliation" data-es="No seis funciones sueltas — un solo flujo desde el agendamiento hasta la reconciliación">Not six disconnected features — one workflow from booking to reconciliation</span>
+      </div>
+    </div>
+    <div class="outcome-item">
+      <span class="outcome-num">0</span>
+      <div class="outcome-label">
+        <strong data-en="Contraindications missed since launch" data-es="Contraindicaciones pasadas por alto desde el lanzamiento">Contraindications missed since launch</strong>
+        <span data-en="Every flagged patient surfaces an alert before the appointment is confirmed" data-es="Toda paciente marcada genera una alerta antes de confirmar la cita">Every flagged patient surfaces an alert before the appointment is confirmed</span>
+      </div>
+    </div>
+    <div class="outcome-item">
+      <span class="outcome-num">→</span>
+      <div class="outcome-label">
+        <strong data-en="Evolving into Filum" data-es="Evolucionando hacia Filum">Evolving into Filum</strong>
+        <span data-en="The same operating logic, generalised into a multi-tenant SaaS now in development" data-es="La misma lógica operativa, generalizada en un SaaS multi-tenant en desarrollo">The same operating logic, generalised into a multi-tenant SaaS now in development</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- WHAT'S NEXT — FILUM -->
+<div class="context-band">
+  <div class="context-inner" style="grid-template-columns:1fr;">
+    <div>
+      <div class="section-label" data-en="What's next" data-es="Lo que sigue">What's next</div>
+      <h2 class="section-title" data-en="From DermoSkin's system<br><em>to Filum.</em>" data-es="Del sistema de DermoSkin<br><em>a Filum.</em>">From DermoSkin's system<br><em>to Filum.</em></h2>
+      <div class="section-body">
+        <p><span data-en="DermoSkin's operating system was built for one clinic, but the logic underneath it — contraindication-aware patient records, appointment-linked consent, service-tied stock, reconciled financials — isn't specific to DermoSkin. It's specific to a category: regulated, recurring, appointment-based practices." data-es="El sistema operativo de DermoSkin se construyó para una clínica, pero la lógica que hay debajo — fichas de pacientes con alertas de contraindicación, consentimiento ligado a la cita, insumos atados al servicio, finanzas reconciliadas — no es específica de DermoSkin. Es específica de una categoría: prácticas reguladas, recurrentes y basadas en citas.">DermoSkin's operating system was built for one clinic, but the logic underneath it — contraindication-aware patient records, appointment-linked consent, service-tied stock, reconciled financials — isn't specific to DermoSkin. It's specific to a category: regulated, recurring, appointment-based practices.</span></p>
+        <p><span data-en="Filum is that logic, generalised into a multi-tenant SaaS platform, currently in development. DermoSkin is its first real-world reference — the same pattern behind Karigab → Órbita OS, applied to healthtech." data-es="Filum es esa lógica, generalizada en una plataforma SaaS multi-tenant, actualmente en desarrollo. DermoSkin es su primera referencia real — el mismo patrón detrás de Karigab → Órbita OS, aplicado a healthtech.">Filum is that logic, generalised into a multi-tenant SaaS platform, currently in development. DermoSkin is its first real-world reference — the same pattern behind Karigab → Órbita OS, applied to healthtech.</span></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WHY THIS MATTERS -->
+<div class="relevance-band">
+  <div class="relevance-inner">
+    <div class="section-label" data-en="Why this matters" data-es="Por qué importa">Why this matters</div>
+    <h2 class="section-title" style="margin-bottom:8px;" data-en="The broader <em>relevance.</em>" data-es="La relevancia <em>más amplia.</em>">The broader <em>relevance.</em></h2>
+    <p style="font-size:15px;color:var(--muted);margin-bottom:0;max-width:580px;"><span data-en="This work sits at the intersection of three dynamics shaping regulated service businesses right now." data-es="Este trabajo está en la intersección de tres dinámicas que definen los negocios de servicios regulados ahora mismo.">This work sits at the intersection of three dynamics shaping regulated service businesses right now.</span></p>
+    <div class="relevance-grid">
+      <div class="relevance-item">
+        <div class="relevance-icon">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 2l6 3v4c0 4-2.5 6.5-6 7-3.5-.5-6-3-6-7V5l6-3z" stroke="rgba(196,160,90,.55)" stroke-width="1" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="relevance-title" data-en="Regulated practices are underserved by generic tools" data-es="Las prácticas reguladas están mal servidas por herramientas genéricas">Regulated practices are underserved by generic tools</div>
+        <div class="relevance-body"><span data-en="Generic scheduling and CRM tools don't model contraindication alerts or appointment-linked consent. A system built around the actual clinical and regulatory shape of the practice does more with less — and catches the risk generic tools were never designed to see." data-es="Las herramientas genéricas de agenda o CRM no modelan alertas de contraindicación ni consentimiento ligado a la cita. Un sistema construido alrededor de la forma clínica y regulatoria real de la práctica hace más con menos — y detecta el riesgo que las herramientas genéricas nunca fueron diseñadas para ver.">Generic scheduling and CRM tools don't model contraindication alerts or appointment-linked consent. A system built around the actual clinical and regulatory shape of the practice does more with less — and catches the risk generic tools were never designed to see.</span></div>
+      </div>
+      <div class="relevance-item">
+        <div class="relevance-icon">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2" y="4" width="14" height="10" rx="2" stroke="rgba(196,160,90,.55)" stroke-width="1"/><path d="M5 8h8M5 11h5" stroke="rgba(196,160,90,.5)" stroke-width="1" stroke-linecap="round"/></svg>
+        </div>
+        <div class="relevance-title" data-en="The operating system comes before the SaaS" data-es="El sistema operativo viene antes que el SaaS">The operating system comes before the SaaS</div>
+        <div class="relevance-body"><span data-en="Same pattern as Karigab → Órbita OS: prove the operational logic works for one real business before generalising it into a product. Filum inherits its shape from what DermoSkin actually runs on — not from a feature wishlist." data-es="Mismo patrón que Karigab → Órbita OS: probar que la lógica operativa funciona para un negocio real antes de generalizarla en un producto. Filum hereda su forma de lo que DermoSkin realmente opera — no de una lista de deseos de funciones.">Same pattern as Karigab → Órbita OS: prove the operational logic works for one real business before generalising it into a product. Filum inherits its shape from what DermoSkin actually runs on — not from a feature wishlist.</span></div>
+      </div>
+      <div class="relevance-item">
+        <div class="relevance-icon">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="7" stroke="rgba(196,160,90,.55)" stroke-width="1"/><path d="M9 5.5v4l2.5 1.5" stroke="rgba(196,160,90,.6)" stroke-width="1" stroke-linecap="round"/></svg>
+        </div>
+        <div class="relevance-title" data-en="Visibility at the right moment is a safety feature" data-es="La visibilidad en el momento correcto es una función de seguridad">Visibility at the right moment is a safety feature</div>
+        <div class="relevance-body"><span data-en="Surfacing the one fact that matters — right when it matters — is a pattern that generalises beyond clinics, to any regulated, appointment-based service business with liability-sensitive intake." data-es="Mostrar el único hecho que importa — justo cuando importa — es un patrón que se generaliza más allá de las clínicas, a cualquier negocio de servicios regulado y basado en citas con un ingreso sensible a responsabilidad legal.">Surfacing the one fact that matters — right when it matters — is a pattern that generalises beyond clinics, to any regulated, appointment-based service business with liability-sensitive intake.</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<section>
+  <div class="cta-section">
+    <div>
+      <h2 class="cta-title" data-en="Running a clinic or practice<br><em>on notebooks and WhatsApp?</em>" data-es="¿Manejás una clínica o consultorio<br><em>a punta de cuadernos y WhatsApp?</em>">Running a clinic or practice<br><em>on notebooks and WhatsApp?</em></h2>
+      <p class="cta-sub" data-en="I work with clinics, practices and growing businesses that need a real operating system — not another generic tool — from patient records to consent to financial control. If that's where you are, I'd be glad to talk." data-es="Trabajo con clínicas, consultorios y negocios en crecimiento que necesitan un sistema operativo real — no otra herramienta genérica — desde fichas de pacientes hasta consentimiento y control financiero. Si ahí es donde estás, me encantaría hablar.">I work with clinics, practices and growing businesses that need a real operating system — not another generic tool — from patient records to consent to financial control. If that's where you are, I'd be glad to talk.</p>
+    </div>
+    <a href="mailto:hello@pablomontenegro.ie" class="cta-btn" data-en="Tell me about your problem →" data-es="Cuéntame tu problema →">Tell me about your problem →</a>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-note">Pablo Montenegro · pablomontenegro.ie</span>
+  <span class="footer-note" data-en="Practice Management · Healthtech · SaaS · 2026" data-es="Gestión de Consultorio · Healthtech · SaaS · 2026">Practice Management · Healthtech · SaaS · 2026</span>
+</footer>
+
+
+<script>
+var LANG = localStorage.getItem('pm_lang') || 'en';
+
+function setLang(lang) {
+  LANG = lang;
+  localStorage.setItem('pm_lang', lang);
+  document.getElementById('btn-en').style.background = lang==='en' ? 'var(--gold)' : 'transparent';
+  document.getElementById('btn-en').style.color = lang==='en' ? 'var(--navy)' : 'var(--muted)';
+  document.getElementById('btn-es').style.background = lang==='es' ? 'var(--gold)' : 'transparent';
+  document.getElementById('btn-es').style.color = lang==='es' ? 'var(--navy)' : 'var(--muted)';
+  document.querySelectorAll('[data-en]').forEach(function(el) {
+    var txt = lang === 'es' ? el.getAttribute('data-es') : el.getAttribute('data-en');
+    if (txt) el.innerHTML = txt;
+  });
+  document.documentElement.lang = lang;
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  setLang(LANG);
+});
+</script>
+
+</body>
+</html>
