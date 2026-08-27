@@ -240,8 +240,17 @@ section{padding:80px 48px;}
   grid-column: 2 / span 2;
 }
 
-.cc{background:var(--navy);transition:background .18s;display:flex;flex-direction:column;}
+.cc{background:var(--navy);transition:background .18s,border-color .18s;display:flex;flex-direction:column;border-left:3px solid transparent;}
 .cc:hover{background:var(--navy2);}
+.cc--bespoke{border-left-color:var(--gold);}
+.cc--saas{border-left-color:var(--green2);}
+.cc-kind{font-family:var(--mono);font-size:8px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--muted2);display:flex;align-items:center;gap:6px;margin-bottom:10px;}
+.cc-kind::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--muted2);flex-shrink:0;}
+.cc-kind--bespoke{color:var(--gold3);}
+.cc-kind--bespoke::before{background:var(--gold);}
+.cc-kind--saas{color:var(--green2);}
+.cc-kind--saas::before{background:var(--green2);}
 .case-vis-bg{width:100%;aspect-ratio:16/9;display:flex;align-items:center;
   justify-content:center;position:relative;overflow:hidden;min-height:130px;}
 .case-num{position:absolute;top:10px;right:14px;font-family:var(--serif);
@@ -505,7 +514,6 @@ section{padding:80px 48px;}
   <div class="nav-links" id="nav-links">
     <a href="consulting.html" class="nav-link" data-en="Consulting" data-es="Consultoría">Consulting</a>
     <a href="work.html" class="nav-link active" data-en="Work" data-es="Trabajo">Work</a>
-    <a href="experience.html" class="nav-link" data-en="Experience" data-es="Experiencia">Experience</a>
     <a href="insights.html" class="nav-link" data-en="Insights" data-es="Insights">Insights</a>
     <a href="about.html" class="nav-link" data-en="About" data-es="Sobre mí">About</a>
     <a href="contact.html" class="nav-link" data-en="Contact" data-es="Contacto">Contact</a>

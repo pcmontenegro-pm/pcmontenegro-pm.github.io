@@ -28,6 +28,34 @@ const VIS = {
       <rect x="73" y="99" width="38" height="3" rx="1.5" fill="rgba(78,122,72,.75)"/>
     </svg></div>`,
 
+  orbita: `<div class="case-vis-bg" style="background:linear-gradient(150deg,#0a0a0a 0%,#1a1a1a 100%)">
+    <svg viewBox="0 0 200 120" style="width:100%;max-width:190px">
+      <!-- Phone frame -->
+      <rect x="62" y="8" width="76" height="104" rx="10" fill="#000" stroke="rgba(53,160,112,.4)" stroke-width="1"/>
+      <!-- Screen -->
+      <rect x="66" y="14" width="68" height="92" rx="7" fill="#f5f5f5"/>
+      <!-- Header -->
+      <text x="100" y="23" font-family="DM Sans,sans-serif" font-size="5" font-weight="700" fill="#0a0a0a" text-anchor="middle">Órbita OS</text>
+      <!-- Revenue card -->
+      <rect x="70" y="27" width="60" height="18" rx="4" fill="#fff" stroke="rgba(10,10,10,.1)" stroke-width=".5"/>
+      <text x="100" y="35" font-family="DM Sans,sans-serif" font-size="3.6" fill="#737373" text-anchor="middle">EN VENTAS HOY</text>
+      <text x="100" y="42" font-family="DM Sans,sans-serif" font-size="6" font-weight="700" fill="#0a0a0a" text-anchor="middle">Bs. 3,420</text>
+      <!-- Sale rows -->
+      <rect x="73" y="50" width="54" height="11" rx="3" fill="#fff" stroke="rgba(10,10,10,.08)" stroke-width=".5"/>
+      <text x="76" y="56.5" font-family="DM Sans,sans-serif" font-size="4" fill="#0a0a0a">ORD-0032</text>
+      <rect x="108" y="53" width="16" height="5" rx="2.5" fill="#fef3c7"/>
+      <text x="116" y="56.8" font-family="DM Sans,sans-serif" font-size="3" fill="#b45309" text-anchor="middle">Pend.</text>
+      <rect x="73" y="63" width="54" height="11" rx="3" fill="#fff" stroke="rgba(10,10,10,.08)" stroke-width=".5"/>
+      <text x="76" y="69.5" font-family="DM Sans,sans-serif" font-size="4" fill="#0a0a0a">ORD-0031</text>
+      <rect x="108" y="66" width="16" height="5" rx="2.5" fill="#d1fae5"/>
+      <text x="116" y="69.8" font-family="DM Sans,sans-serif" font-size="3" fill="#047857" text-anchor="middle">Pagada</text>
+      <!-- Bottom nav -->
+      <rect x="66" y="93" width="68" height="13" fill="rgba(255,255,255,.94)"/>
+      <circle cx="80" cy="99.5" r="1.6" fill="#0a0a0a"/>
+      <circle cx="100" cy="99.5" r="1.6" fill="rgba(10,10,10,.25)"/>
+      <circle cx="120" cy="99.5" r="1.6" fill="rgba(10,10,10,.25)"/>
+    </svg></div>`,
+
   monevol: `<div class="case-vis-bg" style="background:linear-gradient(150deg,#0d1a2e 0%,#16243a 100%)">
     
     <svg viewBox="0 0 200 120" style="width:100%;max-width:190px">
@@ -319,6 +347,11 @@ function caseCard(c, lang) {
   const tag   = lang==='es' ? c.tag_es   : c.tag_en;
   const sepa  = lang==='es' ? c.sepa_es  : c.sepa_en;
   const ctaLbl= lang==='es' ? c.cta_es   : c.cta_en;
+  const kindType = lang==='es' ? c.type_es : c.type_en;
+
+  let kind = 'consulting';
+  if (c.type_en && c.type_en.indexOf('Bespoke') !== -1) kind = 'bespoke';
+  else if (c.type_en && c.type_en.indexOf('SaaS') !== -1) kind = 'saas';
 
   const metrics = (c.metrics||[]).map(m=>`
     <div class="oc">
@@ -334,10 +367,14 @@ function caseCard(c, lang) {
   const visHtml = VIS[c.vis_type] || '';
   const visWithNum = visHtml.replace('</div>', `<span class="case-num">${c.num}</span></div>`);
 
+  const kindTag = c.type_en ? `
+      <p class="cc-kind${kind!=='consulting'?' cc-kind--'+kind:''}" data-en="${c.type_en}" data-es="${c.type_es}">${kindType}</p>` : '';
+
   return `
-  <div class="cc reveal">
+  <div class="cc reveal${kind!=='consulting'?' cc--'+kind:''}">
     ${visWithNum}
     <div class="cc-body">
+      ${kindTag}
       <p class="cc-tag${c.advisory?' cc-tag--advisory':''}" data-en="${c.tag_en}" data-es="${c.tag_es}">${tag}</p>
       <h3 class="cc-title" data-en="${c.title_en}" data-es="${c.title_es}">${title}</h3>
       <p class="cc-desc" data-en="${c.desc_en}" data-es="${c.desc_es}">${desc}</p>

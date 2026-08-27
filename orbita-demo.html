@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Órbita OS — Demo</title>
+<style>
+  :root{
+    --black:#0a0a0a; --sidebar:#0a0a0a; --card-dark:#171717; --card-dark-hover:#232323;
+    --grey:#9a9a9a; --bg-page:#0a0a0a;
+    --content-bg:#f5f5f5; --content-card:#ffffff; --content-card-hover:#fafafa;
+    --content-text:#0a0a0a; --content-muted:#737373; --content-border:rgba(10,10,10,.1);
+    --amber-bg:#fef3c7; --amber-text:#b45309;
+    --emerald-bg:#d1fae5; --emerald-text:#047857;
+    --red-bg:#fee2e2; --red-text:#b91c1c;
+    --blue-bg:#dbeafe; --blue-text:#1d4ed8;
+    --indigo-bg:#e0e7ff; --indigo-text:#4338ca;
+    --font-sans:-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', Roboto, sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;height:100%;}
+  body{background:var(--bg-page); color:#fff; font-family:var(--font-sans); -webkit-font-smoothing:antialiased;}
+  a{color:inherit; text-decoration:none;}
+  button, select, input, textarea{font-family:inherit; font-size:inherit; color:inherit;}
+  button{cursor:pointer;}
+  ul{list-style:none; margin:0; padding:0;}
+
+  #shell{display:flex; min-height:100vh; flex-direction:column;}
+  @media(min-width:768px){ #shell{flex-direction:row;} }
+
+  /* ---------- sidebar (desktop) ---------- */
+  #sidebar{display:none; width:240px; flex-shrink:0; flex-direction:column; border-right:1px solid rgba(255,255,255,.08); background:var(--sidebar); padding:28px 16px;}
+  @media(min-width:768px){ #sidebar{display:flex;} }
+  .brand{padding:0 8px;}
+  .brand-name{font-size:19px; font-weight:700; letter-spacing:-.01em; color:#fff;}
+  .brand-sub{margin:4px 0 8px; font-size:10.5px; letter-spacing:.03em; color:var(--grey);}
+  .demo-badge{display:inline-block; margin-bottom:20px; padding:3px 9px; border-radius:999px; background:#fff; color:#000; font-size:9.5px; font-weight:700; letter-spacing:.05em;}
+  nav.mainnav{display:flex; flex-direction:column; gap:2px;}
+  nav.mainnav a{display:flex; align-items:center; gap:12px; border-radius:10px; padding:10px 12px; font-size:14px; color:var(--grey);}
+  nav.mainnav a:hover{background:rgba(255,255,255,.06); color:#fff;}
+  nav.mainnav a.active{background:rgba(255,255,255,.1); color:#fff; font-weight:600;}
+  nav.mainnav a .icn{width:20px; text-align:center; font-size:16px;}
+  .sidebar-spacer{flex:1;}
+  .sidebar-foot{padding:0 8px; font-size:10.5px; color:var(--grey);}
+  .role-pill{display:inline-block; margin-bottom:10px; padding:4px 8px; border-radius:5px; background:rgba(255,255,255,.1); color:#fff;}
+
+  /* ---------- topbar + bottom nav (mobile) ---------- */
+  #topbar{display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid rgba(255,255,255,.08); background:var(--sidebar); padding:12px 16px;}
+  @media(min-width:768px){ #topbar{display:none;} }
+  #topbar .brand-name{font-size:17px;}
+  #bottomnav{position:fixed; left:0; right:0; bottom:0; z-index:40; display:flex; justify-content:space-around; border-top:1px solid rgba(255,255,255,.08); background:rgba(10,10,10,.97); padding:8px 4px 14px; backdrop-filter:blur(6px);}
+  @media(min-width:768px){ #bottomnav{display:none;} }
+  #bottomnav a{display:flex; flex:1; flex-direction:column; align-items:center; gap:2px; font-size:9.5px; color:var(--grey); padding:4px 2px;}
+  #bottomnav a.active{color:#fff;}
+  #bottomnav a .icn{font-size:17px;}
+
+  /* ---------- content area ---------- */
+  #content{flex:1; min-height:100vh; background:var(--content-bg); color:var(--content-text); padding-bottom:70px;}
+  @media(min-width:768px){ #content{padding-bottom:0;} }
+  main{margin:0 auto; width:100%; max-width:720px; padding:24px 16px 28px;}
+  @media(min-width:768px){ main{padding:32px 40px;} }
+  h1.page-title{margin:0 0 16px; font-size:24px; font-weight:700; letter-spacing:-.01em; color:var(--content-text);}
+
+  .flex-row{display:flex; align-items:center; gap:8px;}
+  .flex-between{display:flex; align-items:center; justify-content:space-between; gap:10px;}
+  .back-link{display:inline-block; margin-bottom:12px; font-size:12.5px; font-weight:600; color:var(--content-muted);}
+  .back-link:hover{color:var(--content-text);}
+
+  .hero-card{border:1px solid var(--content-border); background:var(--content-card); border-radius:20px; padding:22px; text-align:center; margin-bottom:14px;}
+  .hero-num{font-size:34px; font-weight:800; letter-spacing:-.02em;}
+  .hero-label{font-size:12.5px; color:var(--content-muted); margin-top:2px;}
+
+  .kpi-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin-bottom:20px;}
+  @media(min-width:768px){ .kpi-grid{grid-template-columns:repeat(4,1fr);} }
+  .kpi-card{border:1px solid var(--content-border); background:var(--content-card); border-radius:16px; padding:14px;}
+  .kpi-num{font-size:21px; font-weight:800;}
+  .kpi-label{font-size:11.5px; color:var(--content-muted); margin-top:2px;}
+  .kpi-amber .kpi-num{color:var(--amber-text);} .kpi-red .kpi-num{color:var(--red-text);}
+  .kpi-blue .kpi-num{color:var(--blue-text);} .kpi-indigo .kpi-num{color:var(--indigo-text);}
+
+  .section-label{font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--content-muted); margin:20px 0 10px;}
+  .section-label:first-child{margin-top:0;}
+
+  .list-item{display:flex; align-items:center; justify-content:space-between; border:1px solid var(--content-border); background:var(--content-card); border-radius:16px; padding:13px 15px; margin-bottom:9px; cursor:pointer; transition:background-color .15s;}
+  .list-item:hover{background:var(--content-card-hover);}
+  .li-name{font-size:14.5px; font-weight:600;}
+  .li-sub{font-size:12.5px; color:var(--content-muted); margin-top:2px;}
+  .li-right{text-align:right;}
+  .li-amount{font-size:14.5px; font-weight:700;}
+
+  .pill{font-size:10.5px; font-weight:700; padding:4px 9px; border-radius:999px; display:inline-block;}
+  .pill-amber{background:var(--amber-bg); color:var(--amber-text);}
+  .pill-emerald{background:var(--emerald-bg); color:var(--emerald-text);}
+  .pill-red{background:var(--red-bg); color:var(--red-text);}
+  .pill-blue{background:var(--blue-bg); color:var(--blue-text);}
+  .pill-indigo{background:var(--indigo-bg); color:var(--indigo-text);}
+  .pill-gray{background:#eee; color:#555;}
+
+  .search-bar{width:100%; background:var(--content-card); border:1px solid var(--content-border); border-radius:999px; padding:10px 16px; font-size:13.5px; margin-bottom:14px;}
+  .search-bar::placeholder{color:var(--content-muted);}
+  .search-bar:focus{outline:none; border-color:rgba(10,10,10,.3);}
+
+  .tabs-row{display:flex; gap:8px; margin-bottom:14px; flex-wrap:wrap;}
+  .tab-chip{font-size:12.5px; font-weight:600; padding:6px 13px; border-radius:999px; background:#e8e8e8; color:#555; border:none; font-family:inherit; cursor:pointer;}
+  .tab-chip.active{background:var(--black); color:#fff;}
+
+  .btn-black{background:var(--black); color:#fff; border:none; border-radius:999px; padding:9px 16px; font-size:13px; font-weight:600; font-family:inherit; cursor:pointer;}
+  .btn-black:hover{opacity:.88;}
+  .btn-outline{border-radius:999px; border:1px solid rgba(10,10,10,.25); background:transparent; padding:10px 16px; font-size:13px; font-weight:600; color:var(--content-text);}
+  .btn-outline:hover{background:rgba(10,10,10,.05);}
+  .btn-outline.danger{border-color:rgba(185,28,28,.4); color:var(--red-text);}
+  .btn-outline.danger:hover{background:rgba(185,28,28,.06);}
+
+  .item-row{display:flex; justify-content:space-between; align-items:center; padding:11px 0; border-bottom:1px solid var(--content-border);}
+  .item-row:last-child{border-bottom:none;}
+  .item-name{font-size:14px; font-weight:600;}
+  .item-meta{font-size:12px; color:var(--content-muted); margin-top:1px;}
+  .item-price{font-size:14px; font-weight:700;}
+
+  .card{border:1px solid var(--content-border); background:var(--content-card); border-radius:16px; padding:16px; margin:16px 0;}
+  .totals-row{display:flex; justify-content:space-between; font-size:13.5px; padding:4px 0; color:var(--content-muted);}
+  .totals-row.final{font-weight:800; font-size:16px; color:var(--content-text); border-top:1px solid var(--content-border); margin-top:6px; padding-top:10px;}
+  .totals-row.paid{color:var(--emerald-text); font-weight:600;}
+
+  .status-btn{width:100%; padding:13px; border-radius:999px; border:none; font-family:inherit; font-weight:700; font-size:14px; margin-bottom:9px; cursor:pointer;}
+  .status-btn.primary{background:var(--black); color:#fff;}
+  .status-btn.success{background:#059669; color:#fff;}
+  .status-btn.danger{background:var(--red-bg); color:var(--red-text);}
+
+  .timeline-row{display:flex; justify-content:space-between; font-size:12px; color:var(--content-muted); padding:5px 0;}
+  .move-row{display:flex; justify-content:space-between; border-bottom:1px solid var(--content-border); padding:10px 0;}
+  .move-row:last-child{border-bottom:none;}
+  .move-type{font-size:13.5px; font-weight:600;}
+  .move-date{font-size:11px; color:var(--content-muted); margin-top:1px;}
+  .move-qty{font-size:14px; font-weight:700;}
+  .move-qty.pos{color:#059669;} .move-qty.neg{color:var(--red-text);}
+
+  /* ---------- modal ---------- */
+  .modal-overlay{position:fixed; inset:0; z-index:50; display:flex; align-items:center; justify-content:center; background:rgba(10,10,10,.45); padding:16px;}
+  .modal-box{width:100%; max-width:400px; max-height:88vh; overflow-y:auto; border-radius:16px; background:var(--content-card); padding:20px;}
+  .modal-box h3{margin:0 0 4px; font-size:18px; font-weight:700;}
+  .modal-box .sub{font-size:12.5px; color:var(--content-muted); margin-bottom:16px;}
+  .field{margin-bottom:12px;}
+  .field label{display:block; font-size:12px; font-weight:600; color:var(--content-muted); margin-bottom:5px;}
+  .field input, .field select{width:100%; border-radius:10px; border:1px solid var(--content-border); background:var(--content-bg); padding:10px 12px; font-size:14px;}
+  .field input:focus, .field select:focus{outline:none; border-color:rgba(10,10,10,.3);}
+  .modal-actions{display:flex; gap:8px; margin-top:16px;}
+  .modal-actions button{flex:1;}
+
+  /* ---------- toast ---------- */
+  #toast{position:fixed; left:50%; bottom:26px; transform:translateX(-50%); z-index:100; max-width:340px; border-radius:14px; background:var(--black); color:#fff; padding:14px 18px; font-size:12.5px; text-align:center; box-shadow:0 8px 24px rgba(0,0,0,.3); opacity:0; pointer-events:none; transition:opacity .2s, transform .2s;}
+  #toast.show{opacity:1; transform:translateX(-50%) translateY(0);}
+  @media(min-width:768px){ #toast{bottom:22px;} }
+
+  ::-webkit-scrollbar{width:8px; height:8px;}
+  ::-webkit-scrollbar-thumb{background:rgba(10,10,10,.25); border-radius:999px;}
+</style>
+</head>
+<body>
+<div id="shell">
+  <aside id="sidebar">
+    <div class="brand">
+      <div class="brand-name">Órbita OS</div>
+      <div class="brand-sub">Plataforma de operaciones para social commerce</div>
+      <div class="demo-badge">DEMO — datos ficticios</div>
+    </div>
+    <nav class="mainnav" id="nav-desktop"></nav>
+    <div class="sidebar-spacer"></div>
+    <div class="sidebar-foot">
+      <span class="role-pill">Tenant: Karigab</span>
+      <div>Esta es una demo — no representa datos reales</div>
+    </div>
+  </aside>
+
+  <div id="topbar">
+    <div class="brand-name">Órbita OS <span style="font-size:9px; vertical-align:middle; background:#fff; color:#000; padding:2px 6px; border-radius:999px; margin-left:6px;">DEMO</span></div>
+    <span class="role-pill" style="margin-bottom:0;">Karigab</span>
+  </div>
+
+  <div id="content">
+    <main id="app"></main>
+  </div>
+
+  <nav id="bottomnav"></nav>
+</div>
+<div id="toast"></div>
+
+<script>
+"use strict";
+
+/* ============================== helpers ============================== */
+var TOAST_TIMER = null;
+function toast(msg){
+  var el = document.getElementById("toast");
+  el.textContent = msg;
+  el.classList.add("show");
+  clearTimeout(TOAST_TIMER);
+  TOAST_TIMER = setTimeout(function(){ el.classList.remove("show"); }, 3400);
+}
+function val(id){ var el = document.getElementById(id); return el ? el.value : ""; }
+function esc(s){
+  if (s === null || s === undefined) return "";
+  return String(s).replace(/[&<>"']/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]; });
+}
+
+/* ============================== data ============================== */
+var VENTAS = [
+  { id: 'ORD-0032', cliente: 'María Fernández', tel: '70123456', total: 480, pagado: 0, estado: 'pendiente', items: [
+    { nombre: 'Vestido Floral M', cant: 2, precio: 180 },
+    { nombre: 'Blusa Lino Beige', cant: 1, precio: 120 },
+  ], historial: [ ['Borrador','09:14'], ['Pendiente de pago','09:16'] ] },
+  { id: 'ORD-0031', cliente: 'Camila Rojas', tel: '76552211', total: 210, pagado: 210, estado: 'pagada', items: [
+    { nombre: 'Blusa Lino Beige', cant: 1, precio: 120 },
+    { nombre: 'Pañuelo Seda', cant: 1, precio: 90 },
+  ], historial: [ ['Borrador','08:02'], ['Pendiente de pago','08:04'], ['Pagada','08:40'] ] },
+  { id: 'ORD-0030', cliente: 'Andrea Salas', tel: '71987654', total: 890, pagado: 890, estado: 'despachada', items: [
+    { nombre: 'Pantalón Wide Leg', cant: 2, precio: 245 },
+    { nombre: 'Vestido Floral M', cant: 2, precio: 200 },
+  ], historial: [ ['Borrador','ayer 17:10'], ['Pagada','ayer 17:30'], ['Despachada','ayer 19:02'] ] },
+  { id: 'ORD-0029', cliente: 'Fátima Guzmán', tel: '69887766', total: 350, pagado: 350, estado: 'preparando', items: [
+    { nombre: 'Vestido Floral M', cant: 1, precio: 210 },
+    { nombre: 'Blusa Lino Beige', cant: 1, precio: 140 },
+  ], historial: [ ['Pendiente de pago','ayer 12:00'], ['Pagada','ayer 15:20'], ['Preparando','hoy 08:00'] ] },
+  { id: 'ORD-0028', cliente: 'Rocío Vargas', tel: '75443322', total: 350, pagado: 120, estado: 'pendiente', items: [
+    { nombre: 'Pantalón Wide Leg', cant: 1, precio: 245 },
+    { nombre: 'Pañuelo Seda', cant: 1, precio: 105 },
+  ], historial: [ ['Borrador','lun 10:00'], ['Pendiente de pago','lun 10:05'] ] },
+  { id: 'ORD-0027', cliente: 'Jimena Torrez', tel: '78112233', total: 620, pagado: 620, estado: 'despachada', items: [
+    { nombre: 'Vestido Floral M', cant: 3, precio: 200 },
+    { nombre: 'Blusa Lino Beige', cant: 1, precio: 20 },
+  ], historial: [ ['Pagada','vie 09:00'], ['Despachada','vie 14:00'] ] },
+  { id: 'ORD-0026', cliente: 'Luciana Prado', tel: '72556699', total: 240, pagado: 0, estado: 'cancelada', items: [
+    { nombre: 'Blusa Lino Beige', cant: 2, precio: 120 },
+  ], historial: [ ['Borrador','jue 11:00'], ['Pendiente de pago','jue 11:05'], ['Cancelada','jue 16:40'] ] },
+  { id: 'ORD-0025', cliente: 'Valeria Núñez', tel: '77009988', total: 190, pagado: 0, estado: 'borrador', items: [
+    { nombre: 'Pañuelo Seda', cant: 2, precio: 95 },
+  ], historial: [ ['Borrador','mié 09:30'] ] },
+];
+
+var INVENTARIO = [
+  { sku: 'VF-FLOR-M', nombre: 'Vestido Floral M', disp: 2, reservado: 0, movimientos: [
+    ['Venta — ORD-0032','hoy 09:16',-2], ['Ingreso','ayer 18:02',10], ['Ajuste — conteo físico','12 jul, 20:40',-1],
+  ]},
+  { sku: 'BL-LINO-U', nombre: 'Blusa Lino Beige', disp: 14, reservado: 0, movimientos: [
+    ['Ingreso','15 jul, 10:00',20], ['Venta — ORD-0031','ayer 08:40',-1], ['Venta — ORD-0027','vie 14:00',-1],
+  ]},
+  { sku: 'PT-WIDE-32', nombre: 'Pantalón Wide Leg', disp: 8, reservado: 2, movimientos: [
+    ['Ingreso','10 jul, 09:00',12], ['Venta — ORD-0030','ayer 17:30',-2], ['Reserva — ORD-0028','lun 10:05',-2],
+  ]},
+];
+
+var DESPACHOS = [
+  { id: 'ORD-0029', tipo: 'Delivery', destino: 'Fátima Guzmán · Av. Banzer #220', estado: 'en_camino' },
+  { id: 'ORD-0027', tipo: 'Retiro', destino: 'Jimena Torrez', estado: 'pendiente' },
+];
+
+var NAV = [
+  { icon: '⌂', label: 'Inicio', href: '#/' , key: 'inicio'},
+  { icon: '◈', label: 'Ventas', href: '#/ventas', key: 'ventas' },
+  { icon: '◎', label: 'Inventario', href: '#/inventario', key: 'inventario' },
+  { icon: '$', label: 'Pagos', href: '#/pagos', key: 'pagos' },
+  { icon: '➤', label: 'Despachos', href: '#/despachos', key: 'despachos' },
+];
+
+var UI = { ventasTab: 'todos', ventasQuery: '', invTab: 'todos', despTab: 'activos', modal: null };
+
+/* ============================== router ============================== */
+function navigate(hash){ location.hash = hash; }
+window.addEventListener('hashchange', render);
+window.addEventListener('DOMContentLoaded', render);
+
+function routeParts(){
+  var h = location.hash || '#/';
+  return h.replace(/^#\/?/, '').split('/').filter(Boolean);
+}
+
+function ventaById(id){ var out=null; VENTAS.forEach(function(v){ if(v.id===id) out=v; }); return out; }
+
+function pillFor(estado){
+  var map = {
+    pendiente: ['pill-amber','Pendiente de pago'], pagada: ['pill-emerald','Pagada'],
+    preparando: ['pill-blue','Preparando'], despachada: ['pill-indigo','Despachada'],
+    cancelada: ['pill-red','Cancelada'], borrador: ['pill-gray','Borrador'],
+  };
+  var m = map[estado] || ['pill-gray', estado];
+  return '<span class="pill '+m[0]+'">'+m[1]+'</span>';
+}
+
+function render(){
+  var parts = routeParts();
+  var app = document.getElementById('app');
+  var activeKey = 'inicio';
+  var html = '';
+  try{
+    if (parts.length === 0){ html = pageInicio(); activeKey='inicio'; }
+    else if (parts[0]==='ventas' && parts.length===1){ html = pageVentas(); activeKey='ventas'; }
+    else if (parts[0]==='ventas' && parts.length===2){ html = pageVentaDetalle(parts[1]); activeKey='ventas'; }
+    else if (parts[0]==='inventario'){ html = pageInventario(); activeKey='inventario'; }
+    else if (parts[0]==='pagos'){ html = pagePagos(); activeKey='pagos'; }
+    else if (parts[0]==='despachos'){ html = pageDespachos(); activeKey='despachos'; }
+    else { html = pageInicio(); activeKey='inicio'; }
+  }catch(e){
+    console.error(e);
+    html = "<p>Ocurrió un error mostrando esta pantalla.</p>";
+  }
+  app.innerHTML = html + (UI.modal ? UI.modal() : '');
+  renderNav(activeKey);
+  window.scrollTo(0,0);
+}
+
+function renderNav(activeKey){
+  var d = document.getElementById('nav-desktop');
+  var b = document.getElementById('bottomnav');
+  var html = NAV.map(function(n){
+    return '<a href="'+n.href+'" class="'+(n.key===activeKey?'active':'')+'"><span class="icn">'+n.icon+'</span><span>'+n.label+'</span></a>';
+  }).join('');
+  d.innerHTML = html;
+  b.innerHTML = html;
+}
+
+/* ============================== actions ============================== */
+function actCambiarEstado(id, nuevo){
+  var v = ventaById(id);
+  if (!v) return;
+  if (nuevo === 'cancelada' && !confirm('¿Cancelar la venta '+id+'? Esta acción no se puede deshacer.')) return;
+  v.estado = nuevo;
+  if (nuevo === 'pagada') v.pagado = v.total;
+  var label = { pagada:'Pagada', cancelada:'Cancelada', preparando:'Preparando', despachada:'Despachada' }[nuevo] || nuevo;
+  v.historial.push([label, 'ahora']);
+  render();
+  toast(nuevo === 'cancelada' ? 'Venta '+id+' cancelada.' : 'Venta '+id+' marcada como '+label.toLowerCase()+'.');
+}
+
+function actWhatsapp(nombre, tel, mensaje){
+  toast('Esto abriría WhatsApp (+591 '+tel+') con el mensaje: "'+mensaje+'"');
+}
+
+function actDespacho(id, estado){
+  var d = null; DESPACHOS.forEach(function(x){ if (x.id===id) d = x; });
+  if (!d) return;
+  if (estado === 'fallido' && !confirm('¿Marcar el despacho de '+id+' como fallido?')) return;
+  d.estado = estado;
+  render();
+  toast('Despacho '+id+' marcado como '+(estado==='entregado'?'entregado':'fallido')+'.');
+}
+
+function actSetTab(group, value){ UI[group] = value; render(); }
+function actSetQuery(v){ UI.ventasQuery = v; renderVentasListOnly(); }
+
+function renderVentasListOnly(){
+  // lightweight re-render of just the list to keep the search input focused
+  var parts = routeParts();
+  if (parts[0] !== 'ventas' || parts.length !== 1) return;
+  document.getElementById('app').innerHTML = pageVentas() + (UI.modal ? UI.modal() : '');
+  var input = document.getElementById('ventasSearch');
+  if (input) { input.focus(); input.value = UI.ventasQuery; input.setSelectionRange(input.value.length, input.value.length); }
+  renderNav('ventas');
+}
+
+function actAbrirNuevaVenta(){ UI.modal = nuevaVentaModal; render(); }
+function actCerrarModal(){ UI.modal = null; render(); }
+function actGuardarNuevaVenta(){
+  var cliente = val('nvCliente').trim();
+  var producto = val('nvProducto').trim();
+  var monto = parseFloat(val('nvMonto')) || 0;
+  if (!cliente || !producto || monto <= 0){ toast('Completá cliente, producto y monto para crear la venta.'); return; }
+  var maxNum = 0;
+  VENTAS.forEach(function(v){ var n = parseInt(v.id.slice(-4), 10); if (n > maxNum) maxNum = n; });
+  var id = 'ORD-' + String(maxNum + 1).padStart(4, '0');
+  var nueva = { id: id, cliente: cliente, tel: '70000000', total: monto, pagado: 0, estado: 'borrador',
+    items: [{ nombre: producto, cant: 1, precio: monto }], historial: [['Borrador','ahora']] };
+  VENTAS.unshift(nueva);
+  UI.modal = null;
+  navigate('#/ventas/'+id);
+  toast('Venta '+id+' creada.');
+}
+
+function nuevaVentaModal(){
+  return '<div class="modal-overlay" onclick="actCerrarModal()">'
+    + '<div class="modal-box" onclick="event.stopPropagation()">'
+    + '<h3>Nueva venta</h3>'
+    + '<div class="sub">Datos simulados — así se vería el formulario real.</div>'
+    + '<div class="field"><label>Cliente</label><input id="nvCliente" placeholder="Nombre del cliente"></div>'
+    + '<div class="field"><label>Producto</label><input id="nvProducto" placeholder="Ej. Vestido Floral M"></div>'
+    + '<div class="field"><label>Monto (Bs.)</label><input id="nvMonto" type="number" placeholder="0"></div>'
+    + '<div class="modal-actions"><button class="btn-outline" onclick="actCerrarModal()">Cancelar</button><button class="btn-black" onclick="actGuardarNuevaVenta()">Crear venta</button></div>'
+    + '</div></div>';
+}
+
+/* ============================== pages ============================== */
+function pageInicio(){
+  var pendientes = VENTAS.filter(function(v){ return v.pagado < v.total && v.estado !== 'cancelada'; }).length;
+  var stockBajo = INVENTARIO.filter(function(i){ return i.disp <= 3; }).length;
+  var activos = VENTAS.filter(function(v){ return v.estado !== 'cancelada' && v.estado !== 'despachada'; }).length;
+  var despActivos = DESPACHOS.filter(function(d){ return d.estado==='pendiente' || d.estado==='en_camino'; }).length;
+  var recientes = VENTAS.slice(0,3);
+  return '<h1 class="page-title">Inicio</h1>'
+    + '<div class="section-label">Hoy</div>'
+    + '<div class="hero-card"><div class="hero-num">Bs. 3,420</div><div class="hero-label">en ventas</div></div>'
+    + '<div class="kpi-grid">'
+    + '<div class="kpi-card kpi-blue"><div class="kpi-num">'+activos+'</div><div class="kpi-label">Pedidos activos</div></div>'
+    + '<div class="kpi-card kpi-amber"><div class="kpi-num">'+pendientes+'</div><div class="kpi-label">Con saldo pendiente</div></div>'
+    + '<div class="kpi-card kpi-red"><div class="kpi-num">'+stockBajo+'</div><div class="kpi-label">Stock bajo</div></div>'
+    + '<div class="kpi-card kpi-indigo"><div class="kpi-num">'+despActivos+'</div><div class="kpi-label">Despachos activos</div></div>'
+    + '</div>'
+    + '<div class="section-label">Últimas ventas</div>'
+    + recientes.map(function(v){
+        return '<a class="list-item" href="#/ventas/'+v.id+'"><div><div class="li-name">'+v.id+'</div><div class="li-sub">'+esc(v.cliente)+'</div></div>'
+          + '<div class="li-right"><div class="li-amount">Bs. '+v.total+'</div>'+pillFor(v.estado)+'</div></a>';
+      }).join('')
+    + '<button class="btn-black" style="width:100%; padding:14px; margin-top:6px;" onclick="actAbrirNuevaVenta()">+ Nueva venta</button>';
+}
+
+function pageVentas(){
+  var q = UI.ventasQuery.toLowerCase();
+  var list = VENTAS.filter(function(v){
+    if (UI.ventasTab==='pendientes' && !(v.pagado < v.total && v.estado!=='cancelada')) return false;
+    if (UI.ventasTab==='cancelados' && v.estado!=='cancelada') return false;
+    if (q && v.cliente.toLowerCase().indexOf(q)===-1 && v.id.toLowerCase().indexOf(q)===-1) return false;
+    return true;
+  });
+  return '<div class="flex-between" style="margin-bottom:16px;"><h1 class="page-title" style="margin:0;">Ventas</h1><button class="btn-black" onclick="actAbrirNuevaVenta()">+ Nueva</button></div>'
+    + '<input class="search-bar" id="ventasSearch" placeholder="Buscar por cliente o número..." value="'+esc(UI.ventasQuery)+'" oninput="actSetQuery(this.value)">'
+    + '<div class="tabs-row">'
+    + ['todos','pendientes','cancelados'].map(function(t){
+        var labels = {todos:'Todos', pendientes:'Pendientes', cancelados:'Cancelados'};
+        return '<button class="tab-chip '+(UI.ventasTab===t?'active':'')+'" onclick="actSetTab(\'ventasTab\',\''+t+'\')">'+labels[t]+'</button>';
+      }).join('')
+    + '</div>'
+    + (list.length ? list.map(function(v){
+        return '<a class="list-item" href="#/ventas/'+v.id+'"><div><div class="li-name">'+v.id+'</div><div class="li-sub">'+esc(v.cliente)+'</div></div>'
+          + '<div class="li-right"><div class="li-amount">Bs. '+v.total+'</div>'+pillFor(v.estado)+'</div></a>';
+      }).join('') : '<div class="li-sub" style="padding:20px 0; text-align:center;">Sin resultados.</div>');
+}
+
+function pageVentaDetalle(id){
+  var v = ventaById(id);
+  if (!v) return pageVentas();
+  var subtotal = v.items.reduce(function(s,it){ return s+it.cant*it.precio; }, 0);
+  var puedeM = v.estado !== 'cancelada' && v.estado !== 'despachada';
+  return '<a class="back-link" href="#/ventas">← Ventas</a>'
+    + '<div class="flex-between" style="margin-bottom:2px;"><h1 class="page-title" style="margin:0;">'+v.id+'</h1>'+pillFor(v.estado)+'</div>'
+    + '<div class="li-sub" style="margin-bottom:16px;">'+esc(v.cliente)+'</div>'
+    + '<div class="section-label">Productos</div>'
+    + v.items.map(function(it){
+        return '<div class="item-row"><div><div class="item-name">'+esc(it.nombre)+'</div><div class="item-meta">'+it.cant+' × Bs. '+it.precio+'</div></div><div class="item-price">Bs. '+(it.cant*it.precio)+'</div></div>';
+      }).join('')
+    + '<div class="card">'
+    + '<div class="totals-row"><span>Subtotal</span><span>Bs. '+subtotal+'</span></div>'
+    + '<div class="totals-row final"><span>Total</span><span>Bs. '+v.total+'</span></div>'
+    + '<div class="totals-row paid"><span>Pagado</span><span>Bs. '+v.pagado+'</span></div>'
+    + '</div>'
+    + '<button class="btn-outline" style="width:100%; margin-bottom:10px;" onclick="actWhatsapp(\''+esc(v.cliente)+'\',\''+v.tel+'\',\'Hola '+esc(v.cliente)+', te comparto el estado de tu pedido '+v.id+': '+pillFor(v.estado).replace(/<[^>]+>/g,'')+'.\')">Escribir por WhatsApp →</button>'
+    + (puedeM ? (
+        '<div class="section-label">Cambiar estado</div>'
+        + '<button class="status-btn primary" onclick="actCambiarEstado(\''+v.id+'\',\'pagada\')">Marcar pagada</button>'
+        + '<button class="status-btn danger" onclick="actCambiarEstado(\''+v.id+'\',\'cancelada\')">Cancelar</button>'
+      ) : '')
+    + '<div class="section-label" style="margin-top:14px;">Historial</div>'
+    + v.historial.map(function(h){ return '<div class="timeline-row"><span>'+h[0]+'</span><span>'+h[1]+'</span></div>'; }).join('');
+}
+
+function pageInventario(){
+  var list = INVENTARIO.filter(function(i){ return UI.invTab==='bajo' ? i.disp<=3 : true; });
+  return '<h1 class="page-title">Inventario</h1>'
+    + '<input class="search-bar" placeholder="Buscar producto..." disabled>'
+    + '<div class="tabs-row">'
+    + ['todos','bajo'].map(function(t){
+        return '<button class="tab-chip '+(UI.invTab===t?'active':'')+'" onclick="actSetTab(\'invTab\',\''+t+'\')">'+(t==='todos'?'Todos':'Stock bajo')+'</button>';
+      }).join('')
+    + '</div>'
+    + list.map(function(i){
+        var bajo = i.disp<=3;
+        return '<div class="list-item" style="cursor:default;"><div><div class="li-name">'+esc(i.nombre)+'</div><div class="li-sub">'+i.sku+'</div></div>'
+          + '<div class="li-right"><div class="li-amount" style="'+(bajo?'color:var(--red-text)':'')+'">'+i.disp+' disponible</div>'
+          + (i.reservado ? '<span class="pill pill-amber" style="margin-top:2px;">'+i.reservado+' reservado</span>' : '')+'</div></div>';
+      }).join('')
+    + '<div class="section-label" style="margin-top:16px;">'+INVENTARIO[0].nombre+' — movimientos</div>'
+    + INVENTARIO[0].movimientos.map(function(m){
+        return '<div class="move-row"><div><div class="move-type">'+m[0]+'</div><div class="move-date">'+m[1]+'</div></div><div class="move-qty '+(m[2]>0?'pos':'neg')+'">'+(m[2]>0?'+':'')+m[2]+'</div></div>';
+      }).join('');
+}
+
+function pagePagos(){
+  var pendientes = VENTAS.filter(function(v){ return v.pagado<v.total && v.estado!=='cancelada'; });
+  var cobrados = VENTAS.filter(function(v){ return v.pagado>=v.total && v.total>0; });
+  return '<h1 class="page-title">Pagos</h1>'
+    + '<div class="section-label">Con saldo pendiente ('+pendientes.length+')</div>'
+    + pendientes.map(function(v){
+        return '<a class="list-item" href="#/ventas/'+v.id+'"><div><div class="li-name">'+v.id+'</div><div class="li-sub">'+esc(v.cliente)+'</div></div>'
+          + '<div class="li-right"><div class="li-amount" style="color:var(--amber-text)">Bs. '+(v.total-v.pagado)+'</div><div class="li-sub">de Bs. '+v.total+'</div></div></a>';
+      }).join('')
+    + '<div class="section-label" style="margin-top:16px;">Cobrado ('+cobrados.length+')</div>'
+    + cobrados.map(function(v){
+        return '<a class="list-item" style="opacity:.6;" href="#/ventas/'+v.id+'"><div><div class="li-name">'+v.id+'</div><div class="li-sub">'+esc(v.cliente)+'</div></div>'
+          + '<div class="li-right"><div class="li-amount" style="color:var(--emerald-text)">Bs. '+v.pagado+'</div></div></a>';
+      }).join('');
+}
+
+function pageDespachos(){
+  var filterMap = { activos: function(d){ return d.estado==='pendiente'||d.estado==='en_camino'; }, entregados: function(d){ return d.estado==='entregado'; }, fallidos: function(d){ return d.estado==='fallido'; } };
+  var list = DESPACHOS.filter(filterMap[UI.despTab] || filterMap.activos);
+  return '<h1 class="page-title">Despachos</h1>'
+    + '<div class="tabs-row">'
+    + ['activos','entregados','fallidos'].map(function(t){
+        var labels = {activos:'Activos', entregados:'Entregados', fallidos:'Fallidos'};
+        return '<button class="tab-chip '+(UI.despTab===t?'active':'')+'" onclick="actSetTab(\'despTab\',\''+t+'\')">'+labels[t]+'</button>';
+      }).join('')
+    + '</div>'
+    + (list.length ? list.map(function(d){
+        var pill = d.estado==='en_camino' ? '<span class="pill pill-blue">En camino</span>'
+          : d.estado==='pendiente' ? '<span class="pill pill-amber">Pendiente</span>'
+          : d.estado==='entregado' ? '<span class="pill pill-emerald">Entregado</span>'
+          : '<span class="pill pill-red">Fallido</span>';
+        return '<div class="list-item" style="cursor:default;"><div><div class="li-name">'+d.id+'</div><div class="li-sub">'+d.tipo+' · '+esc(d.destino)+'</div></div>'+pill+'</div>';
+      }).join('') : '<div class="li-sub" style="padding:20px 0; text-align:center;">Sin despachos en esta categoría.</div>')
+    + (UI.despTab==='activos' && list.length ? (
+        '<div class="card" style="margin-top:20px;">'
+        + '<div style="font-weight:700; font-size:14.5px; margin-bottom:2px;">'+esc(list[0].destino)+'</div>'
+        + '<div class="li-sub" style="margin-bottom:14px;">'+list[0].tipo+' · '+list[0].id+'</div>'
+        + '<button class="btn-outline" style="width:100%; color:#059669; border-color:#a7f3d0; margin-bottom:14px;" onclick="actWhatsapp(\''+esc(list[0].destino)+'\',\'70000000\',\'Hola, tu pedido '+list[0].id+' está en camino.\')">Escribir por WhatsApp →</button>'
+        + '<button class="status-btn success" onclick="actDespacho(\''+list[0].id+'\',\'entregado\')">Marcar entregado</button>'
+        + '<button class="status-btn danger" onclick="actDespacho(\''+list[0].id+'\',\'fallido\')">Marcar fallido</button>'
+        + '</div>'
+      ) : '');
+}
+</script>
+</body>
+</html>

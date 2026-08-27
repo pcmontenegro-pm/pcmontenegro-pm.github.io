@@ -139,21 +139,6 @@ function renderAbout(lang) {
       </div>
     </div>`).join('');
 
-  const INTEREST_ICONS = {
-    'Fiction & World-Building': ICO.book,
-    'Films':    ICO.film,
-    'Cycling':  ICO.cycle,
-  };
-
-  const interests = d.interests.map(it => `
-    <div class="interest-item">
-      <span class="interest-icon ico">${INTEREST_ICONS[it.title_en]||ICO.book}</span>
-      <div class="interest-body">
-        <div class="interest-title" data-en="${it.title_en}" data-es="${it.title_es}">${lang==='es'?it.title_es:it.title_en}</div>
-        <div class="interest-desc" data-en="${it.desc_en}" data-es="${it.desc_es}">${lang==='es'?it.desc_es:it.desc_en}</div>
-      </div>
-    </div>`).join('');
-
   return `
   <section id="about">
     <div class="si">
@@ -162,24 +147,23 @@ function renderAbout(lang) {
       <div class="spec-strip reveal">${specs}</div>
       <div class="about-grid">
         <div class="about-body">
-          <p ${lang==='es'?'style="display:none"':''}><strong>I make regulated, multi-stakeholder products work</strong> — and fix the ones that don't. 10+ years in banking and financial services, 7 of them at Itaú Chile owning the roadmap for payments and collections at the country's largest private bank.</p>
-          <p ${lang==='es'?'style="display:none"':''}>Shipped PAC 2.0, ePAC, QR Interoperability and a multi-bank payment layer from scratch — each one a case of conflicting stakeholders, real trade-offs, and a deadline. <strong>The method transfers</strong>: structured discovery, explicit trade-offs, measurable delivery — applied since 2024 to consumer fintech, cross-border operations and a 0-to-1 mobility platform.</p>
-          <p ${lang==='es'?'style="display:none"':''}>Now based in Dublin, working with founders and business owners who need someone who can build the product, run the operation, and make the numbers work — not just advise from the sidelines. Critical Skills Permit eligible.</p>
-          <p ${lang==='en'?'style="display:none"':''}><strong>Hago que productos regulados y multi-stakeholder funcionen</strong> — y arreglo los que no. 10+ años en banca y servicios financieros, 7 de ellos en Itaú Chile como responsable del roadmap de pagos y cobranza en el banco privado más grande del país.</p>
-          <p ${lang==='en'?'style="display:none"':''}>Entregué PAC 2.0, ePAC, Interoperabilidad QR y una capa de pago multibanco desde cero — cada uno un caso de stakeholders en conflicto, trade-offs reales y un plazo. <strong>El método se traslada</strong>: discovery estructurado, trade-offs explícitos, entrega medible — aplicado desde 2024 a fintech de consumo, operaciones internacionales y una plataforma de movilidad 0 a 1.</p>
-          <p ${lang==='en'?'style="display:none"':''}>Basado en Dublín, trabajando con founders y dueños de negocio que necesitan a alguien capaz de construir el producto, correr la operación y hacer que los números cierren — no solo asesorar desde afuera. Elegible para Critical Skills Permit.</p>
+          <p ${lang==='es'?'style="display:none"':''}><strong>I make regulated, multi-stakeholder products work</strong> — and fix the ones that don't. The pattern repeats: I enter an industry, find the operational problem that's actually breaking things — not the one on the feature list — and build the system that solves it. Sometimes that's consulting, delivered for a client. Sometimes it's a product of my own.</p>
+          <p ${lang==='es'?'style="display:none"':''}>The depth in payments and banking isn't the part of my story I'm leaving behind — it's the credibility that makes the method work. I've built for the stakes and complexity of a top-5 private bank, in an industry where a broken process means real financial and regulatory risk. That's the track record a fintech founder in Europe or Latin America needs to see before handing me their operations.</p>
+          <p ${lang==='es'?'style="display:none"':''}>The same discovery-to-delivery method now runs across healthtech, social commerce and payments — some of it consulting, some of it my own SaaS. Based in Dublin, working with founders and business owners across Europe and Latin America.</p>
+          <p class="about-arc" ${lang==='es'?'style="display:none"':''}>The arc: <strong>banking → independent consulting → my own SaaS products → a payments SaaS, next.</strong></p>
+          <p ${lang==='en'?'style="display:none"':''}><strong>Hago que productos regulados y multi-stakeholder funcionen</strong> — y arreglo los que no. El patrón se repite: entro a una industria, encuentro el problema operativo que realmente está rompiendo las cosas — no el que aparece en la lista de features — y construyo el sistema que lo resuelve. A veces es consultoría, entregada para un cliente. A veces es un producto propio.</p>
+          <p ${lang==='en'?'style="display:none"':''}>La profundidad en pagos y banca no es la parte de mi historia que estoy dejando atrás — es la credibilidad que hace que el método funcione. Construí para las apuestas y la complejidad de un banco privado top-5, en una industria donde un proceso roto significa riesgo financiero y regulatorio real. Ese es el historial que un founder fintech en Europa o Latinoamérica necesita ver antes de entregarme sus operaciones.</p>
+          <p ${lang==='en'?'style="display:none"':''}>El mismo método de discovery a entrega hoy corre en healthtech, social commerce y pagos — parte consultoría, parte SaaS propio. Basado en Dublín, trabajando con founders y dueños de negocio en Europa y Latinoamérica.</p>
+          <p class="about-arc" ${lang==='en'?'style="display:none"':''}>El arco: <strong>banca → consultoría independiente → SaaS propios → un SaaS de pagos, lo que sigue.</strong></p>
         </div>
         <div>
           <div class="recs-header">
             <h3 class="recs-h3" data-en="What colleagues <em>say.</em>" data-es="Lo que dicen <em>los colegas.</em>">${lang==='es'?'Lo que dicen <em>los colegas.</em>':'What colleagues <em>say.</em>'}</h3>
             <p class="recs-sub" data-en="4 LinkedIn recommendations · direct managers and partners" data-es="4 recomendaciones · managers directos y partners">${lang==='es'?'4 recomendaciones · managers directos y partners':'4 LinkedIn recommendations · direct managers and partners'}</p>
+            <p class="recs-context" data-en="Colleagues from regulated financial environments where delivery under pressure was the baseline." data-es="Colegas de entornos financieros regulados donde entregar bajo presión era la norma.">${lang==='es'?'Colegas de entornos financieros regulados donde entregar bajo presión era la norma.':'Colleagues from regulated financial environments where delivery under pressure was the baseline.'}</p>
           </div>
           <div class="recs-grid">${recs}</div>
         </div>
-      </div>
-      <div class="about-interests-wrap">
-        <h3 class="interests-h3" data-en="Beyond work" data-es="Más allá del trabajo">${lang==='es'?'Más allá del trabajo':'Beyond work'}</h3>
-        <div class="interests-list">${interests}</div>
       </div>
     </div>
   </section>`;
