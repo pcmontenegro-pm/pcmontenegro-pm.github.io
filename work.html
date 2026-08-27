@@ -236,6 +236,9 @@ section{padding:80px 48px;}
 .cases-grid:has(.cc:last-child:nth-child(3n+1))::after {
   content: ''; background: var(--navy); grid-column: 3; grid-row: 2;
 }
+.cases-grid:has(.cc:last-child:nth-child(3n+2))::after {
+  content: ''; background: var(--navy); grid-column: 3; grid-row: 2;
+}
 
 .cc{background:var(--navy);transition:background .18s,border-color .18s;display:flex;flex-direction:column;border-left:3px solid transparent;}
 .cc:hover{background:var(--navy2);}
@@ -486,6 +489,7 @@ section{padding:80px 48px;}
   .cases-grid .cc:last-child:nth-child(3n+1){grid-column:1;}
   .cases-grid:has(.cc:last-child:nth-child(3n+1))::before,
   .cases-grid:has(.cc:last-child:nth-child(3n+1))::after{display:none;}
+  .cases-grid:has(.cc:last-child:nth-child(3n+2))::after{display:none;}
   .writing-grid{grid-template-columns:1fr;}
   .prods-grid{grid-template-columns:1fr 1fr;}
   .exp-item{grid-template-columns:1fr;gap:6px;}
