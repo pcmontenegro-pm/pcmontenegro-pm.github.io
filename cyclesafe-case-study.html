@@ -1746,11 +1746,10 @@ goScreen('onboard');
 
 <!-- ════════════════════ JS ════════════════════ -->
 <script>
-localStorage.removeItem('pm_lang'); var LANG = 'es';
+var LANG = localStorage.getItem('pm_lang') || 'en';
 
 function setLang(lang) {
   LANG = lang;
-  localStorage.removeItem('pm_lang');
   localStorage.setItem('pm_lang', lang);
   var btnEn = document.getElementById('btn-en');
   var btnEs = document.getElementById('btn-es');

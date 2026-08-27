@@ -152,7 +152,7 @@ cases: [
       {
         id: "dermoskin", num: "01", year: "2026",
         type_en: "Bespoke system · Originates Filum",
-        type_es: "Sistema bespoke · Origina Filum",
+        type_es: "Sistema a medida · Origina Filum",
         tag_en:   "Practice Management · Healthtech · SaaS",
         tag_es:   "Gestión de Consultorio · Healthtech · SaaS",
         title_en: "<em>DermoSkin</em> — From clinic system to Filum",
