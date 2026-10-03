@@ -113,9 +113,9 @@ function renderAbout(lang) {
   const d = window.SITE;
 
   const specs = [
-    { icon: ICO.location,  label_en:'Based in',     label_es:'Basado en',      val:'Dublin, Ireland',         sub_en:'Open to Europe-wide engagements', sub_es:'Abierto a proyectos en toda Europa' },
+    { icon: ICO.location,  label_en:'Markets',     label_es:'Mercados',      val:'Europe · Latin America',         sub_en:'Remote-first engagements', sub_es:'Proyectos remotos' },
     { icon: ICO.target,    label_en:'Focus',         label_es:'Enfoque',        val:'Payments · Banking · Product', sub_en:'Applied across regulated and consumer products', sub_es:'Aplicado en productos regulados y de consumo' },
-    { icon: ICO.clock,     label_en:'Engagement',    label_es:'Modalidad',      val_en:'Consulting + Senior PM roles', val_es:'Consultoría + roles Senior PM', sub_en:'Critical Skills Permit eligible', sub_es:'Elegible Critical Skills Permit' },
+    { icon: ICO.clock,     label_en:'Engagement',    label_es:'Modalidad',      val_en:'Consulting + Senior PM roles', val_es:'Consultoría + roles Senior PM', sub_en:'Flexible across time zones', sub_es:'Flexible en husos horarios' },
     { icon: ICO.language,  label_en:'Languages',     label_es:'Idiomas',        val:'Spanish · English',    sub_en:'Native · Business Proficient',       sub_es:'Nativo · Nivel Profesional' },
   ].map(s => `
     <div class="spec-item">
@@ -149,7 +149,7 @@ function renderAbout(lang) {
         <div class="about-body">
           <p ${lang==='es'?'style="display:none"':''}><strong>I make regulated, multi-stakeholder products work</strong> — and fix the ones that don't. The pattern repeats: I enter an industry, find the operational problem that's actually breaking things — not the one on the feature list — and build the system that solves it. Sometimes that's consulting, delivered for a client. Sometimes it's a product of my own.</p>
           <p ${lang==='es'?'style="display:none"':''}>The depth in payments and banking isn't the part of my story I'm leaving behind — it's the credibility that makes the method work. I've built for the stakes and complexity of a top-5 private bank, in an industry where a broken process means real financial and regulatory risk. That's the track record a fintech founder in Europe or Latin America needs to see before handing me their operations.</p>
-          <p ${lang==='es'?'style="display:none"':''}>The same discovery-to-delivery method now runs across healthtech, social commerce and payments — some of it consulting, some of it my own SaaS. Based in Dublin, working with founders and business owners across Europe and Latin America.</p>
+          <p ${lang==='es'?'style="display:none"':''}>The same discovery-to-delivery method now runs across healthtech, social commerce and payments — some of it consulting, some of it my own SaaS. Working with founders and business owners across Europe and Latin America.</p>
           <p class="about-arc" ${lang==='es'?'style="display:none"':''}>The arc: <strong>banking → independent consulting → my own SaaS products → a payments SaaS, next.</strong></p>
           <p ${lang==='en'?'style="display:none"':''}><strong>Hago que productos regulados y multi-stakeholder funcionen</strong> — y arreglo los que no. El patrón se repite: entro a una industria, encuentro el problema operativo que realmente está rompiendo las cosas — no el que aparece en la lista de features — y construyo el sistema que lo resuelve. A veces es consultoría, entregada para un cliente. A veces es un producto propio.</p>
           <p ${lang==='en'?'style="display:none"':''}>La profundidad en pagos y banca no es la parte de mi historia que estoy dejando atrás — es la credibilidad que hace que el método funcione. Construí para las apuestas y la complejidad de un banco privado top-5, en una industria donde un proceso roto significa riesgo financiero y regulatorio real. Ese es el historial que un founder fintech en Europa o Latinoamérica necesita ver antes de entregarme sus operaciones.</p>
@@ -362,9 +362,9 @@ function renderContact(lang) {
            data-es="Abierto a proyectos de consultoría seleccionados — sprints de discovery, implementación, o liderazgo de producto fractional — y roles senior o lead PM / Head of Product en pagos, banca o productos digitales en Europa."
         >${lang==='es'?'Abierto a proyectos de consultoría seleccionados — sprints de discovery, implementación, o liderazgo de producto fractional — y roles senior o lead PM / Head of Product en pagos, banca o productos digitales en Europa.':'Open to selected consulting engagements — discovery sprints, implementation, or fractional product leadership — and senior or lead PM / Head of Product roles in payments, banking or digital products across Europe.'}</p>
         <p class="contact-detail reveal"
-           data-en="Based in <strong>Dublin</strong> · Critical Skills Permit eligible · Alumni Universidad de Cantabria."
-           data-es="Basado en <strong>Dublín</strong> · Elegible Critical Skills Permit · Alumni Universidad de Cantabria."
-        >${lang==='es'?'Basado en <strong>Dublín</strong> · Elegible Critical Skills Permit · Alumni Universidad de Cantabria.':'Based in <strong>Dublin</strong> · Critical Skills Permit eligible · Alumni Universidad de Cantabria.'}</p>
+           data-en="10+ years in payments &amp; banking · Alumni Universidad de Cantabria."
+           data-es="10+ años en pagos y banca · Alumni Universidad de Cantabria."
+        >${lang==='es'?'10+ años en pagos y banca · Alumni Universidad de Cantabria.':'10+ years in payments &amp; banking · Alumni Universidad de Cantabria.'}</p>
         <div class="contact-links reveal">
           <a href="mailto:${d.email}?subject=Let's%20talk" class="contact-link-btn">
             <span class="clb-icon ico">${ICO.email}</span>

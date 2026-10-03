@@ -28,7 +28,7 @@ function renderHero(lang) {
       <div class="hero-text">
         <div class="hero-kicker reveal-up">
           <span class="hero-kicker-dot"></span>
-          <span class="hero-kicker-text" data-en="Dublin, Ireland · Product &amp; Operations Consulting" data-es="Dublín, Irlanda · Consultoría de Producto y Operaciones">${lang==='es'?'Dublín, Irlanda · Consultoría de Producto y Operaciones':'Dublin, Ireland · Product & Operations Consulting'}</span>
+          <span class="hero-kicker-text" data-en="Remote · Product &amp; Operations Consulting" data-es="Remoto · Consultoría de Producto y Operaciones">${lang==='es'?'Remoto · Consultoría de Producto y Operaciones':'Remote · Product & Operations Consulting'}</span>
         </div>
         <h1 class="hero-h1 reveal-up" style="animation-delay:.08s">${hl[0]}</h1>
         <p class="hero-h1-sub reveal-up" style="animation-delay:.14s">${hl[1]}</p>

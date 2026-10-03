@@ -8,7 +8,6 @@ window.SITE = {
   name:     "Pablo Montenegro",
   role:     "Product & Operations Consultant for Founders",
   tagline:  "Over 10 years building payment infrastructure that handles real money at scale.",
-  location: "Dublin, Ireland",
   email:    "hello@pablomontenegro.ie",
   linkedin: "https://linkedin.com/in/montenegrofp",
   website:  "https://pablomontenegro.ie",
@@ -21,8 +20,8 @@ window.SITE = {
   hero: {
     headline_en: ["I build what your business runs on.", "<em>Payments, operations and product — untangled and shipped, not just advised on.</em>"],
     headline_es: ["Construyo lo que hace funcionar tu negocio.", "<em>Pagos, operaciones y producto — desenredados y entregados, no solo asesorados.</em>"],
-    quote_en: "Over 10 years turning regulated, chaotic or ambiguous operations into products that work — inside a top-5 bank, and from zero for founders who can't wait for a full-time hire. Based in Dublin, working with founders and business owners across Europe and Latin America.",
-    quote_es: "Más de 10 años convirtiendo operaciones reguladas, caóticas o ambiguas en productos que funcionan — dentro de un banco top-5, y desde cero para founders que no pueden esperar a contratar full-time. Basado en Dublín, trabajando con founders y dueños de negocio en Europa y América Latina.",
+    quote_en: "Over 10 years turning regulated, chaotic or ambiguous operations into products that work — inside a top-5 bank, and from zero for founders who can't wait for a full-time hire. Working with founders and business owners across Europe and Latin America.",
+    quote_es: "Más de 10 años convirtiendo operaciones reguladas, caóticas o ambiguas en productos que funcionan — dentro de un banco top-5, y desde cero para founders que no pueden esperar a contratar full-time. Trabajando con founders y dueños de negocio en Europa y América Latina.",
     open_to_en: "Taking on new engagements · Remote · Europe &amp; Latin America",
     open_to_es: "Disponible para nuevos proyectos · Remoto · Europa y Latinoamérica",
   },
@@ -237,8 +236,8 @@ cases: [
         tag_es:   "Movilidad Urbana · Producto Comunitario · React Native",
         title_en: "<em>CycleSafe</em> — Community Safety Map",
         title_es: "<em>CycleSafe</em> — Mapa Comunitario de Seguridad",
-        desc_en:  "Led product from discovery to pilot for a community-powered cycling safety platform in Buenos Aires. Cyclists share real-time route safety data — ciclovías, mixed streets, risk zones — filling the gap that Google Maps and Strava leave. 40 pilot users. Core hypothesis validated: safety is a primary routing criterion. Paused at scale due to relocation to Ireland.",
-        desc_es:  "Lideré el producto desde el discovery hasta el piloto para una plataforma de seguridad ciclista impulsada por la comunidad en Buenos Aires. Los ciclistas comparten datos de seguridad en tiempo real — ciclovías, calles mixtas, zonas de riesgo — cubriendo el vacío que dejan Google Maps y Strava. 40 usuarios piloto. Hipótesis central validada: la seguridad es un criterio primario de ruta. Pausado en fase de escala por traslado a Irlanda.",
+        desc_en:  "Led product from discovery to pilot for a community-powered cycling safety platform in Buenos Aires. Cyclists share real-time route safety data — ciclovías, mixed streets, risk zones — filling the gap that Google Maps and Strava leave. 40 pilot users. Core hypothesis validated: safety is a primary routing criterion. Paused at scale due to a personal relocation.",
+        desc_es:  "Lideré el producto desde el discovery hasta el piloto para una plataforma de seguridad ciclista impulsada por la comunidad en Buenos Aires. Los ciclistas comparten datos de seguridad en tiempo real — ciclovías, calles mixtas, zonas de riesgo — cubriendo el vacío que dejan Google Maps y Strava. 40 usuarios piloto. Hipótesis central validada: la seguridad es un criterio primario de ruta. Pausado en fase de escala por un traslado personal.",
         sepa_en:  "≈ Community platforms · network effects · mobile product · 0-to-1",
         sepa_es:  "≈ Plataformas comunitarias · efectos de red · producto móvil · 0 a 1",
         metrics:  [
@@ -417,7 +416,7 @@ cases: [
 
   experience: [
     {
-      years: "2024 – Present", company: "Independent Consultant", location: "Dublin, Ireland",
+      years: "2024 – Present", company: "Independent Consultant", location: "Remote",
       role_en: "PM Consultant · Payments & Collections",
       role_es: "Consultor PM · Pagos y Cobranza",
       bullets_en: [
@@ -587,8 +586,8 @@ cases: [
     {
       title_en: "Cycling",
       title_es: "Ciclismo",
-      desc_en: "Urban routes along the Dublin coast and through Santiago. Between one problem and the next.",
-      desc_es: "Rutas urbanas por la costa de Dublín y por Santiago. Entre un problema y el siguiente.",
+      desc_en: "Urban routes in whatever city I'm in. Between one problem and the next.",
+      desc_es: "Rutas urbanas en la ciudad donde esté. Entre un problema y el siguiente.",
     },
   ],
 
